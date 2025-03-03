@@ -16,11 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->date('due_date');
-            $table->decimal('score', 3, 1)->nullable();
-            $table->enum('status', ['pending', 'submitted'])->default('pending');
-            $table->timestamps();
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->foreignId('professor_id')->constrained('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

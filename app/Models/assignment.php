@@ -13,10 +13,12 @@ class Assignment extends Model
         'title',
         'description',
         'due_date',
-        'score',
-        'status',
         'course_id',
         'professor_id',
+    ];
+
+    protected $casts = [
+        'due_date' => 'datetime',
     ];
 
     public function course() {
@@ -25,5 +27,9 @@ class Assignment extends Model
 
     public function professor() {
         return $this->belongsTo(User::class, 'professor_id');
+    }
+
+    public function submissions() {
+        return $this->hasMany(Assignment_submission::class, 'assignment_id');
     }
 }

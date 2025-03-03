@@ -98,6 +98,10 @@ class User extends Authenticatable
         return $this->hasMany(Assignment::class, 'professor_id');
     }
 
+    public function assignmentSubmissions() {
+        return $this->hasMany(Assignment_submission::class, 'student_id');
+    }
+
     public function completedCreditHours() {
         return $this->grades()->where('status', 'pass')->with('course')->sum('course.credit_hours');
     }

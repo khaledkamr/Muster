@@ -16,6 +16,10 @@ class Attendance extends Model
         'course_id',
     ];
 
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
     public function student() {
         return $this->belongsTo(User::class, 'student_id');
     }
