@@ -25,6 +25,8 @@ Route::get('/parent_dashboard', function() {
     return view('parent.index', compact('user', 'children'));
 })->name('parent.index');
 
-Route::get('/login', [AuthController::class, 'loginFrom'])->name('loginForm');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::controller(AuthController::class)->group(function() {
+    Route::get('/login', 'loginForm')->name('loginForm');
+    Route::post('/login', 'login')->name('login');
+    Route::post('/logout', 'logout')->name('logout');
+});
