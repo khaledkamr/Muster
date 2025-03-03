@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('course_id');
-            $table->unique(['student_id', 'course_id', 'date']);
             $table->date('date');
+            $table->unique(['student_id', 'course_id', 'date']);
             $table->enum('status', ['present', 'absent', 'late'])->default('absent');
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');

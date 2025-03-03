@@ -28,7 +28,8 @@ class User extends Authenticatable
         'gender', 
         'year', 
         'gpa',
-        'major'
+        'major',
+        'credit_hours'
     ];
 
     public function isProfessor() {

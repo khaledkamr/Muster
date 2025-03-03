@@ -19,12 +19,13 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['professor', 'student', 'parent'])->default('student');
             $table->string('department')->nullable();
-            $table->string('phone', 15)->nullable();
+            $table->string('phone', 20)->nullable();
             $table->date('birth_date')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('year')->nullable();
             $table->decimal('gpa', 3, 2)->nullable();
             $table->string('major')->nullable();
+            $table->integer('credit_hours')->unsigned()->nullable()->default(0);
             $table->foreignId('parent_id')->nullable()->constrained('users')->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();
