@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -23,13 +24,79 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $gender = fake()->randomElement(['male', 'female']);
+        $firstName = fake()->firstName($gender);
+        $lastName = fake()->lastName('male');
+        $email = fake()->unique()->safeEmail();
+        $password = fake()->password();
+        $phone = fake()->phoneNumber();
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'name' => "$firstName $lastName",
+            'email' => $email,
+            'password' => $password,
+            'role' => fake()->randomElement(['student', 'professor', 'parent']), 
+            'phone' => $phone,
+            'birth_date' => fake()->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),
+            'gender' => $gender,
         ];
+    }
+
+    public function professor(): static
+    {
+        return $this->state(function (array $attributes) {
+            $gender = $attributes['gender'];
+            $firstName = fake()->firstName($gender);
+            $lastName = fake()->lastName('male');
+            return [
+                'role' => 'professor',
+                'name' => "Dr. $firstName $lastName",
+                'birth_date' => fake()->dateTimeBetween('-60 years', '-30 years')->format('Y-m-d'),
+                'department' => fake()->randomElement(['Computer Science', 'Mathematics', 'Physics', 'Information System', 'Artificial Intelligence']),
+            ];
+        });
+    }
+
+    public function student(): static
+    {
+        return $this->state(function (array $attributes) {
+            $gender = $attributes['gender'];
+            $firstName = fake()->firstName($gender);
+            $lastName = fake()->lastName('male');
+            return [
+                'role' => 'student',
+                'name' => "$firstName $lastName", 
+                'birth_date' => fake()->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
+                'major' => fake()->randomElement(['Computer Science', 'Information System', 'Artificial Intelligence']),
+                'year' => fake()->randomElement(['freshman', 'sophomore', 'junior', 'senior']),
+                'gpa' => fake()->randomFloat(2, 0, 4),
+            ];
+        });
+    }
+
+    public function parent(): static
+    {
+        return $this->state(function (array $attributes) {
+            $gender = $attributes['gender'];
+            $firstName = fake()->firstName($gender);
+            $lastName = fake()->lastName('male');
+            $prefix = $gender === 'male' ? 'Mr.' : 'Mrs.';
+            return [
+                'role' => 'parent',
+                'name' => "$prefix $firstName $lastName",
+                'birth_date' => fake()->dateTimeBetween('-60 years', '-40 years')->format('Y-m-d'),
+            ];
+        });
+    }
+
+    public function withParent(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            if ($user->role === 'student') {
+                $parent = User::factory()->parent()->create();
+                $user->update(['parent_id' => $parent->id]);
+            }
+        });
     }
 
     /**
@@ -41,4 +108,8 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+   
 }
+
+

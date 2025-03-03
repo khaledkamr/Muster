@@ -35,14 +35,6 @@ class UserSeeder extends Seeder
                 'major' => 'Computer Science'
             ],
             [
-                'name' => 'Alaa El-Deen',
-                'email' => 'ae@gmail.com',
-                'password' => '111',
-                'role' => 'professor',
-                'department' => 'Computer Science',
-                'gender' => 'male'
-            ],
-            [
                 'name' => 'Kamr Rashad',
                 'email' => 'kr@gmail.com',
                 'password' => '111',
