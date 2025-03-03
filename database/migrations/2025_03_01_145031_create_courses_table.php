@@ -17,13 +17,12 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('description');
             $table->string('department');
-            $table->integer('credit_hours');
+            $table->integer('credit_hours')->unsigned();
             $table->enum('semester', ['first', 'second', 'both'])->default('both');
             $table->enum('type', ['elective', 'compulsory'])->default('compulsory');
             $table->enum('difficulty', ['easy', 'medium', 'hard'])->default('medium');
-            $table->unsignedBigInteger('professor_id');
             $table->timestamps();
-            $table->foreign('professor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('professor_id')->constrained('users')->onDelete('cascade');
         });
     }
 

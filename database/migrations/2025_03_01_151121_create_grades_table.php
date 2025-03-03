@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('course_id');
             $table->string('semester');
             $table->integer('quiz1')->nullable();
             $table->integer('quiz2')->nullable();
@@ -26,8 +24,8 @@ return new class extends Migration
             $table->enum('status', ['pass', 'fail'])->default('fail');
             $table->timestamps();
             $table->unique(['student_id', 'course_id', 'semester']);
-            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
         });
     }
 

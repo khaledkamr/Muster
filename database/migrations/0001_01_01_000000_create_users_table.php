@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('year')->nullable();
             $table->decimal('gpa', 3, 2)->nullable();
             $table->string('major')->nullable();
-            $table->integer('credit_hours')->unsigned()->nullable()->default(0);
             $table->foreignId('parent_id')->nullable()->constrained('users')->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();

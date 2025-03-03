@@ -18,11 +18,9 @@ return new class extends Migration
             $table->date('due_date');
             $table->decimal('score', 3, 1)->nullable();
             $table->enum('status', ['pending', 'submitted'])->default('pending');
-            $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('professor_id');
             $table->timestamps();
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->foreign('professor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->foreignId('professor_id')->constrained('users')->onDelete('cascade');
         });
     }
 

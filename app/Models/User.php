@@ -29,7 +29,8 @@ class User extends Authenticatable
         'year', 
         'gpa',
         'major',
-        'credit_hours'
+        'credit_hours',
+        'parent_id',
     ];
 
     public function isProfessor() {
@@ -76,4 +77,29 @@ class User extends Authenticatable
     public function children() {
         return $this->hasMany(User::class, 'parent_id')->where('role', 'student');
     }
+
+    public function courses() {
+        return $this->hasMany(Course::class, 'professor_id');
+    }
+
+    public function enrollments() {
+        return $this->hasMany(Enrollment::class, 'student_id');
+    }
+
+    public function grades() {
+        return $this->hasMany(Grade::class, 'student_id');
+    }
+    
+    public function attendance() {
+        return $this->hasMany(Attendance::class, 'student_id');
+    }
+
+    public function assignments() {
+        return $this->hasMany(Assignment::class, 'professor_id');
+    }
+
+    public function completedCreditHours() {
+        return $this->grades()->where('status', 'pass')->with('course')->sum('course.credit_hours');
+    }
 }
+    
