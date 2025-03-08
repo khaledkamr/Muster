@@ -14,21 +14,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
+        $departments = [
+            'General Education',
+            'Computer Science',
+            'Artificial Intelligence',
+            'Information System',
+        ];
+        foreach ($departments as $department) {
+            User::factory()->count(2)->professor()->create(['department' => $department]);
+        }        
+
+        User::factory()->count(2)->student()->create(['year' => 'freshman', 'major' => null]);
+        User::factory()->count(2)->student()->create(['year' => 'sophomore', 'major' => null]);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Computer Science']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Artificial Intelligence']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Information System']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Computer Science']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Artificial Intelligence']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Information System']);
+
+
         // $this->call([
         //     UserSeeder::class,
         // ]);
-        // $departments = ['Computer Science', 'Mathematics', 'Physics', 'Information System', 'Artificial Intelligence'];
-        // foreach ($departments as $department) {
-        //     User::factory()->professor()->create(['department' => $department]);
-        // }
-        // User::factory(10)->create();
-        // User::factory(10)->withParent()->create();
-        // User::factory(5)->student()->create();
-        // User::factory()->count(5)->professor()->create();
-        User::factory()->count(5)->student()->withParent()->create();
-
-        // Course::factory(10)->create();
-        // $this->call(CourseSeeder::class);
+       
+        $this->call(CourseSeeder::class);
+        $this->call(EnrollmentSeeder::class);
     }
 }

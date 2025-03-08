@@ -34,7 +34,7 @@ class UserFactory extends Factory
         return [
             'name' => "$firstName $lastName",
             'email' => $email,
-            'password' => $password,
+            'password' => 111,
             'role' => fake()->randomElement(['student', 'professor', 'parent']), 
             'phone' => $phone,
             'birth_date' => fake()->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),

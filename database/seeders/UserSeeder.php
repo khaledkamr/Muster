@@ -40,6 +40,13 @@ class UserSeeder extends Seeder
                 'password' => '111',
                 'role' => 'parent',
                 'gender' => 'male'
+            ],
+            [
+                'name' => 'Dr. Alaa El-Deen',
+                'email' => 'ae@gmail.com',
+                'password' => '111',
+                'role' => 'professor',
+                'gender' => 'male'
             ]
         ];
 

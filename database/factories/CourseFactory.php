@@ -18,6 +18,7 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         $departments = [
+            'General Education' => 'GE', 
             'Computer Science' => 'CS',
             'Artificial Intelligence' => 'AI',
             'Mathematics' => 'MATH',
@@ -27,25 +28,16 @@ class CourseFactory extends Factory
 
         $department = fake()->randomElement(array_keys($departments));
         $codePrefix = $departments[$department];
-        $codeNumber = fake()->unique()->numberBetween(101, 499); 
+        $codeNumber = fake()->unique()->numberBetween(101, 499);
         $code = "$codePrefix$codeNumber";
 
-        $courseNames = [
-            'Computer Science' => ['Introduction to Programming', 'Object Oriented Programming', 'Data Structures', 'Algorithms', 'Operating Systems', 'Software Engineering'],
-            'Artificial Intelligence' => ['Machine Learning I', 'Neural Networks', 'AI Ethics', 'Natural Language Processing', 'Computer Vision', 'Data Science'],
-            'Mathematics' => ['Calculus I', 'Linear Algebra', 'Discrete Mathematics', 'Probability and Statistics', 'Differential Equations'],
-            'Physics' => ['Mechanics', 'Electromagnetism', 'Quantum Physics', 'Thermodynamics', 'Optics'],
-            'Information System' => ['System Analysis', 'Information Security', 'Database Management I', 'Computer Networks I', 'Enterprise Systems'],
-        ];
-        
-        $name = fake()->randomElement($courseNames[$department]);
-
-        $professor = User::where('role', 'professor')->where('department', $department)
+        $professor = User::where('role', 'professor')
+            ->where('department', $department)
             ->inRandomOrder()
             ->first() ?? User::factory()->professor()->create(['department' => $department]);
 
         return [
-            'name' => $name,
+            'name' => fake()->words(3, true),
             'code' => $code,
             'description' => fake()->sentence(10),
             'department' => $department,
@@ -57,9 +49,9 @@ class CourseFactory extends Factory
         ];
     }
 
-    public function forCourse(string $department, string $name, string $code, string $type): static
+    public function forCourse(string $department, string $name, string $code, string $semester, string $type, string $difficulty): static
     {
-        return $this->state(function (array $attributes) use ($department, $name, $code, $type) {
+        return $this->state(function (array $attributes) use ($department, $name, $code, $semester, $type, $difficulty) {
             $professor = User::where('role', 'professor')
                 ->where('department', $department)
                 ->inRandomOrder()
@@ -69,7 +61,10 @@ class CourseFactory extends Factory
                 'name' => $name,
                 'code' => $code,
                 'department' => $department,
+                'semester' => $semester,
                 'type' => $type,
+                'difficulty' => $difficulty,
+                'credit_hours' => 3,
                 'professor_id' => $professor->id,
             ];
         });
