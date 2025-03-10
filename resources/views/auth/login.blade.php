@@ -60,7 +60,7 @@
 
                             <div class="form-group">
                                 <label for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email" autofocus>
+                                <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" autofocus>
                             </div>
                             @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
