@@ -3,7 +3,7 @@
 @section('title', 'Assignments')
 
 @section('content')
-    <h1 class="pb-5"Your Assignments</h1>
+    <h1 class="pb-5 pt-3"Your Assignments</h1>
     @if ($submissions->isNotEmpty())
         <div class="table-responsive">
             <table class="table table-dark table-bordered">

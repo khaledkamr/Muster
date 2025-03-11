@@ -3,7 +3,7 @@
 @section('title', 'Courses')
 
 @section('content')
-    <h1 class="pb-5">Your Courses</h1>
+    <h1 class="pb-5 pt-3">Your Courses</h1>
     <div class="accordion" id="semesterAccordion">
         @php
             $currentYear = 2025;
