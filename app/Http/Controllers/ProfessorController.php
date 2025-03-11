@@ -9,7 +9,8 @@ class ProfessorController extends Controller
 {
     public function index()
     {
-        return view('professor.index');
+        $user = Auth::user();
+        return view('professor.index', compact('user'));
     }
 
     public function courses()

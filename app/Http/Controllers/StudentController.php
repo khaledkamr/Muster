@@ -9,7 +9,8 @@ class StudentController extends Controller
 {
     public function index()
     {
-        return view('student.index');
+        $user = Auth::user();
+        return view('student.index', compact('user'));
     }
 
     public function courses()
