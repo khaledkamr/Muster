@@ -12,11 +12,11 @@ class Grade extends Model
     protected $fillable = [
         'student_id',
         'course_id',
-        'semester',
         'quiz1',
         'quiz2',
         'midterm',
         'project',
+        'assignments',
         'final',
         'total',
         'grade',

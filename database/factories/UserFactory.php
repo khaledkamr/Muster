@@ -69,7 +69,6 @@ class UserFactory extends Factory
                 'birth_date' => fake()->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
                 'major' => fake()->randomElement(['Computer Science', 'Information System', 'Artificial Intelligence']),
                 'year' => fake()->randomElement(['freshman', 'sophomore', 'junior', 'senior']),
-                'gpa' => fake()->randomFloat(2, 0, 4),
             ];
         });
     }

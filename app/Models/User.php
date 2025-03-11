@@ -27,7 +27,6 @@ class User extends Authenticatable
         'birth_date', 
         'gender', 
         'year', 
-        'gpa',
         'major',
         'credit_hours',
         'parent_id',
@@ -66,7 +65,6 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'birth_date' => 'date',
-            'gpa' => 'decimal:3',
         ];
     }
 

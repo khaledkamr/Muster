@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->string('semester');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->unique(['student_id', 'course_id']);
             $table->integer('quiz1')->nullable();
             $table->integer('quiz2')->nullable();
             $table->integer('midterm')->nullable();
+            $table->integer('assignments')->nullable();
             $table->integer('project')->nullable();
             $table->integer('final')->nullable();
             $table->integer('total')->nullable();
-            $table->enum('grade', ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'])->default('F');
-            $table->enum('status', ['pass', 'fail'])->default('fail');
+            $table->enum('grade', ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'])->nullable();
+            $table->enum('status', ['pass', 'fail'])->nullable();
             $table->timestamps();
-            $table->unique(['student_id', 'course_id', 'semester']);
-            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
         });
     }
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('assignment_id')->constrained('assignments')->onDelete('cascade');
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('score', 3, 1)->nullable();
+            $table->integer('score')->nullable();
             $table->enum('status', ['pending', 'submitted'])->default('pending');
             $table->timestamp('submitted_at')->nullable();
             $table->timestamps();

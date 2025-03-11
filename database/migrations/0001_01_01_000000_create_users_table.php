@@ -23,7 +23,6 @@ return new class extends Migration
             $table->date('birth_date')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('year')->nullable();
-            $table->decimal('gpa', 3, 2)->nullable();
             $table->string('major')->nullable();
             $table->foreignId('parent_id')->nullable()->constrained('users')->onDelete('set null');
             $table->rememberToken();
