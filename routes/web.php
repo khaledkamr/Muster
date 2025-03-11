@@ -38,6 +38,7 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/courses', [StudentController::class, 'courses'])->name('student.courses');
     Route::get('/student/assignments', [StudentController::class, 'assignments'])->name('student.assignments');
     Route::get('/student/profile', [StudentController::class, 'profile'])->name('student.profile');
+    Route::get('/student/courses/{course}', [StudentController::class, 'courseDetails'])->name('student.course-details');
     Route::post('/logout', [StudentController::class, 'logout'])->name('logout');
 });
 

@@ -14,6 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // $this->call([
+        //     UserSeeder::class,
+        // ]);
+
+
         // $departments = [
         //     'General Education',
         //     'Computer Science',
@@ -33,13 +38,9 @@ class DatabaseSeeder extends Seeder
         // User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Artificial Intelligence']);
         // User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Information System']);
 
-
-        // $this->call([
-        //     UserSeeder::class,
-        // ]);
-       
         // $this->call(CourseSeeder::class);
         // $this->call(EnrollmentSeeder::class);
-        $this->call(AssignmentSeeder::class);
+        // $this->call(AssignmentSeeder::class);
+        $this->call(GradeSeeder::class);
     }
 }

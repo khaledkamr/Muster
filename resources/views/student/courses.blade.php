@@ -43,10 +43,15 @@
                             <div class="card-body" style="background-color: #343a40;">
                                 <ul class="list-group list-group-flush">
                                     @foreach ($semesterCourses as $course)
-                                        <li class="list-group-item bg-transparent text-white">
-                                            {{ $course->code }}: {{ $course->name }}
-                                            (Difficulty: {{ ucfirst($course->difficulty) }},
-                                            Type: {{ ucfirst($course->type) }})
+                                        <li class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center">
+                                            <span>
+                                                {{ $course->code }}: {{ $course->name }}
+                                                (Difficulty: {{ ucfirst($course->difficulty) }},
+                                                Type: {{ ucfirst($course->type) }})
+                                            </span>
+                                            <a href="{{ route('student.course-details', $course->id) }}" class="btn btn-sm btn-primary">
+                                                Details
+                                            </a>
                                         </li>
                                     @endforeach
                                 </ul>

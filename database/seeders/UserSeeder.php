@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
                 'role' => 'student',
                 'gender' => 'male',
                 'year' => '2021',
-                'gpa' => 3.5,
                 'major' => 'Computer Science',
             ],
             [
@@ -31,7 +30,6 @@ class UserSeeder extends Seeder
                 'role' => 'student',
                 'gender' => 'male',
                 'year' => '2021',
-                'gpa' => 3.5,
                 'major' => 'Computer Science'
             ],
             [

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Grade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,6 +32,15 @@ class StudentController extends Controller
     {
         $user = Auth::user();
         return view('student.profile', compact('user'));
+    }
+
+    public function courseDetails($course)
+    {
+        $user = Auth::user();
+        $course = Course::findOrFail($course); 
+        $grade = Grade::where('student_id', $user->id)->where('course_id', $course->id)->firstOrFail(); 
+
+        return view('student.course-details', compact('user', 'course', 'grade'));
     }
 
     public function logout(Request $request)
