@@ -12,6 +12,7 @@
             <p><strong>Phone:</strong> {{ $user->phone }}</p>
             <p><strong>Major:</strong> {{ $user->major }}</p>
             <p><strong>Year:</strong> {{ ucfirst($user->year) }}</p>
+            <p><strong>GPA:</strong> {{ $gpa }}</p>
         </div>
     </div>
 @endsection

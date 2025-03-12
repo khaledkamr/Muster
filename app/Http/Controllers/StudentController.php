@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\Grade;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,7 +33,34 @@ class StudentController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        return view('student.profile', compact('user'));
+        $grades = $user->grades()->with('course')->get();
+
+        $gradePoints = [
+            'A+' => 4.0,
+            'A'  => 4.8,
+            'A-' => 3.7,
+            'B+' => 3.3,
+            'B'  => 3.0,
+            'B-' => 2.7,
+            'C+' => 2.3,
+            'C'  => 2.0,
+            'C-' => 1.7,
+            'D+' => 1.3,
+            'D'  => 1.0,
+            'D-' => 0.7,
+            'F'  => 0.0,
+        ];
+
+        $totalPoints = 0;
+        $totalCourses = $grades->count();
+
+        foreach ($grades as $grade) {
+            $totalPoints += $gradePoints[$grade->grade] ?? 0; // Default to 0 if grade not found
+        }
+
+        $gpa = $totalCourses > 0 ? round($totalPoints / $totalCourses, 2) : 0.00;
+        
+        return view('student.profile', compact('user', 'gpa'));
     }
 
     public function courseDetails($course)
