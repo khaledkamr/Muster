@@ -33,11 +33,11 @@ class GradeSeeder extends Seeder
 
                 $assignmentsTotal = min($assignmentsTotal, 30);
 
-                $quiz1 = rand(0, 10);      
-                $quiz2 = rand(0, 10);      
-                $midterm = rand(0, 30);    
-                $project = rand(0, 30);    
-                $final = rand(0, 60);      
+                $quiz1 = rand(3, 10);      
+                $quiz2 = rand(3, 10);      
+                $midterm = rand(19, 30);    
+                $project = rand(20, 30);    
+                $final = rand(40, 60);      
 
                 $total = $quiz1 + $quiz2 + $midterm + $project + $assignmentsTotal + $final;
 
