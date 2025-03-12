@@ -19,28 +19,29 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        // $departments = [
-        //     'General Education',
-        //     'Computer Science',
-        //     'Artificial Intelligence',
-        //     'Information System',
-        // ];
-        // foreach ($departments as $department) {
-        //     User::factory()->count(2)->professor()->create(['department' => $department]);
-        // }        
+        $departments = [
+            'General Education',
+            'Computer Science',
+            'Artificial Intelligence',
+            'Information System',
+        ];
+        foreach ($departments as $department) {
+            User::factory()->count(2)->professor()->create(['department' => $department]);
+        }        
 
-        // User::factory()->count(2)->student()->create(['year' => 'freshman', 'major' => null]);
-        // User::factory()->count(2)->student()->create(['year' => 'sophomore', 'major' => null]);
-        // User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Computer Science']);
-        // User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Artificial Intelligence']);
-        // User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Information System']);
-        // User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Computer Science']);
-        // User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Artificial Intelligence']);
-        // User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Information System']);
+        User::factory()->count(2)->student()->create(['year' => 'freshman', 'major' => null]);
+        User::factory()->count(2)->student()->create(['year' => 'sophomore', 'major' => null]);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Computer Science']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Artificial Intelligence']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'junior', 'major' => 'Information System']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Computer Science']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Artificial Intelligence']);
+        User::factory()->count(2)->student()->withParent()->create(['year' => 'senior', 'major' => 'Information System']);
 
-        // $this->call(CourseSeeder::class);
-        // $this->call(EnrollmentSeeder::class);
-        // $this->call(AssignmentSeeder::class);
+        $this->call(CourseSeeder::class);
+        $this->call(EnrollmentSeeder::class);
+        $this->call(AssignmentSeeder::class);
         $this->call(GradeSeeder::class);
+        $this->call(AttendanceSeeder::class);
     }
 }

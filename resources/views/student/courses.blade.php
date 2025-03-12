@@ -49,9 +49,14 @@
                                                 (Difficulty: {{ ucfirst($course->difficulty) }},
                                                 Type: {{ ucfirst($course->type) }})
                                             </span>
-                                            <a href="{{ route('student.course-details', $course->id) }}" class="btn btn-sm btn-primary">
-                                                Details
-                                            </a>
+                                            <div>
+                                                <a href="{{ route('student.course-details', $course->id) }}" class="btn btn-sm btn-success mr-2">
+                                                    Details
+                                                </a>
+                                                <a href="{{ route('student.course-attendance', $course->id) }}" class="btn btn-sm btn-info">
+                                                    Attendance
+                                                </a>
+                                            </div>
                                         </li>
                                     @endforeach
                                 </ul>
