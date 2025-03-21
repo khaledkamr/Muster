@@ -43,5 +43,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AssignmentSeeder::class);
         $this->call(GradeSeeder::class);
         $this->call(AttendanceSeeder::class);
+        $this->call(CurrentSemesterSeeder::class);
     }
 }
