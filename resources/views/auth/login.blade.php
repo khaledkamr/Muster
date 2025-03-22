@@ -39,6 +39,83 @@
         a:hover {
             color: #0056b3;
         }
+
+        .form {
+            --bg-light: #efefef;
+            --bg-dark: #707070;
+            --clr: #58bc82;
+            --clr-alpha: #9c9c9c60;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        .form .input-span {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form input[type="email"],
+        .form input[type="password"] {
+            border-radius: 0.5rem;
+            padding: 1rem 0.75rem;
+            width: 100%;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--clr-alpha);
+            outline: 2px solid var(--bg-dark);
+            color: #ffffff;
+        }
+
+        .form input[type="email"]:focus,
+        .form input[type="password"]:focus {
+            outline: 2px solid var(--clr);
+        }
+
+        .label {
+            align-self: flex-start;
+            color: var(--clr);
+            font-weight: 600;
+        }
+
+        .form .submit {
+            padding: 1rem 0.75rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 3rem;
+            background-color: var(--bg-dark);
+            color: var(--bg-light);
+            border: none;
+            cursor: pointer;
+            transition: all 300ms;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form .submit:hover {
+            background-color: var(--clr);
+            color: var(--bg-dark);
+        }
+
+        .span {
+            text-decoration: none;
+            color: var(--bg-dark);
+        }
+
+        .span a {
+            color: var(--clr);
+        }
+
     </style>
 </head>
 <body>
@@ -50,7 +127,7 @@
                         <h4>Login</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{route('login')}}">
+                        <form class="form pb-5" method="POST" action="{{route('login')}}">
                             @csrf
                             @if(session('error'))
                                 <div class="alert alert-danger">
@@ -58,33 +135,27 @@
                                 </div>
                             @endif
 
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" autofocus>
-                            </div>
+                            <span class="input-span">
+                                <label for="email" class="label">Email</label>
+                                <input type="email" name="email" id="email" value="{{old('email')}}" autofocus />
+                            </span>
                             @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
 
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
-                            </div>
+                            <span class="input-span">
+                                <label for="password" class="label">Password</label>
+                                <input type="password" name="password" id="password" />
+                            </span>
                             @error('password')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
 
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                                <label class="form-check-label" for="remember">Remember Me</label>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <span class="span"><a href="#">Forgot password?</a></span>
+                            <input class="submit" type="submit" value="Log in" />
                         </form>
                     </div>
-                    <div class="card-footer text-center">
-                        <a href="">Forgot Your Password?</a>
-                    </div>
+             
                 </div>
             </div>
         </div>
