@@ -2,8 +2,10 @@
 
 @section('title', 'Assignments')
 
+
 @section('content')
-    <h1 class="pb-5 pt-3"Your Assignments</h1>
+    <h1 class="pb-5 pt-3 text-dark">Your Assignments</h1>
+    
     @if ($submissions->isNotEmpty())
         <div class="table-responsive">
             <table class="table table-dark table-bordered">
@@ -26,9 +28,9 @@
                             <td>{{ $submission->assignment->created_at->format('M d, Y') }}</td>
                             <td>{{ $submission->assignment->due_date->format('M d, Y') }}</td>
                             <td>
-                                <div class="btn btn-{{ $submission->status == 'submitted' ? 'success' : 'danger' }}">
+                                <span class="badge bg-{{ $submission->status == 'submitted' ? 'success' : 'danger' }}">
                                     {{ ucfirst($submission->status) }}
-                                </div>
+                                </span>
                             </td>
                             <td>{{ $submission->submitted_at ? $submission->submitted_at->format('M d, Y') : 'N/A' }}</td>
                             <td>{{ $submission->score }}</td>

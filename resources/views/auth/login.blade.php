@@ -14,32 +14,6 @@
             background-color: #495057;
             border: none;
         }
-        .form-control {
-            background-color: #6c757d;
-            border: 1px solid #ced4da;
-            color: #ffffff;
-        }
-        .form-control:focus {
-            background-color: #6c757d;
-            color: #ffffff;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .form-check-label {
-            color: #ffffff;
-        }
-        a {
-            color: #007bff;
-        }
-        a:hover {
-            color: #0056b3;
-        }
-
         .form {
             --bg-light: #efefef;
             --bg-dark: #707070;
@@ -53,14 +27,12 @@
             max-width: 300px;
             margin: auto;
         }
-
         .form .input-span {
             width: 100%;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
-
         .form input[type="email"],
         .form input[type="password"] {
             border-radius: 0.5rem;
@@ -104,7 +76,7 @@
 
         .form .submit:hover {
             background-color: var(--clr);
-            color: var(--bg-dark);
+            /* color: var(--bg-dark); */
         }
 
         .span {
@@ -123,17 +95,20 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header text-center">
-                        <h4>Login</h4>
-                    </div>
+                    {{-- <div class="card-header text-center"> --}}
+                        <div class="text-center">
+                            <img src="{{ asset('imgs/logo-w.png') }}" alt="Logo" class="img-fluid pt-5 pb-2" style="max-width: 150px;">
+                        </div>
+                        {{-- <h4>Login</h4> --}}
+                    {{-- </div> --}}
                     <div class="card-body">
                         <form class="form pb-5" method="POST" action="{{route('login')}}">
                             @csrf
-                            @if(session('error'))
+                            {{-- @if(session('error'))
                                 <div class="alert alert-danger">
                                     {{ session('error') }}
                                 </div>
-                            @endif
+                            @endif --}}
 
                             <span class="input-span">
                                 <label for="email" class="label">Email</label>
@@ -160,6 +135,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

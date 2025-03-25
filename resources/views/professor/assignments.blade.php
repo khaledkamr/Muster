@@ -3,7 +3,7 @@
 @section('title', 'Assignments')
 
 @section('content')
-    <h1 class="pb-5 pt-3">Your Assignments</h1>
+    <h1 class="pb-5 pt-3 text-dark">Your Assignments</h1>
     @if ($assignments->isNotEmpty())
         <div class="table-responsive">
             <table class="table table-dark table-bordered">
@@ -33,9 +33,9 @@
                                     @foreach ($assignment->submissions as $submission)
                                         <li class="list-group-item bg-transparent text-white">
                                             {{ $submission->user->name }}: 
-                                            <div class="btn btn-{{ $submission->status == 'submitted' ? 'success' : 'danger' }}">
+                                            <span class="badge bg-{{ $submission->status == 'submitted' ? 'success' : 'danger' }}">
                                                 {{ ucfirst($submission->status) }}
-                                            </div>
+                                            </span>
                                             @if ($submission->status === 'submitted')
                                                 (Score: {{ $submission->score }}, Submitted: {{ $submission->submitted_at->format('M d, Y') }})
                                             @endif

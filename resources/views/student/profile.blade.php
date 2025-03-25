@@ -3,8 +3,8 @@
 @section('title', 'Profile')
 
 @section('content')
-    <h1 class="pb-5 pt-3">Your Profile</h1>
-    <div class="card" style="background-color: #495057; border: 1px solid #6c757d;">
+    <h1 class="pb-5 pt-3 text-dark">Your Profile</h1>
+    <div class="card bg-secondary border-secondary">
         <div class="card-body">
             <p><strong>Name:</strong> {{ $user->name }}</p>
             <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($user->birth_date)->age }} years</p>

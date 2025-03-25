@@ -3,7 +3,7 @@
 @section('title', 'Course Details - ' . $course->name)
 
 @section('content')
-    <h1 class="pb-3 pt-3">{{ $course->code }}: {{ $course->name }}</h1>
+    <h1 class="pb-3 pt-3 text-dark">{{ $course->code }}: {{ $course->name }}</h1>
         
     <div class="card-body" style="background-color: #343a40;">
         <table class="table table-dark table-bordered">
@@ -45,7 +45,7 @@
                     <td>{{ $grade->final }}</td>
                     <td>60</td>
                 </tr>
-                <tr class="table-active">
+                <tr class="table-primary">
                     <td><strong>Total</strong></td>
                     <td><strong>{{ $grade->total }}</strong></td>
                     <td><strong>170</strong></td>
@@ -54,7 +54,7 @@
         </table>
 
         <div class="mt-3">
-            <h4>Final Grade: <span class="badge badge-{{ $grade->status === 'pass' ? 'success' : 'danger' }}">{{ $grade->grade }}</span></h4>
+            <h4>Final Grade: <span class="badge bg-{{ $grade->status === 'pass' ? 'success' : 'danger' }}">{{ $grade->grade }}</span></h4>
             <p>Status: <strong>{{ $grade->status }}</strong></p>
         </div>
     </div>
