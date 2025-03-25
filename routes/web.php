@@ -35,7 +35,7 @@ Route::controller(AuthController::class)->group(function() {
 
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student', [StudentController::class, 'index'])->name('student.home');
-    Route::get('/student/courses', [StudentController::class, 'courses'])->name('student.courses');
+    Route::get('/student/grades', [StudentController::class, 'grades'])->name('student.grades');
     Route::get('/student/assignments', [StudentController::class, 'assignments'])->name('student.assignments');
     Route::get('/student/profile', [StudentController::class, 'profile'])->name('student.profile');
     Route::get('/student/courses/{course}', [StudentController::class, 'courseDetails'])->name('student.course-details');

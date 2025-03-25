@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Assignment;
+use App\Models\AssignmentSubmission;
+use App\Models\Enrollment;
 use App\Models\Course;
 use App\Models\Grade;
 use App\Models\User;
@@ -17,10 +20,32 @@ class StudentController extends Controller
         return view('student.index', compact('user'));
     }
 
-    public function courses()
+    public function grades()
     {
         $user = Auth::user();
-        return view('student.courses', compact('user'));
+        $currentYear = 2025;
+        $yearOffset = match ($user->year) {
+            'freshman' => 0,
+            'sophomore' => 1,
+            'junior' => 2,
+            'senior' => 3,
+        };
+        $startYear = $currentYear - $yearOffset;
+        $currentStudentYear = $yearOffset + 1;
+
+        // Exclude the current semester (Year X Sem 2)
+        $enrollments = $user->enrollments()
+            ->with('course', 'course.grades')
+            ->where(function ($query) use ($startYear, $currentStudentYear) {
+                $query->whereRaw("YEAR(enrolled_at) < ?", [$startYear + $currentStudentYear - 1])
+                    ->orWhere(function ($q) use ($startYear, $currentStudentYear) {
+                        $q->whereRaw("YEAR(enrolled_at) = ?", [$startYear + $currentStudentYear - 1])
+                            ->whereHas('course', fn($q) => $q->where('semester', 'first'));
+                    });
+            })
+            ->get();
+
+        return view('student.grades', compact('user', 'enrollments', 'startYear'));
     }
 
     public function assignments()
@@ -55,12 +80,18 @@ class StudentController extends Controller
         $totalCourses = $grades->count();
 
         foreach ($grades as $grade) {
-            $totalPoints += $gradePoints[$grade->grade] ?? 0; // Default to 0 if grade not found
+            $totalPoints += $gradePoints[$grade->grade] ?? 0; 
         }
 
         $gpa = $totalCourses > 0 ? round($totalPoints / $totalCourses, 2) : 0.00;
+
+        $totalCredits = $grades->sum(function ($grade) {
+            return $grade->course->credit_hours ?? 0; 
+        });
+
+        $maxCredits = 144;
         
-        return view('student.profile', compact('user', 'gpa'));
+        return view('student.profile', compact('user', 'gpa', 'totalCredits', 'maxCredits'));
     }
 
     public function courseDetails($course)
