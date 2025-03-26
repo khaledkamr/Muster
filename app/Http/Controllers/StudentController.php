@@ -23,29 +23,37 @@ class StudentController extends Controller
     public function grades()
     {
         $user = Auth::user();
-        $currentYear = 2025;
-        $yearOffset = match ($user->year) {
-            'freshman' => 0,
-            'sophomore' => 1,
-            'junior' => 2,
-            'senior' => 3,
-        };
-        $startYear = $currentYear - $yearOffset;
-        $currentStudentYear = $yearOffset + 1;
+        $enrollments = $user->enrollments()->with('course.grades')->get();
 
-        // Exclude the current semester (Year X Sem 2)
-        $enrollments = $user->enrollments()
-            ->with('course', 'course.grades')
-            ->where(function ($query) use ($startYear, $currentStudentYear) {
-                $query->whereRaw("YEAR(enrolled_at) < ?", [$startYear + $currentStudentYear - 1])
-                    ->orWhere(function ($q) use ($startYear, $currentStudentYear) {
-                        $q->whereRaw("YEAR(enrolled_at) = ?", [$startYear + $currentStudentYear - 1])
-                            ->whereHas('course', fn($q) => $q->where('semester', 'first'));
-                    });
-            })
-            ->get();
+        // Determine the start year of the student (based on earliest enrollment)
+        $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : now()->format('Y');
 
-        return view('student.grades', compact('user', 'enrollments', 'startYear'));
+        // Determine the current semester and year
+        $currentMonth = 10;
+        $currentYear = now()->year;
+        $currentSemester = $currentMonth <= 6 ? 'first' : 'second'; // First semester: Jan-Jun, Second: Jul-Dec
+        $currentAcademicYear = $currentYear - $startYear + 1;
+
+        // Generate all semesters the student has been enrolled in
+        $semesters = [];
+        foreach ($enrollments as $enrollment) {
+            $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
+            $semesterKey = $enrollment->course->semester;
+            $semesterLabel = "Year $enrollmentYear - " . ($semesterKey === 'first' ? 'First Semester' : 'Second Semester');
+            $semesterValue = "year{$enrollmentYear}-{$semesterKey}";
+            $semesters[$semesterValue] = $semesterLabel;
+        }
+
+        // Remove duplicates and sort semesters
+        $semesters = array_unique($semesters);
+        asort($semesters);
+
+        // Add the current semester to the list (for display purposes, but grades will be empty)
+        $currentSemesterValue = "year{$currentAcademicYear}-{$currentSemester}";
+        $currentSemesterLabel = "Year $currentAcademicYear - " . ($currentSemester === 'first' ? 'First Semester' : 'Second Semester');
+        $semesters[$currentSemesterValue] = $currentSemesterLabel;
+
+        return view('student.grades', compact('user', 'enrollments', 'startYear', 'semesters', 'currentSemesterValue'));
     }
 
     public function assignments()
@@ -100,7 +108,47 @@ class StudentController extends Controller
         $course = Course::findOrFail($course); 
         $grade = Grade::where('student_id', $user->id)->where('course_id', $course->id)->firstOrFail(); 
 
-        return view('student.course-details', compact('user', 'course', 'grade'));
+        if (!$grade) {
+            abort(404, 'Grade not found for this course.');
+        }
+
+        $maxScores = [
+            'quiz1' => 10,
+            'quiz2' => 10,
+            'midterm' => 30,
+            'project' => 30,
+            'assignments' => 30, // Combined score for Assignment 1, 2, and 3
+            'final' => 60,
+        ];
+
+        // Prepare scores for display
+        $displayScores = [
+            'quiz1' => $grade->quiz1,
+            'quiz2' => $grade->quiz2,
+            'midterm' => $grade->midterm,
+            'project' => $grade->project,
+            'assignments' => $grade->assignments, // Combined Assignments score
+            'final' => $grade->final,
+        ];
+
+        // Max scores for display
+        $displayMaxScores = [
+            'quiz1' => $maxScores['quiz1'],
+            'quiz2' => $maxScores['quiz2'],
+            'midterm' => $maxScores['midterm'],
+            'project' => $maxScores['project'],
+            'assignments' => $maxScores['assignments'],
+            'final' => $maxScores['final'],
+        ];
+
+        // Calculate total score out of 170
+        $totalMaxScore = array_sum($maxScores); // 170
+        $totalScore = $grade->quiz1 + $grade->quiz2 + $grade->midterm + $grade->project + $grade->assignments + $grade->final;
+
+        // Calculate percentage
+        $percentage = round(($totalScore / $totalMaxScore) * 100);
+
+        return view('student.course-details', compact('course', 'grade', 'displayScores', 'displayMaxScores', 'totalScore', 'totalMaxScore', 'percentage'));
     }
 
     public function courseAttendance($course)
