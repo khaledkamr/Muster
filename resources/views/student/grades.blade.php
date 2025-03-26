@@ -3,7 +3,7 @@
 @section('title', 'Grades')
 
 @section('content')
-    <h1 class="pb-5 pt-3 text-dark">Your Grades</h1>
+    <h1 class="pb-5 pt-3 text-dark fw-bold">Your Grades</h1>
     <div class="accordion" id="semesterAccordion">
         @foreach ([1 => 'Year 1', 2 => 'Year 2', 3 => 'Year 3', 4 => 'Year 4'] as $yearNum => $yearLabel)
             @foreach (['first' => 'First Semester', 'second' => 'Second Semester'] as $semesterKey => $semesterLabel)

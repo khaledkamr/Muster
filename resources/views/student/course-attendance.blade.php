@@ -3,7 +3,7 @@
 @section('title', 'Attendance - ' . $course->name)
 
 @section('content')
-    <h1 class="pb-5 pt-3 text-dark">{{ $course->code }}: {{ $course->name }} - Attendance</h1>
+    <h1 class="pb-5 pt-3 text-dark fw-bold">{{ $course->code }}: {{ $course->name }} - Attendance</h1>
 
     <div class="card mb-4" style="background-color: #495057; border: 1px solid #6c757d;">
         <div class="card-header" style="background-color: #6c757d;">

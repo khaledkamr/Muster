@@ -3,7 +3,7 @@
 @section('title', 'Courses')
 
 @section('content')
-    <h1 class="pb-5 pt-3 text-dark">Courses You Teach</h1>
+    <h1 class="pb-5 pt-3 text-dark fw-bold">Courses You Teach</h1>
     <div class="accordion" id="coursesAccordion">
         @php
             $courses = $user->courses()->with('enrollments')->get();

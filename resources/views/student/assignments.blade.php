@@ -4,7 +4,7 @@
 
 
 @section('content')
-    <h1 class="pb-5 pt-3 text-dark">Your Assignments</h1>
+    <h1 class="pb-5 pt-3 text-dark fw-bold">Your Assignments</h1>
     
     @if ($submissions->isNotEmpty())
         <div class="table-responsive">

@@ -3,7 +3,7 @@
 @section('title', 'Profile')
 
 @section('content')
-    <h1 class="pb-5 pt-3 text-dark">Your Profile</h1>
+    <h1 class="pb-5 pt-3 text-dark fw-bold">Your Profile</h1>
 
     <div class="card mb-4 watercolor-card">
         <div class="card-body row">
