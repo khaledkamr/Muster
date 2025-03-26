@@ -41,11 +41,11 @@
                                                 (Difficulty: {{ ucfirst($course->difficulty) }},
                                                 Type: {{ ucfirst($course->type) }})
                                             </span>
-                                            <span class=" text-{{ $grade->status === 'pass' ? 'success' : 'danger' }} me-2">
-                                                {{ $grade->grade ?? 'N/A' }}
-                                            </span>
                                             <div>
-                                                <a href="{{ route('student.course-details', $course->id) }}" class="btn btn-sm btn-success">
+                                                <span class=" text-{{ $grade->status === 'pass' ? 'success' : 'danger' }} me-4 pe-4">
+                                                    {{ $grade->grade ?? 'N/A' }}
+                                                </span>
+                                                <a href="{{ route('student.course-details', $course->id) }}" class="btn btn-sm btn-success ms-4">
                                                     Details
                                                 </a>
                                             </div>
