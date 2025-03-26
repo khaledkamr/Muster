@@ -5,13 +5,12 @@
 @section('content')
     <h1 class="pb-5 pt-3 text-dark">Your Profile</h1>
 
-    <!-- First Card: Student Data with GPA and Credits -->
     <div class="card mb-4 watercolor-card">
         <div class="card-body row">
             <div class="col-md-6">
                 <h5 class="card-title text-dark">Student Information</h5>
                 <p><strong>Full Name:</strong> {{ $user->name }}</p>
-                <p><strong>Major:</strong> {{ $user->major }}</p>
+                <p><strong>Major:</strong> {{ $user->major ?? 'General Education'}}</p>
                 <p><strong>Year:</strong> {{ ucfirst($user->year) }}</p>
             </div>
             <div class="col-md-6 d-flex justify-content-around align-items-center">
@@ -37,7 +36,6 @@
         </div>
     </div>
 
-    <!-- Second Card: Personal Information -->
     <div class="card mb-4 watercolor-card">
         <div class="card-body">
             <h5 class="card-title text-dark">Personal Information</h5>
@@ -60,7 +58,6 @@
         </div>
     </div>
 
-    <!-- Third Card: Parent Information -->
     <div class="card watercolor-card">
         <div class="card-body">
             <h5 class="card-title text-dark">Parent Information</h5>
@@ -68,10 +65,12 @@
                 <div class="col-md-6">
                     <p><strong>Parent Name:</strong> {{ $user->parent->name ?? 'N/A' }}</p>
                     <p><strong>Gender:</strong> 
-                        @if($user->parent->gender == 'male')
+                        @if($user->parent && $user->parent->gender == 'male')
                             {{ ucfirst($user->parent->gender) }} <i class="bi bi-gender-male"></i> 
-                        @else
+                        @elseif($user->parent && $user->parent->gender == 'female')
                             {{ ucfirst($user->parent->gender) }} <i class="bi bi-gender-female"></i>
+                        @else
+                            N/A
                         @endif
                     </p>
                 </div>
@@ -83,7 +82,6 @@
         </div>
     </div>
 
-    <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

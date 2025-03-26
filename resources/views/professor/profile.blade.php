@@ -5,7 +5,6 @@
 @section('content')
     <h1 class="pb-5 pt-3 text-dark">Your Profile</h1>
 
-    <!-- First Card: Student Data with GPA and Credits -->
     <div class="card mb-4 watercolor-card">
         <div class="card-body row">
             <div class="col-md-6">
@@ -16,7 +15,6 @@
         </div>
     </div>
 
-    <!-- Second Card: Personal Information -->
     <div class="card mb-4 watercolor-card">
         <div class="card-body">
             <h5 class="card-title text-dark">Personal Information</h5>
