@@ -6,6 +6,7 @@
     <title>Student Dashboard - @yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #eeee;
@@ -14,7 +15,7 @@
             margin: 0;
         }
         .navbar {
-            background-color: #eeee;
+            background-color: #eeeeee;
             position: fixed;
             top: 0;
             left: 250px;
@@ -127,12 +128,31 @@
             padding: 20px;
             padding-top: 70px;
         }
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00379c;
+            /* border-radius: 10px; */
+            cursor: grab;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <img class="image pb-3" src="{{asset("imgs/logo.png")}}" alt="MUST">
+        <img class="image pb-4" src="{{asset("imgs/logo.png")}}" alt="MUST">
+        {{-- <h2 class="text-center fw-bold">Muster</h2> --}}
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('student.home') ? 'active' : '' }}" href="{{ route('student.home') }}">
@@ -150,14 +170,19 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fa-solid fa-clipboard-user"></i> Attendance
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('student.profile') ? 'active' : '' }}" href="{{ route('student.profile') }}">
                     <i class="bi bi-person-fill"></i> Profile
                 </a>
             </li>
             <li class="nav-item">
-                <form action="{{ route('logout') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST" id="logout-form">
                     @csrf
-                    <button type="submit" class="text">
+                    <button type="button" class="text" data-bs-toggle="modal" data-bs-target="#logoutModal">
                         <i class="bi bi-box-arrow-right"></i> Logout
                     </button>
                 </form>
@@ -190,6 +215,34 @@
         @yield('content')
     </div>
 
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark fw-bold" id="logoutModalLabel">Confirm Logout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-dark">
+                    Are you sure you want to logout?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmLogout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoutForm = document.getElementById('logout-form');
+            const confirmLogoutButton = document.getElementById('confirmLogout');
+
+            confirmLogoutButton.addEventListener('click', function () {
+                logoutForm.submit(); 
+            });
+        });
+    </script>
 </body>
 </html>
