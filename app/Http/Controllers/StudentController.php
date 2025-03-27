@@ -56,11 +56,75 @@ class StudentController extends Controller
         return view('student.grades', compact('user', 'enrollments', 'startYear', 'semesters', 'currentSemesterValue'));
     }
 
-    public function assignments()
+    public function assignments(Request $request)
     {
         $user = Auth::user();
-        $submissions = $user->assignmentSubmissions()->with('assignment.course')->get();
-        return view('student.assignments', compact('user', 'submissions'));
+        $enrollments = $user->enrollments()->with('course.assignments.submissions')->get();
+
+        // Determine the current semester and year
+        $currentMonth = 10;
+        $currentYear = now()->year;
+        $currentSemester = $currentMonth <= 6 ? 'first' : 'second'; // First semester: Jan-Jun, Second: Jul-Dec
+        $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : $currentYear;
+        $currentAcademicYear = $currentYear - $startYear + 1;
+
+        // Get all assignments for the student's current semester
+        $currentSemesterCourses = $enrollments
+            ->filter(function ($enrollment) use ($currentAcademicYear, $currentSemester, $startYear) {
+                $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
+                return $enrollmentYear === $currentAcademicYear && $enrollment->course->semester === $currentSemester;
+            })
+            ->pluck('course');
+
+        // Get all assignments for the current semester courses
+        $assignments = $currentSemesterCourses->flatMap->assignments;
+
+        // Get submissions for the student
+        $submissions = $assignments->flatMap->submissions->where('student_id', $user->id);
+
+        // Calculate completion percentage
+        $totalAssignments = $assignments->count();
+        $submittedAssignments = $submissions->where('status', 'submitted')->count();
+        $completionPercentage = $totalAssignments > 0 ? round(($submittedAssignments / $totalAssignments) * 100) : 0;
+
+        // Calculate score percentage (average score across all submitted assignments)
+        $totalScore = $submissions->where('status', 'submitted')->sum('score');
+        $maxScorePerAssignment = 100; // Assuming each assignment is out of 100
+        $maxPossibleScore = $submittedAssignments * $maxScorePerAssignment;
+        $scorePercentage = $maxPossibleScore > 0 ? round(($totalScore / $maxPossibleScore) * 100) : 0;
+
+        // Upcoming assignments (not yet posted, e.g., Assignment 3)
+        $postedAssignmentTitles = $assignments->pluck('title')->toArray();
+        $allPossibleAssignments = ['Assignment 1', 'Assignment 2', 'Assignment 3']; // Based on your seeder
+        $upcomingAssignments = array_diff($allPossibleAssignments, $postedAssignmentTitles);
+
+        // Filter submissions based on status (submitted, pending, or all)
+        $statusFilter = $request->input('status', 'all');
+        $filteredSubmissions = $submissions;
+        if ($statusFilter === 'submitted') {
+            $filteredSubmissions = $submissions->where('status', 'submitted');
+        } elseif ($statusFilter === 'pending') {
+            $filteredSubmissions = $submissions->where('status', 'pending');
+        }
+
+        // Search by course
+        $searchQuery = $request->input('search', '');
+        if ($searchQuery) {
+            $filteredSubmissions = $filteredSubmissions->filter(function ($submission) use ($searchQuery) {
+                $course = $submission->assignment->course;
+                return stripos($course->code, $searchQuery) !== false || stripos($course->name, $searchQuery) !== false;
+            });
+        }
+
+        return view('student.assignments', compact(
+            'submissions',
+            'filteredSubmissions',
+            'upcomingAssignments',
+            'completionPercentage',
+            'scorePercentage',
+            'statusFilter',
+            'searchQuery'
+        ));
     }
 
     public function profile()

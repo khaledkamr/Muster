@@ -51,9 +51,9 @@
                     return; 
                 }
 
-                if (selectedSemester === currentSemester) {
-                    return;
-                }
+                // if (selectedSemester === currentSemester) {
+                //     return;
+                // }
 
                 // Parse the selected semester (e.g., "year1-first")
                 const [yearPart, semesterKey] = selectedSemester.split('-');
