@@ -10,6 +10,8 @@
             <div class="col-md-6">
                 <h5 class="card-title text-dark">Student Information</h5>
                 <p><strong>Full Name:</strong> {{ $user->name }}</p>
+                <p><strong>ID:</strong> {{ $user->id }}</p>
+                <p><strong>collage:</strong> Information Technology</p>
                 <p><strong>Major:</strong> {{ $user->major ?? 'General Education'}}</p>
                 <p><strong>Year:</strong> {{ ucfirst($user->year) }}</p>
             </div>
