@@ -14,10 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([
-        //     UserSeeder::class,
-        // ]);
-
+        $this->call([
+            UserSeeder::class,
+        ]);
 
         $departments = [
             'General Education',
@@ -26,17 +25,19 @@ class DatabaseSeeder extends Seeder
             'Information System',
         ];
         foreach ($departments as $department) {
-            User::factory()->count(2)->professor()->create(['department' => $department]);
+            User::factory()->count(6)->professor()->create(['department' => $department]);
         }        
 
-        User::factory()->count(5)->student()->create(['year' => 'freshman', 'major' => null]);
-        User::factory()->count(5)->student()->create(['year' => 'sophomore', 'major' => null]);
-        User::factory()->count(5)->student()->withParent()->create(['year' => 'junior', 'major' => 'Computer Science']);
-        User::factory()->count(5)->student()->withParent()->create(['year' => 'junior', 'major' => 'Artificial Intelligence']);
-        User::factory()->count(5)->student()->withParent()->create(['year' => 'junior', 'major' => 'Information System']);
-        User::factory()->count(5)->student()->withParent()->create(['year' => 'senior', 'major' => 'Computer Science']);
-        User::factory()->count(5)->student()->withParent()->create(['year' => 'senior', 'major' => 'Artificial Intelligence']);
-        User::factory()->count(5)->student()->withParent()->create(['year' => 'senior', 'major' => 'Information System']);
+        // User::factory()->count(3)->professor()->create(['department' => 'Artificial Intelligence']);
+
+        User::factory()->count(125)->student()->create(['year' => 'freshman', 'major' => null]);
+        User::factory()->count(125)->student()->create(['year' => 'sophomore', 'major' => null]);
+        User::factory()->count(125)->student()->withParent()->create(['year' => 'junior', 'major' => 'Computer Science']);
+        User::factory()->count(125)->student()->withParent()->create(['year' => 'junior', 'major' => 'Artificial Intelligence']);
+        User::factory()->count(125)->student()->withParent()->create(['year' => 'junior', 'major' => 'Information System']);
+        User::factory()->count(125)->student()->withParent()->create(['year' => 'senior', 'major' => 'Computer Science']);
+        User::factory()->count(125)->student()->withParent()->create(['year' => 'senior', 'major' => 'Artificial Intelligence']);
+        User::factory()->count(125)->student()->withParent()->create(['year' => 'senior', 'major' => 'Information System']);
 
         $this->call(CourseSeeder::class);
         $this->call(EnrollmentSeeder::class);

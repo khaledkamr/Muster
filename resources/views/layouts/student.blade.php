@@ -134,24 +134,25 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #121212;
+            background: #d3d2d2;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #00379c;
-            /* border-radius: 10px; */
+            background: #007bff;
+            border-radius: 10px;
             cursor: grab;
+            transition: 0.3s;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: #0157b3;
         }
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <img class="image pb-4" src="{{asset("imgs/logo.png")}}" alt="MUST">
+        <img class="image pb-4" src="{{asset("imgs/logo-w.png")}}" alt="MUST">
         {{-- <h2 class="text-center fw-bold">Muster</h2> --}}
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -170,7 +171,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link {{ request()->routeIs('student.attendance') ? 'active' : '' }}" href="{{ route('student.attendance') }}">
                     <i class="fa-solid fa-clipboard-user"></i> Attendance
                 </a>
             </li>
@@ -205,7 +206,7 @@
             </span>
             <div class="notifications ms-4">
                 <i class="bi bi-bell-fill" style="font-size: 1.5em;"></i>
-                {{-- <span class="badge bg-danger">3</span> --}}
+                {{-- <span class="badge bg-danger">1</span> --}}
             </div>
         </div>
     </nav>

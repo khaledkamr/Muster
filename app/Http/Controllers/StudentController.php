@@ -11,6 +11,7 @@ use App\Models\Grade;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -64,7 +65,7 @@ class StudentController extends Controller
         // Determine the current semester and year
         $currentMonth = 10;
         $currentYear = now()->year;
-        $currentSemester = $currentMonth <= 6 ? 'first' : 'second'; // First semester: Jan-Jun, Second: Jul-Dec
+        $currentSemester = $currentMonth <= 6 ? 'first' : 'second'; // First: Jan-Jun, Second: Jul-Dec
         $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : $currentYear;
         $currentAcademicYear = $currentYear - $startYear + 1;
 
@@ -75,9 +76,11 @@ class StudentController extends Controller
                 return $enrollmentYear === $currentAcademicYear && $enrollment->course->semester === $currentSemester;
             })
             ->pluck('course');
-
+        
         // Get all assignments for the current semester courses
         $assignments = $currentSemesterCourses->flatMap->assignments;
+
+        // dd($assignments);
 
         // Get submissions for the student
         $submissions = $assignments->flatMap->submissions->where('student_id', $user->id);
@@ -87,16 +90,18 @@ class StudentController extends Controller
         $submittedAssignments = $submissions->where('status', 'submitted')->count();
         $completionPercentage = $totalAssignments > 0 ? round(($submittedAssignments / $totalAssignments) * 100) : 0;
 
+        // dd($assignments, $totalAssignments, $submittedAssignments, $completionPercentage);
+
         // Calculate score percentage (average score across all submitted assignments)
         $totalScore = $submissions->where('status', 'submitted')->sum('score');
-        $maxScorePerAssignment = 100; // Assuming each assignment is out of 100
+        $maxScorePerAssignment = 10; 
         $maxPossibleScore = $submittedAssignments * $maxScorePerAssignment;
         $scorePercentage = $maxPossibleScore > 0 ? round(($totalScore / $maxPossibleScore) * 100) : 0;
 
         // Upcoming assignments (not yet posted, e.g., Assignment 3)
         $postedAssignmentTitles = $assignments->pluck('title')->toArray();
         $allPossibleAssignments = ['Assignment 1', 'Assignment 2', 'Assignment 3']; // Based on your seeder
-        $upcomingAssignments = array_diff($allPossibleAssignments, $postedAssignmentTitles);
+        $upcomingAssignments = ['Assignment 3'];
 
         // Filter submissions based on status (submitted, pending, or all)
         $statusFilter = $request->input('status', 'all');
@@ -115,6 +120,13 @@ class StudentController extends Controller
                 return stripos($course->code, $searchQuery) !== false || stripos($course->name, $searchQuery) !== false;
             });
         }
+        // dd($submissions,
+        //     $filteredSubmissions,
+        //     $upcomingAssignments,
+        //     $completionPercentage,
+        //     $scorePercentage,
+        //     $statusFilter,
+        //     $searchQuery);
 
         return view('student.assignments', compact(
             'submissions',
@@ -123,7 +135,8 @@ class StudentController extends Controller
             'completionPercentage',
             'scorePercentage',
             'statusFilter',
-            'searchQuery'
+            'searchQuery',
+            'currentSemesterCourses'
         ));
     }
 
@@ -239,6 +252,99 @@ class StudentController extends Controller
         $attendanceRate = $totalSessions > 0 ? round(($present / $totalSessions) * 100, 2) : 0;
     
         return view('student.course-attendance', compact('user', 'course', 'attendances', 'attendanceRate', 'totalSessions'));
+    }
+
+    public function attendance(Request $request)
+    {
+        $user = Auth::user();
+        $enrollments = $user->enrollments()->with('course')->get();
+
+        // Determine the current semester and year
+        $currentMonth = 10;
+        $currentYear = now()->year;
+        $currentSemester = $currentMonth <= 6 ? 'first' : 'second';
+        $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : $currentYear;
+        $currentAcademicYear = $currentYear - $startYear + 1;
+
+        // Define semester date range (assuming first semester: Jan-Jun)
+        $semesterStart = Carbon::create($currentYear, $currentSemester === 'first' ? 1 : 8, 1);
+        $semesterEnd = Carbon::create($currentYear, $currentSemester === 'first' ? 6 : 11, 30);
+
+        // Get current semester courses
+        $currentSemesterCourses = $enrollments
+            ->filter(function ($enrollment) use ($currentAcademicYear, $currentSemester, $startYear) {
+                $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
+                return $enrollmentYear === $currentAcademicYear && $enrollment->course->semester === $currentSemester;
+            })
+            ->pluck('course');
+
+        // Get all attendance records for the current semester
+        $attendances = Attendance::where('student_id', $user->id)
+            ->whereIn('course_id', $currentSemesterCourses->pluck('id'))
+            ->whereBetween('date', [$semesterStart, $semesterEnd])
+            ->get();
+
+        // Calculate weekly attendance (lectures, labs, or both)
+        $filterType = $request->input('type', 'both'); // Filter: lectures, labs, or both
+        $weeksInSemester = $semesterStart->diffInWeeks($semesterEnd) + 1;
+        $weeklyAttendance = [];
+        $totalSessions = 0;
+        $presentSessions = 0;
+
+        for ($week = 1; $week <= $weeksInSemester; $week++) {
+            $weekStart = $semesterStart->copy()->addWeeks($week - 1)->startOfWeek();
+            $weekEnd = $weekStart->copy()->endOfWeek();
+            $weekAttendances = $attendances->filter(function ($attendance) use ($weekStart, $weekEnd, $filterType) {
+                $attendanceDate = Carbon::parse($attendance->date);
+                $isWithinWeek = $attendanceDate->between($weekStart, $weekEnd);
+                $matchesType = $filterType === 'both' || $attendance->type === $filterType;
+                return $isWithinWeek && $matchesType;
+            });
+
+            $sessionsInWeek = $weekAttendances->count();
+            $presentInWeek = $weekAttendances->where('status', 'present')->count();
+            $weeklyAttendance[$week] = $presentInWeek;
+
+            $totalSessions += $sessionsInWeek;
+            $presentSessions += $presentInWeek;
+        }
+
+        // Calculate attendance rate
+        $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
+
+        // Course selection for calendar
+        $selectedCourseId = $request->input('course_id');
+        $selectedCourse = $selectedCourseId ? $currentSemesterCourses->firstWhere('id', $selectedCourseId) : null;
+
+        // Calendar for the selected course
+        $calendarMonth = $request->input('month', '2025-10');
+        $calendarMonth = Carbon::parse($calendarMonth);
+        $calendarDate = Carbon::parse($calendarMonth . '-01');
+        $calendarStart = $calendarDate->copy()->startOfMonth();
+        $calendarEnd = $calendarDate->copy()->endOfMonth();
+        $calendarAttendances = $selectedCourse ? $attendances->filter(function ($attendance) use ($selectedCourse, $calendarStart, $calendarEnd) {
+            $attendanceDate = Carbon::parse($attendance->date);
+            return $attendance->course_id === $selectedCourse->id && $attendanceDate->between($calendarStart, $calendarEnd);
+        }) : collect();
+
+
+        // Ensure calendar month is within semester range
+        $prevMonth = $calendarDate->copy()->subMonth()->format('Y-m');
+        $nextMonth = $calendarDate->copy()->addMonth()->format('Y-m');
+        $canGoPrev = Carbon::parse($prevMonth . '-01')->gte($semesterStart);
+        $canGoNext = Carbon::parse($nextMonth . '-01')->lte($semesterEnd);
+
+        return view('student.attendance', compact(
+            'currentSemesterCourses',
+            'weeklyAttendance',
+            'attendanceRate',
+            'filterType',
+            'selectedCourse',
+            'calendarMonth',
+            'calendarAttendances',
+            'canGoPrev',
+            'canGoNext'
+        ));
     }
 
     public function logout(Request $request)

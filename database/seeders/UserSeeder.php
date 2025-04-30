@@ -15,36 +15,47 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
+                'name' => 'Kamr Rashad',
+                'email' => 'kr@gmail.com',
+                'password' => '111',
+                'role' => 'parent',
+                'gender' => 'male',
+                'phone' => '0593230125',
+                'birth_date' => '1973-05-03'
+            ],
+            [
                 'name' => 'Khaled Kamr',
                 'email' => 'kk@gmail.com',
                 'password' => '111',
                 'role' => 'student',
                 'gender' => 'male',
-                'year' => '2021',
+                'year' => 'senior',
                 'major' => 'Computer Science',
+                'phone' => '01006379503',
+                'birth_date' => '2003-07-03',
+                'parent_id' => '1'
             ],
             [
-                'name' => 'Ahmed Khaled',
-                'email' => 'ak@gmail.com',
+                'name' => 'Yossif Kamr',
+                'email' => 'yk@gmail.com',
                 'password' => '111',
                 'role' => 'student',
                 'gender' => 'male',
-                'year' => '2021',
-                'major' => 'Computer Science'
+                'year' => 'junior',
+                'major' => 'Computer Science',
+                'phone' => '01006379503',
+                'birth_date' => '2005-07-03',
+                'parent_id' => '1'
             ],
             [
-                'name' => 'Kamr Rashad',
-                'email' => 'kr@gmail.com',
-                'password' => '111',
-                'role' => 'parent',
-                'gender' => 'male'
-            ],
-            [
-                'name' => 'Dr. Alaa El-Deen',
-                'email' => 'ae@gmail.com',
+                'name' => 'Dr. Mohamed Marey',
+                'email' => 'mm@gmail.com',
                 'password' => '111',
                 'role' => 'professor',
-                'gender' => 'male'
+                'gender' => 'male',
+                'department' => 'Artificial Intelligence',
+                'phone' => '0123456789',
+                'birth_date' => '1980-01-01'
             ]
         ];
 
