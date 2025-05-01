@@ -33,7 +33,7 @@
         <canvas id="weeklyAttendanceChart" height="100"></canvas>
     </div>
 
-    <!-- Course Selection for Calendar -->
+    <!-- Course Selection for Contribution Graph -->
     <div class="mb-4">
         <label for="courseFilter" class="form-label text-dark fw-bold">Select Course:</label>
         <select id="courseFilter" name="course_id" class="form-select" onchange="this.form.submit()" form="filterForm" style="max-width: 300px;">
@@ -46,34 +46,90 @@
         </select>
     </div>
 
-    <!-- Calendar for Selected Course -->
+    <!-- Contribution Graph for Selected Course -->
     @if ($selectedCourse)
         <div class="card shadow-sm mb-4">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="card-title text-dark">{{ $selectedCourse->code }}: {{ $selectedCourse->name }}</h5>
-                    <div>
-                        <a href="{{ route('student.attendance', ['course_id' => $selectedCourse->id, 'month' => $canGoPrev ? $calendarMonth->copy()->subMonth()->format('Y-m') : $calendarMonth]) }}" class="btn btn-sm btn-secondary {{ !$canGoPrev ? 'disabled' : '' }}">Previous</a>
-                        <span class="text-dark mx-2">{{ $calendarMonth->format('F Y') }}</span>
-                        <a href="{{ route('student.attendance', ['course_id' => $selectedCourse->id, 'month' => $canGoNext ? $calendarMonth->copy()->addMonth()->format('Y-m') : $calendarMonth]) }}" class="btn btn-sm btn-secondary {{ !$canGoNext ? 'disabled' : '' }}">Next</a>
+                <h5 class="card-title text-dark">{{ $selectedCourse->code }}: {{ $selectedCourse->name }}</h5>
+                <div class="contribution-graph mt-3">
+                    <!-- Month Labels -->
+                    <div class="d-flex">
+                        @php
+                            $currentMonth = $semesterStart->copy();
+                            $monthsInSemester = [];
+                            while ($currentMonth <= $semesterEnd) {
+                                $monthLabel = $currentMonth->format('M');
+                                $monthDays = $currentMonth->copy()->startOfMonth()->diffInDays($currentMonth->copy()->endOfMonth()) + 1;
+                                $monthWidth = $monthDays * 3.2; 
+                                $monthsInSemester[$monthLabel] = $monthWidth;
+                                $currentMonth->addMonth();
+                            }
+                        @endphp
+                        <div style="width: 65px;"></div>
+                        @foreach ($monthsInSemester as $month => $width)
+                            <div class="calendar-day-header" style="min-width: {{ $width }}px;">{{ $month }}</div>
+                        @endforeach
                     </div>
-                </div>
-                <div class="calendar">
-                    <div class="d-flex flex-wrap">
-                        @foreach (['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as $day)
-                            <div class="calendar-day-header text-center text-dark fw-bold" style="width: 14.28%;">{{ $day }}</div>
-                        @endforeach
-                        @for ($i = 1; $i < $calendarMonth->copy()->startOfMonth()->dayOfWeek; $i++)
-                            <div class="calendar-day" style="width: 14.28%;"></div>
-                        @endfor
-                        @foreach ($calendarMonth->copy()->startOfMonth()->daysUntil($calendarMonth->copy()->endOfMonth()) as $day)
+                    <!-- Days of the Week -->
+                    <div class="d-flex">
+                        <div class="d-flex flex-column me-2" style="height: 110px; margin-top: -4px;">
+                            <div class="text-dark align-self-end mb-1" style="height: 14px;">sat</div>
+                            <div class="text-dark align-self-end mb-1" style="height: 14px;">sun</div>
+                            <div class="text-dark align-self-end mb-1" style="height: 14px;">mon</div>
+                            <div class="text-dark align-self-end mb-1" style="height: 14px;">tue</div>
+                            <div class="text-dark align-self-end mb-1" style="height: 14px;">wed</div>
+                            <div class="text-dark align-self-end mb-1" style="height: 14px;">thu</div>
+                            <div class="text-dark align-self-end mb-1" style="height: 14px;">fri</div>
+                        </div>
+                        <div class="d-flex flex-column flex-wrap" style="height: 130px;">
                             @php
-                                $attendance = $calendarAttendances->firstWhere('date', $day->format('Y-m-d'));
+                                $currentDate = $semesterStart->copy();
+                                $firstDayOfSemester = $semesterStart->copy()->startOfWeek();
+                                $offset = $firstDayOfSemester->diffInDays($semesterStart, false);
+                                // Add padding for days before the semester start
+                                for ($i = 0; $i < $offset; $i++) {
+                                    // echo '<div class="contribution-day" style="width: 14px; height: 14px; margin: 2px;"></div>';
+                                }
+                                $x = 0;
                             @endphp
-                            <div class="calendar-day text-center {{ $attendance ? ($attendance->status === 'present' ? 'bg-success text-white' : 'bg-danger text-white') : '' }}" style="width: 14.28%; padding: 10px; border: 1px solid #dee2e6;">
-                                {{ $day->day }}
-                            </div>
-                        @endforeach
+                            @while ($currentDate <= $semesterEnd)
+                                @php
+                                    $dateStr = $currentDate->format('Y-m-d');
+                                    $attended = isset($contributionData[$dateStr]) && $contributionData[$dateStr] == 1;
+                                    $dayClass = $attended ? 'bg-success' : 'bg-secondary';
+                                @endphp
+
+                                @if($currentDate->copy()->format('D') != 'Sat' && $x == 0)
+                                    @php
+                                        $dayOfWeek = $currentDate->copy()->dayOfWeek; // 0 (Sun) to 6 (Sat)
+                                    @endphp
+                                    @for ($i = 0; $i < $dayOfWeek + 1; $i++)
+                                        <div class="contribution-day bg-body" style="width: 14px; height: 14px; margin: 2px;"></div>
+                                    @endfor
+                                @endif
+                                @php
+                                    $x++;
+                                @endphp
+
+                                <div class="contribution-day {{ $dayClass }}" style="width: 14px; height: 14px; margin: 2px;" title="{{ $attended ? 'attended on' : 'absent on' }} {{ $currentDate->format('M d, D') }}"></div>
+                                
+                                @if($currentDate->copy()->endOfMonth()->format('d-m-y') == $currentDate->format('d-m-y'))
+                                    @for ($i = 0; $i < 7; $i++)
+                                        <div class="contribution-day bg-body" style="width: 14px; height: 14px; margin: 2px;"></div>
+                                    @endfor
+                                @endif
+                                @php
+                                    $currentDate->addDay();
+                                @endphp
+                            @endwhile
+                        </div>
+                    </div>
+                    <!-- Legend -->
+                    <div class="d-flex align-items-center mt-2">
+                        <span class="text-dark me-2">absent</span>
+                        <div class="contribution-day bg-secondary me-1" style="width: 14px; height: 14px;"></div>
+                        <div class="contribution-day bg-success me-1" style="width: 14px; height: 14px;"></div>
+                        <span class="text-dark ms-1">attended</span>
                     </div>
                 </div>
             </div>
@@ -81,11 +137,7 @@
     @endif
 
     <!-- Hidden Form for Filters -->
-    <form id="filterForm" method="GET" action="{{ route('student.attendance') }}">
-        @if ($selectedCourse)
-            <input type="hidden" name="month" value="{{ $calendarMonth->format('Y-m') }}">
-        @endif
-    </form>
+    <form id="filterForm" method="GET" action="{{ route('student.attendance') }}"></form>
 
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -176,15 +228,15 @@
             border: none;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .calendar-day-header {
-            padding: 10px;
-            border: 1px solid #dee2e6;
-            background-color: #f1f3f5;
+        .contribution-day {
+            border-radius: 3px;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .calendar-day {
-            padding: 10px;
-            border: 1px solid #dee2e6;
+        .contribution-day:hover {
+            opacity: 0.8;
         }
+        
         .form-select {
             background-color: #ffffff;
             border: 1px solid #ced4da;

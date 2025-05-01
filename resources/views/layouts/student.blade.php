@@ -138,7 +138,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #007bff;
+            background: #13a100;
             border-radius: 10px;
             cursor: grab;
             transition: 0.3s;

@@ -312,27 +312,24 @@ class StudentController extends Controller
         // Calculate attendance rate
         $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
 
-        // Course selection for calendar
+        // Course selection for contribution graph
         $selectedCourseId = $request->input('course_id');
         $selectedCourse = $selectedCourseId ? $currentSemesterCourses->firstWhere('id', $selectedCourseId) : null;
 
-        // Calendar for the selected course
-        $calendarMonth = $request->input('month', '2025-10');
-        $calendarMonth = Carbon::parse($calendarMonth);
-        $calendarDate = Carbon::parse($calendarMonth . '-01');
-        $calendarStart = $calendarDate->copy()->startOfMonth();
-        $calendarEnd = $calendarDate->copy()->endOfMonth();
-        $calendarAttendances = $selectedCourse ? $attendances->filter(function ($attendance) use ($selectedCourse, $calendarStart, $calendarEnd) {
-            $attendanceDate = Carbon::parse($attendance->date);
-            return $attendance->course_id === $selectedCourse->id && $attendanceDate->between($calendarStart, $calendarEnd);
-        }) : collect();
-
-
-        // Ensure calendar month is within semester range
-        $prevMonth = $calendarDate->copy()->subMonth()->format('Y-m');
-        $nextMonth = $calendarDate->copy()->addMonth()->format('Y-m');
-        $canGoPrev = Carbon::parse($prevMonth . '-01')->gte($semesterStart);
-        $canGoNext = Carbon::parse($nextMonth . '-01')->lte($semesterEnd);
+        // Prepare contribution graph data for the selected course
+        $contributionData = [];
+        if ($selectedCourse) {
+            $courseAttendances = $attendances->where('course_id', $selectedCourse->id)->where('type', 'lecture');
+            $currentDate = $semesterStart->copy();
+            
+            while ($currentDate <= $semesterEnd) {
+                $dateStr = $currentDate->format('Y-m-d');
+                $dayAttendances = $courseAttendances->where('date', $currentDate);
+                $attended = $dayAttendances->contains('status', 'present');
+                $contributionData[$dateStr] = $attended ? 1 : 0; // 1 for attended, 0 for not attended
+                $currentDate->addDay();
+            }
+        }
 
         return view('student.attendance', compact(
             'currentSemesterCourses',
@@ -340,10 +337,9 @@ class StudentController extends Controller
             'attendanceRate',
             'filterType',
             'selectedCourse',
-            'calendarMonth',
-            'calendarAttendances',
-            'canGoPrev',
-            'canGoNext'
+            'semesterStart',
+            'semesterEnd',
+            'contributionData'
         ));
     }
 
