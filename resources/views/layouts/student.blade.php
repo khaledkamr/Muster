@@ -131,6 +131,7 @@
         
         ::-webkit-scrollbar {
             width: 10px;
+            height: 0; /* Prevent horizontal scrollbar */
         }
 
         ::-webkit-scrollbar-track {
@@ -138,7 +139,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #13a100;
+            background: #007bff;
             border-radius: 10px;
             cursor: grab;
             transition: 0.3s;

@@ -37,7 +37,7 @@
     <div class="mb-4">
         <label for="courseFilter" class="form-label text-dark fw-bold">Select Course:</label>
         <select id="courseFilter" name="course_id" class="form-select" onchange="this.form.submit()" form="filterForm" style="max-width: 300px;">
-            <option value="" {{ !$selectedCourse ? 'selected' : '' }}>Select a course</option>
+            <option value="" {{ !$selectedCourse ? 'selected' : '' }}>All Courses</option>
             @foreach ($currentSemesterCourses as $course)
                 <option value="{{ $course->id }}" {{ $selectedCourse && $selectedCourse->id === $course->id ? 'selected' : '' }}>
                     {{ $course->code }}: {{ $course->name }}
@@ -47,11 +47,11 @@
     </div>
 
     <!-- Contribution Graph for Selected Course -->
-    @if ($selectedCourse)
-        <div class="card shadow-sm mb-4">
+    {{-- @if ($selectedCourse) --}}
+        <div class="card shadow-sm mb-4" style="max-width: 500px;">
             <div class="card-body">
-                <h5 class="card-title text-dark">{{ $selectedCourse->code }}: {{ $selectedCourse->name }}</h5>
-                <div class="contribution-graph mt-3">
+                {{-- <h5 class="card-title text-dark">{{ $selectedCourse->code }}: {{ $selectedCourse->name }}</h5> --}}
+                <div class="contribution-graph">
                     <!-- Month Labels -->
                     <div class="d-flex">
                         @php
@@ -86,10 +86,6 @@
                                 $currentDate = $semesterStart->copy();
                                 $firstDayOfSemester = $semesterStart->copy()->startOfWeek();
                                 $offset = $firstDayOfSemester->diffInDays($semesterStart, false);
-                                // Add padding for days before the semester start
-                                for ($i = 0; $i < $offset; $i++) {
-                                    // echo '<div class="contribution-day" style="width: 14px; height: 14px; margin: 2px;"></div>';
-                                }
                                 $x = 0;
                             @endphp
                             @while ($currentDate <= $semesterEnd)
@@ -125,16 +121,16 @@
                         </div>
                     </div>
                     <!-- Legend -->
-                    <div class="d-flex align-items-center mt-2">
-                        <span class="text-dark me-2">absent</span>
+                    <div class="d-flex align-items-center mt-2 justify-content-end">
                         <div class="contribution-day bg-secondary me-1" style="width: 14px; height: 14px;"></div>
-                        <div class="contribution-day bg-success me-1" style="width: 14px; height: 14px;"></div>
+                        <span class="text-dark me-2">absent</span>
+                        <div class="contribution-day bg-success" style="width: 14px; height: 14px;"></div>
                         <span class="text-dark ms-1">attended</span>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
+    {{-- @endif --}}
 
     <!-- Hidden Form for Filters -->
     <form id="filterForm" method="GET" action="{{ route('student.attendance') }}"></form>

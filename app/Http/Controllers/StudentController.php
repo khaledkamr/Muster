@@ -18,7 +18,24 @@ class StudentController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('student.index', compact('user'));
+        $enrollments = $user->enrollments()->with('course')->get();
+
+        // Determine the current semester and year
+        $currentMonth = 10;
+        $currentYear = now()->year;
+        $currentSemester = $currentMonth <= 6 ? 'first' : 'second';
+        $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : $currentYear;
+        $currentAcademicYear = $currentYear - $startYear + 1;
+
+        // Get current semester courses
+        $currentSemesterCourses = $enrollments
+            ->filter(function ($enrollment) use ($currentAcademicYear, $currentSemester, $startYear) {
+                $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
+                return $enrollmentYear === $currentAcademicYear && $enrollment->course->semester === $currentSemester;
+            })
+            ->pluck('course');
+
+        return view('student.index', compact('user', 'currentSemesterCourses'));
     }
 
     public function grades()
@@ -325,6 +342,17 @@ class StudentController extends Controller
             while ($currentDate <= $semesterEnd) {
                 $dateStr = $currentDate->format('Y-m-d');
                 $dayAttendances = $courseAttendances->where('date', $currentDate);
+                $attended = $dayAttendances->contains('status', 'present');
+                $contributionData[$dateStr] = $attended ? 1 : 0; // 1 for attended, 0 for not attended
+                $currentDate->addDay();
+            }
+        }
+        else {
+            $currentDate = $semesterStart->copy();
+            
+            while ($currentDate <= $semesterEnd) {
+                $dateStr = $currentDate->format('Y-m-d');
+                $dayAttendances = $attendances->where('date', $currentDate);
                 $attended = $dayAttendances->contains('status', 'present');
                 $contributionData[$dateStr] = $attended ? 1 : 0; // 1 for attended, 0 for not attended
                 $currentDate->addDay();
