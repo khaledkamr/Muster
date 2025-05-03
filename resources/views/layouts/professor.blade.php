@@ -20,11 +20,11 @@
             left: 250px;
             width: calc(100% - 250px);
             z-index: 1000;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             z-index: 1;
             display: flex;
             justify-content: space-between;
-            align-items: center
+            align-items: center;
         }
         .search {
             position: relative;
@@ -36,6 +36,8 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
+            border: none;
+            background: none;
         }
         .search input {
             background-color: #d1d1d1ee;
@@ -49,10 +51,6 @@
         .search input:focus {
             background-color: #d1d1d1ee;
             outline: none;
-        }
-        .search button {
-            border: none;
-            background: none;
         }
         .notifications {
             position: relative;
@@ -109,7 +107,6 @@
             background-color: #ffffff;
             color: black;
             border-radius: 30px;
-            /* margin: 0px 20px; */
         }
         .sidebar a.active i {
             color: black;
@@ -127,33 +124,96 @@
             padding: 20px;
             padding-top: 70px;
         }
+        /* Styles for the collapsible course menu */
+        .course-toggle {
+            color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .course-toggle:hover {
+            color: rgb(0, 140, 255);
+            border-radius: 30px;
+        }
+        .course-toggle[aria-expanded="true"] {
+            color: rgb(0, 140, 255);
+        }
+        .course-sub-menu {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            margin: 0 10px 10px 10px;
+        }
+        .course-sub-menu a {
+            padding: 10px 40px;
+            font-size: 0.9rem;
+        }
+        .course-sub-menu a:hover {
+            color: rgb(0, 140, 255);
+            background-color: #2a2a2a;
+        }
+        .course-sub-menu a.active {
+            background-color: #ffffff;
+            color: black;
+        }
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <img class="image pb-3" src="{{asset("imgs/logo.png")}}" alt="MUST">
+        <img class="image pb-3" src="{{ asset('imgs/logo-w.png') }}" alt="MUST">
+
         <ul class="nav flex-column">
+            <!-- Home -->
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('professor.home') ? 'active' : '' }}" href="{{ route('professor.home') }}">
+                <a class="nav-link {{ request()->routeIs('professor.home') ? 'active' : '' }}"
+                   href="{{ route('professor.home') }}">
                     <i class="bi bi-house-door"></i> Home
                 </a>
             </li>
+
+            <!-- Courses -->
+            @foreach (Auth::user()->courses as $course)
+                <li class="nav-item">
+                    <!-- Course Toggle -->
+                    <a class="course-toggle"
+                       data-bs-toggle="collapse"
+                       href="#course-{{ $course->id }}"
+                       role="button"
+                       aria-expanded="false"
+                       aria-controls="course-{{ $course->id }}">
+                        <i class="bi bi-book"></i> {{ $course->code }}
+                    </a>
+
+                    <!-- Course Sub-Menu -->
+                    <div class="collapse course-sub-menu" id="course-{{ $course->id }}">
+                        <a class="nav-link {{ request()->routeIs('professor.students') && request()->query('course_id') == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.students', $course->id) }}">
+                            <i class="bi bi-award"></i> Students
+                        </a>
+                        <a class="nav-link {{ request()->routeIs('professor.attendance') && request()->query('course_id') == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.attendance', ['course_id' => $course->id]) }}">
+                            <i class="bi bi-list-task"></i> Attendance
+                        </a>
+                        <a class="nav-link {{ request()->routeIs('professor.assignments') && request()->query('course_id') == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.assignments', ['course_id' => $course->id]) }}">
+                            <i class="bi bi-list-task"></i> Assignments
+                        </a>
+                    </div>
+                </li>
+            @endforeach
+
+            <!-- Profile -->
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('professor.courses') ? 'active' : '' }}" href="{{ route('professor.courses') }}">
-                    <i class="bi bi-award"></i> Courses
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('professor.assignments') ? 'active' : '' }}" href="{{ route('professor.assignments') }}">
-                    <i class="bi bi-list-task"></i> Assignments
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('professor.profile') ? 'active' : '' }}" href="{{ route('professor.profile') }}">
+                <a class="nav-link {{ request()->routeIs('professor.profile') ? 'active' : '' }}"
+                   href="{{ route('professor.profile') }}">
                     <i class="bi bi-person-fill"></i> Profile
                 </a>
             </li>
+
+            <!-- Logout -->
             <li class="nav-item">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -190,6 +250,37 @@
         @yield('content')
     </div>
 
+    <!-- JavaScript to ensure only one collapse is open at a time -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get all course toggle elements
+            const toggles = document.querySelectorAll('.course-toggle');
+
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', function (e) {
+                    // Get the target collapse element
+                    const targetId = this.getAttribute('href').substring(1); // e.g., "course-1"
+                    const targetCollapse = document.getElementById(targetId);
+
+                    // Close all other collapses
+                    document.querySelectorAll('.course-sub-menu').forEach(collapse => {
+                        if (collapse !== targetCollapse && collapse.classList.contains('show')) {
+                            collapse.classList.remove('show');
+                        }
+                    });
+                });
+            });
+
+            // Highlight the active course menu on page load
+            const activeSubLink = document.querySelector('.course-sub-menu a.active');
+            if (activeSubLink) {
+                const parentCollapse = activeSubLink.closest('.collapse');
+                if (parentCollapse) {
+                    parentCollapse.classList.add('show');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
