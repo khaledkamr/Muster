@@ -26,7 +26,7 @@ class AuthController extends Controller
         if($valid) {
             $user = User::where('email', $request->email)->first();
             if($user->role == 'student') {
-                return redirect(route('student.index'));
+                return redirect(route('student.home'));
             } 
             elseif($user->role == 'professor') {
                 return redirect(route('professor.index'));

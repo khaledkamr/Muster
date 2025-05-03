@@ -18,6 +18,17 @@ class StudentController extends Controller
     public function index()
     {
         $user = Auth::user();
+
+        if($user->major == 'Computer Science') {
+            $major = 'CS';
+        } elseif($user->major == 'Artificial Intelligence') {
+            $major = 'AI';
+        } elseif($user->major == 'Information System') {
+            $major = 'IS';
+        } else {
+            $major = 'GE';
+        }
+
         $enrollments = $user->enrollments()->with('course')->get();
 
         // Determine the current semester and year
@@ -35,7 +46,95 @@ class StudentController extends Controller
             })
             ->pluck('course');
 
-        return view('student.index', compact('user', 'currentSemesterCourses'));
+        $grades = $user->grades()->with('course')->get();
+
+        $gradePoints = [
+            'A+' => 4.0, 'A' => 4.8, 'A-' => 3.7, 'B+' => 3.3, 'B' => 3.0, 'B-' => 2.7, 'C+' => 2.3, 'C' => 2.0, 'C-' => 1.7, 'D+' => 1.3, 'D' => 1.0, 'D-' => 0.7, 'F' => 0.0,
+        ];
+
+        $totalPoints = 0;
+        $totalCourses = $grades->count();
+
+        foreach ($grades as $grade) {
+            $totalPoints += $gradePoints[$grade->grade] ?? 0; 
+        }
+
+        $gpa = $totalCourses > 0 ? round($totalPoints / $totalCourses, 2) : 0.00;
+        $gpa_progress = ($gpa / 4.0) * 100;
+
+        $totalCredits = $grades->sum(function ($grade) {
+            return $grade->course->credit_hours ?? 0; 
+        });
+
+        $maxCredits = 144;
+        $credits_progress = ($totalCredits / $maxCredits) * 100;
+
+        $upcomingAssignments = ['Assignment 3',];
+
+        // Define semester date range (assuming first semester: Jan-Jun)
+        $semesterStart = Carbon::create($currentYear, $currentSemester === 'first' ? 1 : 8, 1);
+        $semesterEnd = Carbon::create($currentYear, $currentSemester === 'first' ? 6 : 11, 30);
+
+        // Get all attendance records for the current semester
+        $attendances = Attendance::where('student_id', $user->id)
+            ->whereIn('course_id', $currentSemesterCourses->pluck('id'))
+            ->whereBetween('date', [$semesterStart, $semesterEnd])
+            ->get();
+
+        // Calculate weekly attendance (lectures, labs, or both)
+        $weeksInSemester = $semesterStart->diffInWeeks($semesterEnd) + 1;
+        $weeklyAttendance = [];
+        $totalSessions = 0;
+        $presentSessions = 0;
+
+        for ($week = 1; $week <= $weeksInSemester; $week++) {
+            $weekStart = $semesterStart->copy()->addWeeks($week - 1)->startOfWeek();
+            $weekEnd = $weekStart->copy()->endOfWeek();
+            $weekAttendances = $attendances->filter(function ($attendance) use ($weekStart, $weekEnd) {
+                $attendanceDate = Carbon::parse($attendance->date);
+                $isWithinWeek = $attendanceDate->between($weekStart, $weekEnd);
+                return $isWithinWeek;
+            });
+
+            $sessionsInWeek = $weekAttendances->count();
+            $presentInWeek = $weekAttendances->where('status', 'present')->count();
+            $weeklyAttendance[$week] = $presentInWeek;
+
+            $totalSessions += $sessionsInWeek;
+            $presentSessions += $presentInWeek;
+        }
+
+        // Calculate attendance rate
+        $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
+
+        // Prepare contribution graph data for the selected course
+        $contributionData = [];
+        $currentDate = $semesterStart->copy();
+        
+        while ($currentDate <= $semesterEnd) {
+            $dateStr = $currentDate->format('Y-m-d');
+            $dayAttendances = $attendances->where('date', $currentDate);
+            $attended = $dayAttendances->contains('status', 'present');
+            $contributionData[$dateStr] = $attended ? 1 : 0; // 1 for attended, 0 for not attended
+            $currentDate->addDay();
+        }
+
+        return view('student.index', compact(
+            'user', 
+            'major', 
+            'currentSemesterCourses', 
+            'gpa', 
+            'gpa_progress', 
+            'totalCredits', 
+            'credits_progress', 
+            'maxCredits', 
+            'upcomingAssignments',
+            'weeklyAttendance',
+            'attendanceRate',
+            'semesterStart',
+            'semesterEnd',
+            'contributionData'
+        ));
     }
 
     public function grades()
@@ -97,8 +196,6 @@ class StudentController extends Controller
         // Get all assignments for the current semester courses
         $assignments = $currentSemesterCourses->flatMap->assignments;
 
-        // dd($assignments);
-
         // Get submissions for the student
         $submissions = $assignments->flatMap->submissions->where('student_id', $user->id);
 
@@ -106,8 +203,6 @@ class StudentController extends Controller
         $totalAssignments = $assignments->count();
         $submittedAssignments = $submissions->where('status', 'submitted')->count();
         $completionPercentage = $totalAssignments > 0 ? round(($submittedAssignments / $totalAssignments) * 100) : 0;
-
-        // dd($assignments, $totalAssignments, $submittedAssignments, $completionPercentage);
 
         // Calculate score percentage (average score across all submitted assignments)
         $totalScore = $submissions->where('status', 'submitted')->sum('score');
@@ -117,7 +212,7 @@ class StudentController extends Controller
 
         // Upcoming assignments (not yet posted, e.g., Assignment 3)
         $postedAssignmentTitles = $assignments->pluck('title')->toArray();
-        $allPossibleAssignments = ['Assignment 1', 'Assignment 2', 'Assignment 3']; // Based on your seeder
+        $allPossibleAssignments = ['Assignment 1', 'Assignment 2', 'Assignment 3']; 
         $upcomingAssignments = ['Assignment 3'];
 
         // Filter submissions based on status (submitted, pending, or all)
@@ -137,13 +232,6 @@ class StudentController extends Controller
                 return stripos($course->code, $searchQuery) !== false || stripos($course->name, $searchQuery) !== false;
             });
         }
-        // dd($submissions,
-        //     $filteredSubmissions,
-        //     $upcomingAssignments,
-        //     $completionPercentage,
-        //     $scorePercentage,
-        //     $statusFilter,
-        //     $searchQuery);
 
         return view('student.assignments', compact(
             'submissions',

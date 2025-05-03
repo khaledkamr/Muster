@@ -8,6 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #002361;
+            --secondary: #0A9442;
+        }
         body {
             background-color: #eeee;
             color: #ffffff;
@@ -25,7 +29,8 @@
             z-index: 1;
             display: flex;
             justify-content: space-between;
-            align-items: center
+            align-items: center;
+            z-index: 100;
         }
         .search {
             position: relative;
@@ -135,12 +140,12 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #d3d2d2;
+            background: #0A9442 !important;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #007bff;
-            border-radius: 10px;
+            background: #002361 !important;
+            /* color: #00246171; */
             cursor: grab;
             transition: 0.3s;
         }
