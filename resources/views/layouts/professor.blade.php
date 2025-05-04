@@ -178,27 +178,22 @@
             @foreach (Auth::user()->courses as $course)
                 <li class="nav-item">
                     <!-- Course Toggle -->
-                    <a class="course-toggle"
-                       data-bs-toggle="collapse"
-                       href="#course-{{ $course->id }}"
-                       role="button"
-                       aria-expanded="false"
-                       aria-controls="course-{{ $course->id }}">
+                    <a class="course-toggle" data-bs-toggle="collapse" href="#course-{{ $course->id }}" role="button" aria-expanded="false" aria-controls="course-{{ $course->id }}">
                         <i class="bi bi-book"></i> {{ $course->code }}
                     </a>
 
                     <!-- Course Sub-Menu -->
                     <div class="collapse course-sub-menu" id="course-{{ $course->id }}">
-                        <a class="nav-link {{ request()->routeIs('professor.students') && request()->query('course_id') == $course->id ? 'active' : '' }}"
-                           href="{{ route('professor.students', $course->id) }}">
+                        <a class="nav-link {{ request()->routeIs('professor.course.students') && $courseId == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.course.students', $course->id) }}">
                             <i class="bi bi-award"></i> Students
                         </a>
-                        <a class="nav-link {{ request()->routeIs('professor.attendance') && request()->query('course_id') == $course->id ? 'active' : '' }}"
-                           href="{{ route('professor.attendance', ['course_id' => $course->id]) }}">
+                        <a class="nav-link {{ request()->routeIs('professor.course.attendance') && $courseId == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.course.attendance', $course->id) }}">
                             <i class="bi bi-list-task"></i> Attendance
                         </a>
-                        <a class="nav-link {{ request()->routeIs('professor.assignments') && request()->query('course_id') == $course->id ? 'active' : '' }}"
-                           href="{{ route('professor.assignments', ['course_id' => $course->id]) }}">
+                        <a class="nav-link {{ request()->routeIs('professor.course.assignments') && $courseId == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.course.assignments', $course->id) }}">
                             <i class="bi bi-list-task"></i> Assignments
                         </a>
                     </div>
@@ -250,34 +245,56 @@
         @yield('content')
     </div>
 
-    <!-- JavaScript to ensure only one collapse is open at a time -->
+    <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get all course toggle elements
-            const toggles = document.querySelectorAll('.course-toggle');
+        // Ensure only one course sub-menu is open at a time
+        document.querySelectorAll('.course-toggle').forEach(function(toggle) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get the target collapse element
+                const collapseId = this.getAttribute('href');
+                const collapseElement = document.querySelector(collapseId);
+                
+                // Toggle the collapse state
+                const bsCollapse = new bootstrap.Collapse(collapseElement, {
+                    toggle: true
+                });
 
-            toggles.forEach(toggle => {
-                toggle.addEventListener('click', function (e) {
-                    // Get the target collapse element
-                    const targetId = this.getAttribute('href').substring(1); // e.g., "course-1"
-                    const targetCollapse = document.getElementById(targetId);
-
-                    // Close all other collapses
-                    document.querySelectorAll('.course-sub-menu').forEach(collapse => {
-                        if (collapse !== targetCollapse && collapse.classList.contains('show')) {
-                            collapse.classList.remove('show');
-                        }
-                    });
+                // Close other open collapses
+                document.querySelectorAll('.course-sub-menu.collapse.show').forEach(function(otherCollapse) {
+                    if (otherCollapse !== collapseElement) {
+                        new bootstrap.Collapse(otherCollapse, {
+                            toggle: false
+                        }).hide();
+                    }
                 });
             });
+        });
 
-            // Highlight the active course menu on page load
-            const activeSubLink = document.querySelector('.course-sub-menu a.active');
-            if (activeSubLink) {
-                const parentCollapse = activeSubLink.closest('.collapse');
-                if (parentCollapse) {
-                    parentCollapse.classList.add('show');
+        // Prevent sub-menu collapse when clicking links
+        document.querySelectorAll('.course-sub-menu a').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent event from bubbling up to toggle
+            });
+        });
+
+        // Auto-expand course sub-menu based on current route
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentRoute = window.location.pathname;
+            const courseRoutes = ['students', 'attendance', 'assignments'];
+
+            console.log(courseRoutes.some(route => currentRoute.includes(route)));
+
+            if (courseRoutes.some(route => currentRoute.includes(route))) {
+                const courseId = currentRoute.split('/').pop();
+                console.log(courseId);
+                const courseCollapse = document.querySelector(`#course-${courseId}`);
+                if (courseCollapse) {
+                    new bootstrap.Collapse(courseCollapse, {
+                        show: true
+                    });
                 }
             }
         });

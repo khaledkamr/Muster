@@ -29,8 +29,6 @@ class AuthController extends Controller
                 return redirect(route('student.home'));
             } 
             elseif($user->role == 'professor') {
-                $courses = $user->courses;
-                $selectedCourse = $courses->first();
                 return redirect(route('professor.index', compact('courses', 'selectedCourse')));
             }
             elseif($user->role == 'parent') {
