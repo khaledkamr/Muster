@@ -158,7 +158,7 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <img class="image pb-4" src="{{asset("imgs/logo-w.png")}}" alt="MUST">
+        <img class="image pb-4" src="{{asset("imgs/logo.png")}}" alt="MUST">
         {{-- <h2 class="text-center fw-bold">Muster</h2> --}}
         <ul class="nav flex-column">
             <li class="nav-item">

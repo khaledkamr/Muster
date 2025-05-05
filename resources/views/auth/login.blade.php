@@ -119,7 +119,7 @@
             <div class="col-md-6 col-lg-4">
                 <div class="card">
                     <div class="text-center">
-                        <img src="{{ asset('imgs/logo-w.png') }}" alt="Logo" class="img-fluid pt-5 pb-2" style="max-width: 150px;">
+                        <img src="{{ asset('imgs/logo.png') }}" alt="Logo" class="img-fluid pt-5 pb-2" style="max-width: 150px;">
                     </div>
                     <div class="card-body">
                         <form class="form pb-5" method="POST" action="{{ route('login') }}">
