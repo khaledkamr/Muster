@@ -64,8 +64,104 @@ class ProfessorController extends Controller
     public function attendance($courseId)
     {
         $course = $courseId ? Course::find($courseId) : null;
+        $view = request('view', 'week1');
+        $weeks = [
+            'week1' => [
+                'start' => Carbon::parse('2025-08-01'),
+                'end' => Carbon::parse('2025-08-07'),
+            ],
+            'week2' => [
+                'start' => Carbon::parse('2025-08-08'),
+                'end' => Carbon::parse('2025-08-14'),
+            ],
+            'week3' => [
+                'start' => Carbon::parse('2025-08-15'),
+                'end' => Carbon::parse('2025-08-21'),
+            ],
+            'week4' => [
+                'start' => Carbon::parse('2025-08-22'),
+                'end' => Carbon::parse('2025-08-28'),
+            ],
+            'week5' => [
+                'start' => Carbon::parse('2025-08-29'),
+                'end' => Carbon::parse('2025-09-04'),
+            ],
+            'week6' => [
+                'start' => Carbon::parse('2025-09-05'),
+                'end' => Carbon::parse('2025-09-11'),
+            ],
+            'week7' => [
+                'start' => Carbon::parse('2025-09-12'),
+                'end' => Carbon::parse('2025-09-18'),
+            ],
+            'week8' => [
+                'start' => Carbon::parse('2025-09-19'),
+                'end' => Carbon::parse('2025-09-25'),
+            ],
+            'week9' => [
+                'start' => Carbon::parse('2025-09-26'),
+                'end' => Carbon::parse('2025-10-02'),
+            ],
+            'week10' => [
+                'start' => Carbon::parse('2025-10-03'),
+                'end' => Carbon::parse('2025-10-09'),
+            ],
+            'week11' => [
+                'start' => Carbon::parse('2025-10-10'),
+                'end' => Carbon::parse('2025-10-16'),
+            ],
+        ];
 
-        return view('professor.attendance', compact('course', 'courseId'));
+        $attendanceRecords = $course ? $course->attendance
+            ->filter(function ($attendance) use ($view, $weeks) {
+                return Carbon::parse($attendance->date)->greaterThanOrEqualTo($weeks[$view]['start']) 
+                    && Carbon::parse($attendance->date)->lessThanOrEqualTo($weeks[$view]['end']);
+            }) : collect();
+
+
+        // Aggregate attendance data for all weeks
+        $weeklyAttendance = [];
+        $allAttendanceRecords = $course ? $course->attendance->filter(function ($attendance) {
+            return Carbon::parse($attendance->date)->greaterThanOrEqualTo(Carbon::parse('2025-08-01'));
+        }) : collect();
+
+        foreach ($weeks as $weekKey => $week) {
+            $weekRecords = $allAttendanceRecords->filter(function ($record) use ($week) {
+                return Carbon::parse($record->date)->betweenIncluded($week['start'], $week['end']);
+            });
+            $weeklyAttendance[$weekKey] = [
+                'present' => $weekRecords->where('status', 'present')->count(),
+                'absent' => $weekRecords->where('status', 'absent')->count(),
+                'late' => $weekRecords->where('status', 'late')->count(),
+            ];
+        }
+        // dd($weeklyAttendance);
+
+        $statusFilter = request('status', 'all');
+        if($statusFilter === 'present') {
+            $attendanceRecords = $attendanceRecords->where('status', 'present');
+        } elseif ($statusFilter === 'absent') {
+            $attendanceRecords = $attendanceRecords->where('status', 'absent');
+        }
+        elseif ($statusFilter === 'late') {
+            $attendanceRecords = $attendanceRecords->where('status', 'late');
+        }
+
+        $typeFilter = request('type', 'all');
+        if($typeFilter === 'lecture') {
+            $attendanceRecords = $attendanceRecords->where('type', 'lecture');
+        } elseif ($typeFilter === 'lab') {
+            $attendanceRecords = $attendanceRecords->where('type', 'lab');
+        }
+
+        $searchQuery = request('search', '');
+        if ($searchQuery) {
+            $attendanceRecords = $attendanceRecords->filter(function ($attendance) use ($searchQuery) {
+                return stripos($attendance->student->id, $searchQuery) !== false;
+            });
+        }
+
+        return view('professor.attendance', compact('course', 'courseId', 'attendanceRecords', 'view', 'statusFilter', 'typeFilter', 'searchQuery', 'weeklyAttendance', 'weeks'));
     }
 
     public function profile()

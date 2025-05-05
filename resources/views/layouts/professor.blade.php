@@ -34,7 +34,7 @@
             margin: 0;
         }
         .navbar {
-            background-color: #eeee;
+            background-color: #eeeeee;
             position: fixed;
             top: 0;
             left: 250px;
