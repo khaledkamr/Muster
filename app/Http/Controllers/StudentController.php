@@ -251,7 +251,7 @@ class StudentController extends Controller
         $grades = $user->grades()->with('course')->get();
 
         $gradePoints = [
-            'A+' => 4.0,
+            'A+' => 4.0, 
             'A'  => 4.8,
             'A-' => 3.7,
             'B+' => 3.3,

@@ -6,7 +6,27 @@
     <title>Professor Dashboard - @yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 0; /* Prevent horizontal scrollbar */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A9442 !important;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #002361 !important;
+            /* color: #00246171; */
+            cursor: grab;
+            transition: 0.3s;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0157b3;
+        }
         body {
             background-color: #eeee;
             color: #ffffff;
@@ -186,15 +206,15 @@
                     <div class="collapse course-sub-menu" id="course-{{ $course->id }}">
                         <a class="nav-link {{ request()->routeIs('professor.course.students') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.students', $course->id) }}">
-                            <i class="bi bi-award"></i> Students
+                           <i class="fa-solid fa-users"></i> Students
                         </a>
                         <a class="nav-link {{ request()->routeIs('professor.course.attendance') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.attendance', $course->id) }}">
-                            <i class="bi bi-list-task"></i> Attendance
+                           <i class="fa-solid fa-clipboard-user ps-1 pe-1"></i> Attendance
                         </a>
                         <a class="nav-link {{ request()->routeIs('professor.course.assignments') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.assignments', $course->id) }}">
-                            <i class="bi bi-list-task"></i> Assignments
+                           <i class="bi bi-list-task pe-1"></i> Assignments
                         </a>
                     </div>
                 </li>
