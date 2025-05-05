@@ -15,21 +15,23 @@
         </select>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-dark table-bordered" id="gradesTable">
-            <thead>
-                <tr class="text-center">
-                    <th>Course</th>
-                    <th>Difficulty</th>
-                    <th>Type</th>
-                    <th>Grade</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="table-container">
+            <table class="table table-striped" id="gradesTable">
+                <thead>
+                    <tr>
+                        <th class="bg-dark text-light text-center">Course</th>
+                        <th class="bg-dark text-light text-center">Difficulty</th>
+                        <th class="bg-dark text-light text-center">Type</th>
+                        <th class="bg-dark text-light text-center">Grade</th>
+                        <th class="bg-dark text-light text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
@@ -71,13 +73,13 @@
                     const row = document.createElement('tr');
                     const courseDetailsUrl = courseDetailsBaseUrl.replace(':id', course.id);
                     row.innerHTML = `
-                        <td>${course.code}: ${course.name}</td>
-                        <td>${course.difficulty.charAt(0).toUpperCase() + course.difficulty.slice(1)}</td>
-                        <td>${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</td>
-                        <td class="text-${grade.status === 'pass' ? 'success' : 'danger'}">${grade.grade || 'N/A'}</td>
-                        <td>
-                            <a href="${courseDetailsUrl}" class="btn btn-sm btn-success ps-3 pe-3">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Details
+                        <td class="text-center">${course.code}: ${course.name}</td>
+                        <td class="text-center">${course.difficulty.charAt(0).toUpperCase() + course.difficulty.slice(1)}</td>
+                        <td class="text-center">${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</td>
+                        <td class="text-center text-${grade.status === 'pass' ? 'success' : 'danger'}">${grade.grade || 'N/A'}</td>
+                        <td class="text-center action-icons">
+                            <a href="${courseDetailsUrl}" class="btn btn-sm btn-success text-light ps-3 pe-3">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-light"></i> Details
                             </a>
                         </td>
                     `;
@@ -88,26 +90,79 @@
     </script>
 
     <style>
-        .table-dark th, .table-dark td {
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        .table-dark th, .table-dark td {
-            border: none;
-        }
-        .table-dark {
-            background-color: #343640;
-        }
-        .form-select {
-            background-color: #495057;
-            color: #ffffff;
-            border: 1px solid #6c757d;
-        }
-        .form-select:focus {
-            background-color: #495057;
-            color: #ffffff;
-            border-color: #58bc82;
-            box-shadow: 0 0 0 0.2rem rgba(88, 188, 130, 0.25);
-        }
+           .table-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0;
+    }
+    .table thead {
+        background-color: #f8f9fa;
+        color: #333;
+    }
+    .table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .table td {
+        padding: 15px;
+        font-size: 14px;
+        color: #333;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .table tbody tr:hover {
+        background-color: #f1f3f5;
+    }
+    .table .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
+    .table .status-completed {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
+    .table .status-refunded {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
+    .action-icons a, .action-icons form {
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .action-icons i {
+        font-size: 16px;
+        color: #6c757d;
+    }
+    .action-icons i:hover {
+        color: #007bff;
+    }
+    .action-icons .delete-icon:hover {
+        color: #dc3545;
+    }
+    .action-icons form button {
+        background: none;
+        border: none;
+        padding: 0;
+    }
     </style>
 @endsection

@@ -20,76 +20,79 @@
 
     <div class="d-flex align-items-center mb-3 ">
         <h4 class="text-dark fw-bold mb-0">{{ $course->name }}</h4>
-        <span class="text-dark ms-3">{{ $course->credits }} HRs</span>
+        <span class="text-dark ms-3">{{ $course->credit_hours }} HRs</span>
     </div>
 
     <div class="text-center mb-4">
-        <div class="position-relative d-inline-block" style="width: 200px; height: 200px;">
+        <div class="position-relative d-inline-block" style="width: 200px; height: 150px;">
             <canvas id="totalScoreChart"></canvas>
             <div class="position-absolute top-50 start-50 translate-middle text-center">
-                <span class="fs-3 text-dark fw-bold d-block">{{ $percentage }}%</span>
-                <span class="fs-5 text-dark">{{ $totalScore }}/{{ $totalMaxScore }}</span>
+                <span class="fs-4 text-dark fw-bold d-block">{{ $percentage }}%</span>
+                <span class="fs-6 text-dark">{{ $totalScore }}/{{ $totalMaxScore }}</span>
             </div>
         </div>
         <h5 class="text-dark mt-2">Result</h5>
     </div>
 
-    <div class="grades row justify-content-left mb-4">
-        <div class="col-6 col-md-3 mb-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h6 class="text-dark fw-bold">Quiz 1</h6>
-                    <span class="text-dark">{{ $displayScores['quiz1'] }}</span>
-                    <span class="text-success">/{{ $displayMaxScores['quiz1'] }}</span>
+    <div class="container">
+        <div class="grades row justify-content-left mb-4">
+            <div class="col-6 col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-dark fw-bold">Quiz 1</h6>
+                        <span class="text-dark">{{ $displayScores['quiz1'] }}</span>
+                        <span class="text-success">/{{ $displayMaxScores['quiz1'] }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6 col-md-3 mb-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h6 class="text-dark fw-bold">Quiz 2</h6>
-                    <span class="text-dark">{{ $displayScores['quiz2'] }}</span>
-                    <span class="text-success">/{{ $displayMaxScores['quiz2'] }}</span>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-dark fw-bold">Quiz 2</h6>
+                        <span class="text-dark">{{ $displayScores['quiz2'] }}</span>
+                        <span class="text-success">/{{ $displayMaxScores['quiz2'] }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6 col-md-3 mb-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h6 class="text-dark fw-bold">Midterm</h6>
-                    <span class="text-dark">{{ $displayScores['midterm'] }}</span>
-                    <span class="text-success">/{{ $displayMaxScores['midterm'] }}</span>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-dark fw-bold">Midterm</h6>
+                        <span class="text-dark">{{ $displayScores['midterm'] }}</span>
+                        <span class="text-success">/{{ $displayMaxScores['midterm'] }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6 col-md-3 mb-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h6 class="text-dark fw-bold">Project</h6>
-                    <span class="text-dark">{{ $displayScores['project'] }}</span>
-                    <span class="text-success">/{{ $displayMaxScores['project'] }}</span>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-dark fw-bold">Project</h6>
+                        <span class="text-dark">{{ $displayScores['project'] }}</span>
+                        <span class="text-success">/{{ $displayMaxScores['project'] }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6 col-md-3 mb-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h6 class="text-dark fw-bold">Assignments</h6>
-                    <span class="text-dark">{{ $displayScores['assignments'] }}</span>
-                    <span class="text-success">/{{ $displayMaxScores['assignments'] }}</span>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-dark fw-bold">Assignments</h6>
+                        <span class="text-dark">{{ $displayScores['assignments'] }}</span>
+                        <span class="text-success">/{{ $displayMaxScores['assignments'] }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6 col-md-3 mb-3">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h6 class="text-dark fw-bold">Final</h6>
-                    <span class="text-dark">{{ $displayScores['final'] }}</span>
-                    <span class="text-success">/{{ $displayMaxScores['final'] }}</span>
+            <div class="col-6 col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6 class="text-dark fw-bold">Final</h6>
+                        <span class="text-dark">{{ $displayScores['final'] }}</span>
+                        <span class="text-success">/{{ $displayMaxScores['final'] }}</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Final Grade and Status -->
     <div class="text-center text-dark">
