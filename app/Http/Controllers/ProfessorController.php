@@ -10,10 +10,47 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfessorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
-        return view('professor.index', compact('user'));
+        $professor = Auth::user();
+        $courses = $professor->courses()->get();
+
+        // Attendance Summary
+        $totalSessions = $courses->sum(function ($course) {
+            return $course->attendance->count();
+        });
+        $presentCount = $courses->sum(function ($course) {
+            return $course->attendance->where('status', 'present')->count();
+        });
+        $attendanceRate = $totalSessions > 0 ? ($presentCount / $totalSessions) * 100 : 0;
+
+        // Assignment Status
+        $totalSubmissions = $courses->flatMap(function ($course) {
+            return $course->assignments->flatMap->submissions;
+        })->count();
+        $submittedCount = $courses->flatMap(function ($course) {
+            return $course->assignments->flatMap->submissions->where('status', 'submitted');
+        })->count();
+        $pendingCount = $totalSubmissions - $submittedCount;
+
+        // Student Performance (Average Score)
+        $totalScores = $courses->flatMap(function ($course) {
+            return $course->assignments->flatMap->submissions->pluck('score');
+        })->filter()->avg() ?? 0;
+
+        // Upcoming Events (Placeholder Data)
+        $upcomingEvents = [
+            ['title' => 'Midterm Exam', 'date' => '2025-05-10'],
+            ['title' => 'Class Meeting', 'date' => '2025-05-12'],
+        ];
+
+        // Notifications (Placeholder Data)
+        $notifications = [
+            ['message' => 'Student requested assignment extension', 'time' => '2h ago'],
+            ['message' => 'New course material uploaded', 'time' => '1d ago'],
+        ];
+
+        return view('professor.index', compact('courses', 'attendanceRate', 'totalSubmissions', 'submittedCount', 'pendingCount', 'totalScores', 'upcomingEvents', 'notifications'));
     }
 
     public function students($courseId)
