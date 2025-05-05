@@ -2,5 +2,5 @@
 @section('title', 'Attendance')
 
 @section('content')
-<h3 class="text-dark">hello attendance</h3>
+<h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Attendance</h2>
 @endsection

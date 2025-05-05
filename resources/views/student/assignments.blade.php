@@ -173,9 +173,6 @@
     </script>
 
     <style>
-        /* .content {
-            background-color: #f8f9fa; /* Light mode background */
-        } */
         .card {
             background-color: #ffffff;
             border: none;

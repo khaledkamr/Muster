@@ -30,8 +30,35 @@ class ProfessorController extends Controller
     public function assignments($courseId)
     {
         $course = $courseId ? Course::find($courseId) : null;
+        $view = request('view', 'assign1');
 
-        return view('professor.assignments', compact('course', 'courseId'));
+        $submissions = $course ? $course->assignments
+            ->filter(function ($assignment) use ($view) {
+                return Carbon::parse($assignment->due_date)->greaterThanOrEqualTo(Carbon::parse('2025-08-01')) 
+                    && $assignment->title === ($view === 'assign1' ? 'Assignment 1' : 'Assignment 2');
+            })
+            ->flatMap(function ($assignment) {
+                return $assignment->submissions;
+            }) : collect();
+
+        $statusFilter = request('status', 'all');
+        $searchQuery = request('search', '');
+
+        $filteredSubmissions = $submissions;
+
+        if ($statusFilter === 'submitted') {
+            $filteredSubmissions = $filteredSubmissions->where('status', 'submitted');
+        } elseif ($statusFilter === 'pending') {
+            $filteredSubmissions = $filteredSubmissions->where('status', 'pending');
+        }
+
+        if ($searchQuery) {
+            $filteredSubmissions = $filteredSubmissions->filter(function ($submission) use ($searchQuery) {
+                return stripos($submission->user->id, $searchQuery) !== false;
+            });
+        }
+
+        return view('professor.assignments', compact('course', 'courseId', 'filteredSubmissions', 'statusFilter', 'searchQuery'));
     }
 
     public function attendance($courseId)

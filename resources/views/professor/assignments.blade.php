@@ -3,5 +3,191 @@
 @section('title', 'Assignments')
 
 @section('content')
-   
+<h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Assignments</h2>
+
+<!-- Pie Chart -->
+
+<ul class="nav nav-tabs mb-4">
+    <li class="nav-item">
+        <a class="nav-link {{ request()->query('view', 'assign1') === 'assign1' ? 'active' : '' }}" href="?view=assign1">Assignment 1</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ request()->query('view') === 'assign2' ? 'active' : '' }}" href="?view=assign2">Assignment 2</a>
+    </li>
+    <li class="nav-item"> 
+        <a class="nav-link" href="">+</a>
+    </li>
+</ul>
+
+<!-- Filters and Search -->
+<div class="row mb-4">
+    <div class="col-md-6 mt-2">
+        <div class="d-flex flex-column gap-5">
+            <div>
+                <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Status:</label>
+                <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()" form="filterForm">
+                    <option value="all" {{ $statusFilter === 'all' ? 'selected' : '' }}>All</option>
+                    <option value="submitted" {{ $statusFilter === 'submitted' ? 'selected' : '' }}>Submitted</option>
+                    <option value="pending" {{ $statusFilter === 'pending' ? 'selected' : '' }}>Pending</option>
+                </select>
+            </div>
+            <div>
+                <label for="search" class="form-label text-dark fw-bold">Search by Student ID:</label>
+                <input type="text" id="search" name="search" class="form-control" value="{{ $searchQuery }}" placeholder="Search by student id" form="filterForm">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4" style="position: relative; height: 200px;">
+        <canvas id="statusPieChart"></canvas>
+    </div>
+</div>
+
+<!-- Hidden form to handle filters -->
+<form id="filterForm" method="GET" action="{{ route('professor.course.assignments', $courseId) }}">
+    <input type="hidden" name="view" value="{{ request()->query('view', 'assign1') }}">
+</form>
+
+<div class="table-container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="bg-dark text-light text-center">Student ID</th>
+                <th class="bg-dark text-light text-center">Student Name</th>
+                <th class="bg-dark text-light text-center">Assignment Title</th>
+                <th class="bg-dark text-light text-center">Assignment Status</th>
+                <th class="bg-dark text-light text-center">Submission Date</th>
+                <th class="bg-dark text-light text-center">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($filteredSubmissions as $submission)
+                <tr>
+                    <td class="text-center">{{ $submission->student_id }}</td>
+                    <td class="text-center">{{ $submission->user->name }}</td>
+                    <td class="text-center">{{ $submission->assignment->title }}</td>
+                    <td class="text-center">
+                        <span class="status-{{ $submission->status }}">{{ ucfirst($submission->status) }}</span>
+                    </td>
+                    <td class="text-center">{{ $submission->submitted_at ? $submission->submitted_at->format('Y-m-d') : 'Not submitted' }}</td>
+                    <td class="text-center">{{ $submission->score }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Prepare data for the pie chart
+    const submittedCount = {{ $filteredSubmissions->where('status', 'submitted')->count() }};
+    const pendingCount = {{ $filteredSubmissions->where('status', 'pending')->count() }};
+    const total = submittedCount + pendingCount;
+
+    const ctx = document.getElementById('statusPieChart').getContext('2d');
+    const statusPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Submitted', 'Pending'],
+            datasets: [{
+                data: [submittedCount, pendingCount],
+                backgroundColor: ['#79f596', '#ff808a'],
+                borderWidth: 1,
+                borderColor: '#eee'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: '#333'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Submission Status Distribution',
+                    color: '#333',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                    
+                }
+            }
+        }
+    });
+</script>
+
+<style>
+    .table-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0;
+    }
+    .table thead {
+        background-color: #f8f9fa;
+        color: #333;
+    }
+    .table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .table td {
+        padding: 15px;
+        font-size: 14px;
+        color: #333;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .table tbody tr:hover {
+        background-color: #f1f3f5;
+    }
+    .table .status-submitted {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
+    .table .status-pending {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
+    .action-icons a, .action-icons form {
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .action-icons i {
+        font-size: 16px;
+        color: #6c757d;
+    }
+    .action-icons i:hover {
+        color: #007bff;
+    }
+    .action-icons .delete-icon:hover {
+        color: #dc3545;
+    }
+    .chart-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+</style>
 @endsection
