@@ -286,6 +286,31 @@
                     </div>
                 </div>
             </div>
+
+            <div class="bg-body shadow rounded p-3" style="height: 240px;">
+                <div class="d-flex"> 
+                    <h5 class="text-dark fw-bold pb-3">Offers</h5>
+                    <h6 class="text-dark ms-2 pt-1"> | Only for you</h6>
+                </div>
+                <div class="d-flex flex-column">
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;">
+                        <i class="fa-solid fa-tag text-primary pe-2"></i> Get 20% off on your next purchase with code <strong>STUDENT20</strong>
+                    </p>
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;">
+                        <i class="fa-solid fa-gift text-primary pe-2"></i> Special discount on campus bookstore: 15% off on all textbooks
+                    </p>
+                    <p class="text-muted mb-2" style="font-size: 0.9rem;">
+                        <i class="fa-solid fa-graduation-cap text-primary pe-2"></i> Early bird registration bonus: Save 10% on next semester courses
+                    </p>
+                    <p class="text-muted mb-0" style="font-size: 0.9rem;">
+                        <i class="fa-solid fa-laptop text-primary pe-2"></i> Student laptop program: Exclusive prices on selected models
+                    </p>
+                </div>
+                
+                <div class="d-flex justify-content-end">
+                    <a href="#" class="btn btn-primary mt-3" style="background-color: var(--primary);">View All Offers</a>
+                </div>
+            </div>
         </div>
     </div>
 
