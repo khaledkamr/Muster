@@ -63,8 +63,40 @@ class ProfessorController extends Controller
             ->map(function ($enrollment) {
             return $enrollment->student;
             }) : collect();
+
+        $searchQuery = request()->query('search');
+        if ($searchQuery) {
+            $students = $students->filter(function ($student) use ($searchQuery) {
+                return stripos($student->id, $searchQuery) !== false || stripos($student->name, $searchQuery) !== false;
+            });
+        }
+
         return view('professor.students', compact('course', 'courseId', 'students'));
     }
+
+    public function grades($courseId)
+{
+    $course = Course::findOrFail($courseId);
+    $searchQuery = request()->query('search');
+
+    $students = $course->enrollments()
+        ->where('enrolled_at', '>=', Carbon::parse('2025-08-01')) 
+        ->with(['student', 'student.grades' => function ($query) use ($courseId) {
+            $query->where('course_id', $courseId); 
+        }])
+        ->get()
+        ->map(function ($enrollment) {
+            return $enrollment->student;
+        });
+
+    if ($searchQuery) {
+        $students = $students->filter(function ($student) use ($searchQuery) {
+            return stripos($student->id, $searchQuery) !== false || stripos($student->name, $searchQuery) !== false;
+        });
+    }
+
+    return view('professor.grades', compact('course', 'courseId', 'students'));
+}
 
     public function assignments($courseId)
     {

@@ -48,9 +48,14 @@
                     </div>
                 </div>
                 <!-- Search -->
-                <div>
-                    <label for="search" class="form-label text-dark fw-bold">Search by Student ID:</label>
-                    <input type="text" id="search" name="search" class="form-control" value="{{ $searchQuery }}" placeholder="Search by student id" form="filterForm">
+                <div class="search-container">
+                    <form method="GET" action="{{ route('professor.course.attendance', $courseId) }}" class="d-flex flex-column">
+                        <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
+                        <div class="d-flex">
+                            <input type="text" name="search" class="form-control" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
+                            <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -303,6 +308,15 @@
     }
     .action-icons .delete-icon:hover {
         color: #dc3545;
+    }
+    .search-container {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-start;
+    }
+    .search-container input {
+        width: 300px;
+        margin-right: 10px;
     }
 </style>
 @endsection

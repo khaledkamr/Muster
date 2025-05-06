@@ -31,13 +31,18 @@
                             <option value="pending" {{ $statusFilter === 'pending' ? 'selected' : '' }}>Pending</option>
                         </select>
                     </div>
-                    <!-- Pie Chart -->
-                    <div>
-                        <label for="search" class="form-label text-dark fw-bold">Search by Student ID:</label>
-                        <input type="text" id="search" name="search" class="form-control" value="{{ $searchQuery }}" placeholder="Search by student id" form="filterForm">
+                    <div class="d-flex gap-2">
+                        <form method="GET" action="{{ route('professor.course.assignments', $courseId) }}" class="d-flex flex-column">
+                            <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
+                            <div class="d-flex">
+                                <input type="text" name="search" class="form-control me-2" style="width: 500px" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
+                                <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <!-- Pie Chart -->
             <div class="col-md-6 mb-4" style="position: relative; height: 200px;">
                 <canvas id="statusPieChart"></canvas>
             </div>

@@ -208,13 +208,17 @@
                            href="{{ route('professor.course.students', $course->id) }}">
                            <i class="fa-solid fa-users"></i> Students
                         </a>
+                        <a class="nav-link {{ request()->routeIs('professor.course.grades') && $courseId == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.course.grades', $course->id) }}">
+                           <i class="bi bi-award ps-1"></i> Grades
+                        </a>
                         <a class="nav-link {{ request()->routeIs('professor.course.attendance') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.attendance', $course->id) }}">
                            <i class="fa-solid fa-clipboard-user ps-1 pe-1"></i> Attendance
                         </a>
                         <a class="nav-link {{ request()->routeIs('professor.course.assignments') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.assignments', $course->id) }}">
-                           <i class="bi bi-list-task pe-1"></i> Assignments
+                           <i class="bi bi-list-task pe-1 ps-1"></i> Assignments
                         </a>
                     </div>
                 </li>
@@ -321,7 +325,7 @@
         // Auto-expand course sub-menu based on current route
         document.addEventListener('DOMContentLoaded', function() {
             const currentRoute = window.location.pathname;
-            const courseRoutes = ['students', 'attendance', 'assignments'];
+            const courseRoutes = ['students', 'attendance', 'assignments', 'grades'];
 
             console.log(courseRoutes.some(route => currentRoute.includes(route)));
 
