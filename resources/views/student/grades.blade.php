@@ -20,7 +20,8 @@
             <table class="table table-striped" id="gradesTable">
                 <thead>
                     <tr>
-                        <th class="bg-dark text-light text-center">Course</th>
+                        <th class="bg-dark text-light text-center">Course Code</th>
+                        <th class="bg-dark text-light text-center">Course Name</th>
                         <th class="bg-dark text-light text-center">Difficulty</th>
                         <th class="bg-dark text-light text-center">Type</th>
                         <th class="bg-dark text-light text-center">Grade</th>
@@ -73,7 +74,8 @@
                     const row = document.createElement('tr');
                     const courseDetailsUrl = courseDetailsBaseUrl.replace(':id', course.id);
                     row.innerHTML = `
-                        <td class="text-center">${course.code}: ${course.name}</td>
+                        <td class="text-center">${course.code}</td>
+                        <td class="text-center">${course.name}</td>
                         <td class="text-center">${course.difficulty.charAt(0).toUpperCase() + course.difficulty.slice(1)}</td>
                         <td class="text-center">${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</td>
                         <td class="text-center text-${grade.status === 'pass' ? 'success' : 'danger'}">${grade.grade || 'N/A'}</td>

@@ -32,7 +32,7 @@ class AuthController extends Controller
                 return redirect(route('professor.home'));
             }
             elseif($user->role == 'parent') {
-                return redirect(route('parent.index'));
+                return redirect(route('parent.home'));
             }
         } 
         else {

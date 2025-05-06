@@ -90,7 +90,7 @@
                                                 </p>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <p class="align-self-start">
-                                                        <strong>By</strong> {{ $course->professor->name }}<br>
+                                                        {{ $course->professor->name }}<br>
                                                     </p>
                                                     <a href="{{ route('student.course-details', $course->id) }}" class="btn btn-light">View Details</a>
                                                 </div>
@@ -187,10 +187,10 @@
                     <div class="card shadow rounded mb-2" style="width: 100%; height: 200px;">
                         <div class="card-img-top" style="height: 50%; background-image: url('{{ asset('imgs/event-2.jpg') }}'); background-size: cover; background-position: center;"></div>
                         <div class="card-body d-flex flex-column justify-content-center" style="height: 50%;">
-                            <h6 class="card-title text-dark fw-bold">Huawei ICT Winners</h6>
+                            <h6 class="card-title text-dark fw-bold">Universities League</h6>
                             <div class="d-flex align-items-center">
                                 <i class="fa-solid fa-location-dot text-muted"></i>
-                                <p class="card-text text-muted ms-2">MUST Opera House</p>
+                                <p class="card-text text-muted ms-2">MUST stadium</p>
                             </div>
                             <div class="d-flex align-items-center">
                                 <i class="fa-solid fa-calendar-days text-muted"></i>

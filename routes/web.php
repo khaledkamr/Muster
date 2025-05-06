@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ParentController;
 
 Route::get('/', function () {
     return view('index');
@@ -55,4 +56,14 @@ Route::middleware(['auth', 'role:professor'])->group(function () {
     Route::get('/professor/profile', [ProfessorController::class, 'profile'])->name('professor.profile');
     Route::get('/professor/students/{studentId}/{courseId}', [ProfessorController::class, 'studentProfile'])->name('professor.student.profile');
     Route::post('/logout', [ProfessorController::class, 'logout'])->name('logout');
+});
+
+Route::prefix('parent')->middleware(['auth', 'role:parent'])->group(function () {
+    Route::get('/home', [ParentController::class, 'index'])->name('parent.home'); 
+    Route::get('/child/{childId}/grades', [ParentController::class, 'childGrades'])->name('parent.child.grades');
+    Route::get('/child/{childId}/assignments', [ParentController::class, 'childAssignments'])->name('parent.child.assignments');
+    Route::get('/child/{childId}/attendance', [ParentController::class, 'childAttendance'])->name('parent.child.attendance');
+    Route::get('/child/{childId}/profile', [ParentController::class, 'childProfile'])->name('parent.child.profile');
+    Route::get('/profile', [ParentController::class, 'profile'])->name('parent.profile');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
