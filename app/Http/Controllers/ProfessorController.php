@@ -33,24 +33,26 @@ class ProfessorController extends Controller
         })->count();
         $pendingCount = $totalSubmissions - $submittedCount;
 
-        // Student Performance (Average Score)
-        $totalScores = $courses->flatMap(function ($course) {
-            return $course->assignments->flatMap->submissions->pluck('score');
-        })->filter()->avg() ?? 0;
-
         // Upcoming Events (Placeholder Data)
         $upcomingEvents = [
             ['title' => 'Midterm Exam', 'date' => '2025-05-10'],
             ['title' => 'Class Meeting', 'date' => '2025-05-12'],
         ];
 
-        // Notifications (Placeholder Data)
-        $notifications = [
-            ['message' => 'Student requested assignment extension', 'time' => '2h ago'],
-            ['message' => 'New course material uploaded', 'time' => '1d ago'],
-        ];
+        // Attendance Records
+        $allAttendanceRecords = $courses[0] ? $courses[0]->attendance->filter(function ($attendance) {
+            return Carbon::parse($attendance->date)->greaterThanOrEqualTo(Carbon::parse('2025-08-01'));
+        }) : collect();
 
-        return view('professor.index', compact('courses', 'attendanceRate', 'totalSubmissions', 'submittedCount', 'pendingCount', 'totalScores', 'upcomingEvents', 'notifications'));
+        $assignmentSubmissions = $courses[0] ? $courses[0]->assignments
+            ->filter(function ($assignment) {
+                return Carbon::parse($assignment->due_date)->greaterThanOrEqualTo(Carbon::parse('2025-08-01'));
+            })
+            ->flatMap(function ($assignment) {
+                return $assignment->submissions;
+            }) : collect();
+        
+        return view('professor.index', compact('professor', 'courses', 'attendanceRate', 'totalSubmissions', 'submittedCount', 'pendingCount', 'upcomingEvents', 'allAttendanceRecords', 'assignmentSubmissions'));
     }
 
     public function students($courseId)
@@ -156,7 +158,6 @@ class ProfessorController extends Controller
             }) : collect();
 
 
-        // Aggregate attendance data for all weeks
         $weeklyAttendance = [];
         $allAttendanceRecords = $course ? $course->attendance->filter(function ($attendance) {
             return Carbon::parse($attendance->date)->greaterThanOrEqualTo(Carbon::parse('2025-08-01'));
@@ -172,7 +173,6 @@ class ProfessorController extends Controller
                 'late' => $weekRecords->where('status', 'late')->count(),
             ];
         }
-        // dd($weeklyAttendance);
 
         $statusFilter = request('status', 'all');
         if($statusFilter === 'present') {

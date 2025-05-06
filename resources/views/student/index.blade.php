@@ -202,8 +202,8 @@
             </div>
         </div>
 
-        <!-- contribution graph -->
         <div class="col-md-5">
+            <!-- Offers -->
             <div class="bg-body shadow rounded p-3 mb-4" style="height: 240px;">
                 <div class="d-flex"> 
                     <h5 class="text-dark fw-bold pb-3">Offers</h5>
@@ -229,6 +229,7 @@
                 </div>
             </div>
 
+            <!-- Contribution Graph -->
             <div class="card shadow border-0" style="max-width: 500px;">
                 <div class="card-body">
                     <h5 class="text-dark fw-bold mb-1">Contribution Graph</h5>

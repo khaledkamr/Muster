@@ -133,23 +133,19 @@
             padding: 20px;
             padding-top: 70px;
         }
-        
         ::-webkit-scrollbar {
             width: 10px;
             height: 0; /* Prevent horizontal scrollbar */
         }
-
         ::-webkit-scrollbar-track {
             background: #0A9442 !important;
         }
-
         ::-webkit-scrollbar-thumb {
             background: #002361 !important;
             /* color: #00246171; */
             cursor: grab;
             transition: 0.3s;
         }
-
         ::-webkit-scrollbar-thumb:hover {
             background: #0157b3;
         }
@@ -163,7 +159,7 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('student.home') ? 'active' : '' }}" href="{{ route('student.home') }}">
-                    <i class="bi bi-house-door"></i> Home
+                    <i class="fa-solid fa-house"></i> Home
                 </a>
             </li>
             <li class="nav-item">
@@ -190,7 +186,7 @@
                 <form action="{{ route('logout') }}" method="POST" id="logout-form">
                     @csrf
                     <button type="button" class="text" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                        <i class="bi bi-box-arrow-right"></i> Logout
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
                     </button>
                 </form>
             </li>

@@ -190,7 +190,7 @@
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('professor.home') ? 'active' : '' }}"
                    href="{{ route('professor.home') }}">
-                    <i class="bi bi-house-door"></i> Home
+                   <i class="fa-solid fa-house"></i> Home
                 </a>
             </li>
 
@@ -233,7 +233,7 @@
                 <form action="{{ route('logout') }}" method="POST" id="logout-form">
                     @csrf
                     <button type="button" class="text" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                        <i class="bi bi-box-arrow-right"></i> Logout
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
                     </button>
                 </form>
             </li>
