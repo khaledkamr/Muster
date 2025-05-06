@@ -169,12 +169,12 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('student.assignments') ? 'active' : '' }}" href="{{ route('student.assignments') }}">
-                    <i class="bi bi-list-task"></i> Assignments
+                    <i class="fa-solid fa-list-check"></i> Assignments
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('student.attendance') ? 'active' : '' }}" href="{{ route('student.attendance') }}">
-                    <i class="fa-solid fa-clipboard-user"></i> Attendance
+                    <i class="fa-solid fa-clipboard-check pe-1"></i> Attendance
                 </a>
             </li>
             <li class="nav-item">

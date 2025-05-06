@@ -318,5 +318,13 @@
         width: 300px;
         margin-right: 10px;
     }
+    .nav-tabs .nav-link {
+        color: #495057;
+    }
+    .nav-tabs .nav-link.active {
+        background-color: #ffffff;
+        border-color: #dee2e6 #dee2e6 #ffffff;
+        color: #007bff;
+    }
 </style>
 @endsection

@@ -214,11 +214,11 @@
                         </a>
                         <a class="nav-link {{ request()->routeIs('professor.course.attendance') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.attendance', $course->id) }}">
-                           <i class="fa-solid fa-clipboard-user ps-1 pe-1"></i> Attendance
+                           <i class="fa-solid fa-clipboard-check ms-1"></i> Attendance
                         </a>
                         <a class="nav-link {{ request()->routeIs('professor.course.assignments') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.assignments', $course->id) }}">
-                           <i class="bi bi-list-task pe-1 ps-1"></i> Assignments
+                           <i class="fa-solid fa-list-check ps-1"></i> Assignments
                         </a>
                     </div>
                 </li>

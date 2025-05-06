@@ -210,5 +210,13 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
     }
+    .nav-tabs .nav-link {
+        color: #495057;
+    }
+    .nav-tabs .nav-link.active {
+        background-color: #ffffff;
+        border-color: #dee2e6 #dee2e6 #ffffff;
+        color: #007bff;
+    }
 </style>
 @endsection

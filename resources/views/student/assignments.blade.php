@@ -6,113 +6,148 @@
     <h1 class="pb-3 pt-3 text-dark fw-bold">Your Assignments</h1>
 
     <!-- Tabs for Upcoming Assignments and Assignments -->
-    <ul class="nav nav-tabs mb-4">
-        <li class="nav-item">
-            <a class="nav-link {{ request()->query('view', 'assignments') === 'assignments' ? 'active' : '' }}" href="?view=assignments">Assignments</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->query('view') === 'upcoming' ? 'active' : '' }}" href="?view=upcoming">Upcoming Assignments</a>
-        </li>
-    </ul>
+    <div class="container">
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link {{ request()->query('view', 'assignments') === 'assignments' ? 'active' : '' }}" href="?view=assignments">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->query('view') === 'upcoming' ? 'active' : '' }}" href="?view=upcoming">Upcoming Assignments</a>
+            </li>
+        </ul>
 
-    <!-- Progress Circles -->
-    <div class="row mb-4">
-        <div class="col-md-6 text-center">
-            <div class="position-relative d-inline-block" style="width: 150px; height: 150px;">
-                <canvas id="completionChart"></canvas>
-                <div class="position-absolute top-50 start-50 translate-middle text-center">
-                    <span class="fs-3 text-dark fw-bold">{{ $completionPercentage }}%</span>
-                </div>
-            </div>
-            <h5 class="text-dark mt-2">Assignment Completion</h5>
-        </div>
-        <div class="col-md-6 text-center">
-            <div class="position-relative d-inline-block" style="width: 150px; height: 150px;">
-                <canvas id="scoreChart"></canvas>
-                <div class="position-absolute top-50 start-50 translate-middle text-center">
-                    <span class="fs-3 text-dark fw-bold">{{ $scorePercentage }}%</span>
-                </div>
-            </div>
-            <h5 class="text-dark mt-2">Assignment Score Rate</h5>
-        </div>
-    </div>
-
-    <!-- Filters and Search -->
-    @if (request()->query('view', 'assignments') === 'assignments')
         <div class="row mb-4">
-            <div class="col-md-6">
-                <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Status:</label>
-                <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()" form="filterForm">
-                    <option value="all" {{ $statusFilter === 'all' ? 'selected' : '' }}>All</option>
-                    <option value="submitted" {{ $statusFilter === 'submitted' ? 'selected' : '' }}>Submitted</option>
-                    <option value="pending" {{ $statusFilter === 'pending' ? 'selected' : '' }}>Pending</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label for="search" class="form-label text-dark fw-bold">Search by Course:</label>
-                <input type="text" id="search" name="search" class="form-control" value="{{ $searchQuery }}" placeholder="Search by course code or name" form="filterForm">
-            </div>
-        </div>
-
-        <!-- Hidden form to handle filters -->
-        <form id="filterForm" method="GET" action="{{ route('student.assignments') }}">
-            <input type="hidden" name="view" value="assignments">
-        </form>
-    @endif
-
-    <!-- Assignments Display -->
-    @if (request()->query('view', 'assignments') === 'assignments')
-        @if ($filteredSubmissions->isNotEmpty())
-            <div class="row">
-                @foreach ($filteredSubmissions as $submission)
-                    <div class="col-md-6 mb-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title text-dark">{{ $submission->assignment->title }}</h5>
-                                <p class="card-text text-dark">
-                                    <strong>Course:</strong> {{ $submission->assignment->course->code }}: {{ $submission->assignment->course->name }}<br>
-                                    <strong>Professor:</strong> {{ $submission->assignment->course->professor->name }}<br>
-                                    <strong>Status:</strong> 
-                                    <span class="badge bg-{{ $submission->status === 'submitted' ? 'success' : 'danger' }}">
-                                        {{ ucfirst($submission->status) }}
-                                    </span><br>
-                                    <strong>Submitted At:</strong> {{ $submission->submitted_at ? $submission->submitted_at->format('M d, Y') : 'N/A' }}<br>
-                                    <strong>Due Date:</strong> {{ $submission->assignment->due_date->format('M d, Y') }}<br>
-                                    <strong>Score:</strong> {{ $submission->score ?? 'N/A' }}
-                                </p>
-                            </div>
+            <!-- Filters and Search -->
+            @if (request()->query('view', 'assignments') === 'assignments')
+                <div class="col-md-6 d-flex flex-column justify-content-center">
+                    <div class="col-md-6 mb-3">
+                        <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Status:</label>
+                        <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()" form="filterForm">
+                            <option value="all" {{ $statusFilter === 'all' ? 'selected' : '' }}>All</option>
+                            <option value="submitted" {{ $statusFilter === 'submitted' ? 'selected' : '' }}>Submitted</option>
+                            <option value="pending" {{ $statusFilter === 'pending' ? 'selected' : '' }}>Pending</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="search" class="form-label text-dark fw-bold">Search by Course:</label>
+                        <div class="input-group">
+                            <input type="text" id="search" name="search" 
+                                class="form-control shadow-sm border-end-0" 
+                                value="{{ $searchQuery }}" 
+                                placeholder="Search by course code or name" 
+                                form="filterForm"
+                                style="border-radius: 20px 0 0 20px;">
+                            <span class="input-group-text bg-white border-start-0" style="border-radius: 0 20px 20px 0;">
+                                <i class="fas fa-search text-muted"></i>
+                            </span>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        @else
-            <p class="text-center text-dark">No assignments found.</p>
-        @endif
-    @else
-        <!-- Upcoming Assignments -->
-        @if (!empty($upcomingAssignments))
-            <div class="row">
-                @foreach ($currentSemesterCourses as $course)
-                    @foreach ($upcomingAssignments as $upcomingAssignment)
-                        <div class="col-md-6 mb-4">
-                            <div class="card shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title text-dark">{{ $upcomingAssignment }}</h5>
-                                    <p class="card-text text-dark">
-                                        <strong>Course:</strong> {{ $course->code }}: {{ $course->name }}<br>
-                                        <strong>Professor:</strong> {{ $course->professor->name }}<br>
-                                        <strong>Status:</strong> <span class="badge bg-warning">Not Yet Posted</span>
-                                    </p>
-                                </div>
+
+                    <!-- Hidden form to handle filters -->
+                    <form id="filterForm" method="GET" action="{{ route('student.assignments') }}">
+                        <input type="hidden" name="view" value="assignments">
+                    </form>
+                </div>
+                
+                <!-- Progress Circles -->
+                <div class="col-md-6  d-flex">
+                    <div class="col-md-6 text-center">
+                        <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
+                            <canvas id="completionChart"></canvas>
+                            <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                <span class="fs-5 text-dark fw-bold">{{ $completionPercentage }}%</span>
                             </div>
                         </div>
-                    @endforeach
-                @endforeach
-            </div>
+                        <h6 class="text-dark mt-2">Assignment Completion</h6>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
+                            <canvas id="scoreChart"></canvas>
+                            <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                <span class="fs-5 text-dark fw-bold">{{ $scorePercentage }}%</span>
+                            </div>
+                        </div>
+                        <h6 class="text-dark mt-2">Assignment Score Rate</h6>
+                    </div>
+                </div>
+            @endif
+        </div>
+
+        <!-- Assignments Display -->
+        @if (request()->query('view', 'assignments') === 'assignments')
+            @if ($filteredSubmissions->isNotEmpty())
+                <div class="table-container">
+                    <table class="table table-striped">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-center bg-dark text-white">Assignment Title</th>
+                                <th class="text-center bg-dark text-white">Course</th>
+                                <th class="text-center bg-dark text-white">Professor</th>
+                                <th class="text-center bg-dark text-white">Status</th>
+                                <th class="text-center bg-dark text-white">Submitted Date</th>
+                                <th class="text-center bg-dark text-white">Due Date</th>
+                                <th class="text-center bg-dark text-white">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($filteredSubmissions as $submission)
+                            <tr>
+                                <td class="fw-bold text-center">{{ $submission->assignment->title }}</td>
+                                <td class="text-center">{{ $submission->assignment->course->name }}</td>
+                                <td class="text-center">{{ $submission->assignment->course->professor->name }}</td>
+                                <td class="text-center">
+                                    <span class="badge status-{{ $submission->status }}">
+                                        {{ ucfirst($submission->status) }}
+                                    </span>
+                                </td>
+                                <td class="text-center">{{ $submission->assignment->due_date->format('M d, Y') }}</td>
+                                <td class="text-center">{{ $submission->submitted_at ? $submission->submitted_at->format('M d, Y') : '-' }}</td>
+                                <td class="text-light text-center ">
+                                    <div class="badge bg-primary" style="font-size: 12px;">{{ $submission->score ?? '-' }}</div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+            <p class="text-center text-dark">No assignments found.</p>
+            @endif
         @else
-            <p class="text-center text-dark">No upcoming assignments.</p>
+            <!-- Upcoming Assignments -->
+            @if (!empty($upcomingAssignments))
+                <div class="table-container">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center bg-dark text-white">Assignment Title</th>
+                                <th class="text-center bg-dark text-white">Course</th>
+                                <th class="text-center bg-dark text-white">Professor</th>
+                                <th class="text-center bg-dark text-white">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($currentSemesterCourses as $course)
+                                @foreach ($upcomingAssignments as $upcomingAssignment)
+                                    <tr>
+                                        <td class="text-center">{{ $upcomingAssignment }}</td>
+                                        <td class="text-center">{{ $course->code }}: {{ $course->name }}</td>
+                                        <td class="text-center">{{ $course->professor->name }}</td>
+                                        <td class="text-center">
+                                            <span class="badge bg-warning text-dark">Not Posted Yet</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <p class="text-center text-dark">No upcoming assignments.</p>
+            @endif
         @endif
-    @endif
+    </div>
+
 
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -195,5 +230,52 @@
             border-color: #007bff;
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
+        .table-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0;
+    }
+    .table thead {
+        background-color: #f8f9fa;
+        color: #333;
+    }
+    .table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .table td {
+        padding: 15px;
+        font-size: 14px;
+        color: #333;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .table tbody tr:hover {
+        background-color: #f1f3f5;
+    }
+    .table .status-submitted {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
+    .table .status-pending {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
     </style>
 @endsection

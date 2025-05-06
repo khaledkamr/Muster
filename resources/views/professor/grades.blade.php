@@ -85,6 +85,14 @@
         width: 250px;
         margin-right: 10px;
     }
+    .nav-tabs .nav-link {
+        color: #495057;
+    }
+    .nav-tabs .nav-link.active {
+        background-color: #ffffff;
+        border-color: #dee2e6 #dee2e6 #ffffff;
+        color: #007bff;
+    }
 </style>
 <h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Grades</h2>
 
