@@ -3,34 +3,49 @@
 @section('title', 'Profile')
 
 @section('content')
-    <h1 class="pb-5 pt-3 text-dark fw-bold">Your Profile</h1>
+    <h1 class="pb-3 pt-3 text-dark fw-bold">Your Profile</h1>
 
     <div class="card mb-4 watercolor-card">
-        <div class="card-body row">
-            <div class="col-md-6">
-                <h5 class="card-title text-dark">Student Information</h5>
-                <p><strong>Full Name:</strong> {{ $user->name }}</p>
-                <p><strong>ID:</strong> {{ $user->id }}</p>
-                <p><strong>collage:</strong> Information Technology</p>
-                <p><strong>Major:</strong> {{ $user->major ?? 'General Education'}}</p>
-                <p><strong>Year:</strong> {{ ucfirst($user->year) }}</p>
+        <div class="card-body row align-items-center">
+            <h5 class="card-title text-dark">Student Information</h5>
+            <div class="col-md-3 text-center border-end border-secondary me-4">
+                <div>
+                    <img src="{{ asset('imgs/user.png') }}" alt="Profile Picture" class="rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #fff;">
+                </div>
+                <h5 class="card-title text-dark mt-3">{{ $user->name }}</h5>
             </div>
-            <div class="col-md-6 d-flex justify-content-around align-items-center">
-                <div class="text-center">
-                    <h6 class="text-dark fw-bold">CGPA</h6>
-                    <div class="position-relative" style="width: 100px; height: 100px;">
-                        <canvas id="gpaChart"></canvas>
-                        <div class="position-absolute top-50 start-50 translate-middle text-center">
-                            <span class="fs-4 text-dark fw-bold">{{ $gpa }}</span>
-                        </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>ID:</strong> {{ $user->id }}</p>
+                        <p><strong>College:</strong> Information Technology</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Major:</strong> {{ $user->major ?? 'General Education' }}</p>
+                        <p><strong>Year:</strong> {{ ucfirst($user->year) }}</p>
                     </div>
                 </div>
-                <div class="text-center">
-                    <h6 class="text-dark fw-bold">Credits</h6>
-                    <div class="position-relative" style="width: 100px; height: 100px;">
-                        <canvas id="creditsChart"></canvas>
-                        <div class="position-absolute top-50 start-50 translate-middle text-center">
-                            <span class="fs-4 text-dark fw-bold">{{ $totalCredits }}</span>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="">
+                            <h6 class="text-dark fw-bold">CGPA</h6>
+                            <div class="position-relative" style="width: 120px; height: 120px;">
+                                <canvas id="gpaChart"></canvas>
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <span class="fs-4 text-dark fw-bold">{{ number_format($gpa, 2) }}</span>/4.0
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="">
+                            <h6 class="text-dark fw-bold">Credits</h6>
+                            <div class="position-relative" style="width: 120px; height: 120px;">
+                                <canvas id="creditsChart"></canvas>
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <span class="fs-4 text-dark fw-bold">{{ $totalCredits }}</span>/{{ $maxCredits }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,16 +60,16 @@
                 <div class="col-md-6">
                     <p><strong>Gender:</strong> 
                         @if($user->gender == 'male')
-                            {{ ucfirst($user->gender) }} <i class="bi bi-gender-male"></i> 
+                            {{ ucfirst($user->gender) }} <i class="bi bi-gender-male text-primary"></i> 
                         @else
-                            {{ ucfirst($user->gender) }} <i class="bi bi-gender-female"></i>
+                            {{ ucfirst($user->gender) }} <i class="bi bi-gender-female text-danger"></i>
                         @endif
                     </p>
                     <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($user->birth_date)->age }} years</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Email:</strong> {{ $user->email }}</p>
-                    <p><strong>Contact Number:</strong> {{ $user->phone }}</p>
+                    <p><strong>Email:</strong> <a href="mailto:{{ $user->email }}" class="text-decoration-none text-dark">{{ $user->email }}</a></p>
+                    <p><strong>Contact Number:</strong> <a href="tel:{{ $user->phone }}" class="text-decoration-none text-dark">{{ $user->phone }}</a></p>
                 </div>
             </div>
         </div>
@@ -68,17 +83,17 @@
                     <p><strong>Parent Name:</strong> {{ $user->parent->name ?? 'N/A' }}</p>
                     <p><strong>Gender:</strong> 
                         @if($user->parent && $user->parent->gender == 'male')
-                            {{ ucfirst($user->parent->gender) }} <i class="bi bi-gender-male"></i> 
+                            {{ ucfirst($user->parent->gender) }} <i class="bi bi-gender-male text-primary"></i> 
                         @elseif($user->parent && $user->parent->gender == 'female')
-                            {{ ucfirst($user->parent->gender) }} <i class="bi bi-gender-female"></i>
+                            {{ ucfirst($user->parent->gender) }} <i class="bi bi-gender-female text-danger"></i>
                         @else
                             N/A
                         @endif
                     </p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Parent Email:</strong> {{ $user->parent->email ?? 'N/A' }}</p>
-                    <p><strong>Parent Contact:</strong> {{ $user->parent->phone ?? 'N/A' }}</p>
+                    <p><strong>Parent Email:</strong> <a href="mailto:{{ $user->parent->email ?? '' }}" class="text-decoration-none text-dark">{{ $user->parent->email ?? 'N/A' }}</a></p>
+                    <p><strong>Parent Contact:</strong> <a href="tel:{{ $user->parent->phone ?? '' }}" class="text-decoration-none text-dark">{{ $user->parent->phone ?? 'N/A' }}</a></p>
                 </div>
             </div>
         </div>
@@ -95,11 +110,11 @@
 
             let gpaProgressColor;
             if (gpa >= 3.0) {
-                gpaProgressColor = '#28a745'; // Green for GPA >= 3.0
+                gpaProgressColor = '#28a745'; 
             } else if (gpa <= 2.0) {
-                gpaProgressColor = '#dc3545'; // Red for GPA <= 2.0
+                gpaProgressColor = '#dc3545'; 
             } else {
-                gpaProgressColor = '#007bff'; // Blue for GPA between 2.0 and 3.0
+                gpaProgressColor = '#007bff'; 
             }
 
             new Chart(gpaCtx, {
@@ -110,12 +125,19 @@
                         backgroundColor: [gpaProgressColor, '#e9ecef'],
                         borderWidth: 0,
                         circumference: 360,
+                        rotation: -90,
                         cutout: '80%',
+                        borderRadius: 5,
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000
+                    },
                     plugins: {
                         legend: { display: false },
                         tooltip: { enabled: false }
@@ -143,15 +165,22 @@
                 data: {
                     datasets: [{
                         data: [creditsPercentage, 100 - creditsPercentage],
-                        backgroundColor: ['#007bff', '#e9ecef'],
+                        backgroundColor: [creditsProgressColor, '#e9ecef'],
                         borderWidth: 0,
                         circumference: 360,
+                        rotation: -90,
                         cutout: '80%',
+                        borderRadius: 5,
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 1000
+                    },
                     plugins: {
                         legend: { display: false },
                         tooltip: { enabled: false }
@@ -170,7 +199,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .watercolor-card::before {
             content: '';
             position: absolute;
@@ -191,15 +219,35 @@
         .card-title {
             font-weight: 600;
             margin-bottom: 1rem;
+            color: #2c3e50;
         }
 
         p {
-            margin-bottom: 0.5rem;
-            color: #333;
+            margin-bottom: 0.75rem;
+            color: #34495e;
         }
 
-        p strong {
-            color: #555;
+        .profile-image-container {
+            background: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bi-gender-male {
+            color: #007bff;
+        }
+
+        .bi-gender-female {
+            color: #e83e8c;
+        }
+
+        a {
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
         }
     </style>
 @endsection

@@ -450,6 +450,12 @@ class StudentController extends Controller
         ));
     }
 
+    public function professorProfile($professorId)
+    {
+        $user = User::findOrFail($professorId);
+        return view('student.professor-profile', compact('user'));
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();

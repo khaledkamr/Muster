@@ -94,7 +94,11 @@
                             <tr>
                                 <td class="fw-bold text-center">{{ $submission->assignment->title }}</td>
                                 <td class="text-center">{{ $submission->assignment->course->name }}</td>
-                                <td class="text-center">{{ $submission->assignment->course->professor->name }}</td>
+                                <td class="text-center">
+                                    <a class="text-dark text-decoration-none hover-underline" href="{{ route('student.professor-profile', $submission->assignment->course->professor->id) }}">
+                                        {{ $submission->assignment->course->professor->name }}
+                                    </a>
+                                </td>
                                 <td class="text-center">
                                     <span class="badge status-{{ $submission->status }}">
                                         {{ ucfirst($submission->status) }}

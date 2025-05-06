@@ -1,9 +1,15 @@
-@extends('layouts.professor')
+@extends('layouts.student')
 
-@section('title', 'Profile')
+@section('title', 'professor profile')
 
 @section('content')
-    <h1 class="pb-5 pt-3 text-dark fw-bold">Your Profile</h1>
+    <div class="d-flex align-items-center mb-4 pt-3">
+        <a href="{{ url()->previous() }}" class="btn btn-secondary me-3">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h1 class="text-dark fw-bold mb-0">Professor Profile</h1>
+        
+    </div>
 
     <div class="card mb-4 watercolor-card">
         <div class="card-body row align-items-center">
