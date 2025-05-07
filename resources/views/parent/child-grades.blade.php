@@ -3,6 +3,7 @@
 @section('title', 'Grades')
 
 @section('content')
+<div class="container">
     <h1 class="pb-5 pt-3 text-dark fw-bold">{{ $child->name }}'s Grades</h1>
 
     <div class="mb-4">
@@ -34,6 +35,7 @@
             </table>
         </div>
     </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

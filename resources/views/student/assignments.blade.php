@@ -3,10 +3,10 @@
 @section('title', 'Assignments')
 
 @section('content')
-    <h1 class="pb-3 pt-3 text-dark fw-bold">Your Assignments</h1>
-
-    <!-- Tabs for Upcoming Assignments and Assignments -->
     <div class="container">
+        <h1 class="pb-3 pt-3 text-dark fw-bold">Your Assignments</h1>
+
+        <!-- Tabs for Upcoming Assignments and Assignments -->
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item">
                 <a class="nav-link {{ request()->query('view', 'assignments') === 'assignments' ? 'active' : '' }}" href="?view=assignments">Assignments</a>

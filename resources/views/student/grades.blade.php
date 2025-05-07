@@ -3,6 +3,8 @@
 @section('title', 'Grades')
 
 @section('content')
+<div class="container">
+
     <h1 class="pb-5 pt-3 text-dark fw-bold">Your Grades</h1>
 
     <div class="mb-4">
@@ -15,25 +17,24 @@
         </select>
     </div>
 
-    <div class="container">
-        <div class="table-container">
-            <table class="table table-striped" id="gradesTable">
-                <thead>
-                    <tr>
-                        <th class="bg-dark text-light text-center">Course Code</th>
-                        <th class="bg-dark text-light text-center">Course Name</th>
-                        <th class="bg-dark text-light text-center">Difficulty</th>
-                        <th class="bg-dark text-light text-center">Type</th>
-                        <th class="bg-dark text-light text-center">Grade</th>
-                        <th class="bg-dark text-light text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
-        </div>
+    <div class="table-container">
+        <table class="table table-striped" id="gradesTable">
+            <thead>
+                <tr>
+                    <th class="bg-dark text-light text-center">Course Code</th>
+                    <th class="bg-dark text-light text-center">Course Name</th>
+                    <th class="bg-dark text-light text-center">Difficulty</th>
+                    <th class="bg-dark text-light text-center">Type</th>
+                    <th class="bg-dark text-light text-center">Grade</th>
+                    <th class="bg-dark text-light text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
     </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

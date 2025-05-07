@@ -3,6 +3,8 @@
 @section('title', 'Home')
 
 @section('content')
+<div class="container">
+
     <h2 class="text-dark fw-bold mb-4 mt-3">Welcome {{$user->name}}</h2>
 
     <div class="row mb-2">
@@ -330,6 +332,7 @@
         </div>
     </div>
 
+</div>
     
 
     <!-- Include Swiper.js -->

@@ -3,6 +3,8 @@
 @section('title', 'Attendance')
 
 @section('content')
+<div class="container">
+
     <h1 class=" pt-3 text-dark fw-bold">Your Attendance</h1>
 
     <div class="d-flex flex-row-reverse justify-content-around align-items-center mb-4">
@@ -134,6 +136,7 @@
 
     <!-- Hidden Form for Filters -->
     <form id="filterForm" method="GET" action="{{ route('student.attendance') }}"></form>
+</div>
 
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -3,6 +3,7 @@
 @section('title', 'professor profile')
 
 @section('content')
+<div class="container">
     <div class="d-flex align-items-center mb-4 pt-3">
         <a href="{{ url()->previous() }}" class="btn btn-secondary me-3">
             <i class="fa-solid fa-arrow-left"></i>
@@ -81,6 +82,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <style>
         .watercolor-card {

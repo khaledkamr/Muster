@@ -3,97 +3,99 @@
 @section('title', 'Profile')
 
 @section('content')
-<h1 class="pb-3 pt-3 text-dark fw-bold">{{ $child->name }}'s Profile</h1>
+<div class="container">
+    <h1 class="pb-3 pt-3 text-dark fw-bold">{{ $child->name }}'s Profile</h1>
 
-<div class="card mb-4 watercolor-card">
-    <div class="card-body row align-items-center">
-        <h5 class="card-title text-dark">Student Information</h5>
-        <div class="col-md-3 text-center border-end border-secondary me-4">
-            <div>
-                <img src="{{ asset('imgs/user.png') }}" alt="Profile Picture" class="rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #fff;">
+    <div class="card mb-4 watercolor-card">
+        <div class="card-body row align-items-center">
+            <h5 class="card-title text-dark">Student Information</h5>
+            <div class="col-md-3 text-center border-end border-secondary me-4">
+                <div>
+                    <img src="{{ asset('imgs/user.png') }}" alt="Profile Picture" class="rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #fff;">
+                </div>
+                <h5 class="card-title text-dark mt-3">{{ $child->name }}</h5>
             </div>
-            <h5 class="card-title text-dark mt-3">{{ $child->name }}</h5>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>ID:</strong> {{ $child->id }}</p>
+                        <p><strong>College:</strong> Information Technology</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Major:</strong> {{ $child->major ?? 'General Education' }}</p>
+                        <p><strong>Year:</strong> {{ ucfirst($child->year) }}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="">
+                            <h6 class="text-dark fw-bold">CGPA</h6>
+                            <div class="position-relative" style="width: 120px; height: 120px;">
+                                <canvas id="gpaChart"></canvas>
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <span class="fs-4 text-dark fw-bold">{{ number_format($gpa, 2) }}</span>/4.0
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="">
+                            <h6 class="text-dark fw-bold">Credits</h6>
+                            <div class="position-relative" style="width: 120px; height: 120px;">
+                                <canvas id="creditsChart"></canvas>
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <span class="fs-4 text-dark fw-bold">{{ $totalCredits }}</span>/{{ $maxCredits }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-8">
+    </div>
+
+    <div class="card mb-4 watercolor-card">
+        <div class="card-body">
+            <h5 class="card-title text-dark">Personal Information</h5>
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>ID:</strong> {{ $child->id }}</p>
-                    <p><strong>College:</strong> Information Technology</p>
+                    <p><strong>Gender:</strong> 
+                        @if($child->gender == 'male')
+                            {{ ucfirst($child->gender) }} <i class="bi bi-gender-male text-primary"></i> 
+                        @else
+                            {{ ucfirst($child->gender) }} <i class="bi bi-gender-female text-danger"></i>
+                        @endif
+                    </p>
+                    <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($child->birth_date)->age }} years</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Major:</strong> {{ $child->major ?? 'General Education' }}</p>
-                    <p><strong>Year:</strong> {{ ucfirst($child->year) }}</p>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-md-6">
-                    <div class="">
-                        <h6 class="text-dark fw-bold">CGPA</h6>
-                        <div class="position-relative" style="width: 120px; height: 120px;">
-                            <canvas id="gpaChart"></canvas>
-                            <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                <span class="fs-4 text-dark fw-bold">{{ number_format($gpa, 2) }}</span>/4.0
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="">
-                        <h6 class="text-dark fw-bold">Credits</h6>
-                        <div class="position-relative" style="width: 120px; height: 120px;">
-                            <canvas id="creditsChart"></canvas>
-                            <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                <span class="fs-4 text-dark fw-bold">{{ $totalCredits }}</span>/{{ $maxCredits }}
-                            </div>
-                        </div>
-                    </div>
+                    <p><strong>Email:</strong> <a href="mailto:{{ $child->email }}" class="text-decoration-none text-dark">{{ $child->email }}</a></p>
+                    <p><strong>Contact Number:</strong> <a href="tel:{{ $child->phone }}" class="text-decoration-none text-dark">{{ $child->phone }}</a></p>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="card mb-4 watercolor-card">
-    <div class="card-body">
-        <h5 class="card-title text-dark">Personal Information</h5>
-        <div class="row">
-            <div class="col-md-6">
-                <p><strong>Gender:</strong> 
-                    @if($child->gender == 'male')
-                        {{ ucfirst($child->gender) }} <i class="bi bi-gender-male text-primary"></i> 
-                    @else
-                        {{ ucfirst($child->gender) }} <i class="bi bi-gender-female text-danger"></i>
-                    @endif
-                </p>
-                <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($child->birth_date)->age }} years</p>
-            </div>
-            <div class="col-md-6">
-                <p><strong>Email:</strong> <a href="mailto:{{ $child->email }}" class="text-decoration-none text-dark">{{ $child->email }}</a></p>
-                <p><strong>Contact Number:</strong> <a href="tel:{{ $child->phone }}" class="text-decoration-none text-dark">{{ $child->phone }}</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card watercolor-card">
-    <div class="card-body">
-        <h5 class="card-title text-dark">Parent Information</h5>
-        <div class="row">
-            <div class="col-md-6">
-                <p><strong>Parent Name:</strong> {{ $child->parent->name ?? 'N/A' }}</p>
-                <p><strong>Gender:</strong> 
-                    @if($child->parent && $child->parent->gender == 'male')
-                        {{ ucfirst($child->parent->gender) }} <i class="bi bi-gender-male text-primary"></i> 
-                    @elseif($child->parent && $child->parent->gender == 'female')
-                        {{ ucfirst($child->parent->gender) }} <i class="bi bi-gender-female text-danger"></i>
-                    @else
-                        N/A
-                    @endif
-                </p>
-            </div>
-            <div class="col-md-6">
-                <p><strong>Parent Email:</strong> <a href="mailto:{{ $child->parent->email ?? '' }}" class="text-decoration-none text-dark">{{ $child->parent->email ?? 'N/A' }}</a></p>
-                <p><strong>Parent Contact:</strong> <a href="tel:{{ $child->parent->phone ?? '' }}" class="text-decoration-none text-dark">{{ $child->parent->phone ?? 'N/A' }}</a></p>
+    <div class="card watercolor-card">
+        <div class="card-body">
+            <h5 class="card-title text-dark">Parent Information</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Parent Name:</strong> {{ $child->parent->name ?? 'N/A' }}</p>
+                    <p><strong>Gender:</strong> 
+                        @if($child->parent && $child->parent->gender == 'male')
+                            {{ ucfirst($child->parent->gender) }} <i class="bi bi-gender-male text-primary"></i> 
+                        @elseif($child->parent && $child->parent->gender == 'female')
+                            {{ ucfirst($child->parent->gender) }} <i class="bi bi-gender-female text-danger"></i>
+                        @else
+                            N/A
+                        @endif
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Parent Email:</strong> <a href="mailto:{{ $child->parent->email ?? '' }}" class="text-decoration-none text-dark">{{ $child->parent->email ?? 'N/A' }}</a></p>
+                    <p><strong>Parent Contact:</strong> <a href="tel:{{ $child->parent->phone ?? '' }}" class="text-decoration-none text-dark">{{ $child->parent->phone ?? 'N/A' }}</a></p>
+                </div>
             </div>
         </div>
     </div>

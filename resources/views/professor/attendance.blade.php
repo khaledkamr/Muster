@@ -3,111 +3,113 @@
 @section('title', 'Attendance')
 
 @section('content')
-<h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Attendance</h2>
-
-@if ($attendanceRecords->isNotEmpty())
-    <div class="mb-5" style="position: relative; height: 400px;">
-        <canvas id="weeklyAttendanceChart"></canvas>
-    </div>
-@endif
-
-<ul class="nav nav-tabs mb-4">
-    <li class="nav-item">
-        <a class="nav-link {{ request()->query('view', 'week1') === 'week1' ? 'active' : '' }}" href="?view=week1">Week 1</a>
-    </li>
-    @for ($i = 2; $i <= 10; $i++)
-        <li class="nav-item">
-            <a class="nav-link {{ request()->query('view') === 'week' . $i ? 'active' : '' }}" href="?view=week{{ $i }}">Week {{ $i }}</a>
-        </li>
-    @endfor
-</ul>
-
 <div class="container">
+    <h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Attendance</h2>
+
     @if ($attendanceRecords->isNotEmpty())
-    <div class="row mb-4">
-        <div class="col-md-6 mt-2">
-            <div class="d-flex flex-column gap-2">
-                <!-- Filters and Search -->
-                <div class="row mb-4 mt-2">
-                    <div class="col-md-6">
-                        <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Status:</label>
-                        <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()" form="filterForm">
-                            <option value="all" {{ $statusFilter === 'all' ? 'selected' : '' }}>All</option>
-                            <option value="present" {{ $statusFilter === 'present' ? 'selected' : '' }}>Present</option>
-                            <option value="absent" {{ $statusFilter === 'absent' ? 'selected' : '' }}>Absent</option>
-                            <option value="late" {{ $statusFilter === 'late' ? 'selected' : '' }}>Late</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="typeFilter" class="form-label text-dark fw-bold">Filter by Session Type:</label>
-                        <select id="typeFilter" name="type" class="form-select" onchange="this.form.submit()" form="filterForm">
-                            <option value="all" {{ $typeFilter === 'all' ? 'selected' : '' }}>All</option>
-                            <option value="lecture" {{ $typeFilter === 'lecture' ? 'selected' : '' }}>Lecture</option>
-                            <option value="lab" {{ $typeFilter === 'lab' ? 'selected' : '' }}>Lab</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- Search -->
-                <div class="search-container">
-                    <form method="GET" action="{{ route('professor.course.attendance', $courseId) }}" class="d-flex flex-column">
-                        <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
-                        <div class="d-flex">
-                            <input type="text" name="search" class="form-control" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
-                            <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="mb-5" style="position: relative; height: 400px;">
+            <canvas id="weeklyAttendanceChart"></canvas>
         </div>
-        <div class="col-md-6 mb-4" style="position: relative; height: 200px;">
-            <canvas id="statusPieChart"></canvas>
-        </div>
-    </div>
     @endif
 
-    <!-- Hidden form to handle filters -->
-    <form id="filterForm" method="GET" action="{{ route('professor.course.attendance', $courseId) }}">
-        <input type="hidden" name="view" value="{{ request()->query('view', 'week1') }}">
-    </form>
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link {{ request()->query('view', 'week1') === 'week1' ? 'active' : '' }}" href="?view=week1">Week 1</a>
+        </li>
+        @for ($i = 2; $i <= 10; $i++)
+            <li class="nav-item">
+                <a class="nav-link {{ request()->query('view') === 'week' . $i ? 'active' : '' }}" href="?view=week{{ $i }}">Week {{ $i }}</a>
+            </li>
+        @endfor
+    </ul>
 
-    <div class="table-container mb-5">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="bg-dark text-light text-center">Student ID</th>
-                    <th class="bg-dark text-light text-center">Student Name</th>
-                    <th class="bg-dark text-light text-center">Session Type</th>
-                    <th class="bg-dark text-light text-center">Attendance Status</th>
-                    <th class="bg-dark text-light text-center">Date</th>
-                    <th class="bg-dark text-light text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if($attendanceRecords->isEmpty())
-                <tr>
-                    <td colspan="6" class="text-center">
-                        <div class="status-absent fs-6">No students enrolled in this course.</div>
-                    </td>
-                </tr>
-                @else
-                @foreach ($attendanceRecords as $record)
+    <div class="container">
+        @if ($attendanceRecords->isNotEmpty())
+        <div class="row mb-4">
+            <div class="col-md-6 mt-2">
+                <div class="d-flex flex-column gap-2">
+                    <!-- Filters and Search -->
+                    <div class="row mb-4 mt-2">
+                        <div class="col-md-6">
+                            <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Status:</label>
+                            <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()" form="filterForm">
+                                <option value="all" {{ $statusFilter === 'all' ? 'selected' : '' }}>All</option>
+                                <option value="present" {{ $statusFilter === 'present' ? 'selected' : '' }}>Present</option>
+                                <option value="absent" {{ $statusFilter === 'absent' ? 'selected' : '' }}>Absent</option>
+                                <option value="late" {{ $statusFilter === 'late' ? 'selected' : '' }}>Late</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="typeFilter" class="form-label text-dark fw-bold">Filter by Session Type:</label>
+                            <select id="typeFilter" name="type" class="form-select" onchange="this.form.submit()" form="filterForm">
+                                <option value="all" {{ $typeFilter === 'all' ? 'selected' : '' }}>All</option>
+                                <option value="lecture" {{ $typeFilter === 'lecture' ? 'selected' : '' }}>Lecture</option>
+                                <option value="lab" {{ $typeFilter === 'lab' ? 'selected' : '' }}>Lab</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Search -->
+                    <div class="search-container">
+                        <form method="GET" action="{{ route('professor.course.attendance', $courseId) }}" class="d-flex flex-column">
+                            <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
+                            <div class="d-flex">
+                                <input type="text" name="search" class="form-control" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
+                                <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4" style="position: relative; height: 200px;">
+                <canvas id="statusPieChart"></canvas>
+            </div>
+        </div>
+        @endif
+
+        <!-- Hidden form to handle filters -->
+        <form id="filterForm" method="GET" action="{{ route('professor.course.attendance', $courseId) }}">
+            <input type="hidden" name="view" value="{{ request()->query('view', 'week1') }}">
+        </form>
+
+        <div class="table-container mb-5">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td class="text-center">{{ $record->student_id }}</td>
-                        <td class="text-center">{{ $record->student->name }}</td>
-                        <td class="text-center">{{ $record->type }}</td>
-                        <td class="text-center">
-                            <span class="status-{{$record->status}}">{{ ucfirst($record->status) }}</span>
-                        </td>
-                        <td class="text-center">{{ $record->date->format('Y-m-d') }}</td>
-                        <td class="action-icons text-center">
-                            <a href="{{ route('professor.student.profile', ['studentId' => $record->student->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
-                            <a href=""><i class="fa-solid fa-message" title="send"></i></a>
+                        <th class="bg-dark text-light text-center">Student ID</th>
+                        <th class="bg-dark text-light text-center">Student Name</th>
+                        <th class="bg-dark text-light text-center">Session Type</th>
+                        <th class="bg-dark text-light text-center">Attendance Status</th>
+                        <th class="bg-dark text-light text-center">Date</th>
+                        <th class="bg-dark text-light text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($attendanceRecords->isEmpty())
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            <div class="status-absent fs-6">No students enrolled in this course.</div>
                         </td>
                     </tr>
-                @endforeach
-                @endif
-            </tbody>
-        </table>
+                    @else
+                    @foreach ($attendanceRecords as $record)
+                        <tr>
+                            <td class="text-center">{{ $record->student_id }}</td>
+                            <td class="text-center">{{ $record->student->name }}</td>
+                            <td class="text-center">{{ $record->type }}</td>
+                            <td class="text-center">
+                                <span class="status-{{$record->status}}">{{ ucfirst($record->status) }}</span>
+                            </td>
+                            <td class="text-center">{{ $record->date->format('Y-m-d') }}</td>
+                            <td class="action-icons text-center">
+                                <a href="{{ route('professor.student.profile', ['studentId' => $record->student->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
+                                <a href=""><i class="fa-solid fa-message" title="send"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

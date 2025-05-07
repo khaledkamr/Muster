@@ -3,6 +3,7 @@
 @section('title', 'Profile')
 
 @section('content')
+<div class="container">
     <h1 class="pb-5 pt-3 text-dark fw-bold">Your Profile</h1>
 
     <div class="card mb-4 watercolor-card">
@@ -42,6 +43,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <style>
         .watercolor-card {

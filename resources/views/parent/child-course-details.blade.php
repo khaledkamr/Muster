@@ -10,6 +10,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.288);
         }
     </style>
+<div class="container">
     <div class="d-flex align-items-center mb-2 pt-3">
         <a href="{{ url()->previous() }}" class="btn btn-secondary me-3">
             <i class="fa-solid fa-arrow-left"></i>
@@ -99,6 +100,7 @@
         <h4>Final Grade: <span class="badge bg-{{ $grade->status === 'pass' ? 'success' : 'danger' }}">{{ $grade->grade }}</span></h4>
         <p>Status: <strong>{{ ucfirst($grade->status) }}</strong></p>
     </div>
+</div>
 
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

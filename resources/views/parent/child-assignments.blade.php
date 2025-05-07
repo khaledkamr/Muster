@@ -3,6 +3,7 @@
 @section('title', 'Assignments')
 
 @section('content')
+<div class="container">
     <h1 class="pb-3 pt-3 text-dark fw-bold">{{ $child->name }}'s Assignments</h1>
 
     <!-- Tabs for Upcoming Assignments and Assignments -->
@@ -151,6 +152,7 @@
             @endif
         @endif
     </div>
+</div>
 
 
     <!-- Include Chart.js -->

@@ -3,97 +3,99 @@
 @section('title', 'Assignments')
 
 @section('content')
-<h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Assignments</h2>
-
-<ul class="nav nav-tabs mb-4">
-    <li class="nav-item">
-        <a class="nav-link {{ request()->query('view', 'assign1') === 'assign1' ? 'active' : '' }}" href="?view=assign1">Assignment 1</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->query('view') === 'assign2' ? 'active' : '' }}" href="?view=assign2">Assignment 2</a>
-    </li>
-    <li class="nav-item"> 
-        <a class="nav-link" href="">+</a>
-    </li>
-</ul>
-
 <div class="container">
-    @if ($filteredSubmissions->isNotEmpty())
-        <div class="row mb-4">
-            <div class="col-md-6 mt-2">
-                <div class="d-flex flex-column gap-5">
-                    <!-- Filters and Search -->
-                    <div>
-                        <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Status:</label>
-                        <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()" form="filterForm">
-                            <option value="all" {{ $statusFilter === 'all' ? 'selected' : '' }}>All</option>
-                            <option value="submitted" {{ $statusFilter === 'submitted' ? 'selected' : '' }}>Submitted</option>
-                            <option value="pending" {{ $statusFilter === 'pending' ? 'selected' : '' }}>Pending</option>
-                        </select>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <form method="GET" action="{{ route('professor.course.assignments', $courseId) }}" class="d-flex flex-column">
-                            <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
-                            <div class="d-flex">
-                                <input type="text" name="search" class="form-control me-2" style="width: 500px" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
-                                <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
-                            </div>
-                        </form>
+    <h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Assignments</h2>
+
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link {{ request()->query('view', 'assign1') === 'assign1' ? 'active' : '' }}" href="?view=assign1">Assignment 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->query('view') === 'assign2' ? 'active' : '' }}" href="?view=assign2">Assignment 2</a>
+        </li>
+        <li class="nav-item"> 
+            <a class="nav-link" href="">+</a>
+        </li>
+    </ul>
+
+    <div class="container">
+        @if ($filteredSubmissions->isNotEmpty())
+            <div class="row mb-4">
+                <div class="col-md-6 mt-2">
+                    <div class="d-flex flex-column gap-5">
+                        <!-- Filters and Search -->
+                        <div>
+                            <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Status:</label>
+                            <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()" form="filterForm">
+                                <option value="all" {{ $statusFilter === 'all' ? 'selected' : '' }}>All</option>
+                                <option value="submitted" {{ $statusFilter === 'submitted' ? 'selected' : '' }}>Submitted</option>
+                                <option value="pending" {{ $statusFilter === 'pending' ? 'selected' : '' }}>Pending</option>
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <form method="GET" action="{{ route('professor.course.assignments', $courseId) }}" class="d-flex flex-column">
+                                <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
+                                <div class="d-flex">
+                                    <input type="text" name="search" class="form-control me-2" style="width: 500px" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
+                                    <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                <!-- Pie Chart -->
+                <div class="col-md-6 mb-4" style="position: relative; height: 200px;">
+                    <canvas id="statusPieChart"></canvas>
+                </div>
             </div>
-            <!-- Pie Chart -->
-            <div class="col-md-6 mb-4" style="position: relative; height: 200px;">
-                <canvas id="statusPieChart"></canvas>
-            </div>
-        </div>
-    @endif
-    
-    <!-- Hidden form to handle filters -->
-    <form id="filterForm" method="GET" action="{{ route('professor.course.assignments', $courseId) }}">
-        <input type="hidden" name="view" value="{{ request()->query('view', 'assign1') }}">
-    </form>
+        @endif
+        
+        <!-- Hidden form to handle filters -->
+        <form id="filterForm" method="GET" action="{{ route('professor.course.assignments', $courseId) }}">
+            <input type="hidden" name="view" value="{{ request()->query('view', 'assign1') }}">
+        </form>
 
-    <div class="table-container">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="bg-dark text-light text-center">Student ID</th>
-                    <th class="bg-dark text-light text-center">Student Name</th>
-                    <th class="bg-dark text-light text-center">Assignment Title</th>
-                    <th class="bg-dark text-light text-center">Assignment Status</th>
-                    <th class="bg-dark text-light text-center">Submission Date</th>
-                    <th class="bg-dark text-light text-center">Score</th>
-                    <th class="bg-dark text-light text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if($filteredSubmissions->isEmpty())
-                <tr>
-                    <td colspan="6" class="text-center">
-                        <div class="status-pending fs-6">No students enrolled in this course.</div>
-                    </td>
-                </tr>
-                @else
-                @foreach($filteredSubmissions as $submission)
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td class="text-center">{{ $submission->student_id }}</td>
-                        <td class="text-center">{{ $submission->user->name }}</td>
-                        <td class="text-center">{{ $submission->assignment->title }}</td>
-                        <td class="text-center">
-                            <span class="status-{{ $submission->status }}">{{ ucfirst($submission->status) }}</span>
-                        </td>
-                        <td class="text-center">{{ $submission->submitted_at ? $submission->submitted_at->format('Y-m-d') : 'Not submitted' }}</td>
-                        <td class="text-center">{{ $submission->score }}</td>
-                        <td class="action-icons text-center">
-                            <a href="{{ route('professor.student.profile', ['studentId' => $submission->user->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
-                            <a href=""><i class="fa-solid fa-message" title="send"></i></a>
+                        <th class="bg-dark text-light text-center">Student ID</th>
+                        <th class="bg-dark text-light text-center">Student Name</th>
+                        <th class="bg-dark text-light text-center">Assignment Title</th>
+                        <th class="bg-dark text-light text-center">Assignment Status</th>
+                        <th class="bg-dark text-light text-center">Submission Date</th>
+                        <th class="bg-dark text-light text-center">Score</th>
+                        <th class="bg-dark text-light text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($filteredSubmissions->isEmpty())
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            <div class="status-pending fs-6">No students enrolled in this course.</div>
                         </td>
                     </tr>
-                @endforeach
-                @endif
-            </tbody>
-        </table>
+                    @else
+                    @foreach($filteredSubmissions as $submission)
+                        <tr>
+                            <td class="text-center">{{ $submission->student_id }}</td>
+                            <td class="text-center">{{ $submission->user->name }}</td>
+                            <td class="text-center">{{ $submission->assignment->title }}</td>
+                            <td class="text-center">
+                                <span class="status-{{ $submission->status }}">{{ ucfirst($submission->status) }}</span>
+                            </td>
+                            <td class="text-center">{{ $submission->submitted_at ? $submission->submitted_at->format('Y-m-d') : 'Not submitted' }}</td>
+                            <td class="text-center">{{ $submission->score }}</td>
+                            <td class="action-icons text-center">
+                                <a href="{{ route('professor.student.profile', ['studentId' => $submission->user->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
+                                <a href=""><i class="fa-solid fa-message" title="send"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

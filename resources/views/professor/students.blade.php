@@ -94,74 +94,77 @@
         margin-right: 10px;
     }
 </style>
-<h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Students</h2>
-
-<ul class="nav nav-tabs mb-4">
-    <li class="nav-item">
-        <a href="" class="nav-link active">All Students</a>
-    </li>
-    <li class="nav-item">
-        <a href="" class="nav-link">High Performance</a>
-    </li>
-    <li class="nav-item">
-        <a href="" class="nav-link">Average Performance</a>
-    </li>
-    <li class="nav-item">
-        <a href="" class="nav-link">Low Performance</a>
-    </li>
-</ul>
-
 <div class="container">
-    <div class="search-container">
-        <form method="GET" action="{{ route('professor.course.students', $courseId) }}" class="d-flex flex-column">
-            <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
-            <div class="d-flex">
-                <input type="text" name="search" class="form-control" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
-                <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
-            </div>
-        </form>
-    </div>
+    <h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Students</h2>
 
-    <div class="table-container">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="text-center bg-dark text-white">ID</th>
-                    <th class="text-center bg-dark text-white">Name</th>
-                    <th class="text-center bg-dark text-white">Year</th>
-                    <th class="text-center bg-dark text-white">Email</th>
-                    <th class="text-center bg-dark text-white">Performance</th>
-                    <th class="text-center bg-dark text-white">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if($students->isEmpty())
-                <tr>
-                    <td colspan="6" class="text-center">
-                        <div class="status-refunded fs-6">No students enrolled in this course.</div>
-                    </td>
-                </tr>
-                @else
-                @foreach($students as $student)
-                <tr>
-                    <td class="text-center">{{ $student->id }}</td>
-                    <td class="text-center">{{ $student->name }}</td>
-                    <td class="text-center">{{ $student->year }}</td>
-                    <td class="text-center">{{ $student->email }}</td>
-                    <td class="text-center">
-                        <span class="status-{{ $loop->iteration % 3 == 0 ? 'pending' : ($loop->iteration % 3 == 1 ? 'completed' : 'refunded') }}">
-                            {{ $loop->iteration % 3 == 0 ? 'Average' : ($loop->iteration % 3 == 1 ? 'High' : 'Low') }}
-                        </span>
-                    </td>
-                    <td class="action-icons text-center">
-                        <a href="{{ route('professor.student.profile', ['studentId' => $student->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
-                        <a href=""><i class="fa-solid fa-message" title="send"></i></a>
-                    </td>
-                </tr>
-                @endforeach
-                @endif
-            </tbody>
-        </table>
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a href="" class="nav-link active">All Students</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">High Performance</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">Average Performance</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link">Low Performance</a>
+        </li>
+    </ul>
+
+    <div class="container">
+        <div class="search-container">
+            <form method="GET" action="{{ route('professor.course.students', $courseId) }}" class="d-flex flex-column">
+                <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
+                <div class="d-flex">
+                    <input type="text" name="search" class="form-control" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
+                    <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center bg-dark text-white">ID</th>
+                        <th class="text-center bg-dark text-white">Name</th>
+                        <th class="text-center bg-dark text-white">Year</th>
+                        <th class="text-center bg-dark text-white">Email</th>
+                        <th class="text-center bg-dark text-white">Performance</th>
+                        <th class="text-center bg-dark text-white">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($students->isEmpty())
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            <div class="status-refunded fs-6">No students enrolled in this course.</div>
+                        </td>
+                    </tr>
+                    @else
+                    @foreach($students as $student)
+                    <tr>
+                        <td class="text-center">{{ $student->id }}</td>
+                        <td class="text-center">{{ $student->name }}</td>
+                        <td class="text-center">{{ $student->year }}</td>
+                        <td class="text-center">{{ $student->email }}</td>
+                        <td class="text-center">
+                            <span class="status-{{ $loop->iteration % 3 == 0 ? 'pending' : ($loop->iteration % 3 == 1 ? 'completed' : 'refunded') }}">
+                                {{ $loop->iteration % 3 == 0 ? 'Average' : ($loop->iteration % 3 == 1 ? 'High' : 'Low') }}
+                            </span>
+                        </td>
+                        <td class="action-icons text-center">
+                            <a href="{{ route('professor.student.profile', ['studentId' => $student->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
+                            <a href=""><i class="fa-solid fa-message" title="send"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 @endsection
