@@ -8,6 +8,7 @@ use App\Models\Grade;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ParentController extends Controller
 {
@@ -244,13 +245,45 @@ class ParentController extends Controller
     public function childProfile($childId)
     {
         $child = User::findOrFail($childId);
-        // Fetch profile data logic here
-        return view('parent.child-profile', compact('child', 'childId'));
+        $grades = $child->grades()->with('course')->get();
+
+        $gradePoints = [
+            'A+' => 4.0, 
+            'A'  => 4.8,
+            'A-' => 3.7,
+            'B+' => 3.3,
+            'B'  => 3.0,
+            'B-' => 2.7,
+            'C+' => 2.3,
+            'C'  => 2.0,
+            'C-' => 1.7,
+            'D+' => 1.3,
+            'D'  => 1.0,
+            'D-' => 0.7,
+            'F'  => 0.0,
+        ];
+
+        $totalPoints = 0;
+        $totalCourses = $grades->count();
+
+        foreach ($grades as $grade) {
+            $totalPoints += $gradePoints[$grade->grade] ?? 0; 
+        }
+
+        $gpa = $totalCourses > 0 ? round($totalPoints / $totalCourses, 2) : 0.00;
+
+        $totalCredits = $grades->sum(function ($grade) {
+            return $grade->course->credit_hours ?? 0; 
+        });
+
+        $maxCredits = 144;
+
+        return view('parent.child-profile', compact('child', 'childId', 'gpa', 'totalCredits', 'maxCredits'));
     }
 
     public function profile()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         return view('parent.profile', compact('user'));
     }
 }
