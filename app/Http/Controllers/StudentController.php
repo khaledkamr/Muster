@@ -142,16 +142,13 @@ class StudentController extends Controller
         $user = Auth::user();
         $enrollments = $user->enrollments()->with('course.grades')->get();
 
-        // Determine the start year of the student (based on earliest enrollment)
         $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : now()->format('Y');
 
-        // Determine the current semester and year
         $currentMonth = 10;
         $currentYear = now()->year;
         $currentSemester = $currentMonth <= 6 ? 'first' : 'second'; // First semester: Jan-Jun, Second: Jul-Dec
         $currentAcademicYear = $currentYear - $startYear + 1;
 
-        // Generate all semesters the student has been enrolled in
         $semesters = [];
         foreach ($enrollments as $enrollment) {
             $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
@@ -161,11 +158,9 @@ class StudentController extends Controller
             $semesters[$semesterValue] = $semesterLabel;
         }
 
-        // Remove duplicates and sort semesters
         $semesters = array_unique($semesters);
         asort($semesters);
 
-        // Add the current semester to the list (for display purposes, but grades will be empty)
         $currentSemesterValue = "year{$currentAcademicYear}-{$currentSemester}";
         $currentSemesterLabel = "Year $currentAcademicYear - " . ($currentSemester === 'first' ? 'First Semester' : 'Second Semester');
         $semesters[$currentSemesterValue] = $currentSemesterLabel;
