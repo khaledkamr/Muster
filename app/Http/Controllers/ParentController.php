@@ -94,11 +94,58 @@ class ParentController extends Controller
         return view('parent.child-course-details', compact('child', 'childId', 'course', 'grade', 'displayScores', 'displayMaxScores', 'totalScore', 'totalMaxScore', 'percentage'));
     }
 
-    public function childAssignments($childId)
+    public function childAssignments($childId, Request $request)
     {
         $child = User::findOrFail($childId);
-        // Fetch assignments logic here
-        return view('parent.child-assignments', compact('child', 'childId'));
+        $enrollments = $child->enrollments()->with('course.assignments.submissions')->get();
+
+        $currentMonth = 10;
+        $currentYear = now()->year;
+        $currentSemester = $currentMonth <= 6 ? 'first' : 'second';
+        $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : $currentYear;
+        $currentAcademicYear = $currentYear - $startYear + 1;
+
+        $currentSemesterCourses = $enrollments
+            ->filter(function ($enrollment) use ($currentAcademicYear, $currentSemester, $startYear) {
+                $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
+                return $enrollmentYear === $currentAcademicYear && $enrollment->course->semester === $currentSemester;
+            })
+            ->pluck('course');
+        
+        $assignments = $currentSemesterCourses->flatMap->assignments;
+
+        $submissions = $assignments->flatMap->submissions->where('student_id', $child->id);
+
+        $totalAssignments = $assignments->count() - 4;
+        $submittedAssignments = $submissions->where('status', 'submitted')->count();
+        $completionPercentage = $totalAssignments > 0 ? round(($submittedAssignments / $totalAssignments) * 100) : 0;
+
+        $totalScore = $submissions->where('status', 'submitted')->sum('score');
+        $maxScorePerAssignment = 10; 
+        $maxPossibleScore = $submittedAssignments * $maxScorePerAssignment;
+        $scorePercentage = $maxPossibleScore > 0 ? round(($totalScore / $maxPossibleScore) * 100) : 0;
+
+        $postedAssignmentTitles = $assignments->pluck('title')->toArray();
+        $allPossibleAssignments = ['Assignment 1', 'Assignment 2', 'Assignment 3']; 
+        $upcomingAssignments = ['Assignment 3'];
+
+        $statusFilter = $request->input('status', 'all');
+        $filteredSubmissions = $submissions;
+        if ($statusFilter === 'submitted') {
+            $filteredSubmissions = $submissions->where('status', 'submitted');
+        } elseif ($statusFilter === 'pending') {
+            $filteredSubmissions = $submissions->where('status', 'pending');
+        }
+
+        $searchQuery = $request->input('search', '');
+        if ($searchQuery) {
+            $filteredSubmissions = $filteredSubmissions->filter(function ($submission) use ($searchQuery) {
+                $course = $submission->assignment->course;
+                return stripos($course->code, $searchQuery) !== false || stripos($course->name, $searchQuery) !== false;
+            });
+        }
+
+        return view('parent.child-assignments', compact('child', 'childId', 'assignments', 'submissions', 'completionPercentage', 'scorePercentage', 'upcomingAssignments', 'statusFilter', 'searchQuery', 'filteredSubmissions', 'currentSemesterCourses'));
     }
 
     public function childAttendance($childId)
