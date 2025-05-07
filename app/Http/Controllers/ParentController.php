@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\Grade;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ParentController extends Controller
@@ -148,11 +150,95 @@ class ParentController extends Controller
         return view('parent.child-assignments', compact('child', 'childId', 'assignments', 'submissions', 'completionPercentage', 'scorePercentage', 'upcomingAssignments', 'statusFilter', 'searchQuery', 'filteredSubmissions', 'currentSemesterCourses'));
     }
 
-    public function childAttendance($childId)
+    public function childAttendance($childId, Request $request)
     {
         $child = User::findOrFail($childId);
-        // Fetch attendance logic here
-        return view('parent.child-attendance', compact('child', 'childId'));
+        $enrollments = $child->enrollments()->with('course')->get();
+
+        // Determine the current semester and year
+        $currentMonth = 10;
+        $currentYear = now()->year;
+        $currentSemester = $currentMonth <= 6 ? 'first' : 'second';
+        $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : $currentYear;
+        $currentAcademicYear = $currentYear - $startYear + 1;
+
+        // Define semester date range (assuming first semester: Jan-Jun)
+        $semesterStart = Carbon::create($currentYear, $currentSemester === 'first' ? 1 : 8, 1);
+        $semesterEnd = Carbon::create($currentYear, $currentSemester === 'first' ? 6 : 11, 30);
+
+        // Get current semester courses
+        $currentSemesterCourses = $enrollments
+            ->filter(function ($enrollment) use ($currentAcademicYear, $currentSemester, $startYear) {
+                $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
+                return $enrollmentYear === $currentAcademicYear && $enrollment->course->semester === $currentSemester;
+            })
+            ->pluck('course');
+
+        // Get all attendance records for the current semester
+        $attendances = Attendance::where('student_id', $child->id)
+            ->whereIn('course_id', $currentSemesterCourses->pluck('id'))
+            ->whereBetween('date', [$semesterStart, $semesterEnd])
+            ->get();
+
+        // Calculate weekly attendance (lectures, labs, or both)
+        $filterType = $request->input('type', 'both'); // Filter: lectures, labs, or both
+        $weeksInSemester = $semesterStart->diffInWeeks($semesterEnd) + 1;
+        $weeklyAttendance = [];
+        $totalSessions = 0;
+        $presentSessions = 0;
+
+        for ($week = 1; $week <= $weeksInSemester; $week++) {
+            $weekStart = $semesterStart->copy()->addWeeks($week - 1)->startOfWeek();
+            $weekEnd = $weekStart->copy()->endOfWeek();
+            $weekAttendances = $attendances->filter(function ($attendance) use ($weekStart, $weekEnd, $filterType) {
+                $attendanceDate = Carbon::parse($attendance->date);
+                $isWithinWeek = $attendanceDate->between($weekStart, $weekEnd);
+                $matchesType = $filterType === 'both' || $attendance->type === $filterType;
+                return $isWithinWeek && $matchesType;
+            });
+
+            $sessionsInWeek = $weekAttendances->count();
+            $presentInWeek = $weekAttendances->where('status', 'present')->count();
+            $weeklyAttendance[$week] = $presentInWeek;
+
+            $totalSessions += $sessionsInWeek;
+            $presentSessions += $presentInWeek;
+        }
+
+        // Calculate attendance rate
+        $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
+
+        // Course selection for contribution graph
+        $selectedCourseId = $request->input('course_id');
+        $selectedCourse = $selectedCourseId ? $currentSemesterCourses->firstWhere('id', $selectedCourseId) : null;
+
+        // Prepare contribution graph data for the selected course
+        $contributionData = [];
+        if ($selectedCourse) {
+            $courseAttendances = $attendances->where('course_id', $selectedCourse->id)->where('type', 'lecture');
+            $currentDate = $semesterStart->copy();
+            
+            while ($currentDate <= $semesterEnd) {
+                $dateStr = $currentDate->format('Y-m-d');
+                $dayAttendances = $courseAttendances->where('date', $currentDate);
+                $attended = $dayAttendances->contains('status', 'present');
+                $contributionData[$dateStr] = $attended ? 1 : 0; // 1 for attended, 0 for not attended
+                $currentDate->addDay();
+            }
+        }
+        else {
+            $currentDate = $semesterStart->copy();
+            
+            while ($currentDate <= $semesterEnd) {
+                $dateStr = $currentDate->format('Y-m-d');
+                $dayAttendances = $attendances->where('date', $currentDate);
+                $attended = $dayAttendances->contains('status', 'present');
+                $contributionData[$dateStr] = $attended ? 1 : 0; // 1 for attended, 0 for not attended
+                $currentDate->addDay();
+            }
+        }
+
+        return view('parent.child-attendance', compact('child', 'childId', 'currentSemesterCourses', 'weeklyAttendance', 'attendanceRate', 'filterType', 'selectedCourse', 'semesterStart', 'semesterEnd', 'contributionData'));
     }
 
     public function childProfile($childId)
