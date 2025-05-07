@@ -319,32 +319,6 @@ class StudentController extends Controller
         return view('student.course-details', compact('course', 'grade', 'displayScores', 'displayMaxScores', 'totalScore', 'totalMaxScore', 'percentage'));
     }
 
-    public function courseAttendance($course)
-    {
-        $user = Auth::user();
-        $course = Course::findOrFail($course);
-        
-        $query = Attendance::where('student_id', $user->id)
-                           ->where('course_id', $course->id)
-                           ->orderBy('date');
-    
-        $type = request('type', 'all');
-        if ($type === 'lecture' || $type === 'lab') {
-            $query->where('type', $type);
-        }
-    
-        $attendances = $query->get();
-    
-        $allAttendances = Attendance::where('student_id', $user->id)
-                                    ->where('course_id', $course->id)
-                                    ->get();
-        $totalSessions = $allAttendances->count();
-        $present = $allAttendances->where('status', 'present')->count();
-        $attendanceRate = $totalSessions > 0 ? round(($present / $totalSessions) * 100, 2) : 0;
-    
-        return view('student.course-attendance', compact('user', 'course', 'attendances', 'attendanceRate', 'totalSessions'));
-    }
-
     public function attendance(Request $request)
     {
         $user = Auth::user();
