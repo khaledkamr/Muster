@@ -286,4 +286,10 @@ class ParentController extends Controller
         $user = Auth::user();
         return view('parent.profile', compact('user'));
     }
+
+    public function professorProfile($professorId)
+    {
+        $user = User::findOrFail($professorId);
+        return view('parent.professor-profile', compact('user'));
+    }
 }

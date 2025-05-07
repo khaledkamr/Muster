@@ -24,6 +24,38 @@
 
     <div class="card mb-4 watercolor-card">
         <div class="card-body">
+            <h5 class="card-title text-dark">Courses you teach</h5>
+            @if($user->courses->count() > 0)
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="background-color: transparent;" >Course Code</th>
+                                <th class="text-center" style="background-color: transparent;">Course Name</th>
+                                <th class="text-center" style="background-color: transparent;">Department</th>
+                                <th class="text-center" style="background-color: transparent;">Credits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($user->courses as $course)
+                                <tr>
+                                    <td class="text-center" style="background-color: transparent;">{{ $course->code }}</td>
+                                    <td class="text-center" style="background-color: transparent;">{{ $course->name }}</td>
+                                    <td class="text-center" style="background-color: transparent;">{{ $course->department }}</td>
+                                    <td class="text-center" style="background-color: transparent;">{{ $course->credit_hours }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <p class="text-muted">No courses assigned yet.</p>
+            @endif
+        </div>
+    </div>
+
+    <div class="card mb-4 watercolor-card">
+        <div class="card-body">
             <h5 class="card-title text-dark">Personal Information</h5>
             <div class="row">
                 <div class="col-md-6">

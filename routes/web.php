@@ -65,6 +65,7 @@ Route::prefix('parent')->middleware(['auth', 'role:parent'])->group(function () 
     Route::get('/assignments/child/{childId}', [ParentController::class, 'childAssignments'])->name('parent.child.assignments');
     Route::get('/attendance/child/{childId}', [ParentController::class, 'childAttendance'])->name('parent.child.attendance');
     Route::get('/profile/child/{childId}', [ParentController::class, 'childProfile'])->name('parent.child.profile');
+    Route::get('/professor-profile/{professorId}', [ParentController::class, 'professorProfile'])->name('parent.professor-profile');
     Route::get('/profile', [ParentController::class, 'profile'])->name('parent.profile');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
