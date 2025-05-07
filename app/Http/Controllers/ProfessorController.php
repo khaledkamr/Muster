@@ -75,7 +75,7 @@ class ProfessorController extends Controller
     }
 
     public function grades($courseId)
-{
+    {
     $course = Course::findOrFail($courseId);
     $searchQuery = request()->query('search');
 

@@ -60,10 +60,10 @@ Route::middleware(['auth', 'role:professor'])->group(function () {
 
 Route::prefix('parent')->middleware(['auth', 'role:parent'])->group(function () {
     Route::get('/home', [ParentController::class, 'index'])->name('parent.home'); 
-    Route::get('/child/{childId}/grades', [ParentController::class, 'childGrades'])->name('parent.child.grades');
-    Route::get('/child/{childId}/assignments', [ParentController::class, 'childAssignments'])->name('parent.child.assignments');
-    Route::get('/child/{childId}/attendance', [ParentController::class, 'childAttendance'])->name('parent.child.attendance');
-    Route::get('/child/{childId}/profile', [ParentController::class, 'childProfile'])->name('parent.child.profile');
+    Route::get('/grades/child/{childId}', [ParentController::class, 'childGrades'])->name('parent.child.grades');
+    Route::get('/assignments/child/{childId}', [ParentController::class, 'childAssignments'])->name('parent.child.assignments');
+    Route::get('/attendance/child/{childId}', [ParentController::class, 'childAttendance'])->name('parent.child.attendance');
+    Route::get('/profile/child/{childId}', [ParentController::class, 'childProfile'])->name('parent.child.profile');
     Route::get('/profile', [ParentController::class, 'profile'])->name('parent.profile');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

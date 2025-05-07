@@ -203,19 +203,19 @@
 
                     <!-- Child Sub-Menu -->
                     <div class="collapse child-sub-menu" id="child-{{ $child->id }}">
-                        <a class="nav-link {{ request()->routeIs('parent.child.grades', $child->id) ? 'active' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('parent.child.grades') && $child->id == $childId ? 'active' : '' }}"
                            href="{{ route('parent.child.grades', $child->id) }}">
                             <i class="bi bi-award"></i> Grades
                         </a>
-                        <a class="nav-link {{ request()->routeIs('parent.child.assignments', $child->id) ? 'active' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('parent.child.assignments') && $child->id == $childId ? 'active' : '' }}"
                            href="{{ route('parent.child.assignments', $child->id) }}">
                             <i class="fa-solid fa-list-check"></i> Assignments
                         </a>
-                        <a class="nav-link {{ request()->routeIs('parent.child.attendance', $child->id) ? 'active' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('parent.child.attendance') && $child->id == $childId ? 'active' : '' }}"
                            href="{{ route('parent.child.attendance', $child->id) }}">
                             <i class="fa-solid fa-clipboard-check"></i> Attendance
                         </a>
-                        <a class="nav-link {{ request()->routeIs('parent.child.profile', $child->id) ? 'active' : '' }}"
+                        <a class="nav-link {{ request()->routeIs('parent.child.profile') && $child->id == $childId ? 'active' : '' }}"
                            href="{{ route('parent.child.profile', $child->id) }}">
                             <i class="bi bi-person-lines-fill"></i> Student Profile
                         </a>
@@ -326,8 +326,11 @@
             const currentRoute = window.location.pathname;
             const childRoutes = ['grades', 'assignments', 'attendance', 'profile'];
 
+            console.log(childRoutes.some(route => currentRoute.includes(route)));
+
             if (childRoutes.some(route => currentRoute.includes(route))) {
                 const childId = currentRoute.split('/').pop();
+                console.log(childId);
                 const childCollapse = document.querySelector(`#child-${childId}`);
                 if (childCollapse) {
                     new bootstrap.Collapse(childCollapse, {

@@ -16,28 +16,28 @@ class ParentController extends Controller
     {
         $child = User::findOrFail($childId);
         // Fetch grades logic here
-        return view('parent.child-grades', compact('child'));
+        return view('parent.child-grades', compact('child', 'childId'));
     }
 
     public function childAssignments($childId)
     {
         $child = User::findOrFail($childId);
         // Fetch assignments logic here
-        return view('parent.child-assignments', compact('child'));
+        return view('parent.child-assignments', compact('child', 'childId'));
     }
 
     public function childAttendance($childId)
     {
         $child = User::findOrFail($childId);
         // Fetch attendance logic here
-        return view('parent.child-attendance', compact('child'));
+        return view('parent.child-attendance', compact('child', 'childId'));
     }
 
     public function childProfile($childId)
     {
         $child = User::findOrFail($childId);
         // Fetch profile data logic here
-        return view('parent.child-profile', compact('child'));
+        return view('parent.child-profile', compact('child', 'childId'));
     }
 
     public function profile()
