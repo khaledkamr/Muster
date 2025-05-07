@@ -104,8 +104,8 @@
                                         {{ ucfirst($submission->status) }}
                                     </span>
                                 </td>
-                                <td class="text-center">{{ $submission->assignment->due_date->format('M d, Y') }}</td>
                                 <td class="text-center">{{ $submission->submitted_at ? $submission->submitted_at->format('M d, Y') : '-' }}</td>
+                                <td class="text-center">{{ $submission->assignment->due_date->format('M d, Y') }}</td>
                                 <td class="text-light text-center ">
                                     <div class="badge bg-primary" style="font-size: 12px;">{{ $submission->score ?? '-' }}</div>
                                 </td>
