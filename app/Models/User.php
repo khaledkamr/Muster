@@ -76,7 +76,7 @@ class User extends Authenticatable
         return $this->hasMany(User::class, 'parent_id')->where('role', 'student');
     }
 
-    public function courses() {
+    public function courses() { // for professors
         return $this->hasMany(Course::class, 'professor_id');
     }
 

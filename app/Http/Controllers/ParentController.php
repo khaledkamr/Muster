@@ -14,7 +14,10 @@ class ParentController extends Controller
 {
     public function index()
     {
-        return view('parent.home');
+        $user = Auth::user();
+        $children = $user->children()->with('enrollments.course')->get();
+
+        return view('parent.home', compact('user', 'children'));
     }
 
     public function childGrades($childId)
