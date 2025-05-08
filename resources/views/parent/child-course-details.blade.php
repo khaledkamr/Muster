@@ -94,11 +94,12 @@
         </div>
     </div>
 
-
     <!-- Final Grade and Status -->
     <div class="text-center text-dark">
-        <h4>Final Grade: <span class="badge bg-{{ $grade->status === 'pass' ? 'success' : 'danger' }}">{{ $grade->grade }}</span></h4>
-        <p>Status: <strong>{{ ucfirst($grade->status) }}</strong></p>
+        @if(!empty($grade->grade))
+            <h4>Final Grade: <span class="badge bg-{{ $grade->status === 'pass' ? 'success' : 'danger' }}">{{ $grade->grade }}</span></h4>
+            <p>Status: <strong>{{ ucfirst($grade->status) }}</strong></p>
+        @endif
     </div>
 </div>
 

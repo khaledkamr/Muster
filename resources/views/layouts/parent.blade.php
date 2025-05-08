@@ -182,7 +182,7 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <img class="image pb-3" src="{{ asset('imgs/logo.png') }}" alt="MUST">
+        <img class="image pb-5" src="{{ asset('imgs/logo.png') }}" alt="MUST">
 
         <ul class="nav flex-column">
             <!-- Home -->

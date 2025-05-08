@@ -14,7 +14,10 @@
         }
         .card {
             background-color: #495057;
-            border: none;
+            border: 1px solid #58bc82;
+        }
+        .border-danger {
+            border: 1px solid #df606c !important;
         }
         .form {
             --bg-light: #efefef;
@@ -49,13 +52,11 @@
             outline: 2px solid var(--bg-dark);
             color: #ffffff;
         }
-
         .form input[type="email"]:focus,
         .form input[type="password"]:focus,
         .form input[type="text"]:focus {
             outline: 2px solid var(--clr);
         }
-
         .form .group {
             position: relative;
         }
@@ -117,35 +118,35 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
-                <div class="card">
+                <div class="card shadow {{ $errors->has('email') || $errors->has('password') || session('error') ? 'border-danger' : '' }}">
                     <div class="text-center">
                         <img src="{{ asset('imgs/logo.png') }}" alt="Logo" class="img-fluid pt-5 pb-2" style="max-width: 150px;">
                     </div>
                     <div class="card-body">
                         <form class="form pb-5" method="POST" action="{{ route('login') }}">
                             @csrf
-                            {{-- @if(session('error'))
-                                <div class="alert alert-danger">
+                            @if(session('error'))
+                                <div class="badge bg-danger">
                                     {{ session('error') }}
                                 </div>
-                            @endif --}}
-                            @if($errors->has('email') || $errors->has('password'))
-                                <p class="alert alert-danger">
+                            @endif
+                            {{-- @if($errors->has('email') || $errors->has('password'))
+                                <p class="badge bg-danger">
                                     Invalid email or password
                                 </p>
-                            @endif
+                            @endif --}}
 
                             <span class="input-span">
                                 <label for="email" class="label">Email</label>
                                 <div class="group">
                                     <i class="fa-solid fa-user"></i>
-                                    <input type="email" name="email" id="email" value="{{ old('email') }}" 
+                                    <input type="text" name="email" id="email" value="{{ old('email') }}" 
                                         class="{{ $errors->has('email') ? 'input-error' : '' }}" autofocus />
                                 </div>
                             </span>
-                            {{-- @error('email')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror --}}
+                            @error('email')
+                                <div class="badge bg-danger">{{ $message }}</div>
+                            @enderror
 
                             <span class="input-span">
                                 <label for="password" class="label">Password</label>
@@ -159,11 +160,11 @@
                                     </span>
                                 </div>
                             </span>
-                            {{-- @error('password')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror --}}
+                            @error('password')
+                                <div class="badge bg-danger">{{ $message }}</div>
+                            @enderror
 
-                            <span class="span"><a href="#">Forgot password?</a></span>
+                            <span class="span" style="text-decoration: none;"><a href="#" style="text-decoration: none;">Forgot password?</a></span>
                             <input class="submit" type="submit" value="Log in" />
                         </form>
                     </div>

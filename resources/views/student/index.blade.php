@@ -57,7 +57,7 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span>{{$upcomingAssignments[0]}}</span>
                                 <span class="text-muted">{{ $currentSemesterCourses[$i]->code }}</span>
-                                <span class="badge bg-info">2025-11-10</span>
+                                <small class="badge text-muted text-end d-block"><i class="fa-solid fa-calendar-days"></i> Nov 10, 2025</small>
                             </li>
                         @endfor
                     </ul>
