@@ -37,6 +37,7 @@
                                 <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
                                 <div class="d-flex">
                                     <input type="text" name="search" class="form-control me-2" style="width: 500px" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
+                                    <input type="hidden" name="view" value="{{ request()->query('view', 'assign1') }}">
                                     <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
                                 </div>
                             </form>
