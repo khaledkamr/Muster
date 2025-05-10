@@ -92,6 +92,7 @@ class CurrentSemesterSeeder extends Seeder
 
                 // Partial Grades: Quiz 1 and Assignments only
                 $quiz1 = rand(3, 10);
+                $midterm = rand(0, 30);
                 $assignmentsTotal = Assignment_submission::where('student_id', $student->id)
                     ->whereHas('assignment', fn($q) => $q->where('course_id', $course->id))
                     ->sum('score');
@@ -102,7 +103,7 @@ class CurrentSemesterSeeder extends Seeder
                     [
                         'quiz1' => $quiz1,
                         'quiz2' => null,
-                        'midterm' => null,
+                        'midterm' => $midterm,
                         'project' => null,
                         'assignments' => $assignmentsTotal,
                         'final' => null,

@@ -33,11 +33,11 @@ class GradeSeeder extends Seeder
 
                 $assignmentsTotal = min($assignmentsTotal, 30);
 
-                $quiz1 = rand(3, 10);      
-                $quiz2 = rand(3, 10);      
-                $midterm = rand(19, 30);    
-                $project = rand(20, 30);    
-                $final = rand(40, 60);      
+                $quiz1 = $this->generateNormalScore(5, 2, 0, 10); 
+                $quiz2 = $this->generateNormalScore(5, 2, 0, 10); 
+                $midterm = $this->generateNormalScore(19, 5, 0, 30); 
+                $project = $this->generateNormalScore(19, 5, 0, 30);
+                $final = $this->generateNormalScore(39, 8, 0, 60);  
 
                 $total = $quiz1 + $quiz2 + $midterm + $project + $assignmentsTotal + $final;
 
@@ -65,6 +65,20 @@ class GradeSeeder extends Seeder
                 );
             }
         }
+    }
+
+    private function generateNormalScore($mean, $sd, $min, $max)
+    {
+        // Generate a normally distributed random number using the Box-Muller transform
+        $u1 = mt_rand() / mt_getrandmax();
+        $u2 = mt_rand() / mt_getrandmax();
+        $z = sqrt(-2 * log($u1)) * cos(2 * M_PI * $u2);
+
+        // Scale and shift to desired mean and standard deviation
+        $score = $mean + $sd * $z;
+
+        // Clamp the score to the min and max bounds
+        return max($min, min($max, round($score)));
     }
 
     private function calculateGrade($total)
