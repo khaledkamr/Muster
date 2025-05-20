@@ -111,6 +111,10 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="mt-4">
+            {{ $attendanceRecords->appends(request()->query())->onEachSide(1)->links() }}
+        </div>
     </div>
 </div>
 
@@ -243,6 +247,34 @@
 </script>
 
 <style>
+    .pagination {
+        margin: 0;
+        padding: 0;
+    }
+    .pagination .page-item .page-link {
+        color: #0A9442;
+        border: 1px solid #dee2e6;
+        padding: 8px 16px;
+        margin: 0 2px;
+        border-radius: 4px;
+        transition: 0.3s;
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #0A9442;
+        border-color: #0A9442;
+        color: white;
+    }
+    .pagination .page-item .page-link:hover {
+        background-color: #0A9442;
+        border-color: #0A9442;
+        color: white;
+    }
+    .pagination .page-item.disabled .page-link {
+        color: #fff;
+        pointer-events: none;
+        background-color: #d5d7d8;
+        border-color: #dee2e6;
+    }
     .table-container {
         background-color: #fff;
         border-radius: 8px;

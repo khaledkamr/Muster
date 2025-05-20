@@ -12,17 +12,14 @@
             width: 10px;
             height: 0; /* Prevent horizontal scrollbar */
         }
-
         ::-webkit-scrollbar-track {
-            background: #0A9442 !important;
+            background: #121212 !important;
         }
-
         ::-webkit-scrollbar-thumb {
-            background: #002361 !important;
+            background: #0A9442 !important;
             cursor: grab;
             transition: 0.3s;
         }
-
         ::-webkit-scrollbar-thumb:hover {
             background: #0157b3;
         }

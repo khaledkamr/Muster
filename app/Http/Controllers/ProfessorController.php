@@ -61,7 +61,7 @@ class ProfessorController extends Controller
         $students = $course ? $course->enrollments
             ->where('enrolled_at', Carbon::parse('2025-08-01'))
             ->map(function ($enrollment) {
-            return $enrollment->student;
+                return $enrollment->student;
             }) : collect();
 
         $searchQuery = request()->query('search');
@@ -70,6 +70,15 @@ class ProfessorController extends Controller
                 return stripos($student->id, $searchQuery) !== false || stripos($student->name, $searchQuery) !== false;
             });
         }
+
+        // Convert collection to paginator with 10 items per page
+        $students = new \Illuminate\Pagination\LengthAwarePaginator(
+            $students->forPage(request()->get('page', 1), 50),
+            $students->count(),
+            50,
+            request()->get('page', 1),
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         return view('professor.students', compact('course', 'courseId', 'students'));
     }
@@ -94,6 +103,14 @@ class ProfessorController extends Controller
                 return stripos($student->id, $searchQuery) !== false || stripos($student->name, $searchQuery) !== false;
             });
         }
+
+        $students = new \Illuminate\Pagination\LengthAwarePaginator(
+            $students->forPage(request()->get('page', 1), 50),
+            $students->count(),
+            50,
+            request()->get('page', 1),
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         return view('professor.grades', compact('course', 'courseId', 'students'));
     }
@@ -129,6 +146,14 @@ class ProfessorController extends Controller
             });
         }
 
+        $filteredSubmissions = new \Illuminate\Pagination\LengthAwarePaginator(
+            $filteredSubmissions->forPage(request()->get('page', 1), 50),
+            $filteredSubmissions->count(),
+            50,
+            request()->get('page', 1),
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
         return view('professor.assignments', compact('course', 'courseId', 'filteredSubmissions', 'statusFilter', 'searchQuery'));
     }
 
@@ -137,50 +162,17 @@ class ProfessorController extends Controller
         $course = $courseId ? Course::find($courseId) : null;
         $view = request('view', 'week1');
         $weeks = [
-            'week1' => [
-                'start' => Carbon::parse('2025-08-01'),
-                'end' => Carbon::parse('2025-08-07'),
-            ],
-            'week2' => [
-                'start' => Carbon::parse('2025-08-08'),
-                'end' => Carbon::parse('2025-08-14'),
-            ],
-            'week3' => [
-                'start' => Carbon::parse('2025-08-15'),
-                'end' => Carbon::parse('2025-08-21'),
-            ],
-            'week4' => [
-                'start' => Carbon::parse('2025-08-22'),
-                'end' => Carbon::parse('2025-08-28'),
-            ],
-            'week5' => [
-                'start' => Carbon::parse('2025-08-29'),
-                'end' => Carbon::parse('2025-09-04'),
-            ],
-            'week6' => [
-                'start' => Carbon::parse('2025-09-05'),
-                'end' => Carbon::parse('2025-09-11'),
-            ],
-            'week7' => [
-                'start' => Carbon::parse('2025-09-12'),
-                'end' => Carbon::parse('2025-09-18'),
-            ],
-            'week8' => [
-                'start' => Carbon::parse('2025-09-19'),
-                'end' => Carbon::parse('2025-09-25'),
-            ],
-            'week9' => [
-                'start' => Carbon::parse('2025-09-26'),
-                'end' => Carbon::parse('2025-10-02'),
-            ],
-            'week10' => [
-                'start' => Carbon::parse('2025-10-03'),
-                'end' => Carbon::parse('2025-10-09'),
-            ],
-            'week11' => [
-                'start' => Carbon::parse('2025-10-10'),
-                'end' => Carbon::parse('2025-10-16'),
-            ],
+            'week1' => ['start' => Carbon::parse('2025-08-01'),'end' => Carbon::parse('2025-08-07')],
+            'week2' => ['start' => Carbon::parse('2025-08-08'),'end' => Carbon::parse('2025-08-14')],
+            'week3' => ['start' => Carbon::parse('2025-08-15'),'end' => Carbon::parse('2025-08-21')],
+            'week4' => ['start' => Carbon::parse('2025-08-22'),'end' => Carbon::parse('2025-08-28')],
+            'week5' => ['start' => Carbon::parse('2025-08-29'),'end' => Carbon::parse('2025-09-04')],
+            'week6' => ['start' => Carbon::parse('2025-09-05'),'end' => Carbon::parse('2025-09-11')],
+            'week7' => ['start' => Carbon::parse('2025-09-12'),'end' => Carbon::parse('2025-09-18')],
+            'week8' => ['start' => Carbon::parse('2025-09-19'),'end' => Carbon::parse('2025-09-25')],
+            'week9' => ['start' => Carbon::parse('2025-09-26'),'end' => Carbon::parse('2025-10-02')],
+            'week10' => ['start' => Carbon::parse('2025-10-03'),'end' => Carbon::parse('2025-10-09')],
+            'week11' => ['start' => Carbon::parse('2025-10-10'),'end' => Carbon::parse('2025-10-16')],
         ];
 
         $attendanceRecords = $course ? $course->attendance
@@ -188,7 +180,6 @@ class ProfessorController extends Controller
                 return Carbon::parse($attendance->date)->greaterThanOrEqualTo($weeks[$view]['start']) 
                     && Carbon::parse($attendance->date)->lessThanOrEqualTo($weeks[$view]['end']);
             }) : collect();
-
 
         $weeklyAttendance = [];
         $allAttendanceRecords = $course ? $course->attendance->filter(function ($attendance) {
@@ -229,6 +220,14 @@ class ProfessorController extends Controller
                 return stripos($attendance->student->id, $searchQuery) !== false;
             });
         }
+
+        $attendanceRecords = new \Illuminate\Pagination\LengthAwarePaginator(
+            $attendanceRecords->forPage(request()->get('page', 1), 50),
+            $attendanceRecords->count(),
+            50,
+            request()->get('page', 1),
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
 
         return view('professor.attendance', compact('course', 'courseId', 'attendanceRecords', 'view', 'statusFilter', 'typeFilter', 'searchQuery', 'weeklyAttendance', 'weeks'));
     }
