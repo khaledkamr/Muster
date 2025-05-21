@@ -48,18 +48,18 @@
             <div class="col-6 col-md-3 mb-3">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h6 class="text-dark fw-bold">Quiz 2</h6>
-                        <span class="text-dark">{{ $displayScores['quiz2'] }}</span>
-                        <span class="text-success">/{{ $displayMaxScores['quiz2'] }}</span>
+                        <h6 class="text-dark fw-bold">Midterm</h6>
+                        <span class="text-dark">{{ $displayScores['midterm'] }}</span>
+                        <span class="text-success">/{{ $displayMaxScores['midterm'] }}</span>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-3 mb-3">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h6 class="text-dark fw-bold">Midterm</h6>
-                        <span class="text-dark">{{ $displayScores['midterm'] }}</span>
-                        <span class="text-success">/{{ $displayMaxScores['midterm'] }}</span>
+                        <h6 class="text-dark fw-bold">Quiz 2</h6>
+                        <span class="text-dark">{{ $displayScores['quiz2'] }}</span>
+                        <span class="text-success">/{{ $displayMaxScores['quiz2'] }}</span>
                     </div>
                 </div>
             </div>

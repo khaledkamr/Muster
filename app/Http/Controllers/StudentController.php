@@ -146,7 +146,7 @@ class StudentController extends Controller
 
         $currentMonth = 10;
         $currentYear = now()->year;
-        $currentSemester = $currentMonth <= 6 ? 'first' : 'second'; // First semester: Jan-Jun, Second: Jul-Dec
+        $currentSemester = $currentMonth <= 6 ? 'first' : 'second';
         $currentAcademicYear = $currentYear - $startYear + 1;
 
         $semesters = [];
@@ -165,7 +165,66 @@ class StudentController extends Controller
         $currentSemesterLabel = "Year $currentAcademicYear - " . ($currentSemester === 'first' ? 'First Semester' : 'Second Semester');
         $semesters[$currentSemesterValue] = $currentSemesterLabel;
 
-        return view('student.grades', compact('user', 'enrollments', 'startYear', 'semesters', 'currentSemesterValue'));
+        // Calculate semester-wise GPA and credit hours
+        $semesterStats = [];
+        $previousCGPA = 0;
+        $totalCredits = 0;
+        $totalPoints = 0;
+
+        $gradePoints = [
+            'A+' => 4.0, 'A' => 4.0, 'A-' => 3.7,
+            'B+' => 3.3, 'B' => 3.0, 'B-' => 2.7,
+            'C+' => 2.3, 'C' => 2.0, 'C-' => 1.7,
+            'D+' => 1.3, 'D' => 1.0, 'D-' => 0.7,
+            'F' => 0.0
+        ];
+
+        foreach ($semesters as $semesterValue => $semesterLabel) {
+            [$year, $semester] = explode('-', $semesterValue);
+            $year = (int) str_replace('year', '', $year);
+            
+            $semesterEnrollments = $enrollments->filter(function ($enrollment) use ($year, $semester, $startYear) {
+                $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
+                return $enrollmentYear === $year && $enrollment->course->semester === $semester;
+            });
+
+            $semesterCredits = 0;
+            $semesterPoints = 0;
+
+            foreach ($semesterEnrollments as $enrollment) {
+                $grade = $enrollment->course->grades->where('student_id', $user->id)->first();
+                if ($grade) {
+                    $creditHours = $enrollment->course->credit_hours;
+                    $semesterCredits += $creditHours;
+                    $semesterPoints += ($gradePoints[$grade->grade] ?? 0) * $creditHours;
+                }
+            }
+
+            $semesterGPA = $semesterCredits > 0 ? round($semesterPoints / $semesterCredits, 2) : 0;
+            
+            $totalCredits += $semesterCredits;
+            $totalPoints += $semesterPoints;
+            $cgpa = $totalCredits > 0 ? round($totalPoints / $totalCredits, 2) : 0;
+
+            $semesterStats[$semesterValue] = [
+                'credits' => $semesterCredits,
+                'gpa' => $semesterGPA,
+                'total_credits' => $totalCredits,
+                'cgpa' => $cgpa,
+                'cgpa_trend' => $previousCGPA === 0 ? 'same' : ($cgpa > $previousCGPA ? 'up' : ($cgpa < $previousCGPA ? 'down' : 'same'))
+            ];
+
+            $previousCGPA = $cgpa;
+        }
+
+        return view('student.grades', compact(
+            'user', 
+            'enrollments', 
+            'startYear', 
+            'semesters', 
+            'currentSemesterValue',
+            'semesterStats'
+        ));
     }
 
     public function assignments(Request $request)
@@ -271,7 +330,7 @@ class StudentController extends Controller
             'quiz2' => 10,
             'midterm' => 30,
             'project' => 30,
-            'assignments' => 30, // Combined score for Assignment 1, 2, and 3
+            'assignment1' => 30, // Combined score for Assignment 1, 2, and 3
             'final' => 60,
         ];
 

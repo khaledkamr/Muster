@@ -38,11 +38,11 @@ class CurrentSemesterSeeder extends Seeder
             $enrollmentYear = $startYear + $currentStudentYear - 1;
 
             foreach ($courses as $course) {
-                $enrolledAt = Carbon::create($enrollmentYear, 8, 1);
-                $enrollment = Enrollment::updateOrCreate(
-                    ['student_id' => $student->id, 'course_id' => $course->id],
-                    ['status' => 'enrolled', 'enrolled_at' => $enrolledAt]
-                );
+                // $enrolledAt = Carbon::create($enrollmentYear, 8, 1);
+                // $enrollment = Enrollment::updateOrCreate(
+                //     ['student_id' => $student->id, 'course_id' => $course->id],
+                //     ['status' => 'enrolled', 'enrolled_at' => $enrolledAt]
+                // );
 
                 // Partial Attendance: Aug 1 to Oct 31 (10 weeks)
                 $startDate = Carbon::create($enrollmentYear, 8, 1)->addDays(rand(0, 5));
@@ -65,53 +65,53 @@ class CurrentSemesterSeeder extends Seeder
                 }
 
                 // Partial Assignments: 2 assignments
-                for ($i = 1; $i <= 2; $i++) {
-                    $createdAt = Carbon::create($enrollmentYear, 8 + $i, 1);
-                    $dueDate = $createdAt->copy()->addDays(10);
-                    $assignment = Assignment::updateOrCreate(
-                        ['course_id' => $course->id, 'title' => "Assignment $i"],
-                        [
-                            'description' => "Assignment $i for {$course->name}",
-                            'professor_id' => $course->professor_id,
-                            'created_at' => $createdAt,
-                            'due_date' => $dueDate,
-                        ]
-                    );
+                // for ($i = 1; $i <= 2; $i++) {
+                //     $createdAt = Carbon::create($enrollmentYear, 8 + $i, 1);
+                //     $dueDate = $createdAt->copy()->addDays(10);
+                //     $assignment = Assignment::updateOrCreate(
+                //         ['course_id' => $course->id, 'title' => "Assignment $i"],
+                //         [
+                //             'description' => "Assignment $i for {$course->name}",
+                //             'professor_id' => $course->professor_id,
+                //             'created_at' => $createdAt,
+                //             'due_date' => $dueDate,
+                //         ]
+                //     );
 
-                    $status = rand(1, 100) <= 80 ? 'submitted' : 'pending';
-                    $score = $status === 'submitted' ? rand(0, 10) : 0;
-                    Assignment_submission::updateOrCreate(
-                        ['student_id' => $student->id, 'assignment_id' => $assignment->id],
-                        [
-                            'status' => $status,
-                            'score' => $score,
-                            'submitted_at' => $status === 'submitted' ? $createdAt->copy()->addDays(rand(1, 9)) : null,
-                        ]
-                    );
-                }
+                //     $status = rand(1, 100) <= 80 ? 'submitted' : 'pending';
+                //     $score = $status === 'submitted' ? rand(0, 10) : 0;
+                //     Assignment_submission::updateOrCreate(
+                //         ['student_id' => $student->id, 'assignment_id' => $assignment->id],
+                //         [
+                //             'status' => $status,
+                //             'score' => $score,
+                //             'submitted_at' => $status === 'submitted' ? $createdAt->copy()->addDays(rand(1, 9)) : null,
+                //         ]
+                //     );
+                // }
 
                 // Partial Grades: Quiz 1 and Assignments only
-                $quiz1 = rand(3, 10);
-                $midterm = rand(0, 30);
-                $assignmentsTotal = Assignment_submission::where('student_id', $student->id)
-                    ->whereHas('assignment', fn($q) => $q->where('course_id', $course->id))
-                    ->sum('score');
-                $assignmentsTotal = min($assignmentsTotal, 30);
+                // $quiz1 = rand(3, 10);
+                // $midterm = rand(0, 30);
+                // $assignmentsTotal = Assignment_submission::where('student_id', $student->id)
+                //     ->whereHas('assignment', fn($q) => $q->where('course_id', $course->id))
+                //     ->sum('score');
+                // $assignmentsTotal = min($assignmentsTotal, 30);
 
-                Grade::updateOrCreate(
-                    ['student_id' => $student->id, 'course_id' => $course->id],
-                    [
-                        'quiz1' => $quiz1,
-                        'quiz2' => null,
-                        'midterm' => $midterm,
-                        'project' => null,
-                        'assignments' => $assignmentsTotal,
-                        'final' => null,
-                        'total' => null,
-                        'grade' => null,
-                        'status' => null,
-                    ]
-                );
+                // Grade::updateOrCreate(
+                //     ['student_id' => $student->id, 'course_id' => $course->id],
+                //     [
+                //         'quiz1' => $quiz1,
+                //         'quiz2' => null,
+                //         'midterm' => $midterm,
+                //         'project' => null,
+                //         'assignments' => $assignmentsTotal,
+                //         'final' => null,
+                //         'total' => null,
+                //         'grade' => null,
+                //         'status' => null,
+                //     ]
+                // );
             }
         }
     }
