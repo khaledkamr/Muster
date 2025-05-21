@@ -12,18 +12,15 @@
             width: 10px;
             height: 0; /* Prevent horizontal scrollbar */
         }
-
         ::-webkit-scrollbar-track {
             background: #121212 !important;
         }
-
         ::-webkit-scrollbar-thumb {
             background: #0A9442 !important;
             /* color: #00246171; */
             cursor: grab;
             transition: 0.3s;
         }
-
         ::-webkit-scrollbar-thumb:hover {
             background: #0157b3;
         }
@@ -246,6 +243,7 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg ps-5 pe-5">
+        <h3 class="text-dark pe-4">Muster</h3>
         <form class="search d-flex" role="search">
             <button class="" type="submit">
                 <i class="bi bi-search"></i>

@@ -195,6 +195,7 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg ps-5 pe-5">
+        <h3 class="text-dark pe-4">Muster</h3>
         <form class="search d-flex" role="search">
             <button class="" type="submit">
                 <i class="bi bi-search"></i>
