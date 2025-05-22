@@ -150,6 +150,8 @@ class StudentController extends Controller
         $currentAcademicYear = $currentYear - $startYear + 1;
 
         $semesters = [];
+        $gpaTrendData = []; // Array to store GPA trend data
+
         foreach ($enrollments as $enrollment) {
             $enrollmentYear = (int) $enrollment->enrolled_at->format('Y') - $startYear + 1;
             $semesterKey = $enrollment->course->semester;
@@ -179,6 +181,8 @@ class StudentController extends Controller
             'F' => 0.0
         ];
 
+        $gradeLabels = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
+
         foreach ($semesters as $semesterValue => $semesterLabel) {
             [$year, $semester] = explode('-', $semesterValue);
             $year = (int) str_replace('year', '', $year);
@@ -191,12 +195,20 @@ class StudentController extends Controller
             $semesterCredits = 0;
             $semesterPoints = 0;
 
+            // Initialize grade distribution for this semester
+            $gradeDistribution = array_fill_keys($gradeLabels, 0);
+
             foreach ($semesterEnrollments as $enrollment) {
                 $grade = $enrollment->course->grades->where('student_id', $user->id)->first();
                 if ($grade) {
                     $creditHours = $enrollment->course->credit_hours;
                     $semesterCredits += $creditHours;
                     $semesterPoints += ($gradePoints[$grade->grade] ?? 0) * $creditHours;
+                    
+                    // Count grades for distribution
+                    if (isset($gradeDistribution[$grade->grade])) {
+                        $gradeDistribution[$grade->grade]++;
+                    }
                 }
             }
 
@@ -206,16 +218,66 @@ class StudentController extends Controller
             $totalPoints += $semesterPoints;
             $cgpa = $totalCredits > 0 ? round($totalPoints / $totalCredits, 2) : 0;
 
+            // Get department statistics for this semester
+            $departmentStudents = User::where('major', $user->major)
+                ->where('role', 'student')
+                ->where('year', $user->year)
+                ->count();
+
+            // Calculate average CGPA for the department in this semester
+            $departmentGrades = Grade::whereHas('course', function($query) use ($year, $semester, $startYear) {
+                $query->where('semester', $semester);
+            })
+            ->whereHas('student', function($query) use ($user) {
+                $query->where('major', $user->major);
+            })
+            ->get();
+
+            $departmentTotalPoints = 0;
+            $departmentTotalCredits = 0;
+
+            foreach ($departmentGrades as $grade) {
+                $creditHours = $grade->course->credit_hours;
+                $departmentTotalCredits += $creditHours;
+                $departmentTotalPoints += ($gradePoints[$grade->grade] ?? 0) * $creditHours;
+            }
+
+            $departmentAvgCGPA = $departmentTotalCredits > 0 ? 
+                round($departmentTotalPoints / $departmentTotalCredits, 2) : 0;
+
+            // Add GPA trend data
+            $actualYear = $startYear + $year - 1;
+            $gpaTrendData[] = [
+                'semester' => $actualYear . ' ' . ucfirst($semester),
+                'gpa' => $semesterGPA
+            ];
+
             $semesterStats[$semesterValue] = [
                 'credits' => $semesterCredits,
                 'gpa' => $semesterGPA,
                 'total_credits' => $totalCredits,
                 'cgpa' => $cgpa,
-                'cgpa_trend' => $previousCGPA === 0 ? 'same' : ($cgpa > $previousCGPA ? 'up' : ($cgpa < $previousCGPA ? 'down' : 'same'))
+                'cgpa_trend' => $previousCGPA === 0 ? 'same' : ($cgpa > $previousCGPA ? 'up' : ($cgpa < $previousCGPA ? 'down' : 'same')),
+                'grade_distribution' => array_values($gradeDistribution),
+                'number_of_courses' => $semesterEnrollments->count(),
+                'department_stats' => [
+                    'total_students' => $departmentStudents,
+                    'avg_cgpa' => $departmentAvgCGPA
+                ]
             ];
 
             $previousCGPA = $cgpa;
         }
+
+        // Sort GPA trend data by year and semester
+        usort($gpaTrendData, function($a, $b) {
+            $yearA = (int)explode(' ', $a['semester'])[0];
+            $yearB = (int)explode(' ', $b['semester'])[0];
+            if ($yearA === $yearB) {
+                return strpos($a['semester'], 'First') !== false ? -1 : 1;
+            }
+            return $yearA - $yearB;
+        });
 
         return view('student.grades', compact(
             'user', 
@@ -223,7 +285,9 @@ class StudentController extends Controller
             'startYear', 
             'semesters', 
             'currentSemesterValue',
-            'semesterStats'
+            'semesterStats',
+            'gradeLabels',
+            'gpaTrendData'
         ));
     }
 
@@ -330,7 +394,7 @@ class StudentController extends Controller
             'quiz2' => 10,
             'midterm' => 30,
             'project' => 30,
-            'assignment1' => 30, // Combined score for Assignment 1, 2, and 3
+            'assignment1' => 30, 
             'final' => 60,
         ];
 
@@ -340,7 +404,7 @@ class StudentController extends Controller
             'quiz2' => $grade->quiz2,
             'midterm' => $grade->midterm,
             'project' => $grade->project,
-            'assignments' => $grade->assignments, // Combined Assignments score
+            'assignments' => $grade->assignments,
             'final' => $grade->final,
         ];
 
