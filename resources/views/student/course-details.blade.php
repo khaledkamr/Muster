@@ -110,7 +110,7 @@
                 </div>
             </div>
         </div>
-    
+
 
         <div class="row mb-5">
             <div class="col-md-6">
@@ -128,17 +128,19 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="text-center text-dark d-flex flex-column justify-content-center align-items-center">
+                                <div
+                                    class="text-center text-dark d-flex flex-column justify-content-center align-items-center">
                                     @if (!empty($grade->grade))
                                         <h5>Grade</h5>
                                         @php
                                             $gradeStatus = '';
-                                            if($grade->total >= 122.4)
+                                            if ($grade->total >= 122.4) {
                                                 $gradeStatus = 'success';
-                                            elseif($grade->total <= 102)
+                                            } elseif ($grade->total <= 102) {
                                                 $gradeStatus = 'danger';
-                                            else
+                                            } else {
                                                 $gradeStatus = 'warning';
+                                            }
                                         @endphp
                                         <div class="btn btn-{{ $gradeStatus }} w-fit pe-3 ps-3" style="font-size: 40px;">
                                             {{ $grade->grade }}
@@ -182,12 +184,12 @@
                         </div>
                         <div class="mt-4">
                             <p class="text-muted mb-1">Your grade compared to class average:</p>
-                            @if($grade->grade > $averageGrade)
+                            @if ($grade->total > $averageGrade)
                                 <p class="text-success mb-0">
                                     Above average by {{ number_format($grade->total - $averageGrade, 1) }} points
                                     <i class="fa-solid fa-circle-up text-success"></i>
                                 </p>
-                            @elseif($grade->grade < $averageGrade) 
+                            @elseif($grade->total < $averageGrade)
                                 <p class="text-danger mb-0">
                                     Below average by {{ number_format($averageGrade - $grade->total, 1) }} points
                                     <i class="fa-solid fa-circle-down text-danger"></i>
@@ -202,10 +204,10 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
-    
+
 
     <!-- Assignment Statistics -->
     <div class="container mb-4">
@@ -226,23 +228,28 @@
                         <tbody>
                             @if ($submissions->isNotEmpty())
                                 @foreach ($submissions as $submission)
-                                <tr>
-                                    <td class="fw-bold text-center">{{ $submission->assignment->title }}</td>
-                                    <td class="text-center">
-                                        <span class="badge status-{{ $submission->status }}">
-                                            {{ ucfirst($submission->status) }}
-                                        </span>
-                                    </td>
-                                    <td class="text-center">{{ $submission->submitted_at ? $submission->submitted_at->format('M d, Y') : '-' }}</td>
-                                    <td class="text-center">{{ $submission->assignment->due_date->format('M d, Y') }}</td>
-                                    <td class="text-light text-center ">
-                                        <div class="badge bg-primary" style="font-size: 12px;">{{ $submission->score ?? '-' }}</div>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="fw-bold text-center">{{ $submission->assignment->title }}</td>
+                                        <td class="text-center">
+                                            <span class="badge status-{{ $submission->status }}">
+                                                {{ ucfirst($submission->status) }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            {{ $submission->submitted_at ? $submission->submitted_at->format('M d, Y') : '-' }}
+                                        </td>
+                                        <td class="text-center">{{ $submission->assignment->due_date->format('M d, Y') }}
+                                        </td>
+                                        <td class="text-light text-center ">
+                                            <div class="badge bg-primary" style="font-size: 12px;">
+                                                {{ $submission->score ?? '-' }}</div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="5" class="text-center text-dark status-pending">No assignments found.</td>
+                                    <td colspan="5" class="text-center text-dark status-pending">No assignments found.
+                                    </td>
                                 </tr>
                             @endif
                         </tbody>
@@ -281,20 +288,139 @@
     </div>
 
     <div class="container">
+        <h4 class="text-dark fw-bold mb-4">Attendance Statistics</h4>
+        {{-- attendance table --}}
         <div class="row">
-            <h4 class="text-dark fw-bold mb-4">Attendance Statistics</h4>
-            <ul class="list-unstyled">
-                <li class="text-dark">collapse table</li>
-                <li class="text-dark">bar chart (lectures and labs)</li>
-                <li class="text-dark">average attendance</li>
-                <li class="text-dark">attendance rate</li>
-                <li class="text-dark">classes attended</li>
-                <li class="text-dark">classes missed</li>
-            </ul>
+            <div class="col-md-12">
+                <div class="table-container shadow">
+                    <table class="table">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-center bg-dark text-white">#</th>
+                                <th class="text-center bg-dark text-white">1th</th>
+                                <th class="text-center bg-dark text-white">2th</th>
+                                <th class="text-center bg-dark text-white">3th</th>
+                                <th class="text-center bg-dark text-white">4th</th>
+                                <th class="text-center bg-dark text-white">5th</th>
+                                <th class="text-center bg-dark text-white">6th</th>
+                                <th class="text-center bg-dark text-white">7th</th>
+                                <th class="text-center bg-dark text-white">8th</th>
+                                <th class="text-center bg-dark text-white">9th</th>
+                                <th class="text-center bg-dark text-white">10th</th>
+                                <th class="text-center bg-dark text-white">11th</th>
+                                <th class="text-center bg-dark text-white">12th</th>
+                                <th class="text-center bg-dark text-white">13th</th>
+                                <th class="text-center bg-dark text-white">14th</th>
+                                <th class="text-center bg-dark text-white">15th</th>
+                                <th class="text-center bg-dark text-white">16th</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (['lecture', 'lab'] as $type)
+                                <tr>
+                                    <td class="text-center bg-dark text-white">{{ ucfirst($type) }}</td>
+                                    @php
+                                        $filteredAttendance = $attendances->where('type', $type);
+                                    @endphp
+                                    @foreach ($filteredAttendance as $attendance)
+                                        <td class="attendance-cell text-center" style="cursor: pointer;"
+                                            title="{{ $attendance->date->format('M d, Y') }}">
+                                            @if ($attendance->status === 'present')
+                                                <i class="fa-solid fa-check text-success"></i>
+                                            @elseif($attendance->status === 'late')
+                                                <i class="fa-solid fa-clock text-warning"></i>
+                                            @else
+                                                <i class="fa-solid fa-xmark text-danger"></i>
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {{-- bar chart (lectures and labs) --}}
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow rounded-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark fw-bold mb-4">Lecture vs Lab Attendance</h5>
+                            <canvas id="attendanceComparisonChart" height="300px"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="border-0 rounded-4 shadow text-center bg-white p-3">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="card-title text-dark fw-bold pb-2">Missed Lectures</h6>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <span class="fs-1 text-{{ $missedLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLectures }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border-0 shadow rounded-4 text-center bg-white p-3">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="card-title text-dark fw-bold pb-2">Missed Labs</h6>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <span class="fs-1 text-{{ $missedLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLabs }}</span>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border-0 rounded-4 shadow text-center bg-white p-3">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="card-title text-dark fw-bold pb-2">Late Lectures</h6>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <span class="fs-1 text-{{ $lateLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLectures }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="border-0 shadow rounded-4 text-center bg-white p-3">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="card-title text-dark fw-bold pb-2">Late Labs</h6>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <span class="fs-1 text-{{ $lateLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLabs }}</span>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <div class="card border-0 shadow" style="height: 285px;">
+                                <div class="card-body bg-white rounded">
+                                    <h5 class="card-title text-dark fw-bold">Average Attendance</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-0 shadow" style="height: 285px;">
+                                <div class="card-body bg-white rounded">
+                                    <h5 class="card-title text-dark fw-bold text-center">Attendance Rate</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            {{-- average attendance --}}
+
+            {{-- attendance rate --}}
         </div>
     </div>
 
-    
+
 
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -647,64 +773,127 @@
                     }
                 }
             });
+
+            // Attendance Comparison Chart
+            const attendanceComparisonCtx = document.getElementById('attendanceComparisonChart').getContext('2d');
+            const lectureAttendance = {{ $attendances->where('type', 'lecture')->where('status', 'present')->count() }};
+            const labAttendance = {{ $attendances->where('type', 'lab')->where('status', 'present')->count(); }};
+
+            new Chart(attendanceComparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Lecture', 'Lab'],
+                    datasets: [{
+                        label: 'Attended Sessions',
+                        data: [lectureAttendance, labAttendance],
+                        backgroundColor: [
+                            'rgba(40, 167, 69)', // Green for lectures
+                            'rgba(0, 123, 255)' // Blue for labs
+                        ],
+                        borderColor: [
+                            'rgb(40, 167, 69)',
+                            'rgb(0, 123, 255)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            },
+                            title: {
+                                display: true,
+                                text: 'Number of Courses'
+                            },
+                            max: 16
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
         });
     </script>
 
     <style>
-    .card {
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+        .card {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    .card-body {
-        padding: 1rem;
-    }
+        .card-body {
+            padding: 1rem;
+        }
 
-    .table-container {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 0;
-    }
-    .table thead {
-        background-color: #f8f9fa;
-        color: #333;
-    }
-    .table th {
-        padding: 15px;
-        text-align: left;
-        font-weight: 600;
-        font-size: 14px;
-        border-bottom: 1px solid #e9ecef;
-    }
-    .table td {
-        padding: 15px;
-        font-size: 14px;
-        color: #333;
-        border-bottom: 1px solid #e9ecef;
-    }
-    .table tbody tr:hover {
-        background-color: #f1f3f5;
-    }
-    .table .status-submitted {
-        background-color: #d4edda;
-        color: #155724;
-        padding: 5px 10px;
-        border-radius: 12px;
-        font-size: 12px;
-        display: inline-block;
-    }
-    .table .status-pending {
-        background-color: #f8d7da;
-        color: #721c24;
-        padding: 5px 10px;
-        border-radius: 12px;
-        font-size: 12px;
-        display: inline-block;
-    }
+        .table-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+        .table thead {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table td {
+            padding: 15px;
+            font-size: 14px;
+            color: #333;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        .table .status-submitted {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .table .status-pending {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .attendance-cell {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .attendance-cell:hover {
+            background-color: #f1f3f5;
+        }
     </style>
 @endsection

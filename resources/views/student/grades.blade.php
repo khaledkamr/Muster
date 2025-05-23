@@ -312,6 +312,7 @@
                         {};
                     const row = document.createElement('tr');
                     const courseDetailsUrl = courseDetailsBaseUrl.replace(':id', course.id);
+                    const url = grade.grade ? courseDetailsUrl : '#';
                     row.innerHTML = `
                     <td class="text-center">${course.code}</td>
                     <td class="text-center">${course.name}</td>
@@ -320,7 +321,7 @@
                     <td class="text-center">${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</td>
                     <td class="text-center text-${grade.status === 'pass' ? 'success' : 'danger'}">${grade.grade || '-'}</td>
                     <td class="text-center action-icons">
-                        <a href="${courseDetailsUrl}" class="btn btn-sm btn-success text-light ps-3 pe-3">
+                        <a href="${url}" class="btn btn-sm btn-success text-light ps-3 pe-3">
                             <i class="fa-solid fa-arrow-up-right-from-square text-light"></i> Details
                         </a>
                     </td>

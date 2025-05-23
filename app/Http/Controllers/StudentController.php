@@ -468,6 +468,11 @@ class StudentController extends Controller
         $presentSessions = $attendances->where('status', 'present')->count();
         $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
 
+        $missedLectures = $attendances->where('type', 'lecture')->where('status', 'absent')->count();
+        $missedLabs = $attendances->where('type', 'lab')->where('status', 'absent')->count();
+        $lateLectures = $attendances->where('type', 'lecture')->where('status', 'late')->count();
+        $lateLabs = $attendances->where('type', 'lab')->where('status', 'late')->count();
+
         return view('student.course-details', compact(
             'course', 
             'grade', 
@@ -482,6 +487,10 @@ class StudentController extends Controller
             'scoreRate',
             'attendances',
             'attendanceRate',
+            'missedLectures',
+            'missedLabs',
+            'lateLectures',
+            'lateLabs',
             'completedAssignments',
             'totalAssignments',
             'maxPossibleScore',

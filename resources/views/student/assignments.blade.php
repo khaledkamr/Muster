@@ -76,7 +76,7 @@
         <!-- Assignments Display -->
         @if (request()->query('view', 'assignments') === 'assignments')
             @if ($filteredSubmissions->isNotEmpty())
-                <div class="table-container">
+                <div class="table-container shadow">
                     <table class="table table-striped">
                         <thead class="table-light">
                             <tr>
