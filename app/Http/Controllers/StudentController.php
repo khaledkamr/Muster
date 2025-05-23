@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Assignment;
+use App\Models\Assignment_submission;
 use App\Models\AssignmentSubmission;
 use App\Models\Enrollment;
 use App\Models\Course;
@@ -389,12 +390,23 @@ class StudentController extends Controller
             abort(404, 'Grade not found for this course.');
         }
 
+        // Calculate average grade for the course
+        $allGrades = Grade::where('course_id', $course->id)->get();
+        $totalPoints = 0;
+
+        foreach ($allGrades as $courseGrade) {
+            $totalPoints += $courseGrade->total ?? 0;
+        }
+
+        $averageGrade = $allGrades->count() > 0 ? round($totalPoints / $allGrades->count(), 2) : 0;
+        $departmentStudents = $allGrades->count();
+
         $maxScores = [
             'quiz1' => 10,
             'quiz2' => 10,
             'midterm' => 30,
             'project' => 30,
-            'assignment1' => 30, 
+            'assignments' => 30, 
             'final' => 60,
         ];
 
@@ -425,7 +437,58 @@ class StudentController extends Controller
         // Calculate percentage
         $percentage = round(($totalScore / $totalMaxScore) * 100);
 
-        return view('student.course-details', compact('course', 'grade', 'displayScores', 'displayMaxScores', 'totalScore', 'totalMaxScore', 'percentage'));
+        // Get assignments for this course
+        $assignments = Assignment::where('course_id', $course->id)
+            ->orderBy('created_at', 'asc')
+            ->take(3)
+            ->get();
+
+        // Get assignment submissions for this student
+        $submissions = Assignment_submission::whereIn('assignment_id', $assignments->pluck('id'))
+            ->where('student_id', $user->id)
+            ->get();
+
+        // Calculate assignment statistics
+        $totalAssignments = $assignments->count();
+        $completedAssignments = $submissions->where('status', 'submitted')->count();
+        $completionRate = $totalAssignments > 0 ? round(($completedAssignments / $totalAssignments) * 100) : 0;
+
+        // Calculate assignment score rate
+        $totalAssignmentsScore = $submissions->where('status', 'submitted')->sum('score');
+        $maxPossibleScore = $totalAssignments * 10; // Assuming each assignment is worth 10 points
+        $scoreRate = $maxPossibleScore > 0 ? round(($totalAssignmentsScore / $maxPossibleScore) * 100) : 0;
+
+        // Get attendance records for this course
+        $attendances = Attendance::where('course_id', $course->id)
+            ->where('student_id', $user->id)
+            ->get();
+
+        // Calculate attendance statistics
+        $totalSessions = $attendances->count();
+        $presentSessions = $attendances->where('status', 'present')->count();
+        $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
+
+        return view('student.course-details', compact(
+            'course', 
+            'grade', 
+            'displayScores', 
+            'displayMaxScores', 
+            'totalScore', 
+            'totalMaxScore', 
+            'percentage',
+            'assignments',
+            'submissions',
+            'completionRate',
+            'scoreRate',
+            'attendances',
+            'attendanceRate',
+            'completedAssignments',
+            'totalAssignments',
+            'maxPossibleScore',
+            'totalAssignmentsScore',
+            'averageGrade',
+            'departmentStudents'
+        ));
     }
 
     public function attendance(Request $request)

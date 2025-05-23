@@ -212,29 +212,29 @@
     </script>
 
     <style>
-        .card {
-            background-color: #ffffff;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .nav-tabs .nav-link {
-            color: #495057;
-        }
-        .nav-tabs .nav-link.active {
-            background-color: #ffffff;
-            border-color: #dee2e6 #dee2e6 #ffffff;
-            color: #007bff;
-        }
-        .form-select, .form-control {
-            background-color: #ffffff;
-            border: 1px solid #ced4da;
-            color: #495057;
-        }
-        .form-select:focus, .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-        .table-container {
+    .card {
+        background-color: #ffffff;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .nav-tabs .nav-link {
+        color: #495057;
+    }
+    .nav-tabs .nav-link.active {
+        background-color: #ffffff;
+        border-color: #dee2e6 #dee2e6 #ffffff;
+        color: #007bff;
+    }
+    .form-select, .form-control {
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        color: #495057;
+    }
+    .form-select:focus, .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    .table-container {
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
