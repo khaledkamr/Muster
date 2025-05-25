@@ -26,84 +26,84 @@
         <h4 class="text-dark fw-bold mb-4">Grades Statistics</h4>
         <div class="grades row justify-content-left mb-4">
             <div class="col-6 col-md-2 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="bg-white text-center rounded-4 shadow p-3">
+                    <div class="rounded">
                         <h6 class="text-dark fw-bold">Quiz 1</h6>
                         <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
                             <canvas id="Quiz1Chart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="text-dark">{{ $displayScores['quiz1'] }}</span>
-                                <span class="fw-bold">/{{ $displayMaxScores['quiz1'] }}</span>
+                                <span class="text-dark fw-bold">/{{ $displayMaxScores['quiz1'] }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-2 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="bg-white text-center rounded-4 shadow p-3">
+                    <div class="rounded">   
                         <h6 class="text-dark fw-bold">Midterm</h6>
                         <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
                             <canvas id="MidtermChart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="text-dark">{{ $displayScores['midterm'] }}</span>
-                                <span class="fw-bold">/{{ $displayMaxScores['midterm'] }}</span>
+                                <span class="text-dark fw-bold">/{{ $displayMaxScores['midterm'] }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-2 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="bg-white text-center rounded-4 shadow p-3">
+                    <div class="rounded">
                         <h6 class="text-dark fw-bold">Quiz 2</h6>
                         <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
                             <canvas id="Quiz2Chart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="text-dark">{{ $displayScores['quiz2'] }}</span>
-                                <span class="fw-bold">/{{ $displayMaxScores['quiz2'] }}</span>
+                                <span class="text-dark fw-bold">/{{ $displayMaxScores['quiz2'] }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-2 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="bg-white text-center rounded-4 shadow p-3">
+                    <div class="rounded">
                         <h6 class="text-dark fw-bold">Project</h6>
                         <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
                             <canvas id="ProjectChart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="text-dark">{{ $displayScores['project'] }}</span>
-                                <span class="fw-bold">/{{ $displayMaxScores['project'] }}</span>
+                                <span class="text-dark fw-bold">/{{ $displayMaxScores['project'] }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-2 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="bg-white text-center rounded-4 shadow p-3">
+                    <div class="rounded">
                         <h6 class="text-dark fw-bold">Assignments</h6>
                         <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
                             <canvas id="AssignmentsChart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="text-dark">{{ $displayScores['assignments'] }}</span>
-                                <span class="fw-bold">/{{ $displayMaxScores['assignments'] }}</span>
+                                <span class="text-dark fw-bold">/{{ $displayMaxScores['assignments'] }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-2 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="bg-white text-center rounded-4 shadow p-3">
+                    <div class="rounded">
                         <h6 class="text-dark fw-bold">Final</h6>
                         <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
                             <canvas id="FinalChart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="text-dark">{{ $displayScores['final'] }}</span>
-                                <span class="fw-bold">/{{ $displayMaxScores['final'] }}</span>
+                                <span class="text-dark fw-bold">/{{ $displayMaxScores['final'] }}</span>
                             </div>
                         </div>
                     </div>
@@ -114,8 +114,8 @@
 
         <div class="row mb-5">
             <div class="col-md-6">
-                <div class="card bg-white border-0 shadow">
-                    <div class="card-body">
+                <div class="bg-white border-0 shadow rounded-4 p-3">
+                    <div class="rounded">
                         <h5 class="text-dark fw-bold mb-4">Final Grade</h5>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="col-md-6 text-center">
@@ -162,8 +162,8 @@
             </div>
 
             <div class="col-md-6">
-                <div class="card bg-white border-0 shadow" style="height: 240px;">
-                    <div class="card-body">
+                <div class="bg-white border-0 shadow rounded-4 p-3" style="height: 240px;">
+                    <div class="rounded">
                         <h5 class="text-dark fw-bold mb-4">Average Grades</h5>
                         <div class="d-flex justify-content-center gap-5 align-items-center">
                             <div class="text-center">
