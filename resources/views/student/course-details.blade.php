@@ -298,22 +298,9 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="text-center bg-dark text-white">#</th>
-                                <th class="text-center bg-dark text-white">1th</th>
-                                <th class="text-center bg-dark text-white">2th</th>
-                                <th class="text-center bg-dark text-white">3th</th>
-                                <th class="text-center bg-dark text-white">4th</th>
-                                <th class="text-center bg-dark text-white">5th</th>
-                                <th class="text-center bg-dark text-white">6th</th>
-                                <th class="text-center bg-dark text-white">7th</th>
-                                <th class="text-center bg-dark text-white">8th</th>
-                                <th class="text-center bg-dark text-white">9th</th>
-                                <th class="text-center bg-dark text-white">10th</th>
-                                <th class="text-center bg-dark text-white">11th</th>
-                                <th class="text-center bg-dark text-white">12th</th>
-                                <th class="text-center bg-dark text-white">13th</th>
-                                <th class="text-center bg-dark text-white">14th</th>
-                                <th class="text-center bg-dark text-white">15th</th>
-                                <th class="text-center bg-dark text-white">16th</th>
+                                @for ($i = 1; $i < 17; $i++)
+                                    <th class="text-center bg-dark text-white">{{ $i }}th</th>
+                                @endfor
                             </tr>
                         </thead>
                         <tbody>
@@ -342,6 +329,7 @@
                 </div>
             </div>
 
+        </div>
             {{-- bar chart (lectures and labs) --}}
             <div class="row mt-4">
                 <div class="col-md-4">
@@ -359,8 +347,7 @@
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="card-title text-dark fw-bold pb-2">Missed Lectures</h6>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <span
-                                            class="fs-1 text-{{ $missedLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLectures }}</span>
+                                        <span class="fs-1 text-{{ $missedLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLectures }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -370,8 +357,7 @@
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="card-title text-dark fw-bold pb-2">Missed Labs</h6>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <span
-                                            class="fs-1 text-{{ $missedLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLabs }}</span>
+                                        <span class="fs-1 text-{{ $missedLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLabs }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -381,8 +367,7 @@
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="card-title text-dark fw-bold pb-2">Late Lectures</h6>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <span
-                                            class="fs-1 text-{{ $lateLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLectures }}</span>
+                                        <span class="fs-1 text-{{ $lateLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLectures }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -392,14 +377,14 @@
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="card-title text-dark fw-bold pb-2">Late Labs</h6>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <span
-                                            class="fs-1 text-{{ $lateLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLabs }}</span>
+                                        <span class="fs-1 text-{{ $lateLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLabs }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-4">
+                        {{-- average attendance --}}
                         <div class="col-md-8">
                             <div class="bg-white border-0 shadow rounded-4 p-3" style="height: 285px;">
                                 <div class="rounded">
@@ -463,9 +448,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-            {{-- average attendance --}}
         </div>
     </div>
 
