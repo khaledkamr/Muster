@@ -472,6 +472,26 @@ class StudentController extends Controller
         $missedLabs = $attendances->where('type', 'lab')->where('status', 'absent')->count();
         $lateLectures = $attendances->where('type', 'lecture')->where('status', 'late')->count();
         $lateLabs = $attendances->where('type', 'lab')->where('status', 'late')->count();
+        $totalPresent = $attendances->where('status', 'present')->count();
+        $totalSessions = $attendances->count();
+
+        // Calculate department average attendance
+        $departmentAttendances = Attendance::where('course_id', $course->id)
+            ->whereHas('student', function($query) use ($user) {
+                $query->where('major', $user->major);
+            })
+            ->get();
+
+        $departmentTotalSessions = $departmentAttendances->count();
+        $departmentTotalPresent = $departmentAttendances->where('status', 'present')->count();
+        $departmentAverageAttendance = $departmentTotalSessions > 0 ? 
+            round(($departmentTotalPresent / $departmentTotalSessions) * 100) : 0;
+
+        // Get department students count
+        $departmentStudents = User::where('major', $user->major)
+            ->where('role', 'student')
+            ->where('year', $user->year)
+            ->count();
 
         return view('student.course-details', compact(
             'course', 
@@ -496,6 +516,10 @@ class StudentController extends Controller
             'maxPossibleScore',
             'totalAssignmentsScore',
             'averageGrade',
+            'departmentStudents',
+            'totalPresent',
+            'totalSessions',
+            'departmentAverageAttendance',
             'departmentStudents'
         ));
     }

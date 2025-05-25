@@ -287,6 +287,7 @@
         </div>
     </div>
 
+    <!-- Attendance Statistics -->
     <div class="container">
         <h4 class="text-dark fw-bold mb-4">Attendance Statistics</h4>
         {{-- attendance table --}}
@@ -358,7 +359,8 @@
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="card-title text-dark fw-bold pb-2">Missed Lectures</h6>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <span class="fs-1 text-{{ $missedLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLectures }}</span>
+                                        <span
+                                            class="fs-1 text-{{ $missedLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLectures }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -368,8 +370,9 @@
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="card-title text-dark fw-bold pb-2">Missed Labs</h6>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <span class="fs-1 text-{{ $missedLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLabs }}</span>
-                                    </div>  
+                                        <span
+                                            class="fs-1 text-{{ $missedLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $missedLabs }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -378,7 +381,8 @@
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="card-title text-dark fw-bold pb-2">Late Lectures</h6>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <span class="fs-1 text-{{ $lateLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLectures }}</span>
+                                        <span
+                                            class="fs-1 text-{{ $lateLectures > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLectures }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -388,35 +392,80 @@
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="card-title text-dark fw-bold pb-2">Late Labs</h6>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <span class="fs-1 text-{{ $lateLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLabs }}</span>
-                                    </div>  
+                                        <span
+                                            class="fs-1 text-{{ $lateLabs > 0 ? 'danger' : 'success' }} fw-bold d-block">{{ $lateLabs }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-8">
-                            <div class="card border-0 shadow" style="height: 285px;">
-                                <div class="card-body bg-white rounded">
-                                    <h5 class="card-title text-dark fw-bold">Average Attendance</h5>
+                            <div class="bg-white border-0 shadow rounded-4 p-3" style="height: 285px;">
+                                <div class="rounded">
+                                    <h5 class="card-title text-dark fw-bold pb-4">Average Attendance</h5>
+                                    <div class="d-flex justify-content-between align-items-center mt-4">
+                                        <div class="text-center">
+                                            <h6 class="text-dark mb-2">Your Attendance</h6>
+                                            <span class="fs-2 text-dark fw-bold">{{ $attendanceRate }}%</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <h6 class="text-dark mb-2">Department Average</h6>
+                                            <span
+                                                class="fs-2 text-dark fw-bold">{{ $departmentAverageAttendance }}%</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <h6 class="text-dark mb-2">Department Students</h6>
+                                            <span class="fs-2 text-dark fw-bold">
+                                                {{ $departmentStudents }} <i class="fa-solid fa-users"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <p class="text-muted mb-1">Your attendance compared to department average:</p>
+                                        @if ($attendanceRate > $departmentAverageAttendance)
+                                            <p class="text-success mb-0">
+                                                Above average by
+                                                {{ number_format($attendanceRate - $departmentAverageAttendance, 1) }}%
+                                                <i class="fa-solid fa-circle-up text-success"></i>
+                                            </p>
+                                        @elseif($attendanceRate < $departmentAverageAttendance)
+                                            <p class="text-danger mb-0">
+                                                Below average by
+                                                {{ number_format($departmentAverageAttendance - $attendanceRate, 1) }}%
+                                                <i class="fa-solid fa-circle-down text-danger"></i>
+                                            </p>
+                                        @else
+                                            <p class="text-dark mb-0">
+                                                At department average
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        {{-- attendance rate --}}
                         <div class="col-md-4">
-                            <div class="card border-0 shadow" style="height: 285px;">
-                                <div class="card-body bg-white rounded">
-                                    <h5 class="card-title text-dark fw-bold text-center">Attendance Rate</h5>
+                            <div class="bg-white border-0 shadow rounded-4 p-3" style="height: 285px;">
+                                <div class="rounded d-flex flex-column justify-content-center align-items-center">
+                                    <h5 class="text-dark fw-bold text-center mb-4">Attendance Rate</h5>
+                                    <div class="position-relative d-inline-block" style="width: 170px; height: 170px;">
+                                        <canvas id="attendanceRateChart"></canvas>
+                                        <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                            <span class="fs-4 text-dark fw-bold d-block">{{ $attendanceRate }}%</span>
+                                            <span class="fs-6 text-dark">{{ $totalPresent }}/{{ $totalSessions }}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-
             {{-- average attendance --}}
-
-            {{-- attendance rate --}}
         </div>
     </div>
 
@@ -776,8 +825,9 @@
 
             // Attendance Comparison Chart
             const attendanceComparisonCtx = document.getElementById('attendanceComparisonChart').getContext('2d');
-            const lectureAttendance = {{ $attendances->where('type', 'lecture')->where('status', 'present')->count() }};
-            const labAttendance = {{ $attendances->where('type', 'lab')->where('status', 'present')->count(); }};
+            const lectureAttendance =
+                {{ $attendances->where('type', 'lecture')->where('status', 'present')->count() }};
+            const labAttendance = {{ $attendances->where('type', 'lab')->where('status', 'present')->count() }};
 
             new Chart(attendanceComparisonCtx, {
                 type: 'bar',
@@ -815,6 +865,43 @@
                     plugins: {
                         legend: {
                             display: false
+                        }
+                    }
+                }
+            });
+
+            // Attendance Rate Chart
+            const attendanceRateCtx = document.getElementById('attendanceRateChart').getContext('2d');
+            const attendanceRate = {{ $attendanceRate }};
+            let attendanceRateColor;
+            if (attendanceRate >= 75) {
+                attendanceRateColor = '#28a745';
+            } else if (attendanceRate <= 50) {
+                attendanceRateColor = '#dc3545';
+            } else {
+                attendanceRateColor = '#007bff';
+            }
+
+            new Chart(attendanceRateCtx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [attendanceRate, 100 - attendanceRate],
+                        backgroundColor: [attendanceRateColor, '#e9ecef'],
+                        borderWidth: 0,
+                        circumference: 360,
+                        cutout: '80%',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
                         }
                     }
                 }
