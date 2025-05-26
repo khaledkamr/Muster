@@ -163,6 +163,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('student.courses') ? 'active' : '' }}" href="{{ route('student.courses') }}">
+                    <i class="fa-solid fa-book"></i> Courses
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('student.grades') ? 'active' : '' }}" href="{{ route('student.grades') }}">
                     <i class="bi bi-award"></i> Grades
                 </a>

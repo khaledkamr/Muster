@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Assignment;
 use App\Models\Assignment_submission;
-use App\Models\AssignmentSubmission;
 use App\Models\Enrollment;
 use App\Models\Course;
 use App\Models\Grade;
@@ -136,6 +135,59 @@ class StudentController extends Controller
             'semesterEnd',
             'contributionData'
         ));
+    }
+
+    public function courses()
+    {
+        $user = Auth::user();
+        
+        // Get enrollments for the specific semester (2025-08-01)
+        $enrollments = $user->enrollments()
+            ->with(['course' => function($query) {
+                $query->with(['grades', 'assignments.submissions', 'attendance']);
+            }])
+            ->where('enrolled_at', '2025-08-01')
+            ->get();
+
+        // Prepare course statistics for each enrollment
+        $courseStats = [];
+        foreach ($enrollments as $enrollment) {
+            $course = $enrollment->course;
+            
+            // Get grade for this course
+            $grade = $course->grades->where('student_id', $user->id)->first();
+            
+            // Calculate assignment statistics
+            $assignments = $course->assignments;
+            $submissions = $assignments->flatMap->submissions->where('student_id', $user->id);
+            $totalAssignments = $assignments->count();
+            $completedAssignments = $submissions->where('status', 'submitted')->count();
+            $completionRate = $totalAssignments > 0 ? round(($completedAssignments / $totalAssignments) * 100) : 0;
+            
+            // Calculate attendance statistics
+            $attendances = $course->attendance->where('student_id', $user->id);
+            $totalSessions = $attendances->count();
+            $presentSessions = $attendances->where('status', 'present')->count();
+            $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
+            
+            // Calculate course progress
+            $remainingSessions = 32 - $totalSessions;
+            $courseProgress = $totalSessions / 32 * 100;
+            
+            $courseStats[$course->id] = [
+                'grade' => $grade,
+                'completion_rate' => $completionRate,
+                'attendance_rate' => $attendanceRate,
+                'total_assignments' => $totalAssignments,
+                'completed_assignments' => $completedAssignments,
+                'total_sessions' => $totalSessions,
+                'present_sessions' => $presentSessions,
+                'remaining_sessions' => $remainingSessions,
+                'course_progress' => $courseProgress
+            ];
+        }
+
+        return view('student.courses', compact('enrollments', 'courseStats'));
     }
 
     public function grades()

@@ -19,6 +19,7 @@ Route::controller(AuthController::class)->group(function() {
 Route::prefix('student')->middleware(['auth', 'role:student'])->group(function () {
     Route::controller(StudentController::class)->group(function () {
         Route::get('/', 'index')->name('student.home');
+        Route::get('/courses', 'courses')->name('student.courses');
         Route::get('/grades', 'grades')->name('student.grades');
         Route::get('/assignments', 'assignments')->name('student.assignments');
         Route::get('/profile', 'profile')->name('student.profile');
