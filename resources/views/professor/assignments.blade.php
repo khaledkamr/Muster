@@ -45,8 +45,13 @@
                     </div>
                 </div>
                 <!-- Pie Chart -->
-                <div class="col-md-6 mb-4" style="position: relative; height: 200px;">
-                    <canvas id="statusPieChart"></canvas>
+                <div class="col-md-2">
+                    
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="bg-white border-0 rounded-4 p-3 shadow-sm" style="position: relative; height: 200px;">
+                        <canvas id="statusPieChart"></canvas>
+                    </div>
                 </div>
             </div>
         @endif
@@ -85,8 +90,12 @@
                             <td class="text-center">
                                 <span class="status-{{ $submission->status }}">{{ ucfirst($submission->status) }}</span>
                             </td>
-                            <td class="text-center">{{ $submission->submitted_at ? $submission->submitted_at->format('Y-m-d') : 'Not submitted' }}</td>
-                            <td class="text-center fw-bold">{{ $submission->score }}</td>
+                            <td class="text-center text-{{ $submission->status === 'pending' ? 'danger' : 'dark' }}">
+                                {{ $submission->submitted_at ? $submission->submitted_at->format('Y-m-d') : 'Not submitted' }}
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-primary">{{ $submission->score }}</span>
+                            </td>
                             <td class="action-icons text-center">
                                 <a href="{{ route('professor.student.profile', ['studentId' => $submission->user->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
                                 <a href=""><i class="fa-solid fa-message" title="send"></i></a>
@@ -130,8 +139,9 @@
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'top',
+                    position: 'left',
                     labels: {
+                        padding: 20,
                         color: '#333'
                     }
                 },

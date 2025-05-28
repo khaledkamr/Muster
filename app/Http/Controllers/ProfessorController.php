@@ -7,6 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProfessorController extends Controller
 {
@@ -53,6 +54,93 @@ class ProfessorController extends Controller
             }) : collect();
         
         return view('professor.index', compact('professor', 'courses', 'attendanceRate', 'totalSubmissions', 'submittedCount', 'pendingCount', 'upcomingEvents', 'allAttendanceRecords', 'assignmentSubmissions'));
+    }
+
+    public function dashboard($courseId) 
+    {   
+        $course = $courseId ? Course::findOrFail($courseId) : null;
+        $students = $course ? $course->enrollments->where('enrolled_at', Carbon::parse('2025-08-01'))
+            ->map(function ($enrollment) {
+                return $enrollment->student;
+            }) : collect();
+
+        $lastYearStudents = $course ? $course->enrollments->where('enrolled_at', Carbon::parse('2024-08-01'))
+        ->map(function ($enrollment) {
+            return $enrollment->student;
+        }) : collect();
+
+        // Calculate percentage difference
+        $currentCount = $students->count();
+        $lastYearCount = $lastYearStudents->count() - 5;
+        $percentageDiff = $lastYearCount > 0 ? (($currentCount - $lastYearCount) / $lastYearCount) * 100 : 0;
+
+        //top 5 students
+        $top5Students = $course ? $course->enrollments->where('enrolled_at', '>=', Carbon::parse('2025-08-01'))->sortByDesc(function ($enrollment) use ($course) {
+            return $enrollment->student->grades->where('course_id', $course->id)->first()->total;
+        })->take(5) : collect();
+        $top5Students = $top5Students->map(function ($enrollment) use ($course) {
+            return $enrollment->student;
+        });
+
+        // dd($top5Students);
+
+        // Calculate attendance rate
+        $totalSessions = 20;
+        $attendanceRecords = $course ? $course->attendance->where('date', '>=', Carbon::parse('2025-08-01'))->count() : 0;
+        $presentCount = $course ? $course->attendance->where('date', '>=', Carbon::parse('2025-08-01'))
+            ->where('status', 'present')
+            ->count() : 0;
+        $attendanceRate = $totalSessions > 0 ? ($presentCount / $attendanceRecords) * 100 : 0;
+
+        $weeks = [
+            'week1' => ['start' => Carbon::parse('2025-08-01'),'end' => Carbon::parse('2025-08-07')],
+            'week2' => ['start' => Carbon::parse('2025-08-08'),'end' => Carbon::parse('2025-08-14')],
+            'week3' => ['start' => Carbon::parse('2025-08-15'),'end' => Carbon::parse('2025-08-21')],
+            'week4' => ['start' => Carbon::parse('2025-08-22'),'end' => Carbon::parse('2025-08-28')],
+            'week5' => ['start' => Carbon::parse('2025-08-29'),'end' => Carbon::parse('2025-09-04')],
+            'week6' => ['start' => Carbon::parse('2025-09-05'),'end' => Carbon::parse('2025-09-11')],
+            'week7' => ['start' => Carbon::parse('2025-09-12'),'end' => Carbon::parse('2025-09-18')],
+            'week8' => ['start' => Carbon::parse('2025-09-19'),'end' => Carbon::parse('2025-09-25')],
+            'week9' => ['start' => Carbon::parse('2025-09-26'),'end' => Carbon::parse('2025-10-02')],
+            'week10' => ['start' => Carbon::parse('2025-10-03'),'end' => Carbon::parse('2025-10-09')],
+            'week11' => ['start' => Carbon::parse('2025-10-10'),'end' => Carbon::parse('2025-10-16')],
+        ];
+
+        $weeklyAttendance = [];
+        $allAttendanceRecords = $course ? $course->attendance->filter(function ($attendance) {
+            return Carbon::parse($attendance->date)->greaterThanOrEqualTo(Carbon::parse('2025-08-01'));
+        }) : collect();
+
+        foreach ($weeks as $weekKey => $week) {
+            $weekRecords = $allAttendanceRecords->filter(function ($record) use ($week) {
+                return Carbon::parse($record->date)->betweenIncluded($week['start'], $week['end']);
+            });
+            $weeklyAttendance[$weekKey] = [
+                'present' => $weekRecords->where('status', 'present')->count(),
+                'absent' => $weekRecords->where('status', 'absent')->count(),
+                'late' => $weekRecords->where('status', 'late')->count(),
+            ];
+        }
+
+        $totalAssignments = $course ? $course->assignments->count() : 0;
+        $submittedAssignments = $course ? $course->assignments->flatMap->submissions->where('status', 'submitted')->count() : 0;
+        $totalSubmissions = $course ? $course->assignments->flatMap->submissions->count() : 0;
+
+        $submissionRate = $totalSubmissions > 0 ? ($submittedAssignments / $totalSubmissions) * 100 : 0;
+
+        return view('professor.dashboard', compact(
+            'course', 
+            'courseId', 
+            'students', 
+            'lastYearStudents', 
+            'percentageDiff',
+            'attendanceRate',
+            'totalSessions',
+            'weeklyAttendance',
+            'submissionRate',
+            'totalAssignments',
+            'top5Students'
+        ));
     }
 
     public function students($courseId)
@@ -275,13 +363,5 @@ class ProfessorController extends Controller
         $maxCredits = 144;
 
         return view('professor.student-profile', compact('student', 'courseId', 'gpa', 'totalCredits', 'maxCredits'));
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/login');
     }
 }

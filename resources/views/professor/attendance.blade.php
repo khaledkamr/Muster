@@ -4,10 +4,10 @@
 
 @section('content')
 <div class="container">
-    <h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Attendance</h2>
+    <h2 class="text-dark fw-bold pt-3 pb-4">{{ $course->name }} / Attendance</h2>
 
     @if ($attendanceRecords->isNotEmpty())
-        <div class="mb-5" style="position: relative; height: 400px;">
+        <div class="bg-white border-0 rounded-4 p-3 shadow mb-5" style="position: relative; height: 400px;">
             <canvas id="weeklyAttendanceChart"></canvas>
         </div>
     @endif
@@ -61,8 +61,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 mb-4" style="position: relative; height: 200px;">
-                <canvas id="statusPieChart"></canvas>
+            <div class="col-md-2">
+                
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white border-0 rounded-4 p-3 shadow" style="position: relative; height: 200px;">
+                    <canvas id="statusPieChart"></canvas>
+                </div>
             </div>
         </div>
         @endif
@@ -72,7 +77,7 @@
             <input type="hidden" name="view" value="{{ request()->query('view', 'week1') }}">
         </form>
 
-        <div class="table-container mb-5">
+        <div class="table-container shadow mb-5">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -112,7 +117,7 @@
             </table>
         </div>
 
-        <div class="mt-4">
+        <div class="mb-5">
             {{ $attendanceRecords->appends(request()->query())->onEachSide(1)->links() }}
         </div>
     </div>
@@ -164,8 +169,10 @@
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'top',
+                    position: 'right',
                     labels: {
+                        usePointStyle: true,
+                        padding: 20,
                         color: '#333'
                     }
                 },
@@ -196,8 +203,11 @@
                         display: true,
                         color: '#333'
                     },
+                    grid: {
+                        display: false
+                    },
                     ticks: {
-                        color: '#333'
+                        color: '#333',
                     }
                 }
             }
@@ -227,8 +237,9 @@
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'top',
+                    position: 'left',
                     labels: {
+                        padding: 20,
                         color: '#333'
                     }
                 },
@@ -252,6 +263,7 @@
         padding: 0;
     }
     .pagination .page-item .page-link {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         color: #0A9442;
         border: 1px solid #dee2e6;
         padding: 8px 16px;

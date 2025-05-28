@@ -201,6 +201,10 @@
 
                     <!-- Course Sub-Menu -->
                     <div class="collapse course-sub-menu" id="course-{{ $course->id }}">
+                        <a class="nav-link {{ request()->routeIs('professor.course.dashboard') && $courseId == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.course.dashboard', $course->id) }}">
+                           <i class="bi bi-columns-gap ps-1"></i> Dashboard
+                        </a>
                         <a class="nav-link {{ request()->routeIs('professor.course.students') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.students', $course->id) }}">
                            <i class="fa-solid fa-users"></i> Students
@@ -323,7 +327,7 @@
         // Auto-expand course sub-menu based on current route
         document.addEventListener('DOMContentLoaded', function() {
             const currentRoute = window.location.pathname;
-            const courseRoutes = ['students', 'attendance', 'assignments', 'grades'];
+            const courseRoutes = ['dashboard', 'students', 'attendance', 'assignments', 'grades'];
 
             console.log(courseRoutes.some(route => currentRoute.includes(route)));
 
