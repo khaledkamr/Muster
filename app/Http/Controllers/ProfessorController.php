@@ -82,8 +82,6 @@ class ProfessorController extends Controller
             return $enrollment->student;
         });
 
-        // dd($top5Students);
-
         // Calculate attendance rate
         $totalSessions = 20;
         $attendanceRecords = $course ? $course->attendance->where('date', '>=', Carbon::parse('2025-08-01'))->count() : 0;
@@ -122,6 +120,11 @@ class ProfessorController extends Controller
             ];
         }
 
+        $presentCount = $allAttendanceRecords->where('status', 'present')->count();
+        $absentCount = $allAttendanceRecords->where('status', 'absent')->count();
+        $lateCount = $allAttendanceRecords->where('status', 'late')->count();
+
+        // Assignment Status
         $totalAssignments = $course ? $course->assignments->count() : 0;
         $submittedAssignments = $course ? $course->assignments->flatMap->submissions->where('status', 'submitted')->count() : 0;
         $totalSubmissions = $course ? $course->assignments->flatMap->submissions->count() : 0;
@@ -139,7 +142,10 @@ class ProfessorController extends Controller
             'weeklyAttendance',
             'submissionRate',
             'totalAssignments',
-            'top5Students'
+            'top5Students',
+            'presentCount',
+            'absentCount',
+            'lateCount'
         ));
     }
 

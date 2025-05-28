@@ -31,22 +31,6 @@
                 <div class="bg-white border-0 rounded-4 p-3 shadow">
                     <div class="d-flex align-items-center">
                         <div class="position-relative" style="width: 100px; height: 100px;">
-                            <canvas id="attendanceChart"></canvas>
-                            <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                <span class="fw-bold text-dark">{{ number_format($attendanceRate, 1) }}%</span>
-                            </div>
-                        </div>
-                        <div class="text-dark ms-3">
-                            <h5 class="mb-3 fw-bold">Attendance Rate</h5>
-                            <h6 class="text-muted mb-0">{{ $totalSessions }} Sessions</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="bg-white border-0 rounded-4 p-3 shadow">
-                    <div class="d-flex align-items-center">
-                        <div class="position-relative" style="width: 100px; height: 100px;">
                             <canvas id="submissionChart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="fw-bold text-dark">{{ number_format($submissionRate, 1) }}%</span>
@@ -59,12 +43,43 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="bg-white border-0 rounded-4 p-3 shadow d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <div class="position-relative" style="width: 100px; height: 100px;">
+                                <canvas id="attendanceChart"></canvas>
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <span class="fw-bold text-dark">{{ number_format($attendanceRate, 1) }}%</span>
+                                </div>
+                            </div>
+                            <div class="text-dark ms-3">
+                                <h5 class="mb-3 fw-bold">Attendance Rate</h5>
+                                <h6 class="text-muted mb-0">{{ $totalSessions }} Sessions</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div style="height: 100px; width: 120px;">
+                            <canvas id="attendancePieChart"></canvas>
+                        </div>
+                        <div class="text-dark ms-3">
+                            <h5 class="mb-3 fw-bold">Attendance Distribution</h5>
+                            <small>
+                                <span class="badge text-dark" style="background-color: #79f596;">Present</span>
+                                <span class="badge text-dark ms-1" style="background-color: #ff808a;">Absent</span>
+                                <span class="badge text-dark ms-1" style="background-color: #ffcc00;">Late</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="bg-white border-0 rounded-4 p-3 shadow">
                     <h5 class="text-dark fw-bold mb-1">Weekly Attendance Trend</h5>
-                    <div style="height: 300px;">
+                    <div style="height: 295px;">
                         <canvas id="weeklyAttendanceChart"></canvas>
                     </div>
                     <a href="{{ route('professor.course.attendance', $courseId) }}" class="btn btn-outline-primary w-100 mt-2">View All Attendance</a>
@@ -74,6 +89,9 @@
                 <div class="bg-white border-0 rounded-4 p-3 shadow">
                     <h6 class="text-dark text-center fw-bold pb-3 mb-3 border-bottom">Top 5 In Academic Progress</h6>
                     <div class="top-students">
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($top5Students->take(5) as $student)
                             <div class="d-flex align-items-center mb-2">
                                 <a href="{{ route('professor.student.profile', [$student->id, $courseId]) }}">
@@ -82,8 +100,15 @@
                                         style="width: 40px; height: 40px; object-fit: cover;">
                                 </a>
                                 <div class="d-flex flex-column">
-                                    <a href="{{ route('professor.student.profile', [$student->id, $courseId]) }}"
-                                        class="text-dark text-decoration-none">{{ $student->name }}</a>
+                                    <a href="{{ route('professor.student.profile', [$student->id, $courseId]) }}" class="text-dark text-decoration-none">
+                                        {{ $student->name }}
+                                        @if($i == 1)
+                                            <i class="fa-solid fa-crown text-warning ps-1"></i>
+                                            @php
+                                                $i++;
+                                            @endphp
+                                        @endif
+                                    </a>
                                     <small class="text-muted">ID: {{ $student->id }}</small>
                                 </div>
                                 <div class="ms-auto">
@@ -94,8 +119,16 @@
                             </div>
                         @endforeach
                     </div>
-                    <a href="{{ route('professor.course.students', $courseId) }}"
-                        class="btn btn-outline-primary w-100 mt-3">View All Students</a>
+                    <a href="{{ route('professor.course.grades', $courseId) }}" class="btn btn-outline-primary w-100 mt-3">More Details</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white border-0 rounded-4 p-3 shadow">
+                    <h6 class="text-dark text-center fw-bold pb-3 mb-0 pb-0">Performance Status</h6>
+                    <div>
+                        <canvas id="performanceBarChart" style="height: 281px;"></canvas>
+                    </div>
+                    <a href="{{ route('professor.course.students', $courseId) }}" class="btn btn-outline-primary w-100 mt-3">View All Students</a>
                 </div>
             </div>
         </div>
@@ -108,13 +141,13 @@
             const attendanceChartCtx = document.getElementById('attendanceChart').getContext('2d');
             const attendanceRate = {{ $attendanceRate }};
 
-            let progressColor;
+            let attendanceProgressColor;
             if (attendanceRate >= 75) {
-                progressColor = '#28a745'; // Green for >= 75%
+                attendanceProgressColor = '#28a745';
             } else if (attendanceRate <= 50) {
-                progressColor = '#dc3545'; // Red for <= 50%
+                attendanceProgressColor = '#dc3545';
             } else {
-                progressColor = '#007bff'; // Blue for 50% to 75%
+                attendanceProgressColor = '#007bff';
             }
 
             new Chart(attendanceChartCtx, {
@@ -122,7 +155,7 @@
                 data: {
                     datasets: [{
                         data: [attendanceRate, 100 - attendanceRate],
-                        backgroundColor: [progressColor, '#e9ecef'],
+                        backgroundColor: [attendanceProgressColor, '#e9ecef'],
                         borderWidth: 0,
                         circumference: 360,
                         cutout: '85%',
@@ -146,12 +179,21 @@
             const submissionChartCtx = document.getElementById('submissionChart').getContext('2d');
             const submissionRate = {{ $submissionRate }};
 
+            let submissionProgressColor;
+            if (submissionRate >= 75) {
+                submissionProgressColor = '#28a745'; 
+            } else if (submissionRate <= 50) {
+                submissionProgressColor = '#dc3545';
+            } else {
+                submissionProgressColor = '#007bff';
+            }
+
             new Chart(submissionChartCtx, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
                         data: [submissionRate, 100 - submissionRate],
-                        backgroundColor: [progressColor, '#e9ecef'],
+                        backgroundColor: [submissionProgressColor, '#e9ecef'],
                         borderWidth: 0,
                         circumference: 360,
                         cutout: '85%',
@@ -236,6 +278,92 @@
                             ticks: {
                                 stepSize: 5
                             }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            const attendancePieChartCtx = document.getElementById('attendancePieChart').getContext('2d');
+            const presentCount = {{ $presentCount }};
+            const absentCount = {{ $absentCount }};
+            const lateCount = {{ $lateCount }};
+
+            const attendancePieChart = new Chart(attendancePieChartCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Present', 'Absent', 'Late'],
+                    datasets: [{
+                        data: [presentCount, absentCount, lateCount],
+                        backgroundColor: ['#79f596', '#ff808a', '#ffcc00'],
+                        borderWidth: 1,
+                        borderColor: '#eee'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                            position: 'left',
+                            labels: {
+                                color: '#333'
+                            }
+                        },
+                        title: {
+                            display: false,
+                            text: 'Performance Status Distribution',
+                            color: '#333',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            });
+
+            const performanceBarChartCtx = document.getElementById('performanceBarChart').getContext('2d');
+            const performanceBarChart = new Chart(performanceBarChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['High', 'Average', 'Low'],
+                    datasets: [{
+                        label: 'Performance',
+                        data: [45, 55, 25],
+                        backgroundColor: ['#28a745', '#007bff', '#dc3545'],
+                        borderWidth: 1,
+                        borderColor: '#eee'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: false,
+                            text: 'Performance Status',
+                            color: '#333',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 5
+                            },
                         },
                         x: {
                             grid: {
