@@ -100,14 +100,19 @@
                     @foreach ($attendanceRecords as $record)
                         <tr>
                             <td class="text-center">{{ $record->student_id }}</td>
-                            <td class="text-center">{{ $record->student->name }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('professor.student.profile', ['studentId' => $record->student->id, 'courseId' => $courseId]) }}"
+                                    class="text-dark text-decoration-none">
+                                    {{ $record->student->name }}
+                                </a>
+                            </td>
                             <td class="text-center">{{ $record->type }}</td>
                             <td class="text-center">
                                 <span class="status-{{$record->status}}">{{ ucfirst($record->status) }}</span>
                             </td>
                             <td class="text-center">{{ $record->date->format('Y-m-d') }}</td>
                             <td class="action-icons text-center">
-                                <a href="{{ route('professor.student.profile', ['studentId' => $record->student->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $record->student->id]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
                                 <a href=""><i class="fa-solid fa-message" title="send"></i></a>
                             </td>
                         </tr>

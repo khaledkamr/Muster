@@ -85,7 +85,12 @@
                     @foreach($filteredSubmissions as $submission)
                         <tr>
                             <td class="text-center">{{ $submission->student_id }}</td>
-                            <td class="text-center">{{ $submission->user->name }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('professor.student.profile', ['studentId' => $submission->user->id, 'courseId' => $courseId]) }}"
+                                    class="text-dark text-decoration-none">
+                                    {{ $submission->user->name }}
+                                </a>
+                            </td>
                             <td class="text-center">{{ $submission->assignment->title }}</td>
                             <td class="text-center">
                                 <span class="status-{{ $submission->status }}">{{ ucfirst($submission->status) }}</span>
@@ -97,7 +102,7 @@
                                 <span class="badge bg-primary">{{ $submission->score }}</span>
                             </td>
                             <td class="action-icons text-center">
-                                <a href="{{ route('professor.student.profile', ['studentId' => $submission->user->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $submission->user->id]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
                                 <a href=""><i class="fa-solid fa-message" title="send"></i></a>
                             </td>
                         </tr>

@@ -40,6 +40,7 @@ Route::prefix('professor')->middleware(['auth', 'role:professor'])->group(functi
         Route::get('/attendance/course/{course_id}', 'attendance')->name('professor.course.attendance');
         Route::get('/profile', 'profile')->name('professor.profile');
         Route::get('/student/{studentId}/course/{courseId}', 'studentProfile')->name('professor.student.profile');
+        Route::get('/course/{course_id}/student/{student_id}', 'courseStudentDetails')->name('professor.course.student.details');
     });
 });
 

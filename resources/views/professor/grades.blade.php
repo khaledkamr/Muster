@@ -244,7 +244,12 @@
                         @endphp
                         <tr>
                             <td class="text-center">{{ $student->id }}</td>
-                            <td class="text-center">{{ $student->name }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('professor.student.profile', ['studentId' => $student->id, 'courseId' => $courseId]) }}"
+                                    class="text-dark text-decoration-none">
+                                    {{ $student->name }}
+                                </a>
+                            </td>
                             <td class="text-center">{{ $quiz1 }}</td>
                             <td class="text-center">{{ $midterm }}</td>
                             <td class="text-center">{{ $quiz2 }}</td>
@@ -253,7 +258,7 @@
                             <td class="text-center">{{ $final }}</td>
                             <td class="text-center">{{ is_numeric($total) ? $total : '-' }}</td>
                             <td class="action-icons text-center">
-                                <a href="{{ route('professor.student.profile', ['studentId' => $student->id, 'courseId' => $courseId]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
+                                <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $student->id]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
                                 <a href="#"><i class="fa-solid fa-message" title="Send"></i></a>
                             </td>
                         </tr>

@@ -203,7 +203,12 @@
                         @foreach ($students as $student)
                             <tr>
                                 <td class="text-center">{{ $student->id }}</td>
-                                <td class="text-center">{{ $student->name }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('professor.student.profile', ['studentId' => $student->id, 'courseId' => $courseId]) }}"
+                                        class="text-dark text-decoration-none">
+                                        {{ $student->name }}
+                                    </a>
+                                </td>
                                 <td class="text-center">{{ $student->year }}</td>
                                 <td class="text-center">{{ $student->email }}</td>
                                 <td class="text-center">
@@ -213,7 +218,7 @@
                                     </span>
                                 </td>
                                 <td class="action-icons text-center">
-                                    <a href="{{ route('professor.student.profile', ['studentId' => $student->id, 'courseId' => $courseId]) }}"
+                                    <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $student->id]) }}"
                                         title="View"><i class="fa-solid fa-eye"></i></a>
                                     <a href=""><i class="fa-solid fa-message" title="send"></i></a>
                                 </td>

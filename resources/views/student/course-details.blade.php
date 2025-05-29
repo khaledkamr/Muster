@@ -111,52 +111,97 @@
             </div>
         </div>
 
-
         <div class="row mb-5">
             <div class="col-md-6">
                 <div class="bg-white border-0 shadow rounded-4 p-3">
                     <div class="rounded">
-                        <h5 class="text-dark fw-bold mb-4">Final Grade</h5>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="col-md-6 text-center">
-                                <div class="position-relative d-inline-block" style="width: 180px; height: 130px;">
-                                    <canvas id="totalScoreChart"></canvas>
-                                    <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                        <span class="fs-4 text-dark fw-bold d-block">{{ $percentage }}%</span>
-                                        <span class="fs-6 text-dark">{{ $totalScore }}/{{ $totalMaxScore }}</span>
+                        <h5 class="text-dark fw-bold mb-4">{{ $grade->grade ? 'Final Grade' : 'Predicted Grade' }}</h5>
+                        @if($grade->grade)
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="col-md-6 text-center">
+                                    <div class="position-relative d-inline-block" style="width: 180px; height: 130px;">
+                                        <canvas id="totalScoreChart"></canvas>
+                                        <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                            <span class="fs-4 text-dark fw-bold d-block">{{ $percentage }}%</span>
+                                            <span class="fs-6 text-dark">{{ $totalScore }}/{{ $totalMaxScore }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div
+                                        class="text-center text-dark d-flex flex-column justify-content-center align-items-center">
+                                        @if (!empty($grade->grade))
+                                            <h5>Grade</h5>
+                                            @php
+                                                $gradeStatus = '';
+                                                if ($grade->total >= 122.4) {
+                                                    $gradeStatus = 'success';
+                                                } elseif ($grade->total <= 102) {
+                                                    $gradeStatus = 'danger';
+                                                } else {
+                                                    $gradeStatus = 'warning';
+                                                }
+                                            @endphp
+                                            <div class="btn btn-{{ $gradeStatus }} w-fit pe-3 ps-3" style="font-size: 40px;">
+                                                {{ $grade->grade }}
+                                            </div>
+                                            <p class="mt-3">
+                                                Status: <strong>{{ ucfirst($grade->status) }}</strong>
+                                                @if ($grade->status === 'pass')
+                                                    <i class="fa-solid fa-circle-check text-success"></i>
+                                                @else
+                                                    <i class="fa-solid fa-circle-xmark text-danger"></i>
+                                                @endif
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div
-                                    class="text-center text-dark d-flex flex-column justify-content-center align-items-center">
-                                    @if (!empty($grade->grade))
-                                        <h5>Grade</h5>
-                                        @php
-                                            $gradeStatus = '';
-                                            if ($grade->total >= 122.4) {
-                                                $gradeStatus = 'success';
-                                            } elseif ($grade->total <= 102) {
-                                                $gradeStatus = 'danger';
-                                            } else {
-                                                $gradeStatus = 'warning';
-                                            }
-                                        @endphp
-                                        <div class="btn btn-{{ $gradeStatus }} w-fit pe-3 ps-3" style="font-size: 40px;">
-                                            {{ $grade->grade }}
+                        @else
+                            <div class="d-flex justify-content-center gap-4 align-items-center">
+                                <div class="text-center">
+                                    <h6 class="text-dark mb-2">Total Grade So Far</h6>
+                                    <div class="position-relative d-inline-block" style="width: 150px; height: 130px;">
+                                        <canvas id="totalScoreChart"></canvas>
+                                        <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                            <span class="fs-4 text-dark fw-bold d-block">{{ $percentage }}%</span>
+                                            <span class="fs-6 text-dark">{{ $totalScore }}/{{ $totalMaxScore }}</span>
                                         </div>
-                                        <p class="mt-3">
-                                            Status: <strong>{{ ucfirst($grade->status) }}</strong>
-                                            @if ($grade->status === 'pass')
-                                                <i class="fa-solid fa-circle-check text-success"></i>
-                                            @else
-                                                <i class="fa-solid fa-circle-xmark text-danger"></i>
-                                            @endif
-                                        </p>
-                                    @endif
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <h6 class="text-dark mb-2">Status</h6>
+                                    <div class="d-flex flex-column justify-content-center align-items-center alert alert-primary" style="width: 200px; height: 120px;">
+                                        @if((70 / 100) * 100 >= 75)
+                                            <span class="fs-2 text-success fw-bold">Excellent</span>
+                                            <p class="text-success mb-0"><i class="fa-solid fa-star"></i> On Track</p>
+                                        @elseif((70 / 100) * 100 >= 60)
+                                            <span class="fs-2 text-primary fw-bold">Good</span>
+                                            <p class="text-primary mb-0"><i class="fa-solid fa-circle-check"></i> Passing</p>
+                                        @else
+                                            <span class="fs-2 text-danger fw-bold">At Risk</span>
+                                            <p class="text-danger mb-0"><i class="fa-solid fa-triangle-exclamation"></i> Needs Improvement</p>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <h6 class="text-dark mb-2">Predicted Grade</h6>
+                                    @php
+                                        $predictedPercentage = (70 / 100) * 100;
+                                        $predictedGrade = 'N/A';
+                                        if ($predictedPercentage >= 90) $predictedGrade = 'A';
+                                        elseif ($predictedPercentage >= 80) $predictedGrade = 'B';
+                                        elseif ($predictedPercentage >= 70) $predictedGrade = 'C';
+                                        elseif ($predictedPercentage >= 60) $predictedGrade = 'D';
+                                        else $predictedGrade = 'F';
+                                    @endphp
+                                    <div class="d-flex flex-column justify-content-center align-items-center" style=" height: 130px;">
+                                        <span class="fs-2 text-{{ $predictedGrade === 'F' ? 'danger' : 'dark' }} fw-bold">{{ $predictedGrade }}</span>
+                                        <p class="text-muted mb-0">Based on current progress</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -182,23 +227,25 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <p class="text-muted mb-1">Your grade compared to class average:</p>
+                        <div class="mt-2">
                             @if ($grade->total > $averageGrade)
-                                <p class="text-success mb-0">
-                                    Above average by {{ number_format($grade->total - $averageGrade, 1) }} points
-                                    <i class="fa-solid fa-circle-up text-success"></i>
-                                </p>
+                                <div class="alert alert-success" role="alert">
+                                    <i class="fa-solid fa-circle-up me-2"></i>
+                                    <strong>Great work!</strong> You're {{ number_format($grade->total - $averageGrade, 1) }} points above average.
+                                    <small>Keep up the excellent performance! Consider helping classmates who may be struggling.</small>
+                                </div>
                             @elseif($grade->total < $averageGrade)
-                                <p class="text-danger mb-0">
-                                    Below average by {{ number_format($averageGrade - $grade->total, 1) }} points
-                                    <i class="fa-solid fa-circle-down text-danger"></i>
-                                </p>
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fa-solid fa-circle-down me-2"></i>
+                                    <strong>Room for improvement.</strong> You're {{ number_format($averageGrade - $grade->total, 1) }} points below average.
+                                    <small>Consider seeking extra help from your professor or forming a study group.</small>
+                                </div>
                             @else
-                                <p class="text-dark mb-0">
-                                    At class average
-                                    <i class="fa-solid fa-thumbs-up"></i>
-                                </p>
+                                <div class="alert alert-info" role="alert">
+                                    <i class="fa-solid fa-thumbs-up me-2"></i>
+                                    <strong>Doing well!</strong> You're at the class average.
+                                    <small>Challenge yourself to move above average by reviewing challenging topics.</small>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -388,7 +435,7 @@
                         <div class="col-md-8">
                             <div class="bg-white border-0 shadow rounded-4 p-3" style="height: 285px;">
                                 <div class="rounded">
-                                    <h5 class="card-title text-dark fw-bold pb-4">Average Attendance</h5>
+                                    <h5 class="card-title text-dark fw-bold pb-2">Average Attendance</h5>
                                     <div class="d-flex justify-content-between align-items-center mt-4">
                                         <div class="text-center">
                                             <h6 class="text-dark mb-2">Your Attendance</h6>
@@ -406,25 +453,25 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="mt-5">
-                                        <p class="text-muted mb-1">Your attendance compared to department average:</p>
+                                    <div class="mt-3">
                                         @if ($attendanceRate > $departmentAverageAttendance)
-                                            <p class="text-success mb-0">
-                                                Above average by
-                                                {{ number_format($attendanceRate - $departmentAverageAttendance, 1) }}%
-                                                <i class="fa-solid fa-circle-up text-success"></i>
-                                            </p>
+                                            <div class="alert alert-success" role="alert">
+                                                <i class="fa-solid fa-circle-up me-2"></i>
+                                                <strong>Great attendance!</strong> You're {{ number_format($attendanceRate - $departmentAverageAttendance, 1) }}% above the department average.
+                                                <small>Keep up the excellent attendance record!</small>
+                                            </div>
                                         @elseif($attendanceRate < $departmentAverageAttendance)
-                                            <p class="text-danger mb-0">
-                                                Below average by
-                                                {{ number_format($departmentAverageAttendance - $attendanceRate, 1) }}%
-                                                <i class="fa-solid fa-circle-down text-danger"></i>
-                                            </p>
+                                            <div class="alert alert-danger" role="alert">
+                                                <i class="fa-solid fa-circle-down me-2"></i>
+                                                <strong>Room for improvement.</strong> You're {{ number_format($departmentAverageAttendance - $attendanceRate, 1) }}% below the department average.
+                                                <small>Consider improving your attendance to stay on track with your peers.</small>
+                                            </div>
                                         @else
-                                            <p class="text-dark mb-0">
-                                                At department average
-                                                <i class="fa-solid fa-thumbs-up"></i>
-                                            </p>
+                                            <div class="alert alert-info" role="alert">
+                                                <i class="fa-solid fa-thumbs-up me-2"></i>
+                                                <strong>Good job!</strong> Your attendance matches the department average.
+                                                <small>Challenge yourself to maintain or exceed this level.</small>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -452,8 +499,6 @@
         </div>
     </div>
 
-
-
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -464,21 +509,12 @@
             const maxScore = {{ $totalMaxScore }};
             const scorePercentage = (totalScore / maxScore) * 100;
 
-            let progressColor;
-            if (scorePercentage >= 75) {
-                progressColor = '#28a745'; // Green for >= 75%
-            } else if (scorePercentage <= 50) {
-                progressColor = '#dc3545'; // Red for <= 50%
-            } else {
-                progressColor = '#007bff'; // Blue for 50% to 75%
-            }
-
             new Chart(totalScoreCtx, {
                 type: 'doughnut',
                 data: {
                     datasets: [{
                         data: [scorePercentage, 100 - scorePercentage],
-                        backgroundColor: [progressColor, '#e9ecef'],
+                        backgroundColor: ['#007bff', '#e9ecef'],
                         borderWidth: 0,
                         circumference: 360,
                         cutout: '80%',
@@ -503,13 +539,14 @@
             const quiz1Score = {{ $displayScores['quiz1'] }};
             const quiz1MaxScore = {{ $displayMaxScores['quiz1'] }};
             const quiz1Percentage = (quiz1Score / quiz1MaxScore) * 100;
+
             let quiz1ProgressColor;
             if (quiz1Percentage >= 75) {
-                quiz1ProgressColor = '#28a745'; // Green for >= 75%
+                quiz1ProgressColor = '#28a745'; 
             } else if (quiz1Percentage <= 50) {
-                quiz1ProgressColor = '#dc3545'; // Red for <= 50%
+                quiz1ProgressColor = '#dc3545'; 
             } else {
-                quiz1ProgressColor = '#007bff'; // Blue for 50% to 75%
+                quiz1ProgressColor = '#007bff';
             }
 
             new Chart(quiz1Ctx, {
@@ -820,14 +857,17 @@
                         label: 'Attended Sessions',
                         data: [lectureAttendance, labAttendance],
                         backgroundColor: [
-                            'rgba(40, 167, 69)', // Green for lectures
-                            'rgba(0, 123, 255)' // Blue for labs
+                            'rgba(40, 167, 69, 0.8)', // Green for lectures
+                            'rgba(0, 123, 255, 0.8)' // Blue for labs
                         ],
                         borderColor: [
                             'rgb(40, 167, 69)',
                             'rgb(0, 123, 255)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        barThickness: 90,
+                        barRadius: 5,
+                        borderRadius: 10
                     }]
                 },
                 options: {
@@ -842,7 +882,7 @@
                                 display: true,
                                 text: 'Number of Courses'
                             },
-                            max: 16
+                            max: Math.max(lectureAttendance, labAttendance) + 2
                         }
                     },
                     plugins: {

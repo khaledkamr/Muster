@@ -472,12 +472,12 @@ class StudentController extends Controller
 
         // Prepare scores for display
         $displayScores = [
-            'quiz1' => $grade->quiz1,
-            'quiz2' => $grade->quiz2,
-            'midterm' => $grade->midterm,
-            'project' => $grade->project,
-            'assignments' => $grade->assignments,
-            'final' => $grade->final,
+            'quiz1' => $grade->quiz1 ? $grade->quiz1 : 0,
+            'quiz2' => $grade->quiz2 ? $grade->quiz2 : 0,
+            'midterm' => $grade->midterm ? $grade->midterm : 0,
+            'project' => $grade->project ? $grade->project : 0,
+            'assignments' => $grade->assignments ? $grade->assignments : 0,
+            'final' => $grade->final ? $grade->final : 0,
         ];
 
         // Max scores for display
@@ -492,21 +492,16 @@ class StudentController extends Controller
 
         // Calculate total score out of 170
         $totalMaxScore = array_sum($maxScores); // 170
-        $totalScore = $grade->quiz1 + $grade->quiz2 + $grade->midterm + $grade->project + $grade->assignments + $grade->final;
+        $totalScore = $grade->total;
 
         // Calculate percentage
         $percentage = round(($totalScore / $totalMaxScore) * 100);
 
         // Get assignments for this course
-        $assignments = Assignment::where('course_id', $course->id)
-            ->orderBy('created_at', 'asc')
-            ->take(3)
-            ->get();
-
-        // Get assignment submissions for this student
+        $assignments = Assignment::where('course_id', $course->id)->orderBy('created_at', 'asc')
+            ->take(3)->get();
         $submissions = Assignment_submission::whereIn('assignment_id', $assignments->pluck('id'))
-            ->where('student_id', $user->id)
-            ->get();
+            ->where('student_id', $user->id)->get();
 
         // Calculate assignment statistics
         $totalAssignments = $assignments->count();

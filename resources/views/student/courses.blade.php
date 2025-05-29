@@ -152,17 +152,45 @@
         $lowestGradeCourse = $chartData['labels'][$lowestGradeIndex];
         $lowestGrade = $chartData['grades'][$lowestGradeIndex];
     @endphp
-    <div class="alert alert-warning mt-4 shadow-sm" role="alert">
-        <div class="d-flex align-items-center">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            <div>
-                <h5 class="alert-heading mb-1">Attention Needed</h5>
-                <p class="mb-0">
-                    Your performance in <strong>{{ $lowestGradeCourse }}</strong> needs improvement. With a current grade of {{ $lowestGrade }}, we recommend dedicating more study time to this course and seeking additional help if needed.
-                </p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="alert alert-warning mt-4 shadow-sm" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-exclamation-triangle me-3"></i>
+                    <div>
+                        <h5 class="alert-heading mb-1">Attention Needed</h5>
+                        <p class="mb-0">
+                            Your performance in <strong>{{ $lowestGradeCourse }}</strong> needs improvement. With a current grade of {{ $lowestGrade }}, we recommend dedicating more study time to this course and seeking additional help if needed.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-info mt-4 shadow-sm" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-circle-info me-3"></i>
+                    <div>
+                        <h5 class="alert-heading mb-1">GPA Prediction</h5>
+                        <small class="text-muted d-block">Based on current performance</small>
+                        <div class="d-flex justify-content-between align-items-center mt-0">
+                            <div>
+                                <p class="mb-1">
+                                    <strong>Predicted Semester GPA:</strong>
+                                    <span class=" ms-2">3.45</span>
+                                </p>
+                                <p class="mb-0">
+                                    <strong>Predicted CGPA:</strong>
+                                    <span class=" ms-2">3.67</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

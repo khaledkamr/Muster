@@ -8,6 +8,13 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Grade;
+use App\Models\Assignment;
+use App\Models\Submission;
+use App\Models\Attendance;
+use App\Models\Enrollment;
+use App\Models\Assignment_submission;
+
 
 class ProfessorController extends Controller
 {
@@ -512,6 +519,146 @@ class ProfessorController extends Controller
         $maxCredits = 144;
 
         return view('professor.student-profile', compact('student', 'courseId', 'gpa', 'totalCredits', 'maxCredits'));
+    }
+
+    public function courseStudentDetails($courseId, $studentId)
+    {
+        $user = User::findOrFail($studentId);
+        $course = Course::findOrFail($courseId);
+        $grade = Grade::where('student_id', $user->id)->where('course_id', $course->id)->firstOrFail(); 
+
+        if (!$grade) {
+            abort(404, 'Grade not found for this course.');
+        }
+
+        // Calculate average grade for the course
+        $allGrades = Grade::where('course_id', $course->id)->get();
+        $totalPoints = 0;
+
+        foreach ($allGrades as $courseGrade) {
+            $totalPoints += $courseGrade->total ?? 0;
+        }
+
+        $averageGrade = $allGrades->count() > 0 ? round($totalPoints / $allGrades->count(), 2) : 0;
+        $departmentStudents = $allGrades->count();
+
+        $maxScores = [
+            'quiz1' => 10,
+            'quiz2' => 10,
+            'midterm' => 30,
+            'project' => 30,
+            'assignments' => 30, 
+            'final' => 60,
+        ];
+
+        // Prepare scores for display
+        $displayScores = [
+            'quiz1' => $grade->quiz1 ? $grade->quiz1 : 0,
+            'quiz2' => $grade->quiz2 ? $grade->quiz2 : 0,
+            'midterm' => $grade->midterm ? $grade->midterm : 0,
+            'project' => $grade->project ? $grade->project : 0,
+            'assignments' => $grade->assignments ? $grade->assignments : 0,
+            'final' => $grade->final ? $grade->final : 0,
+        ];
+
+        // Max scores for display
+        $displayMaxScores = [
+            'quiz1' => $maxScores['quiz1'],
+            'quiz2' => $maxScores['quiz2'],
+            'midterm' => $maxScores['midterm'],
+            'project' => $maxScores['project'],
+            'assignments' => $maxScores['assignments'],
+            'final' => $maxScores['final'],
+        ];
+
+        // Calculate total score out of 170
+        $totalMaxScore = array_sum($maxScores); // 170
+        $totalScore = $grade->total;
+
+        // Calculate percentage
+        $percentage = round(($totalScore / $totalMaxScore) * 100);
+
+        // Get assignments for this course
+        $assignments = Assignment::where('course_id', $course->id)->orderBy('created_at', 'asc')
+            ->take(3)->get();
+        $submissions = Assignment_submission::whereIn('assignment_id', $assignments->pluck('id'))
+            ->where('student_id', $user->id)->get();
+
+        // Calculate assignment statistics
+        $totalAssignments = $assignments->count();
+        $completedAssignments = $submissions->where('status', 'submitted')->count();
+        $completionRate = $totalAssignments > 0 ? round(($completedAssignments / $totalAssignments) * 100) : 0;
+
+        // Calculate assignment score rate
+        $totalAssignmentsScore = $submissions->where('status', 'submitted')->sum('score');
+        $maxPossibleScore = $totalAssignments * 10; // Assuming each assignment is worth 10 points
+        $scoreRate = $maxPossibleScore > 0 ? round(($totalAssignmentsScore / $maxPossibleScore) * 100) : 0;
+
+        // Get attendance records for this course
+        $attendances = Attendance::where('course_id', $course->id)
+            ->where('student_id', $user->id)
+            ->get();
+
+        // Calculate attendance statistics
+        $totalSessions = $attendances->count();
+        $presentSessions = $attendances->where('status', 'present')->count();
+        $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
+
+        $missedLectures = $attendances->where('type', 'lecture')->where('status', 'absent')->count();
+        $missedLabs = $attendances->where('type', 'lab')->where('status', 'absent')->count();
+        $lateLectures = $attendances->where('type', 'lecture')->where('status', 'late')->count();
+        $lateLabs = $attendances->where('type', 'lab')->where('status', 'late')->count();
+        $totalPresent = $attendances->where('status', 'present')->count();
+        $totalSessions = $attendances->count();
+
+        // Calculate department average attendance
+        $departmentAttendances = Attendance::where('course_id', $course->id)
+            ->whereHas('student', function($query) use ($user) {
+                $query->where('major', $user->major);
+            })
+            ->get();
+
+        $departmentTotalSessions = $departmentAttendances->count();
+        $departmentTotalPresent = $departmentAttendances->where('status', 'present')->count();
+        $departmentAverageAttendance = $departmentTotalSessions > 0 ? 
+            round(($departmentTotalPresent / $departmentTotalSessions) * 100) : 0;
+
+        // Get department students count
+        $departmentStudents = User::where('major', $user->major)
+            ->where('role', 'student')
+            ->where('year', $user->year)
+            ->count();
+
+        return view('professor.course-student-details', compact(
+            'course', 
+            'user',
+            'grade', 
+            'displayScores', 
+            'displayMaxScores', 
+            'totalScore', 
+            'totalMaxScore', 
+            'percentage',
+            'assignments',
+            'submissions',
+            'completionRate',
+            'scoreRate',
+            'attendances',
+            'attendanceRate',
+            'missedLectures',
+            'missedLabs',
+            'lateLectures',
+            'lateLabs',
+            'completedAssignments',
+            'totalAssignments',
+            'maxPossibleScore',
+            'totalAssignmentsScore',
+            'averageGrade',
+            'departmentStudents',
+            'totalPresent',
+            'totalSessions',
+            'departmentAverageAttendance',
+            'departmentStudents'
+        ));
     }
 }
 

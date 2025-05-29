@@ -114,10 +114,15 @@
                                             @foreach ($stats['grades'] as $grade)
                                                 <tr>
                                                     <td class="text-center">{{ $grade['student_id'] }}</td>
-                                                    <td class="text-center">{{ $grade['student_name'] }}</td>
-                                                    <td class="text-center">{{ $grade['grade'] }}</td>
                                                     <td class="text-center">
                                                         <a href="{{ route('professor.student.profile', ['studentId' => $grade['student_id'], 'courseId' => $courseId]) }}"
+                                                            class="text-dark text-decoration-none">
+                                                            {{ $grade['student_name'] }}
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center">{{ $grade['grade'] }}</td>
+                                                    <td class="text-center">
+                                                        <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $grade['student_id']]) }}"
                                                             class="btn btn-sm btn-outline-primary">
                                                             <i class="fas fa-eye"></i> View
                                                         </a>
