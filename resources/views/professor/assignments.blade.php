@@ -44,10 +44,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- Pie Chart -->
                 <div class="col-md-2">
                     
                 </div>
+                <!-- Pie Chart -->
                 <div class="col-md-4 mb-4">
                     <div class="bg-white border-0 rounded-4 p-3 shadow-sm" style="position: relative; height: 200px;">
                         <canvas id="statusPieChart"></canvas>

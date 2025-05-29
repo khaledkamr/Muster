@@ -77,7 +77,7 @@
             <input type="hidden" name="view" value="{{ request()->query('view', 'week1') }}">
         </form>
 
-        <div class="table-container shadow mb-5">
+        <div class="table-container shadow">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -117,7 +117,7 @@
             </table>
         </div>
 
-        <div class="mb-5">
+        <div class="mt-4 mb-2">
             {{ $attendanceRecords->appends(request()->query())->onEachSide(1)->links() }}
         </div>
     </div>
