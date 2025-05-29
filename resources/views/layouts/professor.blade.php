@@ -38,7 +38,7 @@
             width: calc(100% - 250px);
             z-index: 1000;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            z-index: 1;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -90,7 +90,7 @@
             width: 250px;
             padding-top: 20px;
             box-shadow: 4px 0 8px rgba(0, 0, 0, 0.3);
-            z-index: 2;
+            z-index: 2000;
         }
         .sidebar a {
             color: #ffffff;
@@ -208,6 +208,10 @@
                         <a class="nav-link {{ request()->routeIs('professor.course.students') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.students', $course->id) }}">
                            <i class="fa-solid fa-users"></i> Students
+                        </a>
+                        <a class="nav-link {{ request()->routeIs('professor.course.exams') && $courseId == $course->id ? 'active' : '' }}"
+                           href="{{ route('professor.course.exams', $course->id) }}">
+                           <i class="fa-solid fa-clipboard-question ps-1 pe-1"></i> Exams
                         </a>
                         <a class="nav-link {{ request()->routeIs('professor.course.grades') && $courseId == $course->id ? 'active' : '' }}"
                            href="{{ route('professor.course.grades', $course->id) }}">
@@ -327,7 +331,7 @@
         // Auto-expand course sub-menu based on current route
         document.addEventListener('DOMContentLoaded', function() {
             const currentRoute = window.location.pathname;
-            const courseRoutes = ['dashboard', 'students', 'attendance', 'assignments', 'grades'];
+            const courseRoutes = ['dashboard', 'students', 'attendance', 'assignments', 'grades', 'exams'];
 
             console.log(courseRoutes.some(route => currentRoute.includes(route)));
 

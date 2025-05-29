@@ -34,6 +34,7 @@ Route::prefix('professor')->middleware(['auth', 'role:professor'])->group(functi
         Route::get('/', 'index')->name('professor.home');
         Route::get('/dashboard/course/{course_id}', 'dashboard')->name('professor.course.dashboard');
         Route::get('/students/course/{course_id}', 'students')->name('professor.course.students');
+        Route::get('/exams/course/{course_id}', 'exams')->name('professor.course.exams');
         Route::get('/grades/course/{course_id}', 'grades')->name('professor.course.grades');
         Route::get('/assignments/course/{course_id}', 'assignments')->name('professor.course.assignments');
         Route::get('/attendance/course/{course_id}', 'attendance')->name('professor.course.attendance');

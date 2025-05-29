@@ -177,6 +177,115 @@ class ProfessorController extends Controller
         return view('professor.students', compact('course', 'courseId', 'students'));
     }
 
+    public function exams($courseId)
+    {
+        $course = Course::findOrFail($courseId);
+        
+        $grades = $course->grades()
+            ->whereHas('student.enrollments', function($query) use ($course) {
+                $query->where('course_id', $course->id)->where('enrolled_at', '>=', '2025-08-01');
+            })
+            ->with('student')
+            ->get();
+
+        $examTypes = [
+            'quiz1' => 'Quiz 1',
+            'quiz2' => 'Quiz 2',
+            'midterm' => 'Midterm',
+            'project' => 'Project',
+            'assignments' => 'Assignments',
+            'final' => 'Final'
+        ];
+
+        $examStats = [];
+        $chartData = [
+            'labels' => [],
+            'averages' => [],
+            'colors' => []
+        ];
+
+        foreach ($examTypes as $field => $name) {
+            $examGrades = $grades->map(function ($grade) use ($field) {
+                return [
+                    'student_id' => $grade->student->id,
+                    'student_name' => $grade->student->name,
+                    'grade' => $grade->$field
+                ];
+            })->filter(function ($item) {
+                return $item['grade'] !== null;
+            })->sortByDesc('grade');
+
+            if ($examGrades->isNotEmpty()) {
+                $maxGrade = $examGrades->first();
+                $minGrade = $examGrades->last();
+                $avgGrade = $examGrades->avg('grade');
+
+                // Convert collection to paginator
+                $paginatedGrades = new \Illuminate\Pagination\LengthAwarePaginator(
+                    $examGrades->forPage(request()->get('page', 1), 10),
+                    $examGrades->count(),
+                    10,
+                    request()->get('page', 1),
+                    ['path' => request()->url(), 'query' => request()->query()]
+                );
+
+                $examStats[$field] = [
+                    'name' => $name,
+                    'max_grade' => [
+                        'value' => $maxGrade['grade'],
+                        'student_name' => $maxGrade['student_name']
+                    ],
+                    'min_grade' => [
+                        'value' => $minGrade['grade'],
+                        'student_name' => $minGrade['student_name']
+                    ],
+                    'average_grade' => round($avgGrade, 2),
+                    'grades' => $paginatedGrades
+                ];
+
+                // Add data for chart
+                $chartData['labels'][] = $name;
+                $chartData['averages'][] = round($avgGrade, 2);
+                $chartData['colors'][] = $this->getChartColor($field);
+            } else {
+                $examStats[$field] = [
+                    'name' => $name,
+                    'max_grade' => [
+                        'value' => null,
+                        'student_name' => null
+                    ],
+                    'min_grade' => [
+                        'value' => null,
+                        'student_name' => null
+                    ],
+                    'average_grade' => 0,
+                    'grades' => null
+                ];
+
+                // Add zero data for chart
+                $chartData['labels'][] = $name;
+                $chartData['averages'][] = 0;
+                $chartData['colors'][] = $this->getChartColor($field);
+            }
+        }
+
+        return view('professor.exams', compact('course', 'courseId', 'examStats', 'chartData'));
+    }
+
+    private function getChartColor($examType)
+    {
+        $colors = [
+            'quiz1' => 'rgba(54, 162, 235, 0.8)',
+            'quiz2' => 'rgba(75, 192, 192, 0.8)',
+            'midterm' => 'rgba(153, 102, 255, 0.8)',
+            'project' => 'rgba(255, 159, 64, 0.8)',
+            'assignments' => 'rgba(255, 99, 132, 0.8)',
+            'final' => 'rgba(255, 206, 86, 0.8)'
+        ];
+
+        return $colors[$examType] ?? 'rgba(201, 203, 207, 0.8)';
+    }
+
     public function grades($courseId)
     {
         $course = Course::findOrFail($courseId);
@@ -206,7 +315,41 @@ class ProfessorController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        return view('professor.grades', compact('course', 'courseId', 'students'));
+        $sortedStudents = $course ? $course->enrollments->where('enrolled_at', '>=', Carbon::parse('2025-08-01'))->sortByDesc(function ($enrollment) use ($course) {
+            return $enrollment->student->grades->where('course_id', $course->id)->first()->total;
+        }) : collect();
+        $sortedStudents = $sortedStudents->map(function ($enrollment) use ($course) {
+            return $enrollment->student;
+        });
+
+        $stats = [
+            'max_grade' => [
+                'value' => $sortedStudents->first()->grades->where('course_id', $course->id)->first()->total,
+                'student_name' => $sortedStudents->first()->name
+            ],
+            'min_grade' => [
+                'value' => $sortedStudents->last()->grades->where('course_id', $course->id)->first()->total,
+                'student_name' => $sortedStudents->last()->name
+            ],
+            'average_grade' => 0,
+            'grades' => $students
+        ];
+
+        $totalGrades = 0;
+        $validGradeCount = 0;
+
+        foreach ($students as $student) {
+            $grade = $student->grades->first();
+            if ($grade) {
+                $total = $grade->total;
+                $totalGrades += $total;
+                $validGradeCount++;
+            }
+        }
+
+        $stats['average_grade'] = $validGradeCount > 0 ? round($totalGrades / $validGradeCount, 1) : 0;
+
+        return view('professor.grades', compact('course', 'courseId', 'students', 'stats'));
     }
 
     public function assignments($courseId)
@@ -371,3 +514,4 @@ class ProfessorController extends Controller
         return view('professor.student-profile', compact('student', 'courseId', 'gpa', 'totalCredits', 'maxCredits'));
     }
 }
+

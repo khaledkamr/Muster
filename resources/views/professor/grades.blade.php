@@ -136,6 +136,77 @@
             </form>
         </div>
 
+        @if(!request()->query('search'))
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-subtitle mb-2 text-dark fw-bold">
+                                    Highest Grade
+                                </h5>
+                                <p class="card-text text-muted d-flex align-items-center">
+                                    <img src="{{ asset('imgs/user.png') }}" alt="Student" class="me-2" style="width: 24px; height: 24px;">
+                                    {{ $stats['max_grade']['student_name'] }}
+                                    <i class="fas fa-crown text-muted ms-2"></i>
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="card-title fs-1 text-success fw-bold">
+                                    {{ $stats['max_grade']['value'] }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-subtitle mb-2 text-dark fw-bold">
+                                    Lowest Grade
+                                </h5>
+                                <p class="card-text text-muted d-flex align-items-center">
+                                    <img src="{{ asset('imgs/user.png') }}" alt="Student"
+                                        class="me-2" style="width: 24px; height: 24px;">
+                                    {{ $stats['min_grade']['student_name'] }}
+                                    <i class="fas fa-thumbs-down text-muted ms-2"></i>
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="card-title fs-1 text-danger fw-bold">
+                                    {{ $stats['min_grade']['value'] }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-subtitle mb-2 text-dark fw-bold">
+                                    Average Grade
+                                </h5>
+                                <p class="card-text text-muted d-flex align-items-center">
+                                    <i class="fas fa-users me-2"></i> Total Students:
+                                    {{ $stats['grades']->total() }}
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="card-title fs-1 text-primary fw-bold">
+                                    {{ $stats['average_grade'] }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="table-container">
             <table class="table table-striped">
                 <thead>
