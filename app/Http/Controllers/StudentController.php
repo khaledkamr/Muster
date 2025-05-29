@@ -151,11 +151,19 @@ class StudentController extends Controller
 
         // Prepare course statistics for each enrollment
         $courseStats = [];
+        $chartData = [
+            'labels' => [],
+            'grades' => [],
+        ];
+        $totalCreditHours = 0;
+
         foreach ($enrollments as $enrollment) {
             $course = $enrollment->course;
-            
+            $chartData['labels'][] = $course->name;
+            $totalCreditHours += $course->credit_hours;
             // Get grade for this course
             $grade = $course->grades->where('student_id', $user->id)->first();
+            $chartData['grades'][] = $grade->total;
             
             // Calculate assignment statistics
             $assignments = $course->assignments;
@@ -187,7 +195,7 @@ class StudentController extends Controller
             ];
         }
 
-        return view('student.courses', compact('enrollments', 'courseStats'));
+        return view('student.courses', compact('enrollments', 'courseStats', 'chartData', 'totalCreditHours'));
     }
 
     public function grades()

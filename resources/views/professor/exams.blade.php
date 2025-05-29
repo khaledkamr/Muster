@@ -250,13 +250,13 @@
                         scales: {
                             y: {
                                 beginAtZero: true,
-                                max: 20,
+                                max: Math.floor(Math.max(...@json($chartData['averages'])) + 5),
                                 title: {
                                     display: true,
                                     text: 'Average Grade'
                                 },
                                 ticks: {
-                                    stepSize: 2
+                                    stepSize: 1
                                 }
                             },
                             x: {

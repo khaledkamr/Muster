@@ -3,8 +3,14 @@
 @section('title', 'Courses')
 
 @section('content')
+<div class="container">
     <h1 class="text-dark fw-bold pt-3 pb-3">Your Courses</h1>
-
+    <div class="d-flex mb-1">
+        <h6 class="badge bg-primary fs-6 ">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            total credit hours: {{ $totalCreditHours }} HRs 
+        </h6>
+    </div>
     <div class="accordion" id="coursesAccordion">
         @foreach ($enrollments as $enrollment)
             @php
@@ -130,6 +136,95 @@
             </div>
         @endforeach
     </div>
+
+    <!-- Course Total Grades Chart -->
+    <div class="card border-0 shadow-sm mt-4">
+        <div class="card-body">
+            <h4 class="text-dark fw-bold mb-4">Course Total Grades Overview</h4>
+            <div class="chart-container" style="position: relative; height:400px;">
+                <canvas id="courseTotalGradesChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- Warning Alert for Lowest Grade Course -->
+    @php
+        $lowestGradeIndex = array_search(min($chartData['grades']), $chartData['grades']);
+        $lowestGradeCourse = $chartData['labels'][$lowestGradeIndex];
+        $lowestGrade = $chartData['grades'][$lowestGradeIndex];
+    @endphp
+    <div class="alert alert-warning mt-4 shadow-sm" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <div>
+                <h5 class="alert-heading mb-1">Attention Needed</h5>
+                <p class="mb-0">
+                    Your performance in <strong>{{ $lowestGradeCourse }}</strong> needs improvement. With a current grade of {{ $lowestGrade }}, we recommend dedicating more study time to this course and seeking additional help if needed.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('courseTotalGradesChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @json($chartData['labels']),
+                datasets: [{
+                    label: 'Total Grades',
+                    data: @json($chartData['grades']),
+                    backgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)', 'rgba(255, 99, 132, 0.8)'],
+                    borderColor: ['rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)', 'rgba(255, 99, 132, 0.8)'],
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barThickness: 100,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Total: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: Math.max(...@json($chartData['grades'])) + 10,
+                        title: {
+                            display: true,
+                            text: 'Total Grades So Far'
+                        },
+                        ticks: {
+                            stepSize: 2
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: false,
+                            text: 'Course'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 
     <style>
         .accordion-button:not(.collapsed) {
