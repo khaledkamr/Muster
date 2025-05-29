@@ -23,44 +23,13 @@ class ProfessorController extends Controller
         $professor = Auth::user();
         $courses = $professor->courses()->get();
 
-        // Attendance Summary
-        $totalSessions = $courses->sum(function ($course) {
-            return $course->attendance->count();
-        });
-        $presentCount = $courses->sum(function ($course) {
-            return $course->attendance->where('status', 'present')->count();
-        });
-        $attendanceRate = $totalSessions > 0 ? ($presentCount / $totalSessions) * 100 : 0;
-
-        // Assignment Status
-        $totalSubmissions = $courses->flatMap(function ($course) {
-            return $course->assignments->flatMap->submissions;
-        })->count();
-        $submittedCount = $courses->flatMap(function ($course) {
-            return $course->assignments->flatMap->submissions->where('status', 'submitted');
-        })->count();
-        $pendingCount = $totalSubmissions - $submittedCount;
-
         // Upcoming Events (Placeholder Data)
         $upcomingEvents = [
-            ['title' => 'Midterm Exam', 'date' => '2025-05-10'],
-            ['title' => 'Class Meeting', 'date' => '2025-05-12'],
+            ['title' => 'Quiz 2', 'date' => '2025-10-12'],
+            ['title' => 'Class Meeting', 'date' => '2025-10-09'],
         ];
 
-        // Attendance Records
-        $allAttendanceRecords = $courses[0] ? $courses[0]->attendance->filter(function ($attendance) {
-            return Carbon::parse($attendance->date)->greaterThanOrEqualTo(Carbon::parse('2025-08-01'));
-        }) : collect();
-
-        $assignmentSubmissions = $courses[0] ? $courses[0]->assignments
-            ->filter(function ($assignment) {
-                return Carbon::parse($assignment->due_date)->greaterThanOrEqualTo(Carbon::parse('2025-08-01'));
-            })
-            ->flatMap(function ($assignment) {
-                return $assignment->submissions;
-            }) : collect();
-        
-        return view('professor.index', compact('professor', 'courses', 'attendanceRate', 'totalSubmissions', 'submittedCount', 'pendingCount', 'upcomingEvents', 'allAttendanceRecords', 'assignmentSubmissions'));
+        return view('professor.index', compact('professor', 'courses', 'upcomingEvents'));
     }
 
     public function dashboard($courseId) 
@@ -165,6 +134,9 @@ class ProfessorController extends Controller
                 return $enrollment->student;
             }) : collect();
 
+        $maleCount = $students->where('gender', 'male')->count();
+        $femaleCount = $students->where('gender', 'female')->count();
+
         $searchQuery = request()->query('search');
         if ($searchQuery) {
             $students = $students->filter(function ($student) use ($searchQuery) {
@@ -181,7 +153,7 @@ class ProfessorController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        return view('professor.students', compact('course', 'courseId', 'students'));
+        return view('professor.students', compact('course', 'courseId', 'students', 'maleCount', 'femaleCount'));
     }
 
     public function exams($courseId)

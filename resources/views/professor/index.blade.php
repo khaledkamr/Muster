@@ -22,42 +22,19 @@
                             </div>
                         </div>
                         <div class="info mt-3">
-                            <div class="stat-item mb-2 d-flex justify-content-between align-items-center">
+                            <div class="stat-item mb-1 d-flex justify-content-between align-items-center">
                                 <p class="text-muted mb-0"><i class="fas fa-book-open me-2"></i>Courses Taught</p>
-                                <span class="badge">{{ $professor->courses->count() }}</span>
+                                <span class="badge bg-blue">{{ $professor->courses->count() }}</span>
                             </div>
-                            <div class="stat-item mb-2 d-flex justify-content-between align-items-center">
+                            <div class="stat-item mb-1 d-flex justify-content-between align-items-center">
                                 <p class="text-muted mb-0"><i class="fas fa-comments me-2"></i>Discussions</p>
-                                <span class="badge">25</span>
+                                <span class="badge bg-blue">25</span>
                             </div>
-                            <div class="stat-item mb-2 d-flex justify-content-between align-items-center">
+                            <div class="stat-item mb-0 d-flex justify-content-between align-items-center">
                                 <p class="text-muted mb-0"><i class="fas fa-comment-dots me-2"></i>Feedback</p>
-                                <span class="badge">423</span>
-                            </div>
-                            <div class="stat-item mb-2 d-flex justify-content-between align-items-center">
-                                <p class="text-muted mb-0"><i class="fa-solid fa-face-smile me-2"></i>Rating:</p>
-                                <div class="stars">
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        @if ($i <= 4)
-                                            <i class="fas fa-star text-warning"></i>
-                                        @else
-                                            <i class="far fa-star text-warning"></i>
-                                        @endif
-                                    @endfor
-                                </div>
+                                <span class="badge bg-blue">423</span>
                             </div>
                         </div>
-
-                        <style>
-                        .badge {
-                            background-color: #002361;
-                            font-size: 0.85rem;
-                            padding: 0.4em 0.8em;
-                        }
-                        .stars {
-                            font-size: 1.1rem;
-                        }
-                        </style>
                     </div>
                 </div>
 
@@ -84,9 +61,6 @@
                             @else
                                 <p class="text-muted">No upcoming events.</p>
                             @endif
-                            <a href="#" class="btn btn-primary w-100 mt-3" style="background-color: #002361;">
-                                <i class="far fa-calendar-alt me-2"></i>View Calendar
-                            </a>
                         </div>
                     </div>
                     <style>
@@ -105,38 +79,35 @@
                 </div>
             </div>
             <div class="row">
-                
+
                 <!-- Courses Overview Box -->
                 <div class="col-md-12">
-                    <div class="bg-body shadow p-3 rounded courses-swiper">
-                        <h4 class="text-dark fw-bold pb-3">Courses Overview</h4>
+                    <div class="bg-body shadow p-3 rounded">
+                        <h4 class="text-dark fw-bold pb-1">Courses Overview</h4>
                         @if ($courses->isNotEmpty())
-                            <!-- Swiper Slider -->
-                            <div class="swiper-container position-relative pb-2">
-                                <div class="swiper-wrapper">
-                                    @foreach ($courses as $course)
-                                        <div class="swiper-slide">
-                                            <div class="course-card card shadow-sm" style="background: linear-gradient(135deg, #0A9442, #000000); color: white;">
-                                                <span class="badge position-absolute top-0 end-0" style="font-size: 0.9rem;">
-                                                    {{ ucfirst($course->difficulty) }}
-                                                </span>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $course->code }} </h5>
-                                                    <h3 class="fw-bold">{{ $course->name }}</h3>
-                                                    <p class="card-text">
-                                                        {{ $course->description }}
+                            <div class="row">
+                                @foreach ($courses->take(2) as $course)
+                                    <div class="col-md-6 mb-1">
+                                        <div class="course-card card shadow-sm" style="background: linear-gradient(135deg, #0A9442, #000000); color: white;">
+                                            <span class="badge position-absolute top-0 end-0" style="font-size: 0.9rem;">
+                                                {{ ucfirst($course->difficulty) }}
+                                            </span>
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $course->code }} </h5>
+                                                <h3 class="fw-bold">{{ $course->name }}</h3>
+                                                <p class="card-text">
+                                                    {{ $course->description }}
+                                                </p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <p class="align-self-start">
+                                                        {{ $course->professor->name }}<br>
                                                     </p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <p class="align-self-start">
-                                                            {{ $course->professor->name }}<br>
-                                                        </p>
-                                                        <div class="btn btn-light">{{ $course->enrollments->count() }} students</div>
-                                                    </div>
+                                                    <div class="btn btn-light">{{ $course->enrollments->where('enrolled_at', '>=', '2025-08-01')->count() }} students</div>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-                                </div>
+                                    </div>
+                                @endforeach
                             </div>
                         @endif
                     </div>
@@ -144,140 +115,67 @@
             </div>
         </div>
 
-        <!-- Course Analytics -->
+        <!-- Resent News -->
         <div class="col-md-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold mb-3">Course Analytics</h5>
-                    <div class="row">
-                        <div class="col-md-12" style="position: relative; height: 250px;">
-                            <canvas id="attendancePieChart"></canvas>
-                        </div>
-                        <div class="col-md-12" style="position: relative; height: 250px;">
-                            <canvas id="submissionPieChart"></canvas>
+            <div class="bg-body shadow rounded p-3">
+                <h5 class="text-dark fw-bold pb-1">Resent News</h5>
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
+                        <a href="https://must.edu.eg/participation-of-the-college-of-oral-and-dental-surgery-in-the-symposium-the-role-of-egyptian-women-through-the-ages-in-building-egyptian-society/">
+                            <img src="{{ asset('imgs/news-1.jpg') }}" alt="News Image" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                        </a>
+                        <div>
+                            <p class="text-muted mb-0" style="font-size: 0.9rem;">
+                                Participation of the College of Oral and Dental Surgery in the Symposium “The Role of Egyptian Women Through the Ages in Building Egyptian Society.
+                            </p>
+                            <small class="badge text-muted text-end d-block"><i class="fa-solid fa-calendar-days"></i> Apr 9, 2025</small>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
+                        <a href="https://must.edu.eg/participation-of-the-college-of-oral-and-dental-surgery-in-the-reading-club-event-titled-a-tribute-worthy-of-immortality-on-the-occasion-of-mothers-day/">
+                            <img src="{{ asset('imgs/news-2.jpg') }}" alt="News Image" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                        </a>
+                        <div>
+                            <p class="text-muted mb-0" style="font-size: 0.9rem;">
+                                Participation of the College of Oral and Dental Surgery in the Reading Club Event Titled “A Tribute Worthy of Immortality” on the Occasion of Mother’s Day.
+                            </p>
+                            <small class="badge text-muted text-end d-block"><i class="fa-solid fa-calendar-days"></i> Apr 9, 2025</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom pb-1 mb-2">
+                        <a href="https://must.edu.eg/participation-of-the-college-of-dentistry-and-oral-surgery-at-misr-university-for-science-and-technology-in-mednotch-medicals-iftar-event/">
+                            <img src="{{ asset('imgs/news-3.jpg') }}" alt="News Image" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                        </a>
+                        <div>
+                            <p class="text-muted mb-0" style="font-size: 0.9rem;">
+                                Participation of the College of Dentistry and Oral Surgery at Misr University for Science and Technology in Mednotch Medical’s Iftar Event.
+                            </p>
+                            <small class="badge text-muted text-end d-block"><i class="fa-solid fa-calendar-days"></i> Apr 9, 2025</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="https://must.edu.eg/misr-university-for-science-and-technology-honors-winners-of-2025-annual-quran-competition/">
+                            <img src="{{ asset('imgs/news-4.jpg') }}" alt="News Image" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                        </a>
+                        <div>
+                            <p class="text-muted mb-0" style="font-size: 0.9rem;">
+                                Misr University for Science and Technology Honors Winners of 2025 Annual Quran Competition.
+                            </p>
+                            <small class="badge text-muted text-end d-block"><i class="fa-solid fa-calendar-days"></i> Mar 26, 2025</small>
+                        </div>
+                    </div>
+                  
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const presentCount = {{ $allAttendanceRecords->where('status', 'present')->count() }};
-    const absentCount = {{ $allAttendanceRecords->where('status', 'absent')->count() }};
-    const lateCount = {{ $allAttendanceRecords->where('status', 'late')->count() }};
-    // const total = presentCount + absentCount + lateCount;
-
-    const pieCtx = document.getElementById('attendancePieChart').getContext('2d');
-    const attendancePieChart = new Chart(pieCtx, {
-        type: 'pie',
-        data: {
-            labels: ['Present', 'Absent', 'Late'],
-            datasets: [{
-                data: [presentCount, absentCount, lateCount],
-                backgroundColor: ['#79f596', '#ff808a', '#ffcc00'],
-                borderWidth: 1,
-                borderColor: '#eee'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: '#333'
-                    }
-                },
-                title: {
-                    position: 'bottom',
-                    display: true,
-                    text: 'Attendance Status Distribution',
-                    color: '#333',
-                    font: {
-                        size: 16,
-                        weight: 'bold'
-                    }
-                }
-            }
-        }
-    });
-
-    const submittedCount = {{ $assignmentSubmissions->where('status', 'submitted')->count() }};
-    const pendingCount = {{ $assignmentSubmissions->where('status', 'pending')->count() }};
-    // const total = submittedCount + pendingCount;
-
-    const ctx = document.getElementById('submissionPieChart').getContext('2d');
-    const submissionPieChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Submitted', 'Pending'],
-            datasets: [{
-                data: [submittedCount, pendingCount],
-                backgroundColor: ['#79f596', '#ff808a'],
-                borderWidth: 1,
-                borderColor: '#eee'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: '#333'
-                    }
-                },
-                title: {
-                    position: 'bottom',
-                    display: true,
-                    text: 'Assignments Submission Distribution',
-                    color: '#333',
-                    font: {
-                        size: 16,
-                        weight: 'bold'
-                    }
-                }
-            }
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const swiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            breakpoints: {
-                768: {
-                    slidesPerView: 1,
-                },
-                992: {
-                    slidesPerView: 2,
-                },
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            loop: true,
-            autoplay: {
-                delay: 10000,
-                disableOnInteraction: false,
-            },
-        });
-    });
-</script>
 
 <style>
+    .bg-blue {
+        background-color: #002361; 
+    }
     .courses-swiper {
         overflow: hidden;
     }
@@ -321,26 +219,6 @@
         border-radius: 20px;
         padding: 0.5rem 1.5rem;
         font-weight: bold;
-    }
-    .swiper-button-prev,
-    .swiper-button-next {
-        position: absolute;
-        color: #007bff;
-        opacity: 0.7;
-        transition: opacity 0.3s;
-        background-color: white;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        font-size: 10px;
-    }
-    .swiper-button-prev:hover,
-    .swiper-button-next:hover {
-        opacity: 1;
-    }
-    .swiper-pagination-bullet-active {
-        position: absolute;
-        background: #007bff;
     }
     .card {
         background-color: #ffffff;

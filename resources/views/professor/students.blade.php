@@ -147,7 +147,7 @@
         <h2 class="text-dark fw-bold pt-3 pb-5">{{ $course->name }} / Students</h2>
 
         <div class="row mb-4">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="d-flex flex-column gap-5">
                     <div>
                         <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Performance:</label>
@@ -162,15 +162,17 @@
                         <form method="GET" action="{{ route('professor.course.students', $courseId) }}" class="d-flex flex-column">
                             <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
                             <div class="d-flex">
-                                <input type="text" name="search" class="form-control me-2" style="width: 500px" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
+                                <input type="text" name="search" class="form-control me-2" style="width: 300px" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
                                 <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
-
+            <div class="col-md-4">
+                <div class="bg-white border-0 rounded-4 p-3 shadow" style="position: relative; height: 200px;">
+                    <canvas id="genderPieChart"></canvas>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="bg-white border-0 rounded-4 p-3 shadow" style="position: relative; height: 200px;">
@@ -179,7 +181,6 @@
             </div>
         </div>
        
-
         <div class="table-container">
             <table class="table table-striped">
                 <thead>
@@ -236,6 +237,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Performance Pie Chart
         const highPerformanceCount = 45;
         const averagePerformanceCount = 55;
         const lowPerformanceCount = 25;
@@ -267,6 +269,46 @@
                     title: {
                         display: true,
                         text: 'Performance Distribution',
+                        color: '#333',
+                        font: {
+                            size: 16,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gender Pie Chart
+        const maleCount = {{ $maleCount }};
+        const femaleCount = {{ $femaleCount }};
+
+        const genderPieCtx = document.getElementById('genderPieChart').getContext('2d');
+        const genderPieChart = new Chart(genderPieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Male', 'Female'],
+                datasets: [{
+                    data: [maleCount, femaleCount],
+                    backgroundColor: ['#89CFF0', '#FFB6C1'],
+                    borderWidth: 1,
+                    borderColor: '#eee'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                        labels: {
+                            padding: 20,
+                            color: '#333'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Gender Distribution',
                         color: '#333',
                         font: {
                             size: 16,

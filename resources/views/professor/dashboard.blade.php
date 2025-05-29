@@ -336,9 +336,11 @@
                     datasets: [{
                         label: 'Performance',
                         data: [45, 55, 25],
-                        backgroundColor: ['#28a745', '#007bff', '#dc3545'],
+                        backgroundColor: ['rgb(40, 167, 69, 0.8)', 'rgb(0, 123, 255, 0.8)', 'rgb(220, 53, 69, 0.8)'],
                         borderWidth: 1,
-                        borderColor: '#eee'
+                        borderColor: '#eee',
+                        borderRadius: 10,
+                        barRadius: 10,
                     }]
                 },
                 options: {
