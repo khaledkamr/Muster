@@ -615,6 +615,7 @@ class StudentController extends Controller
         $weeklyAttendance = [];
         $totalSessions = 0;
         $presentSessions = 0;
+        $missingSessions = 0;
 
         for ($week = 1; $week <= $weeksInSemester; $week++) {
             $weekStart = $semesterStart->copy()->addWeeks($week - 1)->startOfWeek();
@@ -628,54 +629,50 @@ class StudentController extends Controller
 
             $sessionsInWeek = $weekAttendances->count();
             $presentInWeek = $weekAttendances->where('status', 'present')->count();
+            $missingInWeek = $weekAttendances->where('status', 'absent')->count();
             $weeklyAttendance[$week] = $presentInWeek;
 
             $totalSessions += $sessionsInWeek;
             $presentSessions += $presentInWeek;
+            $missingSessions += $missingInWeek;
         }
 
         // Calculate attendance rate
         $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
+        $missingRate = $totalSessions > 0 ? round(($missingSessions / $totalSessions) * 100) : 0;
 
-        // Course selection for contribution graph
-        $selectedCourseId = $request->input('course_id');
-        $selectedCourse = $selectedCourseId ? $currentSemesterCourses->firstWhere('id', $selectedCourseId) : null;
+        // calculate attendance for each course
+        $coursesAttendance = [
+            'courseId' => [],
+            'course' => [],
+            'attendance' => [],
+            'attendanceRate' => []
+        ];
+        foreach ($currentSemesterCourses as $course) {
+            $coursesAttendance['courseId'][] = $course->id;
+            $coursesAttendance['course'][] = $course;
 
-        // Prepare contribution graph data for the selected course
-        $contributionData = [];
-        if ($selectedCourse) {
-            $courseAttendances = $attendances->where('course_id', $selectedCourse->id)->where('type', 'lecture');
-            $currentDate = $semesterStart->copy();
-            
-            while ($currentDate <= $semesterEnd) {
-                $dateStr = $currentDate->format('Y-m-d');
-                $dayAttendances = $courseAttendances->where('date', $currentDate);
-                $attended = $dayAttendances->contains('status', 'present');
-                $contributionData[$dateStr] = $attended ? 1 : 0; // 1 for attended, 0 for not attended
-                $currentDate->addDay();
-            }
-        }
-        else {
-            $currentDate = $semesterStart->copy();
-            
-            while ($currentDate <= $semesterEnd) {
-                $dateStr = $currentDate->format('Y-m-d');
-                $dayAttendances = $attendances->where('date', $currentDate);
-                $attended = $dayAttendances->contains('status', 'present');
-                $contributionData[$dateStr] = $attended ? 1 : 0; // 1 for attended, 0 for not attended
-                $currentDate->addDay();
-            }
+            $attendances = Attendance::where('course_id', $course->id)
+                ->where('student_id', $user->id)
+                ->get();
+            $coursesAttendance['attendance'][] = $attendances;
+
+            $totalSessions = $attendances->count();
+            $presentSessions = $attendances->where('status', 'present')->count();
+            $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
+            $coursesAttendance['attendanceRate'][] = $attendanceRate;
         }
 
         return view('student.attendance', compact(
             'currentSemesterCourses',
             'weeklyAttendance',
             'attendanceRate',
+            'missingSessions',
+            'missingRate',
             'filterType',
-            'selectedCourse',
             'semesterStart',
             'semesterEnd',
-            'contributionData'
+            'coursesAttendance'
         ));
     }
 

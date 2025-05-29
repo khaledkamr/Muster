@@ -99,7 +99,7 @@
                                 {{ $submission->submitted_at ? $submission->submitted_at->format('Y-m-d') : 'Not submitted' }}
                             </td>
                             <td class="text-center">
-                                <span class="badge bg-primary">{{ $submission->score }}</span>
+                                <span class="badge bg-primary" style="font-size: 12px;">{{ $submission->score }}</span>
                             </td>
                             <td class="action-icons text-center">
                                 <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $submission->user->id]) }}" title="View"><i class="fa-solid fa-eye"></i></a>

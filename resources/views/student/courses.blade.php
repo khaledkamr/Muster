@@ -146,6 +146,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Warning Alert for Lowest Grade Course -->
     @php
         $lowestGradeIndex = array_search(min($chartData['grades']), $chartData['grades']);
