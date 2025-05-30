@@ -681,12 +681,4 @@ class StudentController extends Controller
         $user = User::findOrFail($professorId);
         return view('student.professor-profile', compact('user'));
     }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/login');
-    }
 }

@@ -52,6 +52,7 @@ Route::prefix('parent')->middleware(['auth', 'role:parent'])->group(function () 
     Route::controller(ParentController::class)->group(function () {
         Route::get('/', 'index')->name('parent.home'); 
         Route::get('/grades/child/{childId}', 'childGrades')->name('parent.child.grades');
+        Route::get('/courses/child/{childId}', 'childCourses')->name('parent.child.courses');
         Route::get('/grades/course/{courseId}/child/{childId}', 'childCourseDetails')->name('parent.child.course-details');
         Route::get('/assignments/child/{childId}', 'childAssignments')->name('parent.child.assignments');
         Route::get('/attendance/child/{childId}', 'childAttendance')->name('parent.child.attendance');

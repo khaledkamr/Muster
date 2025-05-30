@@ -210,8 +210,6 @@
             </div>
         </div>
     </div>
-    
-    
 </div>
 
     <!-- Include Chart.js -->

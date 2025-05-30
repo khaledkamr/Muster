@@ -51,24 +51,26 @@
                 </div>
                 
                 <!-- Progress Circles -->
-                <div class="col-md-6  d-flex">
-                    <div class="col-md-6 text-center">
+                <div class="col-md-3 text-center">
+                    <div class="bg-white p-3 rounded-4 shadow">
+                        <h5 class="text-dark fw-bold mt-2">Assignment Completion</h5>
                         <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
                             <canvas id="completionChart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="fs-5 text-dark fw-bold">{{ $completionPercentage }}%</span>
                             </div>
                         </div>
-                        <h6 class="text-dark mt-2">Assignment Completion</h6>
                     </div>
-                    <div class="col-md-6 text-center">
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="bg-white p-3 rounded-4 shadow">
+                        <h5 class="text-dark fw-bold mt-2">Assignment Score Rate</h5>
                         <div class="position-relative d-inline-block" style="width: 150px; height: 100px;">
                             <canvas id="scoreChart"></canvas>
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
                                 <span class="fs-5 text-dark fw-bold">{{ $scorePercentage }}%</span>
                             </div>
                         </div>
-                        <h6 class="text-dark mt-2">Assignment Score Rate</h6>
                     </div>
                 </div>
             @endif

@@ -50,7 +50,6 @@
                 </div>
                 
                 <!-- Progress Circles -->
-              
                 <div class="col-md-3 text-center">
                     <div class="bg-white p-3 rounded-4 shadow">
                         <h5 class="text-dark fw-bold mt-2">Assignment Completion</h5>

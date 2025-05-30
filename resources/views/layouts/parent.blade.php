@@ -200,6 +200,10 @@
 
                     <!-- Child Sub-Menu -->
                     <div class="collapse child-sub-menu" id="child-{{ $child->id }}">
+                        <a class="nav-link {{ request()->routeIs('parent.child.courses') && $child->id == $childId ? 'active' : '' }}"
+                           href="{{ route('parent.child.courses', $child->id) }}">
+                           <i class="fa-solid fa-book"></i> Courses
+                        </a>
                         <a class="nav-link {{ request()->routeIs('parent.child.grades') && $child->id == $childId ? 'active' : '' }}"
                            href="{{ route('parent.child.grades', $child->id) }}">
                             <i class="bi bi-award"></i> Grades
@@ -322,7 +326,7 @@
         // Auto-expand child sub-menu based on current route
         document.addEventListener('DOMContentLoaded', function() {
             const currentRoute = window.location.pathname;
-            const childRoutes = ['grades', 'assignments', 'attendance', 'profile'];
+            const childRoutes = ['grades', 'assignments', 'attendance', 'profile', 'courses'];
 
             console.log(childRoutes.some(route => currentRoute.includes(route)));
 
