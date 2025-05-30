@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Reset Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -44,9 +44,7 @@
             gap: 0.5rem;
         }
 
-        .form input[type="email"],
-        .form input[type="password"],
-        .form input[type="text"] {
+        .form input[type="password"] {
             border-radius: 0.5rem;
             padding: 1rem 0.75rem 1rem 2.5rem;
             width: 100%;
@@ -59,14 +57,19 @@
             color: #ffffff;
         }
 
-        .form input[type="email"]:focus,
-        .form input[type="password"]:focus,
-        .form input[type="text"]:focus {
+        .form input[type="password"]:focus {
             outline: 2px solid var(--clr);
         }
 
         .form .group {
             position: relative;
+        }
+
+        .form .group i {
+            position: absolute;
+            left: 0.75rem;
+            bottom: 35%;
+            color: var(--clr);
         }
 
         .form .group .toggle-password {
@@ -75,13 +78,6 @@
             bottom: 30%;
             color: var(--clr);
             cursor: pointer;
-        }
-
-        .form .group i {
-            position: absolute;
-            left: 0.75rem;
-            bottom: 35%;
-            color: var(--clr);
         }
 
         .form input.input-error {
@@ -130,45 +126,26 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <div
-                    class="card shadow {{ $errors->has('email') || $errors->has('password') || session('error') ? 'border-danger' : '' }}">
+                    class="card shadow {{ $errors->has('password') || $errors->has('password_confirmation') ? 'border-danger' : '' }}">
                     <div class="text-center">
                         <img src="{{ asset('imgs/logo.png') }}" alt="Logo" class="img-fluid pt-5 pb-2"
                             style="max-width: 150px;">
                     </div>
                     <div class="card-body">
-                        <form class="form pb-5" method="POST" action="{{ route('login') }}">
+                        <form class="form pb-5" method="POST" action="{{ route('password.update') }}">
                             @csrf
-                            @if (session('error'))
-                                <div class="badge bg-danger">
-                                    {{ session('error') }}
-                                </div>
-                            @endif
-                            @if(session('status'))
-                                <div class="badge bg-success">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-
-                            <span class="input-span">
-                                <label for="email" class="label">Email</label>
-                                <div class="group">
-                                    <i class="fa-solid fa-user"></i>
-                                    <input type="text" name="email" id="email" value="{{ old('email') }}"
-                                        class="{{ $errors->has('email') ? 'input-error' : '' }}" autofocus />
-                                </div>
-                            </span>
+                            <input type="hidden" name="email" value="{{ "kk@gmail.com" ?? old('email') }}">
                             @error('email')
                                 <div class="badge bg-danger">{{ $message }}</div>
                             @enderror
 
                             <span class="input-span">
-                                <label for="password" class="label">Password</label>
+                                <label for="password" class="label">New Password</label>
                                 <div class="group">
                                     <i class="fa-solid fa-lock"></i>
                                     <input type="password" name="password" id="password"
                                         class="{{ $errors->has('password') ? 'input-error' : '' }}" />
                                     <span class="toggle-password">
-                                        {{-- <i class="bi bi-eye" id="togglePasswordIcon"></i> --}}
                                         <i class="fa-solid fa-eye-slash" id="togglePasswordIcon"></i>
                                     </span>
                                 </div>
@@ -177,10 +154,22 @@
                                 <div class="badge bg-danger">{{ $message }}</div>
                             @enderror
 
-                            <span class="span" style="text-decoration: none;"><a
-                                    href="{{ route('password.request') }}" style="text-decoration: none;">Forgot
-                                    password?</a></span>
-                            <input class="submit" type="submit" value="Log in" />
+                            <span class="input-span">
+                                <label for="password_confirmation" class="label">Confirm Password</label>
+                                <div class="group">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <input type="password" name="password_confirmation" id="password_confirmation"
+                                        class="{{ $errors->has('password_confirmation') ? 'input-error' : '' }}" />
+                                    <span class="toggle-password">
+                                        <i class="fa-solid fa-eye-slash" id="toggleConfirmPasswordIcon"></i>
+                                    </span>
+                                </div>
+                            </span>
+                            @error('password_confirmation')
+                                <div class="badge bg-danger">{{ $message }}</div>
+                            @enderror
+
+                            <input class="submit mt-3" type="submit" value="Reset Password" />
                         </form>
                     </div>
                 </div>
@@ -194,27 +183,46 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const togglePassword = document.querySelector('.toggle-password');
+            const toggleConfirmPassword = document.querySelectorAll('.toggle-password')[1];
             const passwordInput = document.querySelector('#password');
+            const confirmPasswordInput = document.querySelector('#password_confirmation');
             const toggleIcon = document.querySelector('#togglePasswordIcon');
+            const toggleConfirmIcon = document.querySelector('#toggleConfirmPasswordIcon');
 
-            function toggleIconVisibility() {
-                if (passwordInput.value) {
-                    toggleIcon.style.display = 'block';
+            function toggleIconVisibility(input, icon) {
+                if (input.value) {
+                    icon.style.display = 'block';
                 } else {
-                    toggleIcon.style.display = 'none';
+                    icon.style.display = 'none';
                 }
             }
 
-            toggleIconVisibility();
+            function togglePasswordVisibility(input, icon) {
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                icon.classList.toggle('fa-eye-slash');
+                icon.classList.toggle('fa-eye');
+            }
 
             togglePassword.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                toggleIcon.classList.toggle('fa-eye-slash');
-                toggleIcon.classList.toggle('fa-eye');
+                togglePasswordVisibility(passwordInput, toggleIcon);
             });
 
-            passwordInput.addEventListener('input', toggleIconVisibility);
+            toggleConfirmPassword.addEventListener('click', function() {
+                togglePasswordVisibility(confirmPasswordInput, toggleConfirmIcon);
+            });
+
+            passwordInput.addEventListener('input', function() {
+                toggleIconVisibility(passwordInput, toggleIcon);
+            });
+
+            confirmPasswordInput.addEventListener('input', function() {
+                toggleIconVisibility(confirmPasswordInput, toggleConfirmIcon);
+            });
+
+            // Initial check
+            toggleIconVisibility(passwordInput, toggleIcon);
+            toggleIconVisibility(confirmPasswordInput, toggleConfirmIcon);
         });
     </script>
 </body>

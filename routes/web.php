@@ -14,6 +14,10 @@ Route::controller(AuthController::class)->group(function() {
     Route::get('/login', 'loginForm')->name('loginForm');
     Route::post('/login', 'login')->name('login');
     Route::post('/logout', 'logout')->name('logout');
+    Route::get('/forgot-password', 'forgotPasswordForm')->name('password.request');
+    Route::post('/forgot-password', 'sendResetLink')->name('password.email');
+    Route::get('/reset-password', 'resetPasswordForm')->name('password.reset');
+    Route::post('/reset-password', 'resetPassword')->name('password.update');
 });
 
 Route::prefix('student')->middleware(['auth', 'role:student'])->group(function () {
