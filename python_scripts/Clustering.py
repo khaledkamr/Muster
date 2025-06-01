@@ -129,7 +129,7 @@ for course_id_input in course_ids:
     cluster_mapping = {
         sorted_clusters[0]: "High performers",
         sorted_clusters[1]: "Average performers",
-        sorted_clusters[2]: "At risk students",
+        sorted_clusters[2]: "At risk",
     }
 
     # Assign initial performance groups
@@ -145,7 +145,7 @@ for course_id_input in course_ids:
         if total_score > 0.67:
             return "High performers"
         elif total_score < 0.4:
-            return "At risk students"
+            return "At risk"
         else:
             return "Average performers"
 
@@ -176,16 +176,31 @@ for course_id_input in course_ids:
     # Store results for this course
     performance_counts = students_in_course["Performance Group"].value_counts()
 
+    # Create a dictionary of students with student_id as key
+    students_dict = {}
+    for _, student in students_in_course[final_columns].iterrows():
+        student_id = str(student["student_id"])
+        students_dict[student_id] = {
+            "name": student["name"],
+            "year": student["year"],
+            "email": student["email"],
+            "quiz1": student["quiz1"],
+            "midterm": student["midterm"],
+            "assignments": student["assignments"],
+            "total": student["total"],
+            "attendance_percentage": student["attendance_percentage"],
+            "total_score": student["total_score"],
+            "performance_group": student["Performance Group"],
+        }
+
     all_courses_results[str(course_id_input)] = {
         "course_code": course_code,
         "high_performance_count": int(performance_counts.get("High performers", 0)),
         "average_performance_count": int(
             performance_counts.get("Average performers", 0)
         ),
-        "at_risk_students_count": int(performance_counts.get("At risk students", 0)),
-        "students": students_in_course[final_columns]
-        .sort_values(by="Performance Group")
-        .to_dict(orient="records"),
+        "at_risk_students_count": int(performance_counts.get("At risk", 0)),
+        "students": students_dict,
     }
 
 # Save final output

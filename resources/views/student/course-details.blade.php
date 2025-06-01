@@ -117,9 +117,10 @@
                     <div class="rounded">
                         <h5 class="text-dark fw-bold mb-4">{{ $grade->grade ? 'Final Grade' : 'Predicted Grade' }}</h5>
                         @if($grade->grade)
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="col-md-6 text-center">
-                                    <div class="position-relative d-inline-block" style="width: 180px; height: 130px;">
+                            <div class="d-flex justify-content-center gap-4 align-items-center">
+                                <div class="text-center">
+                                    <h6 class="text-dark mb-2">Total Grade So Far</h6>
+                                    <div class="position-relative d-inline-block" style="width: 150px; height: 130px;">
                                         <canvas id="totalScoreChart"></canvas>
                                         <div class="position-absolute top-50 start-50 translate-middle text-center">
                                             <span class="fs-4 text-dark fw-bold d-block">{{ $percentage }}%</span>
@@ -127,34 +128,39 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div
-                                        class="text-center text-dark d-flex flex-column justify-content-center align-items-center">
-                                        @if (!empty($grade->grade))
-                                            <h5>Grade</h5>
-                                            @php
-                                                $gradeStatus = '';
-                                                if ($grade->total >= 122.4) {
-                                                    $gradeStatus = 'success';
-                                                } elseif ($grade->total <= 102) {
-                                                    $gradeStatus = 'danger';
-                                                } else {
-                                                    $gradeStatus = 'warning';
-                                                }
-                                            @endphp
-                                            <div class="btn btn-{{ $gradeStatus }} w-fit pe-3 ps-3" style="font-size: 40px;">
-                                                {{ $grade->grade }}
-                                            </div>
-                                            <p class="mt-3">
-                                                Status: <strong>{{ ucfirst($grade->status) }}</strong>
-                                                @if ($grade->status === 'pass')
-                                                    <i class="fa-solid fa-circle-check text-success"></i>
-                                                @else
-                                                    <i class="fa-solid fa-circle-xmark text-danger"></i>
-                                                @endif
-                                            </p>
-                                        @endif
-                                    </div>
+                                <div class="text-center">
+                                    <h6 class="text-dark mb-2">Status</h6>
+                                    @if($grade->status == 'pass')
+                                        <div class="d-flex flex-column justify-content-center align-items-center alert alert-primary" style="width: 150px; height: 120px;">
+                                            <span class="fs-2 text-success fw-bold">Pass</span>
+                                            <p class="text-success mb-0"><i class="fa-solid fa-circle-check"></i></p>
+                                        </div>
+                                    @else
+                                        <div class="d-flex flex-column justify-content-center align-items-center alert alert-danger" style="width: 150px; height: 120px;">
+                                            <span class="fs-2 text-danger fw-bold">Fail</span>
+                                            <p class="text-danger mb-0"><i class="fa-solid fa-circle-xmark"></i></p>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="text-center">
+                                    <h6 class="text-dark mb-2">Grade</h6>
+                                    
+                                    @if($grade->grade == 'A' || $grade->grade == 'A+' || $grade->grade == 'A-')
+                                        <div class="d-flex flex-column justify-content-center align-items-center alert alert-primary" style="width: 150px; height: 120px;">
+                                            <span class="fs-2 text-success fw-bold">{{ $grade->grade }}</span>
+                                            <p class="text-success mb-0">Excellent</p>
+                                        </div>
+                                    @elseif($grade->grade == 'B' || $grade->grade == 'B+' || $grade->grade == 'B-' || $grade->grade == 'C' || $grade->grade == 'C+' || $grade->grade == 'C-' || $grade->grade == 'D' || $grade->grade == 'D+' || $grade->grade == 'D-')
+                                        <div class="d-flex flex-column justify-content-center align-items-center alert alert-primary" style="width: 150px; height: 120px;">
+                                            <span class="fs-2 text-primary fw-bold">{{ $grade->grade }}</span>
+                                            <p class="text-primary mb-0">Good</p>
+                                        </div>
+                                    @else
+                                        <div class="d-flex flex-column justify-content-center align-items-center alert alert-danger" style="width: 150px; height: 120px;">
+                                            <span class="fs-2 text-danger fw-bold">{{ $grade->grade }}</span>
+                                            <p class="text-danger mb-0">Hard Luck</p>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @else
@@ -172,10 +178,10 @@
                                 <div class="text-center">
                                     <h6 class="text-dark mb-2">Status</h6>
                                     <div class="d-flex flex-column justify-content-center align-items-center alert alert-primary" style="width: 200px; height: 120px;">
-                                        @if((70 / 100) * 100 >= 75)
+                                        @if($studentPerformance['performance_group'] == 'High performers')
                                             <span class="fs-2 text-success fw-bold">Excellent</span>
                                             <p class="text-success mb-0"><i class="fa-solid fa-star"></i> On Track</p>
-                                        @elseif((70 / 100) * 100 >= 60)
+                                        @elseif($studentPerformance['performance_group'] == 'Average performers')
                                             <span class="fs-2 text-primary fw-bold">Good</span>
                                             <p class="text-primary mb-0"><i class="fa-solid fa-circle-check"></i> Passing</p>
                                         @else
@@ -186,15 +192,6 @@
                                 </div>
                                 <div class="text-center">
                                     <h6 class="text-dark mb-2">Predicted Grade</h6>
-                                    @php
-                                        $predictedPercentage = (70 / 100) * 100;
-                                        $predictedGrade = 'N/A';
-                                        if ($predictedPercentage >= 90) $predictedGrade = 'A';
-                                        elseif ($predictedPercentage >= 80) $predictedGrade = 'B';
-                                        elseif ($predictedPercentage >= 70) $predictedGrade = 'C';
-                                        elseif ($predictedPercentage >= 60) $predictedGrade = 'D';
-                                        else $predictedGrade = 'F';
-                                    @endphp
                                     <div class="d-flex flex-column justify-content-center align-items-center" style=" height: 130px;">
                                         <span class="fs-2 text-{{ $predictedGrade === 'F' ? 'danger' : 'dark' }} fw-bold">{{ $predictedGrade }}</span>
                                         <p class="text-muted mb-0">Based on current progress</p>

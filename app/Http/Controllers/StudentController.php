@@ -444,6 +444,17 @@ class StudentController extends Controller
     {
         $user = Auth::user();
         $course = Course::findOrFail($course); 
+        $studentPerformance = json_decode(file_get_contents(base_path('python_scripts/results/clustering_results.json')), true);
+        $studentPerformance = $studentPerformance[$course->id]['students'][$user->id] ?? null;
+        $predictedGrade = 'N/A';
+        if ($studentPerformance) {
+            $score = $studentPerformance['total_score'];
+            if ($score >= 0.8) $predictedGrade = 'A';
+            elseif ($score >= 0.67) $predictedGrade = 'B';
+            elseif ($score >= 0.5) $predictedGrade = 'C';
+            elseif ($score >= 0.4) $predictedGrade = 'D';
+            else $predictedGrade = 'F';
+        }
         $grade = Grade::where('student_id', $user->id)->where('course_id', $course->id)->firstOrFail(); 
 
         if (!$grade) {
@@ -550,6 +561,8 @@ class StudentController extends Controller
 
         return view('student.course-details', compact(
             'course', 
+            'studentPerformance',
+            'predictedGrade',
             'grade', 
             'displayScores', 
             'displayMaxScores', 

@@ -51,7 +51,7 @@
             background-color: #f1f3f5;
         }
 
-        .table .status-pending {
+        .table .status-average {
             background-color: #fff3cd;
             color: #856404;
             padding: 5px 10px;
@@ -60,7 +60,7 @@
             display: inline-block;
         }
 
-        .table .status-completed {
+        .table .status-high {
             background-color: #d4edda;
             color: #155724;
             padding: 5px 10px;
@@ -69,7 +69,7 @@
             display: inline-block;
         }
 
-        .table .status-refunded {
+        .table .status-risk {
             background-color: #f8d7da;
             color: #721c24;
             padding: 5px 10px;
@@ -189,7 +189,7 @@
                         <th class="text-center bg-dark text-white">Name</th>
                         <th class="text-center bg-dark text-white">Year</th>
                         <th class="text-center bg-dark text-white">Email</th>
-                        <th class="text-center bg-dark text-white">Performance</th>
+                        <th class="text-center bg-dark text-white">Performance Group</th>
                         <th class="text-center bg-dark text-white">Actions</th>
                     </tr>
                 </thead>
@@ -213,9 +213,10 @@
                                 <td class="text-center">{{ $student->year }}</td>
                                 <td class="text-center">{{ $student->email }}</td>
                                 <td class="text-center">
-                                    <span
-                                        class="status-{{ $loop->iteration % 3 == 0 ? 'pending' : ($loop->iteration % 3 == 1 ? 'completed' : 'refunded') }}">
-                                        {{ $loop->iteration % 3 == 0 ? 'Average' : ($loop->iteration % 3 == 1 ? 'High' : 'Low') }}
+                                    <span class="status-{{ $clusteringStudents['students'][$student->id]['performance_group'] == 'High performers' ? 'high' 
+                                        : ($clusteringStudents['students'][$student->id]['performance_group'] == 'Average performers' ? 'average' 
+                                        : ($clusteringStudents['students'][$student->id]['performance_group'] == 'At risk' ? 'risk' : '')) }}">
+                                        {{ $clusteringStudents['students'][$student->id]['performance_group'] }}
                                     </span>
                                 </td>
                                 <td class="action-icons text-center">
@@ -238,19 +239,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Performance Pie Chart
-        const highPerformanceCount = 45;
-        const averagePerformanceCount = 55;
-        const lowPerformanceCount = 25;
+        const highPerformanceCount = {{ $clusteringStudents['high_performance_count'] }};
+        const averagePerformanceCount = {{ $clusteringStudents['average_performance_count'] }};
+        const lowPerformanceCount = {{ $clusteringStudents['at_risk_students_count'] }};
         const total = highPerformanceCount + averagePerformanceCount + lowPerformanceCount;
 
         const pieCtx = document.getElementById('performancePieChart').getContext('2d');
         const performancePieChart = new Chart(pieCtx, {
             type: 'pie',
             data: {
-                labels: ['High', 'Average', 'Low'],
+                labels: ['High performance', 'Average performance', 'At risk students'],
                 datasets: [{
                     data: [highPerformanceCount, averagePerformanceCount, lowPerformanceCount],
-                    backgroundColor: ['#79f596', '#ff808a', '#ffcc00'],
+                    backgroundColor: ['#79f596', '#ffcc00', '#ff808a'],
                     borderWidth: 1,
                     borderColor: '#eee'
                 }]

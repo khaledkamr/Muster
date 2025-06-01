@@ -21,32 +21,32 @@
         <!-- Semester Statistics -->
         <div class="row mb-4" id="semesterStats" style="display: none;">
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
+                <div class="bg-white rounded-4 p-3 shadow-sm">
+                    <div class="rounded-4">
                         <h5 class="card-title text-dark fw-bold">Semester Statistics</h5>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="text-muted">Earned Hours:</span>
-                            <span class="fw-bold" id="semesterCredits">0</span>
+                            <span class="fw-bold text-dark" id="semesterCredits">0</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-muted">Semester GPA:</span>
-                            <span class="fw-bold" id="semesterGPA">0.00</span>
+                            <span class="fw-bold text-dark" id="semesterGPA">0.00</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
+                <div class="bg-white rounded-4 p-3 shadow-sm">
+                    <div class="rounded-4">
                         <h5 class="card-title text-dark fw-bold">Cumulative Statistics</h5>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="text-muted">Total Hours:</span>
-                            <span class="fw-bold" id="totalCredits">0</span>
+                            <span class="fw-bold text-dark" id="totalCredits">0</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-muted">CGPA:</span>
                             <div class="d-flex align-items-center">
-                                <span class="fw-bold me-2" id="cgpa">0.00</span>
+                                <span class="fw-bold me-2 text-dark" id="cgpa">0.00</span>
                                 <i id="cgpaTrend" class="fas fa-circle text-secondary"></i>
                             </div>
                         </div>
@@ -54,17 +54,17 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
+                <div class="bg-white rounded-4 p-3 shadow-sm">
+                    <div class="rounded-4">
                         <h5 class="card-title text-dark fw-bold">Department Statistics</h5>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="text-muted">Total Students:</span>
-                            <span class="fw-bold" id="totalStudents">0</span>
+                            <span class="fw-bold text-dark" id="totalStudents">0</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="text-muted">Avg CGPA:</span>
                             <div class="d-flex align-items-center">
-                                <span class="fw-bold" id="avgcgpa">0.00</span>
+                                <span class="fw-bold text-dark" id="avgcgpa">0.00</span>
                             </div>
                         </div>
                     </div>
@@ -217,22 +217,38 @@
                             label: 'NO. Courses',
                             data: distributionData,
                             backgroundColor: [
-                                '#28a745', // A+
-                                '#28a745', // A
-                                '#28a745', // A-
-                                '#17a2b8', // B+
-                                '#17a2b8', // B
-                                '#17a2b8', // B-
-                                '#ffc107', // C+
-                                '#ffc107', // C
-                                '#ffc107', // C-
-                                '#dc3545', // D+
-                                '#dc3545', // D
-                                '#dc3545', // D-
-                                '#dc3545' // F
+                                'rgb(40, 167, 69, 0.8)', // A+
+                                'rgb(40, 167, 69, 0.8)', // A
+                                'rgb(40, 167, 69, 0.8)', // A-
+                                'rgb(23, 162, 184, 0.8)', // B+
+                                'rgb(23, 162, 184, 0.8)', // B
+                                'rgb(23, 162, 184, 0.8)', // B-
+                                'rgb(255, 193, 7, 0.8)', // C+
+                                'rgb(255, 193, 7, 0.8)', // C
+                                'rgb(255, 193, 7, 0.8)', // C-
+                                'rgb(220, 53, 69, 0.8)', // D+
+                                'rgb(220, 53, 69, 0.8)', // D
+                                'rgb(220, 53, 69, 0.8)', // D-
+                                'rgb(220, 53, 69, 0.8)' // F
                             ],
-                            borderColor: '#ffffff',
+                            borderColor: [
+                                'rgb(40, 167, 69, 0.8)', // A+
+                                'rgb(40, 167, 69, 0.8)', // A
+                                'rgb(40, 167, 69, 0.8)', // A-
+                                'rgb(23, 162, 184, 0.8)', // B+
+                                'rgb(23, 162, 184, 0.8)', // B
+                                'rgb(23, 162, 184, 0.8)', // B-
+                                'rgb(255, 193, 7, 0.8)', // C+
+                                'rgb(255, 193, 7, 0.8)', // C
+                                'rgb(255, 193, 7, 0.8)', // C-
+                                'rgb(220, 53, 69, 0.8)', // D+
+                                'rgb(220, 53, 69, 0.8)', // D
+                                'rgb(220, 53, 69, 0.8)', // D-
+                                'rgb(220, 53, 69, 0.8)' // F
+                            ],
                             borderWidth: 1,
+                            barRadius: 5,
+                            borderRadius: 10
                         }]
                     },
                     options: {
@@ -308,7 +324,8 @@
 
                 semesterCourses.forEach(enrollment => {
                     const course = enrollment.course;
-                    const grade = course.grades.find(g => g.student_id === {{ $user->id }}) || {};
+                    const grade = course.grades.find(g => g.student_id === {{ $user->id }}) ||
+                        {};
                     const row = document.createElement('tr');
                     const courseDetailsUrl = courseDetailsBaseUrl.replace(':id', course.id);
                     row.innerHTML = `

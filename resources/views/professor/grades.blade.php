@@ -121,6 +121,23 @@
         background-color: #d5d7d8;
         border-color: #dee2e6;
     }
+    .table .status-on-track {
+        background-color: #d4edda;
+        color: #2b2ed1;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
+
+    .table .status-risk {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        display: inline-block;
+    }
 </style>
 <div class="container">
     <h2 class="text-dark fw-bold pt-2 pb-4">{{ $course->name }} / Grades</h2>
@@ -220,6 +237,7 @@
                         <th class="text-center bg-dark text-white">Project</th>
                         <th class="text-center bg-dark text-white">Final</th>
                         <th class="text-center bg-dark text-white">Total</th>
+                        <th class="text-center bg-dark text-white">Status</th>
                         <th class="text-center bg-dark text-white">Actions</th>
                     </tr>
                 </thead>
@@ -257,6 +275,11 @@
                             <td class="text-center">{{ $project }}</td>
                             <td class="text-center">{{ $final }}</td>
                             <td class="text-center">{{ is_numeric($total) ? $total : '-' }}</td>
+                            <td class="text-center">
+                                <span class="status-{{ $clusteringStudents['students'][$student->id]['performance_group'] == 'At risk' ? 'risk' : 'on-track' }}">
+                                    {{ $clusteringStudents['students'][$student->id]['performance_group'] == 'At risk' ? 'At Risk' : 'On Track' }}
+                                </span>
+                            </td>
                             <td class="action-icons text-center">
                                 <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $student->id]) }}" title="View"><i class="fa-solid fa-eye"></i></a>
                                 <a href="#"><i class="fa-solid fa-message" title="Send"></i></a>

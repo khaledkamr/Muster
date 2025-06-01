@@ -137,6 +137,9 @@ class ProfessorController extends Controller
         $maleCount = $students->where('gender', 'male')->count();
         $femaleCount = $students->where('gender', 'female')->count();
 
+        $clusteringStudents = json_decode(file_get_contents(base_path('python_scripts/results/clustering_results.json')), true);
+        $clusteringStudents = $clusteringStudents[$courseId];
+
         $searchQuery = request()->query('search');
         if ($searchQuery) {
             $students = $students->filter(function ($student) use ($searchQuery) {
@@ -153,7 +156,7 @@ class ProfessorController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        return view('professor.students', compact('course', 'courseId', 'students', 'maleCount', 'femaleCount'));
+        return view('professor.students', compact('course', 'courseId', 'students', 'maleCount', 'femaleCount', 'clusteringStudents'));
     }
 
     public function exams($courseId)
@@ -270,6 +273,9 @@ class ProfessorController extends Controller
         $course = Course::findOrFail($courseId);
         $searchQuery = request()->query('search');
 
+        $clusteringStudents = json_decode(file_get_contents(base_path('python_scripts/results/clustering_results.json')), true);
+        $clusteringStudents = $clusteringStudents[$courseId];
+
         $students = $course->enrollments()
             ->where('enrolled_at', '>=', Carbon::parse('2025-08-01')) 
             ->with(['student', 'student.grades' => function ($query) use ($courseId) {
@@ -328,7 +334,7 @@ class ProfessorController extends Controller
 
         $stats['average_grade'] = $validGradeCount > 0 ? round($totalGrades / $validGradeCount, 1) : 0;
 
-        return view('professor.grades', compact('course', 'courseId', 'students', 'stats'));
+        return view('professor.grades', compact('course', 'courseId', 'students', 'stats', 'clusteringStudents'));
     }
 
     public function assignments($courseId)
