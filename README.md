@@ -1,79 +1,106 @@
-Muster: University Dashboard System with AI-Driven Analytics
-Overview
-Muster is a web-based university dashboard system designed to enhance educational decision-making by integrating academic data and delivering AI-driven insights through role-specific interfaces for professors, students, and parents. Built as a graduation project at Misr University for Science and Technology, Muster centralizes data on grades, attendance, assignments, and courses, providing tailored visualizations and predictive analytics. The system leverages advanced AI techniques, including logistic regression for dropout prediction, K-means clustering for student performance categorization, content-based filtering for course recommendations, and LSTM-based RNN for GPA forecasting. Developed using the Waterfall methodology, Muster employs PHP Laravel for backend logic, Flask API for AI integration, MySQL for data storage, JavaScript with Bootstrap for responsive interfaces, and Chart.js for dynamic visualizations. Synthetic datasets ensure robust testing while maintaining privacy, making Muster a scalable and secure solution for higher education institutions.
+# Muster: University Dashboard System with AI-Driven Analytics
 
-Professor Interface
-The professor interface empowers educators to manage courses, monitor student performance, and access predictive insights to support academic interventions. It provides comprehensive dashboards with interactive visualizations tailored to course-level and student-level analytics.
+##  Overview
 
-Course Management:Professors can view and manage course details, including enrollment statistics, course schedules, and associated assignments, linked to the courses and enrollments datasets in the MySQL database.
+**Muster** is a web-based university dashboard developed as a graduation project at **Misr University for Science and Technology**. It enhances educational decision-making by integrating academic data with AI-powered insights through customized interfaces for **professors**, **students**, and **parents**.
 
-Attendance Dashboard:Displays pie charts for attendance status (present, absent, late) and weekly trend charts, filterable by course and section type (e.g., lectures, labs). Data is sourced from the attendances dataset, with late attendance weighted as half-present.
+The system provides visualizations and predictive analytics on grades, attendance, assignments, and course data, leveraging cutting-edge AI techniques such as:
 
-Grades Dashboard:Provides searchable tables showing student scores for quizzes, midterms, assignments, projects, and final exams, derived from the grades dataset. Professors can filter by semester or course for detailed performance analysis.
+-  **Logistic Regression**: Predicts student dropout risk  
+-  **LSTM-based RNN**: Forecasts future GPA  
+-  **K-Means Clustering**: Categorizes student performance  
+-  **Content-Based Filtering**: Recommends personalized courses
 
-Assignments Dashboard:Features pie charts for submitted vs. pending assignments and detailed tables listing student IDs, assignment titles, statuses, and scores, linked to the assignments and assignment_submissions datasets.
+---
 
-Predictive Analytics:Displays AI-driven insights, including:
+##  Professor Interface
 
-Dropout Risk Prediction: Logistic regression model (99% accuracy) identifies at-risk students based on attendance, grades, and assignment submissions.
-Course Failure Risk: Derived from logistic regression and grade data to highlight potential failures.
-GPA Forecasts: LSTM-based RNN predicts next-semester GPAs (79.6% accuracy within ±0.3 GPA points) using historical GPA sequences.
+Professors can manage courses, track performance, and act on predictive insights with dashboards tailored to academic engagement:
 
+- **Course Management**: View/manage course data including enrollment and schedules.
+- **Attendance Dashboard**: Charts for attendance rates by course and section type.
+- **Grades Dashboard**: Searchable tables for all types of assessments.
+- **Assignments Dashboard**: Track student submissions and grades.
+- **Predictive Analytics**:
+  - Dropout and failure risks using logistic regression.
+  - GPA predictions using LSTM-RNN (79.6% accuracy).
+  - Performance clustering (high, average, at-risk).
+- **Student & Course Metrics**: Aggregated views for strategic decisions.
 
-Clustering Analysis:K-means clustering categorizes students into high, average, and at-risk performance groups based on normalized academic scores and attendance percentages, visualized as charts and tables for targeted interventions.
+---
 
-Student Demographics and Course Metrics:Shows aggregate data, such as enrollment statistics and course-level performance summaries (e.g., average grades, attendance rates), to support strategic teaching decisions.
+##  Student Interface
 
+Students receive a personalized dashboard to monitor academic progress and receive AI-backed recommendations:
 
+- **Grade Summary**: Breakdown of grades by semester/course.
+- **Assignment Tracker**: Completion charts and score trends.
+- **Attendance Record**: Weekly and overall attendance visualizations.
+- **Course Recommendations**: AI-based elective suggestions tailored to strengths and progress.
+- **Course Details**: Full info on enrolled courses and schedules.
 
-Student Interface
-The student interface provides a personalized view of academic progress, enabling students to track their performance, manage assignments, and receive tailored course recommendations. It is designed for ease of use and accessibility across devices.
+---
 
-Grade Summary:Displays a filterable table of course grades (e.g., quizzes, midterms, finals) from the grades dataset, with options to view detailed breakdowns by semester or course, helping students monitor their academic standing.
+##  Parent Interface
 
-Assignment Tracker:Shows completion charts (submitted vs. pending) and score trend charts, alongside a table detailing assignment information (course, professor, status, due date, score) from the assignment_submissions dataset.
+Parents are offered an intuitive dashboard to stay engaged with their child’s academic journey:
 
-Attendance Record:Presents round charts for total attendance rates and weekly trend charts, filterable by section type (e.g., lectures, labs), sourced from the attendances dataset to encourage consistent participation.
+- **Grade Summary**: View course grades by semester.
+- **Assignment Completion**: See pending/submitted assignments and deadlines.
+- **Class Attendance Rate**: Charts showing attendance performance.
+- **Child Profile**: Overview of academic major, year, and key metrics.
 
-Course Recommendations:Uses a content-based filtering model to suggest elective courses based on academic strengths (e.g., normalized assignment scores, composite performance scores) and course difficulty, drawn from the courses and grades datasets. Recommendations exclude previously taken courses and match the student's capability level.
+---
 
-Course Details:Provides access to enrolled course information, including descriptions, schedules, and professor details, linked to the enrollments and courses datasets, enabling students to stay informed about their academic commitments.
+##  Technical Details
 
+###  Technologies
 
+- **Backend**:  
+  - PHP Laravel (core logic)  
+  - Flask API (AI model integration)  
+  - MySQL (data storage)
 
-Parent Interface
-The parent interface allows guardians to monitor their child's academic progress, fostering engagement with the educational process through accessible and intuitive dashboards.
+- **Frontend**:  
+  - JavaScript + Bootstrap (responsive UI)  
+  - Chart.js (interactive charts)
 
-Grade Summary:Displays a table of the child’s course grades, filterable by semester, sourced from the grades dataset, enabling parents to track academic performance across courses.
+- **AI Models**:  
+  - Python with `scikit-learn` and `TensorFlow`  
+    - Logistic Regression (Dropout prediction)  
+    - K-means Clustering (Performance segmentation)  
+    - Content-Based Filtering (Course suggestions)  
+    - LSTM RNN (GPA forecasting)
 
-Assignment Completion:Provides a searchable table listing assignment statuses, deadlines, and scores from the assignment_submissions dataset, helping parents ensure timely submissions.
+- **Data**:  
+  - Synthetic datasets generated using Laravel Faker (`users`, `grades`, `courses`, `assignments`, etc.)
 
-Class Attendance Rate:Shows charts and summaries of the child’s attendance, filterable by section type (e.g., lectures, labs), derived from the attendances dataset, to monitor engagement and consistency.
+###  Architecture
 
-Child Profile:Offers a summary of the child’s academic details, including major, academic year, and performance metrics, linked to the users dataset, providing a holistic view of their educational journey.
+- Modular, role-based structure with secure authentication  
+- Laravel handles user/session logic and calls Flask for AI predictions  
+- Dashboards rendered dynamically using Chart.js and AJAX requests
 
+---
 
+##  Testing and Validation
 
-Technical Details
+- **Security & Auth**: Tested using PHPUnit, Selenium, and OWASP ZAP  
+- **AI Models**:
+  - Logistic Regression: 99% accuracy on synthetic data  
+  - LSTM GPA Predictor: 79.6% accuracy (±0.3 GPA points)
+- **Interface**: Functional testing for dashboard filters, chart responsiveness, and data accuracy
 
-Technologies:  
+---
 
-Backend: PHP Laravel for server-side logic, Flask API for AI model integration, MySQL for data storage.  
-Frontend: JavaScript with Bootstrap for responsive interfaces, Chart.js for interactive visualizations.  
-AI Models: Python with scikit-learn and TensorFlow for logistic regression (dropout prediction), K-means clustering (student categorization), content-based filtering (course recommendations), and LSTM-based RNN (GPA forecasting).  
-Data: Synthetic datasets (users, courses, grades, enrollments, assignments, assignment_submissions, attendances) generated using Laravel’s Faker library for testing and validation.
+##  Conclusion
 
+**Muster** redefines academic monitoring through AI-powered dashboards, enabling proactive decisions and personalized learning. Built with scalability, privacy, and usability in mind, it's adaptable for universities worldwide.
 
-Architecture:A modular, scalable design with role-based authentication, where the Laravel backend retrieves preprocessed AI outputs from the Flask API and user-specific data from MySQL, rendering tailored dashboards via Chart.js.
+**Future Enhancements**:
+- Mobile app version  
+- Real-time data support  
+- Expanded AI features (e.g., behavioral analysis, anomaly detection)
 
-Testing and Validation:  
+---
 
-User authentication tested with PHPUnit, Selenium, and OWASP ZAP for security.  
-AI models validated with synthetic datasets, achieving 99% accuracy for logistic regression and 79.6% for LSTM-based RNN.  
-Dashboards tested for functionality and usability, ensuring accurate data display and interactive filters.
-
-
-
-
-Conclusion
-Muster represents a transformative approach to educational data management, integrating AI-driven analytics to empower professors, students, and parents. By providing role-specific dashboards with actionable insights, the system enhances academic monitoring, supports timely interventions, and personalizes the learning experience. Its modular architecture and robust technologies ensure scalability, security, and user-friendliness, making it adaptable for university settings worldwide. The use of synthetic data has validated its effectiveness, while future enhancements, such as mobile app integration and real-time data support, promise to further elevate its impact on higher education.
