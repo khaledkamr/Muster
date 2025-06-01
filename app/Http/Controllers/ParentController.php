@@ -248,6 +248,17 @@ class ParentController extends Controller
     {
         $child = User::findOrFail($childId);
         $course = Course::findOrFail($courseId); 
+        $studentPerformance = json_decode(file_get_contents(base_path('python_scripts/results/clustering_results.json')), true);
+        $studentPerformance = $studentPerformance[$course->id]['students'][$child->id] ?? null;
+        $predictedGrade = 'N/A';
+        if ($studentPerformance) {
+            $score = $studentPerformance['total_score'];
+            if ($score >= 0.8) $predictedGrade = 'A';
+            elseif ($score >= 0.67) $predictedGrade = 'B';
+            elseif ($score >= 0.5) $predictedGrade = 'C';
+            elseif ($score >= 0.4) $predictedGrade = 'D';
+            else $predictedGrade = 'F';
+        }
         $grade = Grade::where('student_id', $child->id)->where('course_id', $course->id)->firstOrFail(); 
 
         if (!$grade) {
@@ -356,6 +367,8 @@ class ParentController extends Controller
             'child', 
             'childId', 
             'course', 
+            'studentPerformance',
+            'predictedGrade',
             'grade', 
             'displayScores', 
             'displayMaxScores', 
