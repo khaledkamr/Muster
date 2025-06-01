@@ -141,7 +141,6 @@ class StudentController extends Controller
     {
         $user = Auth::user();
         
-        // Get enrollments for the specific semester (2025-08-01)
         $enrollments = $user->enrollments()
             ->with(['course' => function($query) {
                 $query->with(['grades', 'assignments.submissions', 'attendance']);
@@ -195,7 +194,10 @@ class StudentController extends Controller
             ];
         }
 
-        return view('student.courses', compact('enrollments', 'courseStats', 'chartData', 'totalCreditHours'));
+        $recommendedElectives = json_decode(file_get_contents(base_path('python_scripts/results/recommendations.json')), true);
+        $recommendedElectives = $recommendedElectives[$user->id];
+
+        return view('student.courses', compact('enrollments', 'courseStats', 'chartData', 'totalCreditHours', 'recommendedElectives'));
     }
 
     public function grades()

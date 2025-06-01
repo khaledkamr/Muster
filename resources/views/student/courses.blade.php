@@ -197,6 +197,49 @@
             </div>
         </div>
 
+        <!-- elective recommendation courses -->
+        <div class="card border-0 shadow-sm mt-4">
+            <div class="card-body">
+                <h4 class="text-dark fw-bold mb-4">Recommended Elective Courses for Next Semester</h4>
+                <div class="row">
+                    @foreach ($recommendedElectives as $course)
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="bg-white p-3 rounded-4 shadow h-100 border-0">
+                                <div class="rounded-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title mb-1">{{ $course['course_code'] }}</h5>
+                                            <h6 class="text-muted">{{ $course['course_name'] }}</h6>
+                                        </div>
+                                        <div>
+                                            <span
+                                                class="badge bg-{{ $course['difficulty'] === 'easy' ? 'success' : ($course['difficulty'] === 'medium' ? 'warning' : 'danger') }} me-2">
+                                                {{ $course['difficulty'] }}
+                                            </span>
+                                            <span class="badge bg-primary">3 HRs</span>
+                                        </div>
+                                    </div>
+                                    <p class="card-text text-muted small mb-3">{{ Str::limit($course['description'], 100) }}
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <small class="text-muted">
+                                                <i class="fas fa-user-tie me-1"></i>
+                                                {{ $course['professor_name'] }}
+                                            </small>
+                                        </div>
+                                        <a href="#"
+                                            class="btn btn-sm btn-outline-primary">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
