@@ -234,13 +234,19 @@ class ParentController extends Controller
             ];
         }
 
+        $predictedGPAs = json_decode(file_get_contents(base_path('python_scripts/results/gpa_predictions.json')), true);
+        $childPredictedGPA = round($predictedGPAs[$child->id]['predicted_semester_gpa'], 2);
+        $childPredictedCGPA = round($predictedGPAs[$child->id]['predicted_new_cgpa'], 2);
+
         return view('parent.child-courses', compact(
             'child',
             'childId',
             'enrollments', 
             'courseStats', 
             'chartData', 
-            'totalCreditHours'
+            'totalCreditHours',
+            'childPredictedGPA',
+            'childPredictedCGPA'
         ));
     }
 

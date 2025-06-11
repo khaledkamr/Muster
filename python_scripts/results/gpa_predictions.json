@@ -1,0 +1,5012 @@
+{
+    "2": {
+        "historical_cgpa": 2.5384615384615388,
+        "predicted_semester_gpa": 2.28,
+        "predicted_new_cgpa": 2.5090909090909093
+    },
+    "3": {
+        "historical_cgpa": 0.9833333333333333,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 0.937142857142857
+    },
+    "29": {
+        "historical_cgpa": 0.7833333333333333,
+        "predicted_semester_gpa": 0.5166666666666666,
+        "predicted_new_cgpa": 0.65
+    },
+    "30": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 1.1166666666666667,
+        "predicted_new_cgpa": 1.1166666666666667
+    },
+    "31": {
+        "historical_cgpa": 1.5499999999999998,
+        "predicted_semester_gpa": 1.1666666666666667,
+        "predicted_new_cgpa": 1.3583333333333332
+    },
+    "32": {
+        "historical_cgpa": 1.0166666666666668,
+        "predicted_semester_gpa": 0.45,
+        "predicted_new_cgpa": 0.7333333333333334
+    },
+    "33": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 0.7666666666666666,
+        "predicted_new_cgpa": 0.9083333333333333
+    },
+    "34": {
+        "historical_cgpa": 0.7833333333333333,
+        "predicted_semester_gpa": 0.2833333333333333,
+        "predicted_new_cgpa": 0.5333333333333333
+    },
+    "35": {
+        "historical_cgpa": 0.7833333333333333,
+        "predicted_semester_gpa": 0.45,
+        "predicted_new_cgpa": 0.6166666666666667
+    },
+    "36": {
+        "historical_cgpa": 0.9500000000000001,
+        "predicted_semester_gpa": 0.8500000000000001,
+        "predicted_new_cgpa": 0.9
+    },
+    "37": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 1.1333333333333333,
+        "predicted_new_cgpa": 1.075
+    },
+    "38": {
+        "historical_cgpa": 1.0166666666666668,
+        "predicted_semester_gpa": 0.2333333333333333,
+        "predicted_new_cgpa": 0.6250000000000001
+    },
+    "39": {
+        "historical_cgpa": 1.3333333333333333,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 1.0083333333333333
+    },
+    "40": {
+        "historical_cgpa": 1.2833333333333334,
+        "predicted_semester_gpa": 0.8833333333333333,
+        "predicted_new_cgpa": 1.0833333333333333
+    },
+    "41": {
+        "historical_cgpa": 1.5,
+        "predicted_semester_gpa": 1.1166666666666667,
+        "predicted_new_cgpa": 1.3083333333333333
+    },
+    "42": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 1.1500000000000001,
+        "predicted_new_cgpa": 1.1333333333333335
+    },
+    "43": {
+        "historical_cgpa": 0.6833333333333332,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.7083333333333334
+    },
+    "44": {
+        "historical_cgpa": 1.3166666666666667,
+        "predicted_semester_gpa": 1.05,
+        "predicted_new_cgpa": 1.1833333333333333
+    },
+    "45": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 1.0666666666666667,
+        "predicted_new_cgpa": 1.0333333333333334
+    },
+    "46": {
+        "historical_cgpa": 1.6166666666666665,
+        "predicted_semester_gpa": 1.2166666666666666,
+        "predicted_new_cgpa": 1.4166666666666667
+    },
+    "47": {
+        "historical_cgpa": 1.1833333333333333,
+        "predicted_semester_gpa": 0.7333333333333333,
+        "predicted_new_cgpa": 0.9583333333333334
+    },
+    "48": {
+        "historical_cgpa": 0.8333333333333334,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.7000000000000001
+    },
+    "49": {
+        "historical_cgpa": 1.1833333333333333,
+        "predicted_semester_gpa": 0.5166666666666666,
+        "predicted_new_cgpa": 0.85
+    },
+    "50": {
+        "historical_cgpa": 1.5999999999999999,
+        "predicted_semester_gpa": 1.2166666666666666,
+        "predicted_new_cgpa": 1.4083333333333332
+    },
+    "51": {
+        "historical_cgpa": 1.4666666666666668,
+        "predicted_semester_gpa": 1.1166666666666667,
+        "predicted_new_cgpa": 1.2916666666666667
+    },
+    "52": {
+        "historical_cgpa": 0.6166666666666667,
+        "predicted_semester_gpa": 0.2333333333333333,
+        "predicted_new_cgpa": 0.425
+    },
+    "53": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 0.8416666666666667
+    },
+    "54": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.7333333333333333,
+        "predicted_new_cgpa": 0.9499999999999998
+    },
+    "55": {
+        "historical_cgpa": 0.9500000000000001,
+        "predicted_semester_gpa": 1.0666666666666667,
+        "predicted_new_cgpa": 1.0083333333333335
+    },
+    "56": {
+        "historical_cgpa": 0.45,
+        "predicted_semester_gpa": 0.5,
+        "predicted_new_cgpa": 0.47500000000000003
+    },
+    "57": {
+        "historical_cgpa": 1.4000000000000001,
+        "predicted_semester_gpa": 1.3333333333333333,
+        "predicted_new_cgpa": 1.3666666666666665
+    },
+    "58": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.7333333333333334
+    },
+    "59": {
+        "historical_cgpa": 1.4000000000000001,
+        "predicted_semester_gpa": 1.2833333333333334,
+        "predicted_new_cgpa": 1.3416666666666668
+    },
+    "60": {
+        "historical_cgpa": 0.8833333333333333,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.75
+    },
+    "61": {
+        "historical_cgpa": 1.4833333333333334,
+        "predicted_semester_gpa": 0.7666666666666666,
+        "predicted_new_cgpa": 1.125
+    },
+    "62": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.45,
+        "predicted_new_cgpa": 0.725
+    },
+    "63": {
+        "historical_cgpa": 0.5,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.5333333333333333
+    },
+    "64": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.8666666666666667
+    },
+    "65": {
+        "historical_cgpa": 1.7833333333333332,
+        "predicted_semester_gpa": 1.4333333333333333,
+        "predicted_new_cgpa": 1.6083333333333332
+    },
+    "66": {
+        "historical_cgpa": 0.8999999999999999,
+        "predicted_semester_gpa": 0.9833333333333333,
+        "predicted_new_cgpa": 0.9416666666666665
+    },
+    "67": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0
+    },
+    "68": {
+        "historical_cgpa": 1.1833333333333333,
+        "predicted_semester_gpa": 0.9666666666666668,
+        "predicted_new_cgpa": 1.075
+    },
+    "69": {
+        "historical_cgpa": 0.9500000000000001,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.8916666666666666
+    },
+    "70": {
+        "historical_cgpa": 1.4500000000000002,
+        "predicted_semester_gpa": 0.8999999999999999,
+        "predicted_new_cgpa": 1.175
+    },
+    "71": {
+        "historical_cgpa": 0.8333333333333334,
+        "predicted_semester_gpa": 0.7666666666666666,
+        "predicted_new_cgpa": 0.7999999999999999
+    },
+    "72": {
+        "historical_cgpa": 1.3333333333333333,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1666666666666667
+    },
+    "73": {
+        "historical_cgpa": 1.3833333333333335,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1916666666666667
+    },
+    "74": {
+        "historical_cgpa": 0.7333333333333334,
+        "predicted_semester_gpa": 0.6666666666666666,
+        "predicted_new_cgpa": 0.7000000000000001
+    },
+    "75": {
+        "historical_cgpa": 1.4000000000000001,
+        "predicted_semester_gpa": 0.9,
+        "predicted_new_cgpa": 1.1500000000000001
+    },
+    "76": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 0.975
+    },
+    "77": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 1.05,
+        "predicted_new_cgpa": 1.05
+    },
+    "78": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 0.8416666666666667
+    },
+    "79": {
+        "historical_cgpa": 1.2833333333333334,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.0333333333333334
+    },
+    "80": {
+        "historical_cgpa": 0.7833333333333333,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 0.7333333333333334
+    },
+    "81": {
+        "historical_cgpa": 0.9500000000000001,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 0.9500000000000001
+    },
+    "82": {
+        "historical_cgpa": 1.2333333333333334,
+        "predicted_semester_gpa": 1.1166666666666667,
+        "predicted_new_cgpa": 1.175
+    },
+    "83": {
+        "historical_cgpa": 0.8333333333333334,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.7833333333333333
+    },
+    "84": {
+        "historical_cgpa": 1.0999999999999999,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.05
+    },
+    "85": {
+        "historical_cgpa": 1.1166666666666665,
+        "predicted_semester_gpa": 0.9333333333333332,
+        "predicted_new_cgpa": 1.025
+    },
+    "86": {
+        "historical_cgpa": 0.5499999999999999,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.6416666666666667
+    },
+    "87": {
+        "historical_cgpa": 0.9500000000000001,
+        "predicted_semester_gpa": 0.5,
+        "predicted_new_cgpa": 0.725
+    },
+    "88": {
+        "historical_cgpa": 1.2833333333333334,
+        "predicted_semester_gpa": 0.6833333333333335,
+        "predicted_new_cgpa": 0.9833333333333334
+    },
+    "89": {
+        "historical_cgpa": 0.45,
+        "predicted_semester_gpa": 0.5666666666666667,
+        "predicted_new_cgpa": 0.5083333333333333
+    },
+    "90": {
+        "historical_cgpa": 0.7333333333333334,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 0.7583333333333334
+    },
+    "91": {
+        "historical_cgpa": 1.2833333333333334,
+        "predicted_semester_gpa": 0.8000000000000002,
+        "predicted_new_cgpa": 1.0416666666666667
+    },
+    "92": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 0.8916666666666666
+    },
+    "93": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.9
+    },
+    "94": {
+        "historical_cgpa": 1.15,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.8583333333333334
+    },
+    "95": {
+        "historical_cgpa": 1.45,
+        "predicted_semester_gpa": 1.3833333333333335,
+        "predicted_new_cgpa": 1.4166666666666667
+    },
+    "96": {
+        "historical_cgpa": 0.8833333333333333,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.75
+    },
+    "97": {
+        "historical_cgpa": 0.5666666666666667,
+        "predicted_semester_gpa": 0.3333333333333333,
+        "predicted_new_cgpa": 0.45
+    },
+    "98": {
+        "historical_cgpa": 0.8333333333333334,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 0.8083333333333332
+    },
+    "99": {
+        "historical_cgpa": 1.4000000000000001,
+        "predicted_semester_gpa": 1.2833333333333334,
+        "predicted_new_cgpa": 1.3416666666666668
+    },
+    "100": {
+        "historical_cgpa": 1.2333333333333334,
+        "predicted_semester_gpa": 0.6666666666666666,
+        "predicted_new_cgpa": 0.9500000000000001
+    },
+    "101": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.875
+    },
+    "102": {
+        "historical_cgpa": 1.2833333333333334,
+        "predicted_semester_gpa": 1.3833333333333335,
+        "predicted_new_cgpa": 1.3333333333333333
+    },
+    "103": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 0.975
+    },
+    "104": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 1.2166666666666666,
+        "predicted_new_cgpa": 1.1416666666666666
+    },
+    "105": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 1.05,
+        "predicted_new_cgpa": 1.0833333333333333
+    },
+    "106": {
+        "historical_cgpa": 0.8333333333333334,
+        "predicted_semester_gpa": 0.6833333333333335,
+        "predicted_new_cgpa": 0.7583333333333334
+    },
+    "107": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 1.1166666666666667,
+        "predicted_new_cgpa": 1.1166666666666667
+    },
+    "108": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 1.0583333333333333
+    },
+    "109": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 0.39999999999999997,
+        "predicted_new_cgpa": 0.7333333333333334
+    },
+    "110": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 0.975
+    },
+    "111": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0
+    },
+    "112": {
+        "historical_cgpa": 1.3166666666666667,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 1.0
+    },
+    "113": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 1.0666666666666667,
+        "predicted_new_cgpa": 0.9833333333333334
+    },
+    "114": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 0.975
+    },
+    "115": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 0.9500000000000001
+    },
+    "116": {
+        "historical_cgpa": 1.3333333333333333,
+        "predicted_semester_gpa": 1.2833333333333334,
+        "predicted_new_cgpa": 1.3083333333333333
+    },
+    "117": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 0.5,
+        "predicted_new_cgpa": 0.7000000000000001
+    },
+    "118": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.7166666666666667,
+        "predicted_new_cgpa": 0.8583333333333334
+    },
+    "119": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 1.05,
+        "predicted_new_cgpa": 1.1083333333333334
+    },
+    "120": {
+        "historical_cgpa": 1.0166666666666668,
+        "predicted_semester_gpa": 0.45,
+        "predicted_new_cgpa": 0.7333333333333334
+    },
+    "121": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 0.5666666666666667,
+        "predicted_new_cgpa": 0.7333333333333334
+    },
+    "122": {
+        "historical_cgpa": 0.9333333333333332,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.775
+    },
+    "123": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 0.8416666666666668
+    },
+    "124": {
+        "historical_cgpa": 1.3333333333333333,
+        "predicted_semester_gpa": 0.8833333333333333,
+        "predicted_new_cgpa": 1.1083333333333334
+    },
+    "125": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 0.7166666666666667,
+        "predicted_new_cgpa": 0.9166666666666666
+    },
+    "126": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0583333333333333
+    },
+    "127": {
+        "historical_cgpa": 1.3333333333333333,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 1.0833333333333333
+    },
+    "128": {
+        "historical_cgpa": 1.2833333333333334,
+        "predicted_semester_gpa": 0.7166666666666667,
+        "predicted_new_cgpa": 1.0
+    },
+    "129": {
+        "historical_cgpa": 1.7333333333333334,
+        "predicted_semester_gpa": 0.7999999999999999,
+        "predicted_new_cgpa": 1.2666666666666666
+    },
+    "130": {
+        "historical_cgpa": 1.7833333333333332,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 1.3666666666666665
+    },
+    "131": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 1.0166666666666668,
+        "predicted_new_cgpa": 1.0666666666666667
+    },
+    "132": {
+        "historical_cgpa": 1.45,
+        "predicted_semester_gpa": 0.45,
+        "predicted_new_cgpa": 0.9499999999999998
+    },
+    "133": {
+        "historical_cgpa": 0.7333333333333334,
+        "predicted_semester_gpa": 0.39999999999999997,
+        "predicted_new_cgpa": 0.5666666666666668
+    },
+    "134": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 0.39999999999999997,
+        "predicted_new_cgpa": 0.7250000000000001
+    },
+    "135": {
+        "historical_cgpa": 0.8500000000000001,
+        "predicted_semester_gpa": 1.0999999999999999,
+        "predicted_new_cgpa": 0.975
+    },
+    "136": {
+        "historical_cgpa": 0.5666666666666667,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.5666666666666668
+    },
+    "137": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.9416666666666668
+    },
+    "138": {
+        "historical_cgpa": 0.8333333333333334,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.8333333333333334
+    },
+    "139": {
+        "historical_cgpa": 0.6166666666666667,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.6750000000000002
+    },
+    "140": {
+        "historical_cgpa": 0.2833333333333333,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.42500000000000004
+    },
+    "141": {
+        "historical_cgpa": 1.1333333333333335,
+        "predicted_semester_gpa": 0.2333333333333333,
+        "predicted_new_cgpa": 0.6833333333333335
+    },
+    "142": {
+        "historical_cgpa": 0.8000000000000002,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.6833333333333335
+    },
+    "143": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 1.0333333333333334
+    },
+    "144": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 0.9,
+        "predicted_new_cgpa": 0.9
+    },
+    "145": {
+        "historical_cgpa": 1.2333333333333334,
+        "predicted_semester_gpa": 1.1833333333333333,
+        "predicted_new_cgpa": 1.2083333333333333
+    },
+    "146": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 1.2166666666666666,
+        "predicted_new_cgpa": 1.1916666666666667
+    },
+    "147": {
+        "historical_cgpa": 0.6,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.7166666666666667
+    },
+    "148": {
+        "historical_cgpa": 0.7833333333333333,
+        "predicted_semester_gpa": 0.6333333333333333,
+        "predicted_new_cgpa": 0.7083333333333334
+    },
+    "149": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 1.1166666666666667,
+        "predicted_new_cgpa": 1.0583333333333333
+    },
+    "150": {
+        "historical_cgpa": 1.2666666666666666,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 1.1083333333333334
+    },
+    "151": {
+        "historical_cgpa": 0.39999999999999997,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.5083333333333333
+    },
+    "152": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 1.0
+    },
+    "153": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 0.5,
+        "predicted_new_cgpa": 0.7000000000000001
+    },
+    "154": {
+        "historical_cgpa": 0.9833333333333333,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.9458333333333333
+    },
+    "155": {
+        "historical_cgpa": 0.7999999999999999,
+        "predicted_semester_gpa": 0.8500000000000001,
+        "predicted_new_cgpa": 0.8125
+    },
+    "156": {
+        "historical_cgpa": 1.0611111111111111,
+        "predicted_semester_gpa": 0.5499999999999999,
+        "predicted_new_cgpa": 0.9333333333333335
+    },
+    "157": {
+        "historical_cgpa": 1.0944444444444443,
+        "predicted_semester_gpa": 0.3333333333333333,
+        "predicted_new_cgpa": 0.9041666666666667
+    },
+    "158": {
+        "historical_cgpa": 0.9722222222222222,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.9375
+    },
+    "159": {
+        "historical_cgpa": 1.2055555555555555,
+        "predicted_semester_gpa": 1.2333333333333334,
+        "predicted_new_cgpa": 1.2125000000000001
+    },
+    "160": {
+        "historical_cgpa": 1.1333333333333333,
+        "predicted_semester_gpa": 0.65,
+        "predicted_new_cgpa": 1.0125
+    },
+    "161": {
+        "historical_cgpa": 0.9333333333333333,
+        "predicted_semester_gpa": 0.6666666666666666,
+        "predicted_new_cgpa": 0.8666666666666667
+    },
+    "162": {
+        "historical_cgpa": 0.8388888888888888,
+        "predicted_semester_gpa": 0.3499999999999999,
+        "predicted_new_cgpa": 0.7166666666666665
+    },
+    "163": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.7999999999999999,
+        "predicted_new_cgpa": 1.075
+    },
+    "164": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.5666666666666667,
+        "predicted_new_cgpa": 0.8916666666666666
+    },
+    "165": {
+        "historical_cgpa": 1.061111111111111,
+        "predicted_semester_gpa": 0.8500000000000001,
+        "predicted_new_cgpa": 1.008333333333333
+    },
+    "166": {
+        "historical_cgpa": 1.0444444444444445,
+        "predicted_semester_gpa": 0.8000000000000002,
+        "predicted_new_cgpa": 0.9833333333333334
+    },
+    "167": {
+        "historical_cgpa": 1.0611111111111111,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0458333333333334
+    },
+    "168": {
+        "historical_cgpa": 1.1,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.0208333333333333
+    },
+    "169": {
+        "historical_cgpa": 1.011111111111111,
+        "predicted_semester_gpa": 0.2833333333333333,
+        "predicted_new_cgpa": 0.8291666666666666
+    },
+    "170": {
+        "historical_cgpa": 0.911111111111111,
+        "predicted_semester_gpa": 0.8500000000000001,
+        "predicted_new_cgpa": 0.8958333333333334
+    },
+    "171": {
+        "historical_cgpa": 0.8944444444444445,
+        "predicted_semester_gpa": 0.7999999999999999,
+        "predicted_new_cgpa": 0.8708333333333335
+    },
+    "172": {
+        "historical_cgpa": 0.9277777777777777,
+        "predicted_semester_gpa": 0.6333333333333333,
+        "predicted_new_cgpa": 0.8541666666666666
+    },
+    "173": {
+        "historical_cgpa": 1.2055555555555555,
+        "predicted_semester_gpa": 0.85,
+        "predicted_new_cgpa": 1.1166666666666665
+    },
+    "174": {
+        "historical_cgpa": 0.8999999999999999,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.8291666666666666
+    },
+    "175": {
+        "historical_cgpa": 0.9611111111111111,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.9708333333333333
+    },
+    "176": {
+        "historical_cgpa": 1.188888888888889,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 1.1291666666666669
+    },
+    "177": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.8500000000000001,
+        "predicted_new_cgpa": 0.9625
+    },
+    "178": {
+        "historical_cgpa": 1.0055555555555555,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0041666666666667
+    },
+    "179": {
+        "historical_cgpa": 1.2944444444444445,
+        "predicted_semester_gpa": 0.3833333333333333,
+        "predicted_new_cgpa": 1.0666666666666667
+    },
+    "180": {
+        "historical_cgpa": 0.9944444444444444,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.8874999999999998
+    },
+    "181": {
+        "historical_cgpa": 1.5,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.3208333333333333
+    },
+    "182": {
+        "historical_cgpa": 1.0444444444444445,
+        "predicted_semester_gpa": 0.7166666666666667,
+        "predicted_new_cgpa": 0.9625
+    },
+    "183": {
+        "historical_cgpa": 1.1722222222222223,
+        "predicted_semester_gpa": 0.7166666666666667,
+        "predicted_new_cgpa": 1.0583333333333333
+    },
+    "184": {
+        "historical_cgpa": 0.9277777777777777,
+        "predicted_semester_gpa": 0.85,
+        "predicted_new_cgpa": 0.9083333333333332
+    },
+    "185": {
+        "historical_cgpa": 0.9499999999999998,
+        "predicted_semester_gpa": 0.3833333333333333,
+        "predicted_new_cgpa": 0.8083333333333332
+    },
+    "186": {
+        "historical_cgpa": 1.0222222222222221,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 0.9375
+    },
+    "187": {
+        "historical_cgpa": 0.9722222222222222,
+        "predicted_semester_gpa": 0.6666666666666666,
+        "predicted_new_cgpa": 0.8958333333333334
+    },
+    "188": {
+        "historical_cgpa": 1.0833333333333333,
+        "predicted_semester_gpa": 1.0166666666666668,
+        "predicted_new_cgpa": 1.0666666666666667
+    },
+    "189": {
+        "historical_cgpa": 1.2777777777777777,
+        "predicted_semester_gpa": 0.9333333333333332,
+        "predicted_new_cgpa": 1.1916666666666667
+    },
+    "190": {
+        "historical_cgpa": 1.1111111111111112,
+        "predicted_semester_gpa": 0.5166666666666666,
+        "predicted_new_cgpa": 0.9625
+    },
+    "191": {
+        "historical_cgpa": 0.75,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.8125
+    },
+    "192": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.6333333333333333,
+        "predicted_new_cgpa": 1.0333333333333334
+    },
+    "193": {
+        "historical_cgpa": 1.0444444444444445,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.9375
+    },
+    "194": {
+        "historical_cgpa": 1.2055555555555557,
+        "predicted_semester_gpa": 1.1666666666666667,
+        "predicted_new_cgpa": 1.1958333333333335
+    },
+    "195": {
+        "historical_cgpa": 1.2777777777777777,
+        "predicted_semester_gpa": 0.5,
+        "predicted_new_cgpa": 1.0833333333333333
+    },
+    "196": {
+        "historical_cgpa": 1.1500000000000001,
+        "predicted_semester_gpa": 0.2833333333333333,
+        "predicted_new_cgpa": 0.9333333333333335
+    },
+    "197": {
+        "historical_cgpa": 0.9888888888888889,
+        "predicted_semester_gpa": 0.3333333333333333,
+        "predicted_new_cgpa": 0.8250000000000001
+    },
+    "198": {
+        "historical_cgpa": 1.2888888888888888,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 1.1499999999999997
+    },
+    "199": {
+        "historical_cgpa": 1.1333333333333335,
+        "predicted_semester_gpa": 0.5666666666666667,
+        "predicted_new_cgpa": 0.9916666666666667
+    },
+    "200": {
+        "historical_cgpa": 0.9388888888888888,
+        "predicted_semester_gpa": 0.8166666666666668,
+        "predicted_new_cgpa": 0.9083333333333332
+    },
+    "201": {
+        "historical_cgpa": 0.6833333333333333,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.6541666666666667
+    },
+    "202": {
+        "historical_cgpa": 1.0333333333333334,
+        "predicted_semester_gpa": 0.8833333333333333,
+        "predicted_new_cgpa": 0.9958333333333335
+    },
+    "203": {
+        "historical_cgpa": 0.9444444444444444,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.8916666666666666
+    },
+    "204": {
+        "historical_cgpa": 1.0611111111111111,
+        "predicted_semester_gpa": 0.8500000000000001,
+        "predicted_new_cgpa": 1.0083333333333335
+    },
+    "205": {
+        "historical_cgpa": 1.2555555555555555,
+        "predicted_semester_gpa": 0.6666666666666666,
+        "predicted_new_cgpa": 1.1083333333333334
+    },
+    "206": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0
+    },
+    "207": {
+        "historical_cgpa": 1.1333333333333335,
+        "predicted_semester_gpa": 0.8833333333333333,
+        "predicted_new_cgpa": 1.0708333333333335
+    },
+    "208": {
+        "historical_cgpa": 1.3055555555555556,
+        "predicted_semester_gpa": 1.1666666666666667,
+        "predicted_new_cgpa": 1.2708333333333333
+    },
+    "209": {
+        "historical_cgpa": 1.061111111111111,
+        "predicted_semester_gpa": 1.1833333333333333,
+        "predicted_new_cgpa": 1.0916666666666666
+    },
+    "210": {
+        "historical_cgpa": 1.2666666666666666,
+        "predicted_semester_gpa": 0.7999999999999999,
+        "predicted_new_cgpa": 1.15
+    },
+    "211": {
+        "historical_cgpa": 1.3111111111111111,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.1791666666666667
+    },
+    "212": {
+        "historical_cgpa": 0.9277777777777777,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.85
+    },
+    "213": {
+        "historical_cgpa": 0.7611111111111111,
+        "predicted_semester_gpa": 0.5166666666666666,
+        "predicted_new_cgpa": 0.6999999999999998
+    },
+    "214": {
+        "historical_cgpa": 1.1111111111111112,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.9874999999999999
+    },
+    "215": {
+        "historical_cgpa": 0.7833333333333333,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.7958333333333334
+    },
+    "216": {
+        "historical_cgpa": 1.0333333333333334,
+        "predicted_semester_gpa": 0.2833333333333333,
+        "predicted_new_cgpa": 0.8458333333333333
+    },
+    "217": {
+        "historical_cgpa": 1.0944444444444443,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.0166666666666666
+    },
+    "218": {
+        "historical_cgpa": 0.7666666666666666,
+        "predicted_semester_gpa": 0.3333333333333333,
+        "predicted_new_cgpa": 0.6583333333333333
+    },
+    "219": {
+        "historical_cgpa": 1.3611111111111112,
+        "predicted_semester_gpa": 1.4000000000000001,
+        "predicted_new_cgpa": 1.3708333333333333
+    },
+    "220": {
+        "historical_cgpa": 1.011111111111111,
+        "predicted_semester_gpa": 0.9,
+        "predicted_new_cgpa": 0.9833333333333334
+    },
+    "221": {
+        "historical_cgpa": 1.0888888888888888,
+        "predicted_semester_gpa": 1.0666666666666667,
+        "predicted_new_cgpa": 1.0833333333333333
+    },
+    "222": {
+        "historical_cgpa": 1.3222222222222222,
+        "predicted_semester_gpa": 1.0666666666666667,
+        "predicted_new_cgpa": 1.2583333333333335
+    },
+    "223": {
+        "historical_cgpa": 0.9777777777777779,
+        "predicted_semester_gpa": 0.6666666666666666,
+        "predicted_new_cgpa": 0.9
+    },
+    "224": {
+        "historical_cgpa": 0.6722222222222222,
+        "predicted_semester_gpa": 0.8166666666666665,
+        "predicted_new_cgpa": 0.7083333333333334
+    },
+    "225": {
+        "historical_cgpa": 1.1333333333333333,
+        "predicted_semester_gpa": 0.6333333333333333,
+        "predicted_new_cgpa": 1.0083333333333333
+    },
+    "226": {
+        "historical_cgpa": 1.4444444444444444,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.3333333333333333
+    },
+    "227": {
+        "historical_cgpa": 1.1833333333333333,
+        "predicted_semester_gpa": 1.2833333333333334,
+        "predicted_new_cgpa": 1.2083333333333333
+    },
+    "228": {
+        "historical_cgpa": 1.1,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.0208333333333333
+    },
+    "229": {
+        "historical_cgpa": 1.2222222222222223,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 1.1541666666666666
+    },
+    "230": {
+        "historical_cgpa": 1.2277777777777779,
+        "predicted_semester_gpa": 0.9333333333333332,
+        "predicted_new_cgpa": 1.1541666666666668
+    },
+    "231": {
+        "historical_cgpa": 1.1944444444444442,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.0916666666666666
+    },
+    "232": {
+        "historical_cgpa": 0.8222222222222223,
+        "predicted_semester_gpa": 0.3833333333333333,
+        "predicted_new_cgpa": 0.7125
+    },
+    "233": {
+        "historical_cgpa": 1.1388888888888888,
+        "predicted_semester_gpa": 0.85,
+        "predicted_new_cgpa": 1.0666666666666667
+    },
+    "234": {
+        "historical_cgpa": 1.1333333333333335,
+        "predicted_semester_gpa": 0.7333333333333333,
+        "predicted_new_cgpa": 1.0333333333333334
+    },
+    "235": {
+        "historical_cgpa": 1.2055555555555557,
+        "predicted_semester_gpa": 1.3166666666666667,
+        "predicted_new_cgpa": 1.2333333333333334
+    },
+    "236": {
+        "historical_cgpa": 1.0999999999999999,
+        "predicted_semester_gpa": 0.2833333333333333,
+        "predicted_new_cgpa": 0.8958333333333331
+    },
+    "237": {
+        "historical_cgpa": 0.9777777777777776,
+        "predicted_semester_gpa": 0.6333333333333333,
+        "predicted_new_cgpa": 0.8916666666666666
+    },
+    "238": {
+        "historical_cgpa": 1.0499999999999998,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 0.9416666666666665
+    },
+    "239": {
+        "historical_cgpa": 0.9277777777777777,
+        "predicted_semester_gpa": 0.8500000000000001,
+        "predicted_new_cgpa": 0.9083333333333333
+    },
+    "240": {
+        "historical_cgpa": 0.9333333333333333,
+        "predicted_semester_gpa": 0.5666666666666668,
+        "predicted_new_cgpa": 0.8416666666666668
+    },
+    "241": {
+        "historical_cgpa": 1.127777777777778,
+        "predicted_semester_gpa": 0.5666666666666667,
+        "predicted_new_cgpa": 0.9875000000000002
+    },
+    "242": {
+        "historical_cgpa": 1.3833333333333333,
+        "predicted_semester_gpa": 0.39999999999999997,
+        "predicted_new_cgpa": 1.1375
+    },
+    "243": {
+        "historical_cgpa": 0.9666666666666668,
+        "predicted_semester_gpa": 0.3499999999999999,
+        "predicted_new_cgpa": 0.8125
+    },
+    "244": {
+        "historical_cgpa": 0.9888888888888889,
+        "predicted_semester_gpa": 0.7999999999999999,
+        "predicted_new_cgpa": 0.9416666666666668
+    },
+    "245": {
+        "historical_cgpa": 1.061111111111111,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 1.0041666666666664
+    },
+    "246": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0125
+    },
+    "247": {
+        "historical_cgpa": 0.8555555555555555,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 0.8791666666666665
+    },
+    "248": {
+        "historical_cgpa": 1.2777777777777777,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 1.1291666666666667
+    },
+    "249": {
+        "historical_cgpa": 0.9222222222222223,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 0.8625000000000002
+    },
+    "250": {
+        "historical_cgpa": 1.1388888888888888,
+        "predicted_semester_gpa": 1.05,
+        "predicted_new_cgpa": 1.1166666666666667
+    },
+    "251": {
+        "historical_cgpa": 1.3611111111111112,
+        "predicted_semester_gpa": 0.5,
+        "predicted_new_cgpa": 1.1458333333333333
+    },
+    "252": {
+        "historical_cgpa": 1.0944444444444443,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.0166666666666666
+    },
+    "253": {
+        "historical_cgpa": 1.3055555555555554,
+        "predicted_semester_gpa": 0.8833333333333333,
+        "predicted_new_cgpa": 1.2
+    },
+    "254": {
+        "historical_cgpa": 0.8944444444444445,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 0.8791666666666668
+    },
+    "255": {
+        "historical_cgpa": 1.1,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 1.0333333333333334
+    },
+    "256": {
+        "historical_cgpa": 1.0388888888888888,
+        "predicted_semester_gpa": 0.5,
+        "predicted_new_cgpa": 0.9041666666666665
+    },
+    "257": {
+        "historical_cgpa": 0.9888888888888889,
+        "predicted_semester_gpa": 0.6833333333333332,
+        "predicted_new_cgpa": 0.9125
+    },
+    "258": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 0.2333333333333333,
+        "predicted_new_cgpa": 0.8208333333333332
+    },
+    "259": {
+        "historical_cgpa": 1.1666666666666665,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 1.0833333333333333
+    },
+    "260": {
+        "historical_cgpa": 1.2111111111111112,
+        "predicted_semester_gpa": 0.7833333333333333,
+        "predicted_new_cgpa": 1.1041666666666667
+    },
+    "261": {
+        "historical_cgpa": 1.1333333333333335,
+        "predicted_semester_gpa": 0.9,
+        "predicted_new_cgpa": 1.0750000000000002
+    },
+    "262": {
+        "historical_cgpa": 1.2,
+        "predicted_semester_gpa": 0.9500000000000001,
+        "predicted_new_cgpa": 1.1375
+    },
+    "263": {
+        "historical_cgpa": 0.7333333333333333,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.7333333333333334
+    },
+    "264": {
+        "historical_cgpa": 1.0388888888888888,
+        "predicted_semester_gpa": 0.9666666666666667,
+        "predicted_new_cgpa": 1.0208333333333333
+    },
+    "265": {
+        "historical_cgpa": 1.15,
+        "predicted_semester_gpa": 1.1666666666666667,
+        "predicted_new_cgpa": 1.1541666666666666
+    },
+    "266": {
+        "historical_cgpa": 1.1055555555555554,
+        "predicted_semester_gpa": 0.7166666666666667,
+        "predicted_new_cgpa": 1.0083333333333333
+    },
+    "267": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 0.7166666666666667,
+        "predicted_new_cgpa": 0.9416666666666665
+    },
+    "268": {
+        "historical_cgpa": 1.3944444444444446,
+        "predicted_semester_gpa": 0.8333333333333334,
+        "predicted_new_cgpa": 1.2541666666666667
+    },
+    "269": {
+        "historical_cgpa": 1.0555555555555556,
+        "predicted_semester_gpa": 1.0166666666666666,
+        "predicted_new_cgpa": 1.0458333333333334
+    },
+    "270": {
+        "historical_cgpa": 1.1,
+        "predicted_semester_gpa": 0.7666666666666666,
+        "predicted_new_cgpa": 1.0166666666666666
+    },
+    "271": {
+        "historical_cgpa": 0.8888888888888888,
+        "predicted_semester_gpa": 0.4666666666666666,
+        "predicted_new_cgpa": 0.7833333333333333
+    },
+    "272": {
+        "historical_cgpa": 1.1888888888888889,
+        "predicted_semester_gpa": 0.5166666666666666,
+        "predicted_new_cgpa": 1.0208333333333333
+    },
+    "273": {
+        "historical_cgpa": 1.061111111111111,
+        "predicted_semester_gpa": 1.2166666666666666,
+        "predicted_new_cgpa": 1.0999999999999996
+    },
+    "274": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.6666666666666666,
+        "predicted_new_cgpa": 1.0416666666666667
+    },
+    "275": {
+        "historical_cgpa": 0.9500000000000001,
+        "predicted_semester_gpa": 0.7333333333333334,
+        "predicted_new_cgpa": 0.8958333333333334
+    },
+    "276": {
+        "historical_cgpa": 1.0944444444444443,
+        "predicted_semester_gpa": 0.6333333333333333,
+        "predicted_new_cgpa": 0.9791666666666666
+    },
+    "277": {
+        "historical_cgpa": 1.0222222222222221,
+        "predicted_semester_gpa": 1.0166666666666668,
+        "predicted_new_cgpa": 1.0208333333333333
+    },
+    "278": {
+        "historical_cgpa": 1.2611111111111113,
+        "predicted_semester_gpa": 0.6166666666666667,
+        "predicted_new_cgpa": 1.1
+    },
+    "279": {
+        "historical_cgpa": 1.1833333333333333,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 1.062857142857143
+    },
+    "280": {
+        "historical_cgpa": 1.3166666666666669,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.2600000000000002
+    },
+    "281": {
+        "historical_cgpa": 0.9700000000000001,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.9285714285714286
+    },
+    "282": {
+        "historical_cgpa": 1.06,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0142857142857142
+    },
+    "283": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 0.9057142857142857
+    },
+    "284": {
+        "historical_cgpa": 1.02,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0171428571428571
+    },
+    "285": {
+        "historical_cgpa": 1.103333333333333,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 1.0028571428571427
+    },
+    "286": {
+        "historical_cgpa": 1.1800000000000002,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.145714285714286
+    },
+    "287": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.94
+    },
+    "288": {
+        "historical_cgpa": 1.1533333333333333,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.1400000000000001
+    },
+    "289": {
+        "historical_cgpa": 1.0833333333333333,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.062857142857143
+    },
+    "290": {
+        "historical_cgpa": 0.9733333333333333,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 0.9885714285714287
+    },
+    "291": {
+        "historical_cgpa": 1.15,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.14
+    },
+    "292": {
+        "historical_cgpa": 1.0499999999999998,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.0314285714285714
+    },
+    "293": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.1314285714285715
+    },
+    "294": {
+        "historical_cgpa": 0.8466666666666665,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 0.8199999999999998
+    },
+    "295": {
+        "historical_cgpa": 0.9933333333333334,
+        "predicted_semester_gpa": 0.8799999999999999,
+        "predicted_new_cgpa": 0.9771428571428572
+    },
+    "296": {
+        "historical_cgpa": 0.9366666666666666,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 0.9
+    },
+    "297": {
+        "historical_cgpa": 1.04,
+        "predicted_semester_gpa": 0.9200000000000002,
+        "predicted_new_cgpa": 1.022857142857143
+    },
+    "298": {
+        "historical_cgpa": 0.9066666666666666,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9028571428571429
+    },
+    "299": {
+        "historical_cgpa": 1.06,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9771428571428572
+    },
+    "300": {
+        "historical_cgpa": 1.0800000000000003,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.0885714285714287
+    },
+    "301": {
+        "historical_cgpa": 0.9833333333333333,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9685714285714285
+    },
+    "302": {
+        "historical_cgpa": 1.0733333333333333,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0057142857142856
+    },
+    "303": {
+        "historical_cgpa": 1.1366666666666665,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.137142857142857
+    },
+    "304": {
+        "historical_cgpa": 1.1733333333333331,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1685714285714286
+    },
+    "305": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9485714285714286
+    },
+    "306": {
+        "historical_cgpa": 1.1433333333333333,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.077142857142857
+    },
+    "307": {
+        "historical_cgpa": 1.02,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9885714285714287
+    },
+    "308": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.04
+    },
+    "309": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 0.27999999999999997,
+        "predicted_new_cgpa": 0.94
+    },
+    "310": {
+        "historical_cgpa": 1.0866666666666667,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0542857142857143
+    },
+    "311": {
+        "historical_cgpa": 1.0999999999999999,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.077142857142857
+    },
+    "312": {
+        "historical_cgpa": 0.9766666666666666,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9599999999999999
+    },
+    "313": {
+        "historical_cgpa": 1.0133333333333334,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.0400000000000003
+    },
+    "314": {
+        "historical_cgpa": 1.0733333333333335,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.0914285714285714
+    },
+    "315": {
+        "historical_cgpa": 1.19,
+        "predicted_semester_gpa": 1.1199999999999999,
+        "predicted_new_cgpa": 1.18
+    },
+    "316": {
+        "historical_cgpa": 1.096666666666667,
+        "predicted_semester_gpa": 1.72,
+        "predicted_new_cgpa": 1.185714285714286
+    },
+    "317": {
+        "historical_cgpa": 0.8566666666666667,
+        "predicted_semester_gpa": 0.5599999999999999,
+        "predicted_new_cgpa": 0.8142857142857143
+    },
+    "318": {
+        "historical_cgpa": 1.04,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0142857142857142
+    },
+    "319": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0
+    },
+    "320": {
+        "historical_cgpa": 1.18,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.137142857142857
+    },
+    "321": {
+        "historical_cgpa": 0.8933333333333332,
+        "predicted_semester_gpa": 0.13999999999999999,
+        "predicted_new_cgpa": 0.7857142857142856
+    },
+    "322": {
+        "historical_cgpa": 1.1066666666666667,
+        "predicted_semester_gpa": 0.2,
+        "predicted_new_cgpa": 0.9771428571428572
+    },
+    "323": {
+        "historical_cgpa": 1.0066666666666666,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9685714285714285
+    },
+    "324": {
+        "historical_cgpa": 0.6733333333333333,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 0.7228571428571428
+    },
+    "325": {
+        "historical_cgpa": 1.226666666666667,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.1857142857142862
+    },
+    "326": {
+        "historical_cgpa": 1.1633333333333333,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.1314285714285715
+    },
+    "327": {
+        "historical_cgpa": 0.9033333333333332,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8799999999999999
+    },
+    "328": {
+        "historical_cgpa": 1.2266666666666666,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.1285714285714286
+    },
+    "329": {
+        "historical_cgpa": 1.03,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.0
+    },
+    "330": {
+        "historical_cgpa": 1.1933333333333331,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.1285714285714286
+    },
+    "331": {
+        "historical_cgpa": 1.0933333333333333,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1
+    },
+    "332": {
+        "historical_cgpa": 0.9866666666666666,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.9885714285714284
+    },
+    "333": {
+        "historical_cgpa": 1.2066666666666668,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.1857142857142857
+    },
+    "334": {
+        "historical_cgpa": 1.1466666666666667,
+        "predicted_semester_gpa": 1.34,
+        "predicted_new_cgpa": 1.1742857142857144
+    },
+    "335": {
+        "historical_cgpa": 1.0266666666666666,
+        "predicted_semester_gpa": 0.8200000000000001,
+        "predicted_new_cgpa": 0.9971428571428571
+    },
+    "336": {
+        "historical_cgpa": 1.0833333333333333,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1
+    },
+    "337": {
+        "historical_cgpa": 1.1766666666666665,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.16
+    },
+    "338": {
+        "historical_cgpa": 1.1633333333333336,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.082857142857143
+    },
+    "339": {
+        "historical_cgpa": 1.0466666666666666,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9828571428571428
+    },
+    "340": {
+        "historical_cgpa": 1.2666666666666666,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.162857142857143
+    },
+    "341": {
+        "historical_cgpa": 1.31,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.2942857142857145
+    },
+    "342": {
+        "historical_cgpa": 1.2000000000000002,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.2000000000000002
+    },
+    "343": {
+        "historical_cgpa": 0.9833333333333333,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9485714285714286
+    },
+    "344": {
+        "historical_cgpa": 0.95,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 0.9685714285714285
+    },
+    "345": {
+        "historical_cgpa": 1.2200000000000002,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.1228571428571432
+    },
+    "346": {
+        "historical_cgpa": 1.0633333333333335,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0542857142857145
+    },
+    "347": {
+        "historical_cgpa": 1.313333333333333,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.211428571428571
+    },
+    "348": {
+        "historical_cgpa": 1.1033333333333333,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.08
+    },
+    "349": {
+        "historical_cgpa": 1.146666666666667,
+        "predicted_semester_gpa": 1.18,
+        "predicted_new_cgpa": 1.1514285714285715
+    },
+    "350": {
+        "historical_cgpa": 1.1900000000000002,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1457142857142857
+    },
+    "351": {
+        "historical_cgpa": 1.0233333333333332,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9914285714285713
+    },
+    "352": {
+        "historical_cgpa": 0.8900000000000001,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.86
+    },
+    "353": {
+        "historical_cgpa": 0.9133333333333333,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.84
+    },
+    "354": {
+        "historical_cgpa": 0.8366666666666666,
+        "predicted_semester_gpa": 0.26,
+        "predicted_new_cgpa": 0.7542857142857142
+    },
+    "355": {
+        "historical_cgpa": 1.14,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1028571428571428
+    },
+    "356": {
+        "historical_cgpa": 1.0733333333333333,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9885714285714284
+    },
+    "357": {
+        "historical_cgpa": 1.1766666666666665,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.0857142857142856
+    },
+    "358": {
+        "historical_cgpa": 0.9,
+        "predicted_semester_gpa": 1.1199999999999999,
+        "predicted_new_cgpa": 0.9314285714285715
+    },
+    "359": {
+        "historical_cgpa": 0.8566666666666667,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 0.8314285714285715
+    },
+    "360": {
+        "historical_cgpa": 1.3400000000000003,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.2800000000000002
+    },
+    "361": {
+        "historical_cgpa": 1.01,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.02
+    },
+    "362": {
+        "historical_cgpa": 0.9533333333333333,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9514285714285714
+    },
+    "363": {
+        "historical_cgpa": 0.9433333333333334,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9228571428571428
+    },
+    "364": {
+        "historical_cgpa": 1.1800000000000002,
+        "predicted_semester_gpa": 1.26,
+        "predicted_new_cgpa": 1.1914285714285715
+    },
+    "365": {
+        "historical_cgpa": 1.0133333333333334,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.02
+    },
+    "366": {
+        "historical_cgpa": 1.3066666666666669,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.2342857142857144
+    },
+    "367": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.002857142857143
+    },
+    "368": {
+        "historical_cgpa": 0.9033333333333332,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9085714285714285
+    },
+    "369": {
+        "historical_cgpa": 0.99,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9542857142857143
+    },
+    "370": {
+        "historical_cgpa": 1.09,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.02
+    },
+    "371": {
+        "historical_cgpa": 0.8833333333333333,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8257142857142856
+    },
+    "372": {
+        "historical_cgpa": 1.0599999999999998,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0428571428571427
+    },
+    "373": {
+        "historical_cgpa": 0.94,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8742857142857142
+    },
+    "374": {
+        "historical_cgpa": 0.9933333333333333,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.9485714285714284
+    },
+    "375": {
+        "historical_cgpa": 0.95,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.92
+    },
+    "376": {
+        "historical_cgpa": 1.1933333333333331,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.1742857142857142
+    },
+    "377": {
+        "historical_cgpa": 0.8766666666666667,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8571428571428571
+    },
+    "378": {
+        "historical_cgpa": 1.0699999999999998,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0228571428571427
+    },
+    "379": {
+        "historical_cgpa": 1.1,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.04
+    },
+    "380": {
+        "historical_cgpa": 1.1500000000000001,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1571428571428573
+    },
+    "381": {
+        "historical_cgpa": 0.9566666666666667,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9457142857142857
+    },
+    "382": {
+        "historical_cgpa": 1.1400000000000001,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.1
+    },
+    "383": {
+        "historical_cgpa": 1.1700000000000002,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0885714285714285
+    },
+    "384": {
+        "historical_cgpa": 1.04,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0257142857142858
+    },
+    "385": {
+        "historical_cgpa": 0.8733333333333334,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.862857142857143
+    },
+    "386": {
+        "historical_cgpa": 0.7999999999999999,
+        "predicted_semester_gpa": 0.27999999999999997,
+        "predicted_new_cgpa": 0.7257142857142855
+    },
+    "387": {
+        "historical_cgpa": 1.0566666666666666,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.02
+    },
+    "388": {
+        "historical_cgpa": 1.2200000000000002,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.1342857142857146
+    },
+    "389": {
+        "historical_cgpa": 0.9299999999999999,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9314285714285715
+    },
+    "390": {
+        "historical_cgpa": 0.9566666666666668,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.9171428571428571
+    },
+    "391": {
+        "historical_cgpa": 1.1733333333333333,
+        "predicted_semester_gpa": 0.27999999999999997,
+        "predicted_new_cgpa": 1.0457142857142858
+    },
+    "392": {
+        "historical_cgpa": 1.1533333333333333,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.1057142857142859
+    },
+    "393": {
+        "historical_cgpa": 1.1366666666666667,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.08
+    },
+    "394": {
+        "historical_cgpa": 1.2033333333333334,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.182857142857143
+    },
+    "395": {
+        "historical_cgpa": 1.1833333333333336,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1400000000000001
+    },
+    "396": {
+        "historical_cgpa": 0.9533333333333333,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 0.9142857142857143
+    },
+    "397": {
+        "historical_cgpa": 0.8933333333333332,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.8799999999999999
+    },
+    "398": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9799999999999999
+    },
+    "399": {
+        "historical_cgpa": 0.9199999999999999,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 0.9057142857142856
+    },
+    "400": {
+        "historical_cgpa": 1.0433333333333334,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.045714285714286
+    },
+    "401": {
+        "historical_cgpa": 1.2899999999999998,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.2285714285714284
+    },
+    "402": {
+        "historical_cgpa": 1.15,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.1
+    },
+    "403": {
+        "historical_cgpa": 1.1266666666666667,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1285714285714288
+    },
+    "529": {
+        "historical_cgpa": 1.1366666666666665,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.0714285714285712
+    },
+    "530": {
+        "historical_cgpa": 0.8433333333333334,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 0.7714285714285715
+    },
+    "531": {
+        "historical_cgpa": 1.1700000000000004,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.0914285714285716
+    },
+    "532": {
+        "historical_cgpa": 1.0233333333333332,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0199999999999998
+    },
+    "533": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.02
+    },
+    "534": {
+        "historical_cgpa": 0.9866666666666666,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9142857142857141
+    },
+    "535": {
+        "historical_cgpa": 1.1733333333333333,
+        "predicted_semester_gpa": 0.5599999999999999,
+        "predicted_new_cgpa": 1.0857142857142856
+    },
+    "536": {
+        "historical_cgpa": 0.9566666666666667,
+        "predicted_semester_gpa": 0.5599999999999999,
+        "predicted_new_cgpa": 0.9
+    },
+    "537": {
+        "historical_cgpa": 1.1433333333333335,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1057142857142859
+    },
+    "538": {
+        "historical_cgpa": 0.9366666666666664,
+        "predicted_semester_gpa": 0.41999999999999993,
+        "predicted_new_cgpa": 0.8628571428571428
+    },
+    "539": {
+        "historical_cgpa": 1.0499999999999998,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.054285714285714
+    },
+    "540": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 1.0142857142857142
+    },
+    "541": {
+        "historical_cgpa": 1.24,
+        "predicted_semester_gpa": 1.04,
+        "predicted_new_cgpa": 1.2114285714285715
+    },
+    "542": {
+        "historical_cgpa": 1.0933333333333333,
+        "predicted_semester_gpa": 0.5599999999999999,
+        "predicted_new_cgpa": 1.017142857142857
+    },
+    "543": {
+        "historical_cgpa": 1.156666666666667,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1171428571428574
+    },
+    "544": {
+        "historical_cgpa": 1.0366666666666666,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.9457142857142855
+    },
+    "545": {
+        "historical_cgpa": 1.01,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9914285714285715
+    },
+    "546": {
+        "historical_cgpa": 0.9299999999999999,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8657142857142857
+    },
+    "547": {
+        "historical_cgpa": 1.2666666666666666,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 1.2685714285714285
+    },
+    "548": {
+        "historical_cgpa": 1.0733333333333335,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.0171428571428571
+    },
+    "549": {
+        "historical_cgpa": 0.9566666666666667,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9542857142857143
+    },
+    "550": {
+        "historical_cgpa": 0.9466666666666668,
+        "predicted_semester_gpa": 0.0,
+        "predicted_new_cgpa": 0.8114285714285715
+    },
+    "551": {
+        "historical_cgpa": 1.1200000000000003,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0742857142857145
+    },
+    "552": {
+        "historical_cgpa": 1.1266666666666665,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.1
+    },
+    "553": {
+        "historical_cgpa": 1.0799999999999998,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0114285714285713
+    },
+    "554": {
+        "historical_cgpa": 0.8733333333333333,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8171428571428571
+    },
+    "555": {
+        "historical_cgpa": 1.1033333333333333,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.06
+    },
+    "556": {
+        "historical_cgpa": 1.1566666666666667,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.122857142857143
+    },
+    "557": {
+        "historical_cgpa": 1.2433333333333332,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.1628571428571428
+    },
+    "558": {
+        "historical_cgpa": 0.76,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.7285714285714285
+    },
+    "559": {
+        "historical_cgpa": 0.9733333333333333,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 1.0171428571428571
+    },
+    "560": {
+        "historical_cgpa": 1.15,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.1085714285714285
+    },
+    "561": {
+        "historical_cgpa": 0.8533333333333333,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.8171428571428571
+    },
+    "562": {
+        "historical_cgpa": 1.2300000000000002,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1800000000000002
+    },
+    "563": {
+        "historical_cgpa": 0.9366666666666668,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9257142857142857
+    },
+    "564": {
+        "historical_cgpa": 0.9233333333333333,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.9342857142857144
+    },
+    "565": {
+        "historical_cgpa": 1.1400000000000001,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.102857142857143
+    },
+    "566": {
+        "historical_cgpa": 0.91,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 0.9114285714285714
+    },
+    "567": {
+        "historical_cgpa": 1.1,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.04
+    },
+    "568": {
+        "historical_cgpa": 1.2166666666666666,
+        "predicted_semester_gpa": 0.96,
+        "predicted_new_cgpa": 1.18
+    },
+    "569": {
+        "historical_cgpa": 1.0800000000000003,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9942857142857144
+    },
+    "570": {
+        "historical_cgpa": 0.8266666666666667,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 0.8914285714285715
+    },
+    "571": {
+        "historical_cgpa": 1.0466666666666666,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 0.9942857142857142
+    },
+    "572": {
+        "historical_cgpa": 1.096666666666667,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0742857142857145
+    },
+    "573": {
+        "historical_cgpa": 0.9466666666666668,
+        "predicted_semester_gpa": 0.13999999999999999,
+        "predicted_new_cgpa": 0.8314285714285715
+    },
+    "574": {
+        "historical_cgpa": 1.1900000000000002,
+        "predicted_semester_gpa": 1.1199999999999999,
+        "predicted_new_cgpa": 1.1800000000000002
+    },
+    "575": {
+        "historical_cgpa": 1.06,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.0057142857142858
+    },
+    "576": {
+        "historical_cgpa": 0.9066666666666666,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 0.8714285714285714
+    },
+    "577": {
+        "historical_cgpa": 1.0266666666666666,
+        "predicted_semester_gpa": 0.13999999999999999,
+        "predicted_new_cgpa": 0.8999999999999999
+    },
+    "578": {
+        "historical_cgpa": 1.2033333333333334,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1942857142857144
+    },
+    "579": {
+        "historical_cgpa": 0.9733333333333332,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9485714285714284
+    },
+    "580": {
+        "historical_cgpa": 1.06,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9857142857142858
+    },
+    "581": {
+        "historical_cgpa": 0.9666666666666667,
+        "predicted_semester_gpa": 0.78,
+        "predicted_new_cgpa": 0.94
+    },
+    "582": {
+        "historical_cgpa": 1.1966666666666665,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.14
+    },
+    "583": {
+        "historical_cgpa": 1.0266666666666666,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0057142857142856
+    },
+    "584": {
+        "historical_cgpa": 1.103333333333333,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 1.0028571428571427
+    },
+    "585": {
+        "historical_cgpa": 1.0966666666666665,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0657142857142854
+    },
+    "586": {
+        "historical_cgpa": 1.1700000000000002,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.1
+    },
+    "587": {
+        "historical_cgpa": 0.9033333333333332,
+        "predicted_semester_gpa": 1.3199999999999998,
+        "predicted_new_cgpa": 0.9628571428571427
+    },
+    "588": {
+        "historical_cgpa": 0.9499999999999998,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.8914285714285713
+    },
+    "589": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0057142857142858
+    },
+    "590": {
+        "historical_cgpa": 1.16,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.1085714285714285
+    },
+    "591": {
+        "historical_cgpa": 1.0799999999999998,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.0199999999999998
+    },
+    "592": {
+        "historical_cgpa": 1.1566666666666667,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.1142857142857143
+    },
+    "593": {
+        "historical_cgpa": 1.2466666666666664,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.2028571428571426
+    },
+    "594": {
+        "historical_cgpa": 0.9533333333333334,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9228571428571429
+    },
+    "595": {
+        "historical_cgpa": 0.74,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.72
+    },
+    "596": {
+        "historical_cgpa": 1.1433333333333333,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.074285714285714
+    },
+    "597": {
+        "historical_cgpa": 0.97,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.9199999999999999
+    },
+    "598": {
+        "historical_cgpa": 1.136666666666667,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0800000000000003
+    },
+    "599": {
+        "historical_cgpa": 1.0333333333333334,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0114285714285716
+    },
+    "600": {
+        "historical_cgpa": 1.113333333333333,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.1085714285714283
+    },
+    "601": {
+        "historical_cgpa": 1.1099999999999999,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.077142857142857
+    },
+    "602": {
+        "historical_cgpa": 0.7166666666666667,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.6914285714285714
+    },
+    "603": {
+        "historical_cgpa": 1.0033333333333334,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.9485714285714286
+    },
+    "604": {
+        "historical_cgpa": 0.9800000000000001,
+        "predicted_semester_gpa": 0.45999999999999996,
+        "predicted_new_cgpa": 0.9057142857142858
+    },
+    "605": {
+        "historical_cgpa": 1.0266666666666666,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9942857142857142
+    },
+    "606": {
+        "historical_cgpa": 1.0066666666666666,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.0171428571428571
+    },
+    "607": {
+        "historical_cgpa": 0.9399999999999998,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.8628571428571428
+    },
+    "608": {
+        "historical_cgpa": 1.2233333333333332,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.1457142857142855
+    },
+    "609": {
+        "historical_cgpa": 1.13,
+        "predicted_semester_gpa": 0.8799999999999999,
+        "predicted_new_cgpa": 1.0942857142857143
+    },
+    "610": {
+        "historical_cgpa": 0.8866666666666666,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8657142857142857
+    },
+    "611": {
+        "historical_cgpa": 1.0799999999999998,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0685714285714285
+    },
+    "612": {
+        "historical_cgpa": 1.3299999999999998,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.3114285714285714
+    },
+    "613": {
+        "historical_cgpa": 1.0433333333333334,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.045714285714286
+    },
+    "614": {
+        "historical_cgpa": 1.02,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0171428571428571
+    },
+    "615": {
+        "historical_cgpa": 0.9599999999999999,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9571428571428572
+    },
+    "616": {
+        "historical_cgpa": 1.0800000000000003,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.0428571428571431
+    },
+    "617": {
+        "historical_cgpa": 1.18,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1828571428571428
+    },
+    "618": {
+        "historical_cgpa": 1.0733333333333333,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.017142857142857
+    },
+    "619": {
+        "historical_cgpa": 1.2033333333333334,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.1457142857142857
+    },
+    "620": {
+        "historical_cgpa": 1.1499999999999997,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.1085714285714283
+    },
+    "621": {
+        "historical_cgpa": 1.1033333333333333,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.08
+    },
+    "622": {
+        "historical_cgpa": 0.9433333333333334,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8771428571428571
+    },
+    "623": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.9885714285714287
+    },
+    "624": {
+        "historical_cgpa": 1.1400000000000001,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.102857142857143
+    },
+    "625": {
+        "historical_cgpa": 1.2600000000000002,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.2028571428571428
+    },
+    "626": {
+        "historical_cgpa": 1.1633333333333333,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.102857142857143
+    },
+    "627": {
+        "historical_cgpa": 1.0599999999999998,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0314285714285714
+    },
+    "628": {
+        "historical_cgpa": 0.9766666666666666,
+        "predicted_semester_gpa": 0.52,
+        "predicted_new_cgpa": 0.9114285714285714
+    },
+    "629": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0057142857142858
+    },
+    "630": {
+        "historical_cgpa": 1.1099999999999999,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.0199999999999998
+    },
+    "631": {
+        "historical_cgpa": 1.1733333333333333,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.12
+    },
+    "632": {
+        "historical_cgpa": 0.8633333333333333,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 0.9228571428571428
+    },
+    "633": {
+        "historical_cgpa": 1.1600000000000001,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.08
+    },
+    "634": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 0.8200000000000001,
+        "predicted_new_cgpa": 1.0742857142857143
+    },
+    "635": {
+        "historical_cgpa": 1.1033333333333333,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1171428571428572
+    },
+    "636": {
+        "historical_cgpa": 1.11,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0857142857142859
+    },
+    "637": {
+        "historical_cgpa": 1.0933333333333333,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1085714285714285
+    },
+    "638": {
+        "historical_cgpa": 1.1733333333333333,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.1114285714285717
+    },
+    "639": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.9885714285714287
+    },
+    "640": {
+        "historical_cgpa": 1.02,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0257142857142858
+    },
+    "641": {
+        "historical_cgpa": 1.1233333333333335,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1057142857142859
+    },
+    "642": {
+        "historical_cgpa": 1.1066666666666667,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.082857142857143
+    },
+    "643": {
+        "historical_cgpa": 1.0266666666666666,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0057142857142856
+    },
+    "644": {
+        "historical_cgpa": 0.9933333333333334,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.0057142857142858
+    },
+    "645": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.9685714285714285
+    },
+    "646": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 0.27999999999999997,
+        "predicted_new_cgpa": 0.9542857142857143
+    },
+    "647": {
+        "historical_cgpa": 1.0333333333333334,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0
+    },
+    "648": {
+        "historical_cgpa": 1.1366666666666667,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0971428571428572
+    },
+    "649": {
+        "historical_cgpa": 1.0766666666666669,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0285714285714287
+    },
+    "650": {
+        "historical_cgpa": 0.9233333333333333,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.8771428571428571
+    },
+    "651": {
+        "historical_cgpa": 1.16,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.1285714285714286
+    },
+    "652": {
+        "historical_cgpa": 1.2500000000000002,
+        "predicted_semester_gpa": 1.0799999999999998,
+        "predicted_new_cgpa": 1.225714285714286
+    },
+    "653": {
+        "historical_cgpa": 1.1133333333333333,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.06
+    },
+    "779": {
+        "historical_cgpa": 1.4133333333333336,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.3457142857142859
+    },
+    "780": {
+        "historical_cgpa": 0.8733333333333333,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.8714285714285714
+    },
+    "781": {
+        "historical_cgpa": 0.97,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 0.9828571428571428
+    },
+    "782": {
+        "historical_cgpa": 1.0800000000000003,
+        "predicted_semester_gpa": 0.41999999999999993,
+        "predicted_new_cgpa": 0.9857142857142859
+    },
+    "783": {
+        "historical_cgpa": 1.0633333333333332,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.0742857142857143
+    },
+    "784": {
+        "historical_cgpa": 1.0233333333333332,
+        "predicted_semester_gpa": 1.1800000000000002,
+        "predicted_new_cgpa": 1.0457142857142856
+    },
+    "785": {
+        "historical_cgpa": 0.9933333333333334,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.002857142857143
+    },
+    "786": {
+        "historical_cgpa": 1.1433333333333333,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.0485714285714285
+    },
+    "787": {
+        "historical_cgpa": 1.1166666666666667,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1
+    },
+    "788": {
+        "historical_cgpa": 0.9933333333333333,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 0.9457142857142855
+    },
+    "789": {
+        "historical_cgpa": 0.9966666666666666,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9314285714285715
+    },
+    "790": {
+        "historical_cgpa": 1.0366666666666666,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0142857142857142
+    },
+    "791": {
+        "historical_cgpa": 0.82,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.8285714285714286
+    },
+    "792": {
+        "historical_cgpa": 1.0833333333333333,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0342857142857145
+    },
+    "793": {
+        "historical_cgpa": 0.9866666666666666,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.017142857142857
+    },
+    "794": {
+        "historical_cgpa": 1.2300000000000002,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 1.1028571428571432
+    },
+    "795": {
+        "historical_cgpa": 0.9833333333333333,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.9857142857142858
+    },
+    "796": {
+        "historical_cgpa": 1.1466666666666667,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1085714285714285
+    },
+    "797": {
+        "historical_cgpa": 1.13,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1114285714285714
+    },
+    "798": {
+        "historical_cgpa": 1.2166666666666666,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1857142857142857
+    },
+    "799": {
+        "historical_cgpa": 1.0466666666666666,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 0.9914285714285713
+    },
+    "800": {
+        "historical_cgpa": 0.9133333333333333,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.86
+    },
+    "801": {
+        "historical_cgpa": 1.1233333333333335,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0771428571428572
+    },
+    "802": {
+        "historical_cgpa": 0.8233333333333334,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.8028571428571428
+    },
+    "803": {
+        "historical_cgpa": 0.8966666666666667,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9028571428571429
+    },
+    "804": {
+        "historical_cgpa": 1.1133333333333333,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0799999999999998
+    },
+    "805": {
+        "historical_cgpa": 1.0499999999999998,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.977142857142857
+    },
+    "806": {
+        "historical_cgpa": 0.8866666666666666,
+        "predicted_semester_gpa": 1.4,
+        "predicted_new_cgpa": 0.9599999999999999
+    },
+    "807": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0371428571428571
+    },
+    "808": {
+        "historical_cgpa": 0.8566666666666668,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.8685714285714287
+    },
+    "809": {
+        "historical_cgpa": 0.9966666666666666,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 1.0371428571428571
+    },
+    "810": {
+        "historical_cgpa": 0.85,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.8257142857142856
+    },
+    "811": {
+        "historical_cgpa": 1.1733333333333333,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.082857142857143
+    },
+    "812": {
+        "historical_cgpa": 1.06,
+        "predicted_semester_gpa": 0.27999999999999997,
+        "predicted_new_cgpa": 0.9485714285714286
+    },
+    "813": {
+        "historical_cgpa": 0.8566666666666667,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.8314285714285714
+    },
+    "814": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 0.9799999999999999,
+        "predicted_new_cgpa": 1.0542857142857143
+    },
+    "815": {
+        "historical_cgpa": 1.04,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9600000000000001
+    },
+    "816": {
+        "historical_cgpa": 1.1699999999999997,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.1257142857142854
+    },
+    "817": {
+        "historical_cgpa": 0.9900000000000001,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9542857142857144
+    },
+    "818": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.0542857142857143
+    },
+    "819": {
+        "historical_cgpa": 1.2833333333333334,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.1771428571428573
+    },
+    "820": {
+        "historical_cgpa": 1.1233333333333335,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.06
+    },
+    "821": {
+        "historical_cgpa": 1.0366666666666666,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9571428571428572
+    },
+    "822": {
+        "historical_cgpa": 1.1033333333333333,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0514285714285716
+    },
+    "823": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.27999999999999997,
+        "predicted_new_cgpa": 0.8971428571428571
+    },
+    "824": {
+        "historical_cgpa": 0.8666666666666667,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8114285714285714
+    },
+    "825": {
+        "historical_cgpa": 1.0366666666666666,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.9857142857142858
+    },
+    "826": {
+        "historical_cgpa": 1.0766666666666669,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.02
+    },
+    "827": {
+        "historical_cgpa": 1.1366666666666667,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 1.0314285714285714
+    },
+    "828": {
+        "historical_cgpa": 1.1333333333333333,
+        "predicted_semester_gpa": 1.3199999999999998,
+        "predicted_new_cgpa": 1.1600000000000001
+    },
+    "829": {
+        "historical_cgpa": 1.0433333333333334,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.982857142857143
+    },
+    "830": {
+        "historical_cgpa": 1.0066666666666666,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9971428571428571
+    },
+    "831": {
+        "historical_cgpa": 1.0899999999999999,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.0514285714285714
+    },
+    "832": {
+        "historical_cgpa": 1.03,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0171428571428571
+    },
+    "833": {
+        "historical_cgpa": 0.9333333333333333,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9257142857142857
+    },
+    "834": {
+        "historical_cgpa": 0.75,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.7314285714285714
+    },
+    "835": {
+        "historical_cgpa": 1.3,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 1.26
+    },
+    "836": {
+        "historical_cgpa": 1.0499999999999998,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0514285714285714
+    },
+    "837": {
+        "historical_cgpa": 0.9333333333333333,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 0.9171428571428571
+    },
+    "838": {
+        "historical_cgpa": 1.1433333333333333,
+        "predicted_semester_gpa": 0.45999999999999996,
+        "predicted_new_cgpa": 1.0457142857142856
+    },
+    "839": {
+        "historical_cgpa": 1.15,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.102857142857143
+    },
+    "840": {
+        "historical_cgpa": 1.103333333333333,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0514285714285714
+    },
+    "841": {
+        "historical_cgpa": 1.35,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.28
+    },
+    "842": {
+        "historical_cgpa": 1.1733333333333333,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.1571428571428573
+    },
+    "843": {
+        "historical_cgpa": 1.05,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.062857142857143
+    },
+    "844": {
+        "historical_cgpa": 0.89,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.8971428571428571
+    },
+    "845": {
+        "historical_cgpa": 1.09,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.0971428571428572
+    },
+    "846": {
+        "historical_cgpa": 0.7566666666666667,
+        "predicted_semester_gpa": 0.5599999999999999,
+        "predicted_new_cgpa": 0.7285714285714286
+    },
+    "847": {
+        "historical_cgpa": 0.9366666666666666,
+        "predicted_semester_gpa": 0.41999999999999993,
+        "predicted_new_cgpa": 0.8628571428571428
+    },
+    "848": {
+        "historical_cgpa": 0.9299999999999999,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 0.9685714285714285
+    },
+    "849": {
+        "historical_cgpa": 1.0933333333333333,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0714285714285714
+    },
+    "850": {
+        "historical_cgpa": 1.3200000000000003,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.2171428571428573
+    },
+    "851": {
+        "historical_cgpa": 0.9966666666666666,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 0.9485714285714284
+    },
+    "852": {
+        "historical_cgpa": 1.0333333333333334,
+        "predicted_semester_gpa": 0.76,
+        "predicted_new_cgpa": 0.9942857142857144
+    },
+    "853": {
+        "historical_cgpa": 1.2166666666666666,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.1600000000000001
+    },
+    "854": {
+        "historical_cgpa": 1.0766666666666667,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.0
+    },
+    "855": {
+        "historical_cgpa": 1.1733333333333333,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0914285714285714
+    },
+    "856": {
+        "historical_cgpa": 1.06,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0342857142857145
+    },
+    "857": {
+        "historical_cgpa": 0.8766666666666667,
+        "predicted_semester_gpa": 0.2,
+        "predicted_new_cgpa": 0.78
+    },
+    "858": {
+        "historical_cgpa": 0.9099999999999999,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9028571428571428
+    },
+    "859": {
+        "historical_cgpa": 1.0566666666666669,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.982857142857143
+    },
+    "860": {
+        "historical_cgpa": 1.1833333333333336,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.145714285714286
+    },
+    "861": {
+        "historical_cgpa": 1.1233333333333335,
+        "predicted_semester_gpa": 1.38,
+        "predicted_new_cgpa": 1.1600000000000001
+    },
+    "862": {
+        "historical_cgpa": 1.1133333333333335,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.08
+    },
+    "863": {
+        "historical_cgpa": 1.2266666666666666,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.1485714285714284
+    },
+    "864": {
+        "historical_cgpa": 0.8766666666666667,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8571428571428571
+    },
+    "865": {
+        "historical_cgpa": 1.2566666666666668,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.22
+    },
+    "866": {
+        "historical_cgpa": 1.0766666666666667,
+        "predicted_semester_gpa": 0.45999999999999996,
+        "predicted_new_cgpa": 0.9885714285714284
+    },
+    "867": {
+        "historical_cgpa": 1.1633333333333336,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.0857142857142859
+    },
+    "868": {
+        "historical_cgpa": 1.2100000000000002,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.2085714285714286
+    },
+    "869": {
+        "historical_cgpa": 0.8933333333333333,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.8428571428571429
+    },
+    "870": {
+        "historical_cgpa": 1.0833333333333333,
+        "predicted_semester_gpa": 0.72,
+        "predicted_new_cgpa": 1.0314285714285714
+    },
+    "871": {
+        "historical_cgpa": 0.9599999999999999,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 0.9942857142857142
+    },
+    "872": {
+        "historical_cgpa": 1.1600000000000001,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.1085714285714288
+    },
+    "873": {
+        "historical_cgpa": 1.0866666666666667,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.0085714285714287
+    },
+    "874": {
+        "historical_cgpa": 0.9633333333333333,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 0.9971428571428571
+    },
+    "875": {
+        "historical_cgpa": 1.2600000000000002,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.1485714285714286
+    },
+    "876": {
+        "historical_cgpa": 1.0466666666666666,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.9857142857142858
+    },
+    "877": {
+        "historical_cgpa": 1.1766666666666665,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.16
+    },
+    "878": {
+        "historical_cgpa": 0.8366666666666667,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.7742857142857144
+    },
+    "879": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 1.48,
+        "predicted_new_cgpa": 1.0828571428571427
+    },
+    "880": {
+        "historical_cgpa": 0.9900000000000001,
+        "predicted_semester_gpa": 1.4,
+        "predicted_new_cgpa": 1.0485714285714287
+    },
+    "881": {
+        "historical_cgpa": 1.1833333333333333,
+        "predicted_semester_gpa": 0.76,
+        "predicted_new_cgpa": 1.1228571428571428
+    },
+    "882": {
+        "historical_cgpa": 1.1133333333333333,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1171428571428572
+    },
+    "883": {
+        "historical_cgpa": 1.1466666666666667,
+        "predicted_semester_gpa": 1.3199999999999998,
+        "predicted_new_cgpa": 1.1714285714285715
+    },
+    "884": {
+        "historical_cgpa": 0.9666666666666667,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9542857142857143
+    },
+    "885": {
+        "historical_cgpa": 1.0166666666666666,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9571428571428572
+    },
+    "886": {
+        "historical_cgpa": 1.1833333333333333,
+        "predicted_semester_gpa": 0.76,
+        "predicted_new_cgpa": 1.1228571428571428
+    },
+    "887": {
+        "historical_cgpa": 1.2566666666666668,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 1.26
+    },
+    "888": {
+        "historical_cgpa": 1.0766666666666669,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.9800000000000001
+    },
+    "889": {
+        "historical_cgpa": 0.8333333333333334,
+        "predicted_semester_gpa": 1.0799999999999998,
+        "predicted_new_cgpa": 0.8685714285714285
+    },
+    "890": {
+        "historical_cgpa": 1.0133333333333334,
+        "predicted_semester_gpa": 0.8200000000000001,
+        "predicted_new_cgpa": 0.9857142857142858
+    },
+    "891": {
+        "historical_cgpa": 0.9033333333333334,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 0.8914285714285715
+    },
+    "892": {
+        "historical_cgpa": 1.1699999999999997,
+        "predicted_semester_gpa": 1.34,
+        "predicted_new_cgpa": 1.1942857142857142
+    },
+    "893": {
+        "historical_cgpa": 1.1366666666666667,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.0714285714285714
+    },
+    "894": {
+        "historical_cgpa": 0.7566666666666666,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.7171428571428571
+    },
+    "895": {
+        "historical_cgpa": 1.0933333333333335,
+        "predicted_semester_gpa": 0.45999999999999996,
+        "predicted_new_cgpa": 1.002857142857143
+    },
+    "896": {
+        "historical_cgpa": 0.8666666666666668,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8114285714285715
+    },
+    "897": {
+        "historical_cgpa": 1.1233333333333333,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.0599999999999998
+    },
+    "898": {
+        "historical_cgpa": 1.1966666666666663,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1514285714285712
+    },
+    "899": {
+        "historical_cgpa": 0.97,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 0.8799999999999999
+    },
+    "900": {
+        "historical_cgpa": 0.8466666666666666,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.8114285714285714
+    },
+    "901": {
+        "historical_cgpa": 1.0866666666666664,
+        "predicted_semester_gpa": 1.1600000000000001,
+        "predicted_new_cgpa": 1.097142857142857
+    },
+    "902": {
+        "historical_cgpa": 1.1700000000000002,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.0971428571428572
+    },
+    "903": {
+        "historical_cgpa": 0.9933333333333334,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.92
+    },
+    "1029": {
+        "historical_cgpa": 0.9128205128205129,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8636363636363636
+    },
+    "1030": {
+        "historical_cgpa": 1.0641025641025643,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.0204545454545455
+    },
+    "1031": {
+        "historical_cgpa": 0.917948717948718,
+        "predicted_semester_gpa": 0.26,
+        "predicted_new_cgpa": 0.8431818181818183
+    },
+    "1032": {
+        "historical_cgpa": 0.9589743589743593,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9113636363636367
+    },
+    "1033": {
+        "historical_cgpa": 1.169230769230769,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 1.0818181818181818
+    },
+    "1034": {
+        "historical_cgpa": 0.9666666666666668,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9636363636363637
+    },
+    "1035": {
+        "historical_cgpa": 1.0384615384615385,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.9977272727272727
+    },
+    "1036": {
+        "historical_cgpa": 1.1846153846153846,
+        "predicted_semester_gpa": 1.18,
+        "predicted_new_cgpa": 1.184090909090909
+    },
+    "1037": {
+        "historical_cgpa": 1.2128205128205127,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.1295454545454544
+    },
+    "1038": {
+        "historical_cgpa": 1.2128205128205132,
+        "predicted_semester_gpa": 1.2200000000000002,
+        "predicted_new_cgpa": 1.2136363636363638
+    },
+    "1039": {
+        "historical_cgpa": 0.9179487179487182,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9045454545454548
+    },
+    "1040": {
+        "historical_cgpa": 1.2769230769230768,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.2068181818181818
+    },
+    "1041": {
+        "historical_cgpa": 1.0794871794871794,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.0272727272727271
+    },
+    "1042": {
+        "historical_cgpa": 1.141025641025641,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1113636363636363
+    },
+    "1043": {
+        "historical_cgpa": 1.0974358974358973,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0795454545454546
+    },
+    "1044": {
+        "historical_cgpa": 1.0333333333333332,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 0.9545454545454546
+    },
+    "1045": {
+        "historical_cgpa": 1.176923076923077,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.1113636363636363
+    },
+    "1046": {
+        "historical_cgpa": 1.0487179487179488,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9977272727272727
+    },
+    "1047": {
+        "historical_cgpa": 1.0794871794871794,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0477272727272726
+    },
+    "1048": {
+        "historical_cgpa": 1.017948717948718,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 0.940909090909091
+    },
+    "1049": {
+        "historical_cgpa": 0.9564102564102566,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9477272727272728
+    },
+    "1050": {
+        "historical_cgpa": 0.9769230769230771,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.965909090909091
+    },
+    "1051": {
+        "historical_cgpa": 0.7999999999999999,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.7772727272727272
+    },
+    "1052": {
+        "historical_cgpa": 0.8358974358974357,
+        "predicted_semester_gpa": 0.7,
+        "predicted_new_cgpa": 0.8204545454545453
+    },
+    "1053": {
+        "historical_cgpa": 1.1820512820512823,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1772727272727275
+    },
+    "1054": {
+        "historical_cgpa": 1.0512820512820513,
+        "predicted_semester_gpa": 0.76,
+        "predicted_new_cgpa": 1.018181818181818
+    },
+    "1055": {
+        "historical_cgpa": 1.1282051282051282,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.1045454545454545
+    },
+    "1056": {
+        "historical_cgpa": 1.028205128205128,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0113636363636362
+    },
+    "1057": {
+        "historical_cgpa": 0.9743589743589743,
+        "predicted_semester_gpa": 0.5599999999999999,
+        "predicted_new_cgpa": 0.9272727272727272
+    },
+    "1058": {
+        "historical_cgpa": 1.2333333333333336,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.2000000000000002
+    },
+    "1059": {
+        "historical_cgpa": 1.1538461538461537,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0909090909090908
+    },
+    "1060": {
+        "historical_cgpa": 0.912820512820513,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 0.9250000000000003
+    },
+    "1061": {
+        "historical_cgpa": 1.1153846153846152,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.102272727272727
+    },
+    "1062": {
+        "historical_cgpa": 1.1410256410256414,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 1.1568181818181822
+    },
+    "1063": {
+        "historical_cgpa": 0.9358974358974359,
+        "predicted_semester_gpa": 1.2200000000000002,
+        "predicted_new_cgpa": 0.9681818181818183
+    },
+    "1064": {
+        "historical_cgpa": 1.0076923076923079,
+        "predicted_semester_gpa": 1.46,
+        "predicted_new_cgpa": 1.059090909090909
+    },
+    "1065": {
+        "historical_cgpa": 0.964102564102564,
+        "predicted_semester_gpa": 1.46,
+        "predicted_new_cgpa": 1.0204545454545453
+    },
+    "1066": {
+        "historical_cgpa": 1.2205128205128208,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.1659090909090912
+    },
+    "1067": {
+        "historical_cgpa": 0.9717948717948719,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9590909090909091
+    },
+    "1068": {
+        "historical_cgpa": 0.994871794871795,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.9522727272727274
+    },
+    "1069": {
+        "historical_cgpa": 1.1025641025641026,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1136363636363635
+    },
+    "1070": {
+        "historical_cgpa": 1.0717948717948718,
+        "predicted_semester_gpa": 0.76,
+        "predicted_new_cgpa": 1.0363636363636362
+    },
+    "1071": {
+        "historical_cgpa": 0.9692307692307693,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9500000000000001
+    },
+    "1072": {
+        "historical_cgpa": 1.1512820512820516,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 1.1659090909090912
+    },
+    "1073": {
+        "historical_cgpa": 0.8564102564102566,
+        "predicted_semester_gpa": 0.41999999999999993,
+        "predicted_new_cgpa": 0.806818181818182
+    },
+    "1074": {
+        "historical_cgpa": 1.1282051282051284,
+        "predicted_semester_gpa": 0.52,
+        "predicted_new_cgpa": 1.0590909090909093
+    },
+    "1075": {
+        "historical_cgpa": 1.0025641025641023,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9795454545454544
+    },
+    "1076": {
+        "historical_cgpa": 0.9794871794871796,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9590909090909091
+    },
+    "1077": {
+        "historical_cgpa": 0.8512820512820514,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.8681818181818183
+    },
+    "1078": {
+        "historical_cgpa": 0.9974358974358976,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.9977272727272729
+    },
+    "1079": {
+        "historical_cgpa": 1.1051282051282054,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0931818181818185
+    },
+    "1080": {
+        "historical_cgpa": 0.876923076923077,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.890909090909091
+    },
+    "1081": {
+        "historical_cgpa": 0.9589743589743591,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 0.9431818181818183
+    },
+    "1082": {
+        "historical_cgpa": 1.0692307692307692,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.009090909090909
+    },
+    "1083": {
+        "historical_cgpa": 1.1358974358974359,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1068181818181817
+    },
+    "1084": {
+        "historical_cgpa": 0.9923076923076923,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 0.9545454545454546
+    },
+    "1085": {
+        "historical_cgpa": 1.2589743589743587,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.2068181818181816
+    },
+    "1086": {
+        "historical_cgpa": 1.0692307692307692,
+        "predicted_semester_gpa": 0.76,
+        "predicted_new_cgpa": 1.034090909090909
+    },
+    "1087": {
+        "historical_cgpa": 0.8666666666666668,
+        "predicted_semester_gpa": 0.72,
+        "predicted_new_cgpa": 0.8500000000000001
+    },
+    "1088": {
+        "historical_cgpa": 1.2051282051282048,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.1522727272727271
+    },
+    "1089": {
+        "historical_cgpa": 1.1333333333333335,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.0590909090909093
+    },
+    "1090": {
+        "historical_cgpa": 1.0333333333333332,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.009090909090909
+    },
+    "1091": {
+        "historical_cgpa": 0.9666666666666668,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9181818181818183
+    },
+    "1092": {
+        "historical_cgpa": 0.8179487179487179,
+        "predicted_semester_gpa": 0.5599999999999999,
+        "predicted_new_cgpa": 0.7886363636363636
+    },
+    "1093": {
+        "historical_cgpa": 0.9923076923076923,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.925
+    },
+    "1094": {
+        "historical_cgpa": 1.1333333333333333,
+        "predicted_semester_gpa": 0.52,
+        "predicted_new_cgpa": 1.0636363636363635
+    },
+    "1095": {
+        "historical_cgpa": 1.0794871794871796,
+        "predicted_semester_gpa": 1.34,
+        "predicted_new_cgpa": 1.1090909090909093
+    },
+    "1096": {
+        "historical_cgpa": 1.2743589743589743,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.2431818181818182
+    },
+    "1097": {
+        "historical_cgpa": 1.2743589743589745,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.2272727272727273
+    },
+    "1098": {
+        "historical_cgpa": 0.9282051282051279,
+        "predicted_semester_gpa": 0.13999999999999999,
+        "predicted_new_cgpa": 0.8386363636363634
+    },
+    "1099": {
+        "historical_cgpa": 1.1205128205128205,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.115909090909091
+    },
+    "1100": {
+        "historical_cgpa": 1.0461538461538464,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9954545454545457
+    },
+    "1101": {
+        "historical_cgpa": 1.053846153846154,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0181818181818185
+    },
+    "1102": {
+        "historical_cgpa": 1.0205128205128204,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.0340909090909092
+    },
+    "1103": {
+        "historical_cgpa": 0.9512820512820513,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9431818181818182
+    },
+    "1104": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0068181818181818
+    },
+    "1105": {
+        "historical_cgpa": 0.9692307692307691,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.9045454545454544
+    },
+    "1106": {
+        "historical_cgpa": 1.0538461538461539,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0250000000000001
+    },
+    "1107": {
+        "historical_cgpa": 0.98974358974359,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.931818181818182
+    },
+    "1108": {
+        "historical_cgpa": 1.0974358974358973,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0568181818181819
+    },
+    "1109": {
+        "historical_cgpa": 0.9589743589743589,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 0.9954545454545454
+    },
+    "1110": {
+        "historical_cgpa": 1.1179487179487182,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.0613636363636365
+    },
+    "1111": {
+        "historical_cgpa": 1.087179487179487,
+        "predicted_semester_gpa": 1.26,
+        "predicted_new_cgpa": 1.1068181818181817
+    },
+    "1112": {
+        "historical_cgpa": 0.8410256410256409,
+        "predicted_semester_gpa": 0.9799999999999999,
+        "predicted_new_cgpa": 0.8568181818181817
+    },
+    "1113": {
+        "historical_cgpa": 1.2051282051282048,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.1613636363636362
+    },
+    "1114": {
+        "historical_cgpa": 1.1769230769230767,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.1136363636363635
+    },
+    "1115": {
+        "historical_cgpa": 1.130769230769231,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.0795454545454548
+    },
+    "1116": {
+        "historical_cgpa": 1.071794871794872,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0636363636363637
+    },
+    "1117": {
+        "historical_cgpa": 0.9974358974358976,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9909090909090911
+    },
+    "1118": {
+        "historical_cgpa": 0.930769230769231,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9318181818181821
+    },
+    "1119": {
+        "historical_cgpa": 1.1487179487179489,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1545454545454545
+    },
+    "1120": {
+        "historical_cgpa": 0.9974358974358976,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9909090909090911
+    },
+    "1121": {
+        "historical_cgpa": 0.8615384615384618,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.8772727272727274
+    },
+    "1122": {
+        "historical_cgpa": 1.130769230769231,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.063636363636364
+    },
+    "1123": {
+        "historical_cgpa": 1.169230769230769,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.1340909090909088
+    },
+    "1124": {
+        "historical_cgpa": 0.9615384615384616,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9204545454545454
+    },
+    "1125": {
+        "historical_cgpa": 0.9410256410256411,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8886363636363637
+    },
+    "1126": {
+        "historical_cgpa": 1.1333333333333333,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.125
+    },
+    "1127": {
+        "historical_cgpa": 1.1692307692307693,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1363636363636365
+    },
+    "1128": {
+        "historical_cgpa": 1.2153846153846155,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.138636363636364
+    },
+    "1129": {
+        "historical_cgpa": 1.0666666666666667,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0136363636363637
+    },
+    "1130": {
+        "historical_cgpa": 1.046153846153846,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0477272727272726
+    },
+    "1131": {
+        "historical_cgpa": 1.0384615384615385,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0409090909090908
+    },
+    "1132": {
+        "historical_cgpa": 0.9717948717948719,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.9386363636363637
+    },
+    "1133": {
+        "historical_cgpa": 0.917948717948718,
+        "predicted_semester_gpa": 0.5599999999999999,
+        "predicted_new_cgpa": 0.8772727272727273
+    },
+    "1134": {
+        "historical_cgpa": 1.028205128205128,
+        "predicted_semester_gpa": 1.48,
+        "predicted_new_cgpa": 1.0795454545454544
+    },
+    "1135": {
+        "historical_cgpa": 1.064102564102564,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9977272727272727
+    },
+    "1136": {
+        "historical_cgpa": 1.0820512820512822,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.0522727272727275
+    },
+    "1137": {
+        "historical_cgpa": 1.2871794871794875,
+        "predicted_semester_gpa": 1.8,
+        "predicted_new_cgpa": 1.3454545454545457
+    },
+    "1138": {
+        "historical_cgpa": 1.0512820512820513,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0159090909090909
+    },
+    "1139": {
+        "historical_cgpa": 1.0897435897435899,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.072727272727273
+    },
+    "1140": {
+        "historical_cgpa": 0.9846153846153849,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.9863636363636367
+    },
+    "1141": {
+        "historical_cgpa": 0.9794871794871796,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9659090909090909
+    },
+    "1142": {
+        "historical_cgpa": 1.1282051282051282,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1136363636363635
+    },
+    "1143": {
+        "historical_cgpa": 1.0641025641025643,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.0045454545454549
+    },
+    "1144": {
+        "historical_cgpa": 1.0974358974358973,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0409090909090908
+    },
+    "1145": {
+        "historical_cgpa": 1.2179487179487178,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.1477272727272725
+    },
+    "1146": {
+        "historical_cgpa": 1.1692307692307693,
+        "predicted_semester_gpa": 1.34,
+        "predicted_new_cgpa": 1.1886363636363637
+    },
+    "1147": {
+        "historical_cgpa": 1.0820512820512822,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0659090909090911
+    },
+    "1148": {
+        "historical_cgpa": 1.094871794871795,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0681818181818181
+    },
+    "1149": {
+        "historical_cgpa": 1.148717948717949,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.0954545454545457
+    },
+    "1150": {
+        "historical_cgpa": 0.8897435897435896,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8727272727272727
+    },
+    "1151": {
+        "historical_cgpa": 1.1794871794871795,
+        "predicted_semester_gpa": 1.0799999999999998,
+        "predicted_new_cgpa": 1.1681818181818182
+    },
+    "1152": {
+        "historical_cgpa": 1.084615384615385,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.0840909090909092
+    },
+    "1153": {
+        "historical_cgpa": 1.0256410256410255,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 0.9477272727272728
+    },
+    "1279": {
+        "historical_cgpa": 1.1923076923076923,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1704545454545454
+    },
+    "1280": {
+        "historical_cgpa": 0.9435897435897436,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 0.9659090909090909
+    },
+    "1281": {
+        "historical_cgpa": 1.071794871794872,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.0045454545454546
+    },
+    "1282": {
+        "historical_cgpa": 0.8923076923076925,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 0.8681818181818183
+    },
+    "1283": {
+        "historical_cgpa": 1.1435897435897435,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.1181818181818182
+    },
+    "1284": {
+        "historical_cgpa": 1.0153846153846156,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.0045454545454549
+    },
+    "1285": {
+        "historical_cgpa": 1.0256410256410255,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.009090909090909
+    },
+    "1286": {
+        "historical_cgpa": 1.243589743589744,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.2090909090909097
+    },
+    "1287": {
+        "historical_cgpa": 1.2076923076923078,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.1772727272727275
+    },
+    "1288": {
+        "historical_cgpa": 1.0820512820512822,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 1.0750000000000002
+    },
+    "1289": {
+        "historical_cgpa": 1.141025641025641,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1409090909090909
+    },
+    "1290": {
+        "historical_cgpa": 1.2205128205128208,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.2022727272727278
+    },
+    "1291": {
+        "historical_cgpa": 0.9512820512820513,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9045454545454547
+    },
+    "1292": {
+        "historical_cgpa": 0.9282051282051282,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.906818181818182
+    },
+    "1293": {
+        "historical_cgpa": 1.1410256410256407,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.0727272727272725
+    },
+    "1294": {
+        "historical_cgpa": 0.9641025641025643,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9090909090909093
+    },
+    "1295": {
+        "historical_cgpa": 0.9410256410256411,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9318181818181818
+    },
+    "1296": {
+        "historical_cgpa": 1.2589743589743587,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.236363636363636
+    },
+    "1297": {
+        "historical_cgpa": 1.1153846153846156,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0954545454545457
+    },
+    "1298": {
+        "historical_cgpa": 1.084615384615385,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0681818181818186
+    },
+    "1299": {
+        "historical_cgpa": 1.1435897435897437,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1272727272727274
+    },
+    "1300": {
+        "historical_cgpa": 0.9794871794871796,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.0045454545454546
+    },
+    "1301": {
+        "historical_cgpa": 1.4538461538461538,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.4090909090909092
+    },
+    "1302": {
+        "historical_cgpa": 1.2820512820512822,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.2500000000000002
+    },
+    "1303": {
+        "historical_cgpa": 1.0846153846153845,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0454545454545454
+    },
+    "1304": {
+        "historical_cgpa": 1.0743589743589745,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0727272727272728
+    },
+    "1305": {
+        "historical_cgpa": 1.0999999999999999,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.0454545454545452
+    },
+    "1306": {
+        "historical_cgpa": 1.0230769230769232,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.0000000000000002
+    },
+    "1307": {
+        "historical_cgpa": 1.030769230769231,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.997727272727273
+    },
+    "1308": {
+        "historical_cgpa": 1.0974358974358978,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0795454545454548
+    },
+    "1309": {
+        "historical_cgpa": 0.9615384615384616,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9068181818181817
+    },
+    "1310": {
+        "historical_cgpa": 1.0333333333333332,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 1.0318181818181817
+    },
+    "1311": {
+        "historical_cgpa": 1.1435897435897437,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.1204545454545458
+    },
+    "1312": {
+        "historical_cgpa": 0.8025641025641026,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.7818181818181817
+    },
+    "1313": {
+        "historical_cgpa": 1.1025641025641026,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 1.0227272727272727
+    },
+    "1314": {
+        "historical_cgpa": 1.1333333333333333,
+        "predicted_semester_gpa": 1.54,
+        "predicted_new_cgpa": 1.1795454545454545
+    },
+    "1315": {
+        "historical_cgpa": 1.2179487179487178,
+        "predicted_semester_gpa": 0.27999999999999997,
+        "predicted_new_cgpa": 1.111363636363636
+    },
+    "1316": {
+        "historical_cgpa": 1.0102564102564102,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.0250000000000001
+    },
+    "1317": {
+        "historical_cgpa": 1.0974358974358975,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1022727272727275
+    },
+    "1318": {
+        "historical_cgpa": 0.982051282051282,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9318181818181818
+    },
+    "1319": {
+        "historical_cgpa": 1.0205128205128204,
+        "predicted_semester_gpa": 1.34,
+        "predicted_new_cgpa": 1.0568181818181819
+    },
+    "1320": {
+        "historical_cgpa": 1.1256410256410256,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.1181818181818182
+    },
+    "1321": {
+        "historical_cgpa": 0.9923076923076923,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9636363636363637
+    },
+    "1322": {
+        "historical_cgpa": 1.1923076923076923,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.1409090909090909
+    },
+    "1323": {
+        "historical_cgpa": 0.9615384615384616,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9204545454545454
+    },
+    "1324": {
+        "historical_cgpa": 1.0384615384615385,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0045454545454546
+    },
+    "1325": {
+        "historical_cgpa": 1.005128205128205,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9590909090909091
+    },
+    "1326": {
+        "historical_cgpa": 1.0410256410256409,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0068181818181818
+    },
+    "1327": {
+        "historical_cgpa": 0.8615384615384616,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.8250000000000001
+    },
+    "1328": {
+        "historical_cgpa": 1.017948717948718,
+        "predicted_semester_gpa": 0.9799999999999999,
+        "predicted_new_cgpa": 1.0136363636363637
+    },
+    "1329": {
+        "historical_cgpa": 1.1179487179487182,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.0522727272727275
+    },
+    "1330": {
+        "historical_cgpa": 0.9820512820512818,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 0.9909090909090907
+    },
+    "1331": {
+        "historical_cgpa": 1.0769230769230769,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0454545454545454
+    },
+    "1332": {
+        "historical_cgpa": 1.1051282051282052,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0636363636363637
+    },
+    "1333": {
+        "historical_cgpa": 1.064102564102564,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.0204545454545455
+    },
+    "1334": {
+        "historical_cgpa": 1.158974358974359,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.1340909090909093
+    },
+    "1335": {
+        "historical_cgpa": 0.9974358974358974,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.975
+    },
+    "1336": {
+        "historical_cgpa": 1.1743589743589746,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.1159090909090912
+    },
+    "1337": {
+        "historical_cgpa": 0.876923076923077,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8613636363636364
+    },
+    "1338": {
+        "historical_cgpa": 1.1820512820512823,
+        "predicted_semester_gpa": 1.48,
+        "predicted_new_cgpa": 1.215909090909091
+    },
+    "1339": {
+        "historical_cgpa": 1.0256410256410255,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.0454545454545454
+    },
+    "1340": {
+        "historical_cgpa": 1.1076923076923078,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.0568181818181819
+    },
+    "1341": {
+        "historical_cgpa": 0.9692307692307691,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9272727272727272
+    },
+    "1342": {
+        "historical_cgpa": 1.158974358974359,
+        "predicted_semester_gpa": 1.0799999999999998,
+        "predicted_new_cgpa": 1.1500000000000001
+    },
+    "1343": {
+        "historical_cgpa": 1.0871794871794873,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 1.0022727272727274
+    },
+    "1344": {
+        "historical_cgpa": 1.023076923076923,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.990909090909091
+    },
+    "1345": {
+        "historical_cgpa": 1.071794871794872,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0181818181818183
+    },
+    "1346": {
+        "historical_cgpa": 0.9948717948717948,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9886363636363636
+    },
+    "1347": {
+        "historical_cgpa": 0.912820512820513,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.8704545454545457
+    },
+    "1348": {
+        "historical_cgpa": 1.2512820512820515,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.2090909090909092
+    },
+    "1349": {
+        "historical_cgpa": 1.2205128205128206,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.1500000000000001
+    },
+    "1350": {
+        "historical_cgpa": 1.1282051282051282,
+        "predicted_semester_gpa": 1.38,
+        "predicted_new_cgpa": 1.1568181818181817
+    },
+    "1351": {
+        "historical_cgpa": 1.0179487179487179,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9704545454545453
+    },
+    "1352": {
+        "historical_cgpa": 0.9948717948717948,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9727272727272727
+    },
+    "1353": {
+        "historical_cgpa": 1.0794871794871794,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.034090909090909
+    },
+    "1354": {
+        "historical_cgpa": 1.084615384615385,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0681818181818186
+    },
+    "1355": {
+        "historical_cgpa": 1.0923076923076922,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0590909090909089
+    },
+    "1356": {
+        "historical_cgpa": 1.0,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9704545454545456
+    },
+    "1357": {
+        "historical_cgpa": 0.9358974358974359,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.8977272727272727
+    },
+    "1358": {
+        "historical_cgpa": 1.0512820512820515,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0522727272727275
+    },
+    "1359": {
+        "historical_cgpa": 1.1025641025641026,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0681818181818181
+    },
+    "1360": {
+        "historical_cgpa": 1.0205128205128207,
+        "predicted_semester_gpa": 1.6800000000000002,
+        "predicted_new_cgpa": 1.0954545454545455
+    },
+    "1361": {
+        "historical_cgpa": 0.9794871794871796,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 0.9840909090909092
+    },
+    "1362": {
+        "historical_cgpa": 1.2179487179487178,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.2022727272727272
+    },
+    "1363": {
+        "historical_cgpa": 1.1051282051282054,
+        "predicted_semester_gpa": 1.34,
+        "predicted_new_cgpa": 1.131818181818182
+    },
+    "1364": {
+        "historical_cgpa": 1.1333333333333333,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.102272727272727
+    },
+    "1365": {
+        "historical_cgpa": 1.1128205128205129,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0863636363636362
+    },
+    "1366": {
+        "historical_cgpa": 0.9589743589743589,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9340909090909091
+    },
+    "1367": {
+        "historical_cgpa": 1.0307692307692309,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0045454545454546
+    },
+    "1368": {
+        "historical_cgpa": 0.9205128205128205,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 0.9090909090909091
+    },
+    "1369": {
+        "historical_cgpa": 1.2025641025641027,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.1863636363636365
+    },
+    "1370": {
+        "historical_cgpa": 1.1846153846153844,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.111363636363636
+    },
+    "1371": {
+        "historical_cgpa": 1.0333333333333334,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.0454545454545456
+    },
+    "1372": {
+        "historical_cgpa": 1.0846153846153848,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.0159090909090909
+    },
+    "1373": {
+        "historical_cgpa": 1.0743589743589745,
+        "predicted_semester_gpa": 1.54,
+        "predicted_new_cgpa": 1.1272727272727274
+    },
+    "1374": {
+        "historical_cgpa": 0.91025641025641,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9045454545454543
+    },
+    "1375": {
+        "historical_cgpa": 0.9974358974358976,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9454545454545457
+    },
+    "1376": {
+        "historical_cgpa": 1.253846153846154,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.2022727272727274
+    },
+    "1377": {
+        "historical_cgpa": 1.130769230769231,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.0795454545454548
+    },
+    "1378": {
+        "historical_cgpa": 0.9820512820512821,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.925
+    },
+    "1379": {
+        "historical_cgpa": 0.9615384615384619,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.9227272727272731
+    },
+    "1380": {
+        "historical_cgpa": 1.0871794871794873,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.0340909090909092
+    },
+    "1381": {
+        "historical_cgpa": 1.0743589743589745,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0431818181818182
+    },
+    "1382": {
+        "historical_cgpa": 0.9025641025641027,
+        "predicted_semester_gpa": 0.8799999999999999,
+        "predicted_new_cgpa": 0.9
+    },
+    "1383": {
+        "historical_cgpa": 1.1,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0431818181818182
+    },
+    "1384": {
+        "historical_cgpa": 1.0025641025641026,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0090909090909093
+    },
+    "1385": {
+        "historical_cgpa": 1.0666666666666669,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.0750000000000002
+    },
+    "1386": {
+        "historical_cgpa": 1.0564102564102567,
+        "predicted_semester_gpa": 0.76,
+        "predicted_new_cgpa": 1.022727272727273
+    },
+    "1387": {
+        "historical_cgpa": 0.9717948717948718,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9227272727272727
+    },
+    "1388": {
+        "historical_cgpa": 0.9564102564102567,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9318181818181821
+    },
+    "1389": {
+        "historical_cgpa": 1.0205128205128207,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9590909090909091
+    },
+    "1390": {
+        "historical_cgpa": 1.1179487179487182,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.0840909090909092
+    },
+    "1391": {
+        "historical_cgpa": 1.1641025641025642,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.1227272727272728
+    },
+    "1392": {
+        "historical_cgpa": 1.271794871794872,
+        "predicted_semester_gpa": 1.0799999999999998,
+        "predicted_new_cgpa": 1.2500000000000002
+    },
+    "1393": {
+        "historical_cgpa": 1.0615384615384618,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.0181818181818183
+    },
+    "1394": {
+        "historical_cgpa": 1.105128205128205,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0636363636363635
+    },
+    "1395": {
+        "historical_cgpa": 0.8512820512820514,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 0.890909090909091
+    },
+    "1396": {
+        "historical_cgpa": 0.8794871794871796,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.840909090909091
+    },
+    "1397": {
+        "historical_cgpa": 0.9717948717948718,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9522727272727273
+    },
+    "1398": {
+        "historical_cgpa": 1.2179487179487178,
+        "predicted_semester_gpa": 0.96,
+        "predicted_new_cgpa": 1.1886363636363635
+    },
+    "1399": {
+        "historical_cgpa": 1.176923076923077,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.1727272727272728
+    },
+    "1400": {
+        "historical_cgpa": 0.9974358974358976,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9681818181818184
+    },
+    "1401": {
+        "historical_cgpa": 1.123076923076923,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1318181818181818
+    },
+    "1402": {
+        "historical_cgpa": 0.905128205128205,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.8636363636363636
+    },
+    "1403": {
+        "historical_cgpa": 0.9564102564102563,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.9181818181818181
+    },
+    "1529": {
+        "historical_cgpa": 0.9999999999999998,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 0.9863636363636362
+    },
+    "1530": {
+        "historical_cgpa": 1.0717948717948718,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0477272727272726
+    },
+    "1531": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.1045454545454545
+    },
+    "1532": {
+        "historical_cgpa": 0.8923076923076925,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.8454545454545456
+    },
+    "1533": {
+        "historical_cgpa": 0.9615384615384617,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 0.922727272727273
+    },
+    "1534": {
+        "historical_cgpa": 0.8615384615384616,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8477272727272728
+    },
+    "1535": {
+        "historical_cgpa": 0.9435897435897436,
+        "predicted_semester_gpa": 0.13999999999999999,
+        "predicted_new_cgpa": 0.8522727272727273
+    },
+    "1536": {
+        "historical_cgpa": 1.130769230769231,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.0795454545454548
+    },
+    "1537": {
+        "historical_cgpa": 1.0384615384615385,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 1.0363636363636364
+    },
+    "1538": {
+        "historical_cgpa": 1.2692307692307692,
+        "predicted_semester_gpa": 1.1199999999999999,
+        "predicted_new_cgpa": 1.2522727272727272
+    },
+    "1539": {
+        "historical_cgpa": 1.058974358974359,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.0454545454545454
+    },
+    "1540": {
+        "historical_cgpa": 1.1128205128205129,
+        "predicted_semester_gpa": 1.28,
+        "predicted_new_cgpa": 1.1318181818181818
+    },
+    "1541": {
+        "historical_cgpa": 1.2564102564102564,
+        "predicted_semester_gpa": 1.2200000000000002,
+        "predicted_new_cgpa": 1.2522727272727272
+    },
+    "1542": {
+        "historical_cgpa": 1.1435897435897435,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.1045454545454545
+    },
+    "1543": {
+        "historical_cgpa": 0.9897435897435898,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.9227272727272727
+    },
+    "1544": {
+        "historical_cgpa": 0.9923076923076922,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9477272727272726
+    },
+    "1545": {
+        "historical_cgpa": 0.9435897435897437,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9204545454545456
+    },
+    "1546": {
+        "historical_cgpa": 1.2051282051282048,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.1886363636363633
+    },
+    "1547": {
+        "historical_cgpa": 1.2102564102564104,
+        "predicted_semester_gpa": 1.3199999999999998,
+        "predicted_new_cgpa": 1.2227272727272729
+    },
+    "1548": {
+        "historical_cgpa": 1.1871794871794872,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.1204545454545454
+    },
+    "1549": {
+        "historical_cgpa": 0.9128205128205127,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.8999999999999999
+    },
+    "1550": {
+        "historical_cgpa": 1.094871794871795,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.0636363636363637
+    },
+    "1551": {
+        "historical_cgpa": 0.9512820512820515,
+        "predicted_semester_gpa": 0.8200000000000001,
+        "predicted_new_cgpa": 0.9363636363636366
+    },
+    "1552": {
+        "historical_cgpa": 1.0461538461538462,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0272727272727273
+    },
+    "1553": {
+        "historical_cgpa": 0.8589743589743589,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8454545454545456
+    },
+    "1554": {
+        "historical_cgpa": 1.11025641025641,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0681818181818181
+    },
+    "1555": {
+        "historical_cgpa": 1.1153846153846154,
+        "predicted_semester_gpa": 1.4,
+        "predicted_new_cgpa": 1.1477272727272727
+    },
+    "1556": {
+        "historical_cgpa": 0.8974358974358975,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 0.8704545454545454
+    },
+    "1557": {
+        "historical_cgpa": 1.2358974358974364,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.2181818181818185
+    },
+    "1558": {
+        "historical_cgpa": 0.9871794871794872,
+        "predicted_semester_gpa": 0.8200000000000001,
+        "predicted_new_cgpa": 0.9681818181818183
+    },
+    "1559": {
+        "historical_cgpa": 1.0153846153846153,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9909090909090907
+    },
+    "1560": {
+        "historical_cgpa": 0.9692307692307693,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9431818181818183
+    },
+    "1561": {
+        "historical_cgpa": 0.9666666666666668,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9113636363636364
+    },
+    "1562": {
+        "historical_cgpa": 1.0102564102564104,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.9931818181818183
+    },
+    "1563": {
+        "historical_cgpa": 1.0282051282051283,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 0.9659090909090909
+    },
+    "1564": {
+        "historical_cgpa": 1.0025641025641028,
+        "predicted_semester_gpa": 0.4,
+        "predicted_new_cgpa": 0.9340909090909093
+    },
+    "1565": {
+        "historical_cgpa": 1.135897435897436,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.106818181818182
+    },
+    "1566": {
+        "historical_cgpa": 1.0871794871794878,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.0250000000000006
+    },
+    "1567": {
+        "historical_cgpa": 0.9615384615384616,
+        "predicted_semester_gpa": 0.8200000000000001,
+        "predicted_new_cgpa": 0.9454545454545454
+    },
+    "1568": {
+        "historical_cgpa": 1.1692307692307693,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 1.1522727272727273
+    },
+    "1569": {
+        "historical_cgpa": 1.105128205128205,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.093181818181818
+    },
+    "1570": {
+        "historical_cgpa": 1.1794871794871795,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1454545454545455
+    },
+    "1571": {
+        "historical_cgpa": 0.9230769230769231,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9090909090909091
+    },
+    "1572": {
+        "historical_cgpa": 1.2230769230769236,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1977272727272732
+    },
+    "1573": {
+        "historical_cgpa": 1.0538461538461537,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.034090909090909
+    },
+    "1574": {
+        "historical_cgpa": 1.1025641025641026,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.0522727272727272
+    },
+    "1575": {
+        "historical_cgpa": 0.8717948717948718,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 0.8931818181818181
+    },
+    "1576": {
+        "historical_cgpa": 1.0282051282051283,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 0.9795454545454546
+    },
+    "1577": {
+        "historical_cgpa": 0.9820512820512823,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 0.9863636363636367
+    },
+    "1578": {
+        "historical_cgpa": 1.012820512820513,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.0181818181818185
+    },
+    "1579": {
+        "historical_cgpa": 1.1564102564102565,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1386363636363637
+    },
+    "1580": {
+        "historical_cgpa": 1.117948717948718,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.1272727272727272
+    },
+    "1581": {
+        "historical_cgpa": 0.9051282051282052,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.8636363636363638
+    },
+    "1582": {
+        "historical_cgpa": 0.8743589743589743,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 0.8954545454545453
+    },
+    "1583": {
+        "historical_cgpa": 1.0820512820512822,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0431818181818182
+    },
+    "1584": {
+        "historical_cgpa": 1.228205128205128,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.186363636363636
+    },
+    "1585": {
+        "historical_cgpa": 0.7974358974358974,
+        "predicted_semester_gpa": 0.9399999999999998,
+        "predicted_new_cgpa": 0.8136363636363636
+    },
+    "1586": {
+        "historical_cgpa": 1.0179487179487183,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9863636363636368
+    },
+    "1587": {
+        "historical_cgpa": 1.0153846153846156,
+        "predicted_semester_gpa": 0.8799999999999999,
+        "predicted_new_cgpa": 1.0000000000000002
+    },
+    "1588": {
+        "historical_cgpa": 1.2615384615384617,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.2545454545454549
+    },
+    "1589": {
+        "historical_cgpa": 1.1692307692307695,
+        "predicted_semester_gpa": 0.9199999999999999,
+        "predicted_new_cgpa": 1.140909090909091
+    },
+    "1590": {
+        "historical_cgpa": 0.8564102564102564,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 0.8363636363636363
+    },
+    "1591": {
+        "historical_cgpa": 1.1179487179487178,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0590909090909089
+    },
+    "1592": {
+        "historical_cgpa": 0.9256410256410257,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 0.9272727272727274
+    },
+    "1593": {
+        "historical_cgpa": 0.9384615384615383,
+        "predicted_semester_gpa": 1.22,
+        "predicted_new_cgpa": 0.9704545454545453
+    },
+    "1594": {
+        "historical_cgpa": 1.1717948717948719,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1522727272727273
+    },
+    "1595": {
+        "historical_cgpa": 1.064102564102564,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.0568181818181819
+    },
+    "1596": {
+        "historical_cgpa": 1.2025641025641027,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.1204545454545456
+    },
+    "1597": {
+        "historical_cgpa": 0.9307692307692309,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.9386363636363637
+    },
+    "1598": {
+        "historical_cgpa": 0.6897435897435897,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.6727272727272727
+    },
+    "1599": {
+        "historical_cgpa": 1.3282051282051284,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.231818181818182
+    },
+    "1600": {
+        "historical_cgpa": 1.1666666666666667,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.125
+    },
+    "1601": {
+        "historical_cgpa": 0.9589743589743591,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 0.9795454545454547
+    },
+    "1602": {
+        "historical_cgpa": 0.9794871794871796,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 0.9977272727272729
+    },
+    "1603": {
+        "historical_cgpa": 1.130769230769231,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 1.1159090909090912
+    },
+    "1604": {
+        "historical_cgpa": 0.9692307692307693,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 0.9795454545454547
+    },
+    "1605": {
+        "historical_cgpa": 1.0794871794871794,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.034090909090909
+    },
+    "1606": {
+        "historical_cgpa": 1.1564102564102565,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0931818181818183
+    },
+    "1607": {
+        "historical_cgpa": 1.1743589743589746,
+        "predicted_semester_gpa": 0.82,
+        "predicted_new_cgpa": 1.1340909090909095
+    },
+    "1608": {
+        "historical_cgpa": 1.0999999999999999,
+        "predicted_semester_gpa": 0.6199999999999999,
+        "predicted_new_cgpa": 1.0454545454545452
+    },
+    "1609": {
+        "historical_cgpa": 1.2461538461538462,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.1795454545454545
+    },
+    "1610": {
+        "historical_cgpa": 0.9794871794871792,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 0.9068181818181816
+    },
+    "1611": {
+        "historical_cgpa": 1.1410256410256412,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.1022727272727275
+    },
+    "1612": {
+        "historical_cgpa": 1.1641025641025642,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.1159090909090912
+    },
+    "1613": {
+        "historical_cgpa": 1.0282051282051283,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.9954545454545456
+    },
+    "1614": {
+        "historical_cgpa": 0.8615384615384616,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.8613636363636363
+    },
+    "1615": {
+        "historical_cgpa": 1.2461538461538464,
+        "predicted_semester_gpa": 0.33999999999999997,
+        "predicted_new_cgpa": 1.1431818181818185
+    },
+    "1616": {
+        "historical_cgpa": 1.0102564102564104,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.9863636363636364
+    },
+    "1617": {
+        "historical_cgpa": 0.9102564102564105,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.8681818181818184
+    },
+    "1618": {
+        "historical_cgpa": 0.9615384615384613,
+        "predicted_semester_gpa": 1.0,
+        "predicted_new_cgpa": 0.9659090909090907
+    },
+    "1619": {
+        "historical_cgpa": 1.0999999999999999,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0727272727272725
+    },
+    "1620": {
+        "historical_cgpa": 1.048717948717949,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0272727272727276
+    },
+    "1621": {
+        "historical_cgpa": 0.7948717948717948,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 0.7954545454545454
+    },
+    "1622": {
+        "historical_cgpa": 1.046153846153846,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0113636363636365
+    },
+    "1623": {
+        "historical_cgpa": 1.1102564102564103,
+        "predicted_semester_gpa": 0.72,
+        "predicted_new_cgpa": 1.0659090909090911
+    },
+    "1624": {
+        "historical_cgpa": 1.1128205128205129,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.0704545454545455
+    },
+    "1625": {
+        "historical_cgpa": 0.976923076923077,
+        "predicted_semester_gpa": 1.02,
+        "predicted_new_cgpa": 0.9818181818181819
+    },
+    "1626": {
+        "historical_cgpa": 1.1384615384615386,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.0772727272727274
+    },
+    "1627": {
+        "historical_cgpa": 1.0564102564102564,
+        "predicted_semester_gpa": 1.2,
+        "predicted_new_cgpa": 1.0727272727272728
+    },
+    "1628": {
+        "historical_cgpa": 0.8102564102564103,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 0.8159090909090909
+    },
+    "1629": {
+        "historical_cgpa": 1.0153846153846153,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.0227272727272725
+    },
+    "1630": {
+        "historical_cgpa": 1.0820512820512822,
+        "predicted_semester_gpa": 1.1400000000000001,
+        "predicted_new_cgpa": 1.0886363636363638
+    },
+    "1631": {
+        "historical_cgpa": 1.1846153846153848,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 1.1340909090909095
+    },
+    "1632": {
+        "historical_cgpa": 1.2102564102564104,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 1.1340909090909093
+    },
+    "1633": {
+        "historical_cgpa": 1.0384615384615385,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 1.0431818181818182
+    },
+    "1634": {
+        "historical_cgpa": 1.1282051282051284,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.1204545454545458
+    },
+    "1635": {
+        "historical_cgpa": 1.0794871794871794,
+        "predicted_semester_gpa": 1.3199999999999998,
+        "predicted_new_cgpa": 1.1068181818181817
+    },
+    "1636": {
+        "historical_cgpa": 1.2000000000000002,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.1636363636363638
+    },
+    "1637": {
+        "historical_cgpa": 0.9794871794871793,
+        "predicted_semester_gpa": 0.2,
+        "predicted_new_cgpa": 0.8909090909090908
+    },
+    "1638": {
+        "historical_cgpa": 0.9743589743589743,
+        "predicted_semester_gpa": 1.08,
+        "predicted_new_cgpa": 0.9863636363636363
+    },
+    "1639": {
+        "historical_cgpa": 1.0564102564102564,
+        "predicted_semester_gpa": 0.8800000000000001,
+        "predicted_new_cgpa": 1.0363636363636364
+    },
+    "1640": {
+        "historical_cgpa": 1.058974358974359,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.0159090909090909
+    },
+    "1641": {
+        "historical_cgpa": 1.117948717948718,
+        "predicted_semester_gpa": 0.48,
+        "predicted_new_cgpa": 1.0454545454545454
+    },
+    "1642": {
+        "historical_cgpa": 1.1282051282051284,
+        "predicted_semester_gpa": 1.46,
+        "predicted_new_cgpa": 1.165909090909091
+    },
+    "1643": {
+        "historical_cgpa": 1.176923076923077,
+        "predicted_semester_gpa": 0.68,
+        "predicted_new_cgpa": 1.1204545454545454
+    },
+    "1644": {
+        "historical_cgpa": 1.0076923076923079,
+        "predicted_semester_gpa": 1.06,
+        "predicted_new_cgpa": 1.013636363636364
+    },
+    "1645": {
+        "historical_cgpa": 1.058974358974359,
+        "predicted_semester_gpa": 0.86,
+        "predicted_new_cgpa": 1.0363636363636362
+    },
+    "1646": {
+        "historical_cgpa": 1.0615384615384618,
+        "predicted_semester_gpa": 0.6599999999999999,
+        "predicted_new_cgpa": 1.0159090909090909
+    },
+    "1647": {
+        "historical_cgpa": 0.9025641025641027,
+        "predicted_semester_gpa": 0.74,
+        "predicted_new_cgpa": 0.8840909090909093
+    },
+    "1648": {
+        "historical_cgpa": 1.0128205128205128,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9590909090909091
+    },
+    "1649": {
+        "historical_cgpa": 0.994871794871795,
+        "predicted_semester_gpa": 0.54,
+        "predicted_new_cgpa": 0.9431818181818183
+    },
+    "1650": {
+        "historical_cgpa": 1.1820512820512823,
+        "predicted_semester_gpa": 0.6,
+        "predicted_new_cgpa": 1.1159090909090912
+    },
+    "1651": {
+        "historical_cgpa": 1.0615384615384613,
+        "predicted_semester_gpa": 0.8,
+        "predicted_new_cgpa": 1.0318181818181815
+    },
+    "1652": {
+        "historical_cgpa": 1.3384615384615386,
+        "predicted_semester_gpa": 0.6799999999999999,
+        "predicted_new_cgpa": 1.2636363636363637
+    },
+    "1653": {
+        "historical_cgpa": 1.266666666666667,
+        "predicted_semester_gpa": 0.9400000000000001,
+        "predicted_new_cgpa": 1.229545454545455
+    }
+}

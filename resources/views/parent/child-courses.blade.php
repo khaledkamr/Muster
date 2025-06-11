@@ -178,11 +178,11 @@
                             <div>
                                 <p class="mb-1">
                                     <strong>Predicted Semester GPA:</strong>
-                                    <span class=" ms-2">3.45</span>
+                                    <span class=" ms-2"> {{ $childPredictedGPA }} </span>
                                 </p>
                                 <p class="mb-0">
                                     <strong>Predicted CGPA:</strong>
-                                    <span class=" ms-2">3.67</span>
+                                    <span class=" ms-2"> {{ $childPredictedCGPA }} </span>
                                 </p>
                             </div>
                         </div>

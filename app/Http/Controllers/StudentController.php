@@ -196,8 +196,12 @@ class StudentController extends Controller
 
         $recommendedElectives = json_decode(file_get_contents(base_path('python_scripts/results/recommendations.json')), true);
         $recommendedElectives = $recommendedElectives[$user->id];
+        
+        $predicted_GPAs = json_decode(file_get_contents(base_path('python_scripts/results/gpa_predictions.json')), true);
+        $predictedGPA = round($predicted_GPAs[$user->id]['predicted_semester_gpa'], 2);
+        $predictedCGPA = round($predicted_GPAs[$user->id]['predicted_new_cgpa'], 2);
 
-        return view('student.courses', compact('enrollments', 'courseStats', 'chartData', 'totalCreditHours', 'recommendedElectives'));
+        return view('student.courses', compact('enrollments', 'courseStats', 'chartData', 'totalCreditHours', 'recommendedElectives' , 'predictedGPA', 'predictedCGPA'));
     }
 
     public function grades()
