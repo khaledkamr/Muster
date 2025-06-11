@@ -147,6 +147,20 @@ class ProfessorController extends Controller
             });
         }
 
+        // Filter by performance group
+        $performanceFilter = request()->query('status');
+        if ($performanceFilter && $performanceFilter !== 'all') {
+            $students = $students->filter(function ($student) use ($performanceFilter, $clusteringStudents) {
+                $group = $clusteringStudents['students'][$student->id]['performance_group'];
+                return match($performanceFilter) {
+                    'high' => $group === 'High performers',
+                    'average' => $group === 'Average performers',
+                    'low' => $group === 'At risk',
+                    default => true
+                };
+            });
+        }
+
         // Convert collection to paginator with 10 items per page
         $students = new \Illuminate\Pagination\LengthAwarePaginator(
             $students->forPage(request()->get('page', 1), 50),

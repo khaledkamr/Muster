@@ -118,6 +118,7 @@
             margin: 0;
             padding: 0;
         }
+
         .pagination .page-item .page-link {
             color: #0A9442;
             border: 1px solid #dee2e6;
@@ -126,16 +127,19 @@
             border-radius: 4px;
             transition: 0.3s;
         }
+
         .pagination .page-item.active .page-link {
             background-color: #0A9442;
             border-color: #0A9442;
             color: white;
         }
+
         .pagination .page-item .page-link:hover {
             background-color: #0A9442;
             border-color: #0A9442;
             color: white;
         }
+
         .pagination .page-item.disabled .page-link {
             color: #fff;
             pointer-events: none;
@@ -151,19 +155,33 @@
                 <div class="d-flex flex-column gap-5">
                     <div>
                         <label for="statusFilter" class="form-label text-dark fw-bold">Filter by Performance:</label>
-                        <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()" form="filterForm">
-                            <option value="all" selected>All</option>
-                            <option value="high">High Performance</option>
-                            <option value="average">Average Performance</option>
-                            <option value="low">Low Performance</option>
-                        </select>
+                        <form id="filterForm" method="GET" action="{{ route('professor.course.students', $courseId) }}"
+                            class="d-flex flex-column">
+                            <select id="statusFilter" name="status" class="form-select" onchange="this.form.submit()">
+                                <option value="all"
+                                    {{ request()->query('status') === 'all' || !request()->query('status') ? 'selected' : '' }}>
+                                    All</option>
+                                <option value="high" {{ request()->query('status') === 'high' ? 'selected' : '' }}>High
+                                    Performance</option>
+                                <option value="average" {{ request()->query('status') === 'average' ? 'selected' : '' }}>
+                                    Average Performance</option>
+                                <option value="low" {{ request()->query('status') === 'low' ? 'selected' : '' }}>Low
+                                    Performance</option>
+                            </select>
+                            @if (request()->query('search'))
+                                <input type="hidden" name="search" value="{{ request()->query('search') }}">
+                            @endif
+                        </form>
                     </div>
                     <div class="d-flex gap-2">
-                        <form method="GET" action="{{ route('professor.course.students', $courseId) }}" class="d-flex flex-column">
+                        <form method="GET" action="{{ route('professor.course.students', $courseId) }}"
+                            class="d-flex flex-column">
                             <label for="search" class="form-label text-dark fw-bold">Search for student:</label>
                             <div class="d-flex">
-                                <input type="text" name="search" class="form-control me-2" style="width: 300px" placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
-                                <button type="submit" class="btn btn-primary" style="background-color: #0A9442;">Search</button>
+                                <input type="text" name="search" class="form-control me-2" style="width: 300px"
+                                    placeholder="Search by ID or Name" value="{{ request()->query('search') }}">
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: #0A9442;">Search</button>
                             </div>
                         </form>
                     </div>
@@ -180,7 +198,7 @@
                 </div>
             </div>
         </div>
-       
+
         <div class="table-container">
             <table class="table table-striped">
                 <thead>
@@ -213,9 +231,14 @@
                                 <td class="text-center">{{ $student->year }}</td>
                                 <td class="text-center">{{ $student->email }}</td>
                                 <td class="text-center">
-                                    <span class="status-{{ $clusteringStudents['students'][$student->id]['performance_group'] == 'High performers' ? 'high' 
-                                        : ($clusteringStudents['students'][$student->id]['performance_group'] == 'Average performers' ? 'average' 
-                                        : ($clusteringStudents['students'][$student->id]['performance_group'] == 'At risk' ? 'risk' : '')) }}">
+                                    <span
+                                        class="status-{{ $clusteringStudents['students'][$student->id]['performance_group'] == 'High performers'
+                                            ? 'high'
+                                            : ($clusteringStudents['students'][$student->id]['performance_group'] == 'Average performers'
+                                                ? 'average'
+                                                : ($clusteringStudents['students'][$student->id]['performance_group'] == 'At risk'
+                                                    ? 'risk'
+                                                    : '')) }}">
                                         {{ $clusteringStudents['students'][$student->id]['performance_group'] }}
                                     </span>
                                 </td>
