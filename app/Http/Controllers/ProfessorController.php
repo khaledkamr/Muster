@@ -286,6 +286,7 @@ class ProfessorController extends Controller
     {
         $course = Course::findOrFail($courseId);
         $searchQuery = request()->query('search');
+        $statusFilter = request()->query('status');
 
         $clusteringStudents = json_decode(file_get_contents(base_path('python_scripts/results/clustering_results.json')), true);
         $clusteringStudents = $clusteringStudents[$courseId];
@@ -303,6 +304,18 @@ class ProfessorController extends Controller
         if ($searchQuery) {
             $students = $students->filter(function ($student) use ($searchQuery) {
                 return stripos($student->id, $searchQuery) !== false || stripos($student->name, $searchQuery) !== false;
+            });
+        }
+
+        // Filter by status
+        if ($statusFilter && $statusFilter !== 'all') {
+            $students = $students->filter(function ($student) use ($statusFilter, $clusteringStudents) {
+                $group = $clusteringStudents['students'][$student->id]['performance_group'];
+                return match($statusFilter) {
+                    'on-track' => $group !== 'At risk',
+                    'at-risk' => $group === 'At risk',
+                    default => true
+                };
             });
         }
 
