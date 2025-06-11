@@ -23,7 +23,7 @@
                 </div>
                 <canvas id="weeklyAttendanceChart" height="100"></canvas>
                 <!-- Hidden Form for Filters -->
-                <form id="filterForm" method="GET" action="{{ route('student.attendance') }}"></form>
+                <form id="filterForm" method="GET" action="{{ route('parent.child.attendance', $child->id) }}"></form>
             </div>
         </div>
         <div class="col-md-2 d-flex flex-column gap-4">
