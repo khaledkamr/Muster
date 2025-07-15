@@ -90,24 +90,3 @@ Parents are offered an intuitive dashboard to stay engaged with their child’s 
 
 ---
 
-##  Testing and Validation
-
-- **Security & Auth**: Tested using PHPUnit, Selenium, and OWASP ZAP  
-- **AI Models**:
-  - Logistic Regression: 99% accuracy on synthetic data  
-  - LSTM GPA Predictor: 79.6% accuracy (±0.3 GPA points)
-- **Interface**: Functional testing for dashboard filters, chart responsiveness, and data accuracy
-
----
-
-##  Conclusion
-
-**Muster** redefines academic monitoring through AI-powered dashboards, enabling proactive decisions and personalized learning. Built with scalability, privacy, and usability in mind, it's adaptable for universities worldwide.
-
-**Future Enhancements**:
-- Mobile app version  
-- Real-time data support  
-- Expanded AI features (e.g., behavioral analysis, anomaly detection)
-
----
-
