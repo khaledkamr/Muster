@@ -81,6 +81,9 @@ class StudentController extends Controller
             ->whereBetween('date', [$semesterStart, $semesterEnd])
             ->get();
 
+        $earliestAttendanceDate = $attendances->max('date');
+        $currentWeek = ceil(($semesterStart)->diffInWeeks($earliestAttendanceDate) + 1);
+
         // Calculate weekly attendance (lectures, labs, or both)
         $weeksInSemester = $semesterStart->diffInWeeks($semesterEnd) + 1;
         $weeklyAttendance = [];
@@ -97,7 +100,10 @@ class StudentController extends Controller
             });
 
             $sessionsInWeek = $weekAttendances->count();
-            $presentInWeek = $weekAttendances->where('status', 'present')->count();
+            $presentInWeek = $weekAttendances->whereIn('status', ['present', 'late'])->count();
+            if($presentInWeek <= 0 and $currentWeek < $week) {
+                $presentInWeek = null;
+            }
             $weeklyAttendance[$week] = $presentInWeek;
 
             $totalSessions += $sessionsInWeek;
@@ -618,9 +624,8 @@ class StudentController extends Controller
         $user = Auth::user();
         $enrollments = $user->enrollments()->with('course')->get();
 
-        // Determine the current semester and year
         $currentMonth = 10;
-        $currentYear = now()->year;
+        $currentYear = 2025;
         $currentSemester = $currentMonth <= 6 ? 'first' : 'second';
         $startYear = $enrollments->min('enrolled_at') ? $enrollments->min('enrolled_at')->format('Y') : $currentYear;
         $currentAcademicYear = $currentYear - $startYear + 1;
@@ -628,6 +633,8 @@ class StudentController extends Controller
         // Define semester date range (assuming first semester: Jan-Jun)
         $semesterStart = Carbon::create($currentYear, $currentSemester === 'first' ? 1 : 8, 1);
         $semesterEnd = Carbon::create($currentYear, $currentSemester === 'first' ? 6 : 11, 30);
+
+        
 
         // Get current semester courses
         $currentSemesterCourses = $enrollments
@@ -643,8 +650,11 @@ class StudentController extends Controller
             ->whereBetween('date', [$semesterStart, $semesterEnd])
             ->get();
 
+        $earliestAttendanceDate = $attendances->max('date');
+        $currentWeek = ceil(($semesterStart)->diffInWeeks($earliestAttendanceDate) + 1);
+
         // Calculate weekly attendance (lectures, labs, or both)
-        $filterType = $request->input('type', 'both'); // Filter: lectures, labs, or both
+        $filterType = $request->input('type', 'both'); 
         $weeksInSemester = $semesterStart->diffInWeeks($semesterEnd) + 1;
         $weeklyAttendance = [];
         $totalSessions = 0;
@@ -662,7 +672,10 @@ class StudentController extends Controller
             });
 
             $sessionsInWeek = $weekAttendances->count();
-            $presentInWeek = $weekAttendances->where('status', 'present')->count();
+            $presentInWeek = $weekAttendances->whereIn('status', ['present', 'late'])->count();
+            if($presentInWeek <= 0 and $currentWeek < $week) {
+                $presentInWeek = null;
+            }
             $missingInWeek = $weekAttendances->where('status', 'absent')->count();
             $weeklyAttendance[$week] = $presentInWeek;
 
@@ -671,11 +684,9 @@ class StudentController extends Controller
             $missingSessions += $missingInWeek;
         }
 
-        // Calculate attendance rate
         $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
         $missingRate = $totalSessions > 0 ? round(($missingSessions / $totalSessions) * 100) : 0;
 
-        // calculate attendance for each course
         $coursesAttendance = [
             'courseId' => [],
             'course' => [],

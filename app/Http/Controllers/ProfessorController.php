@@ -89,11 +89,22 @@ class ProfessorController extends Controller
             $weekRecords = $allAttendanceRecords->filter(function ($record) use ($week) {
                 return Carbon::parse($record->date)->betweenIncluded($week['start'], $week['end']);
             });
-            $weeklyAttendance[$weekKey] = [
-                'present' => $weekRecords->where('status', 'present')->count(),
-                'absent' => $weekRecords->where('status', 'absent')->count(),
-                'late' => $weekRecords->where('status', 'late')->count(),
-            ];
+            if($week === end($weeks))
+            {
+                if($weekRecords->count() == 0) {
+                    $weeklyAttendance[$weekKey] = [
+                        'present' => null,
+                        'absent' => null,
+                        'late' => null
+                    ];
+                }
+            } else {
+                $weeklyAttendance[$weekKey] = [
+                    'present' => $weekRecords->where('status', 'present')->count(),
+                    'absent' => $weekRecords->where('status', 'absent')->count(),
+                    'late' => $weekRecords->where('status', 'late')->count(),
+                ];
+            }
         }
 
         $presentCount = $allAttendanceRecords->where('status', 'present')->count();
@@ -439,11 +450,20 @@ class ProfessorController extends Controller
             $weekRecords = $allAttendanceRecords->filter(function ($record) use ($week) {
                 return Carbon::parse($record->date)->betweenIncluded($week['start'], $week['end']);
             });
-            $weeklyAttendance[$weekKey] = [
-                'present' => $weekRecords->where('status', 'present')->count(),
-                'absent' => $weekRecords->where('status', 'absent')->count(),
-                'late' => $weekRecords->where('status', 'late')->count(),
-            ];
+            
+            if(end($weeks) === $week && $weekRecords->count() == 0) {
+                $weeklyAttendance[$weekKey] = [
+                    'present' => null,
+                    'absent' => null,
+                    'late' => null
+                ];
+            } else {
+                $weeklyAttendance[$weekKey] = [
+                    'present' => $weekRecords->where('status', 'present')->count(),
+                    'absent' => $weekRecords->where('status', 'absent')->count(),
+                    'late' => $weekRecords->where('status', 'late')->count(),
+                ];
+            }
         }
 
         $statusFilter = request('status', 'all');

@@ -233,7 +233,7 @@
                             backgroundColor: @json($chartData['colors']),
                             borderColor: @json($chartData['colors']),
                             borderWidth: 1,
-                            borderRadius: 5,
+                            borderRadius: 20,
                             barThickness: 100,
                         }]
                     },

@@ -287,7 +287,7 @@
                         ],
                         borderWidth: 1,
                         barRadius: 5,
-                        borderRadius: 10
+                        borderRadius: 8
                     }]
                 },
                 options: {

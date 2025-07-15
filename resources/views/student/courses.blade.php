@@ -263,7 +263,7 @@
                             'rgba(255, 99, 132, 0.8)'
                         ],
                         borderWidth: 1,
-                        borderRadius: 5,
+                        borderRadius: 20,
                         barThickness: 100,
                     }]
                 },
