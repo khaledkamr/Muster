@@ -279,6 +279,9 @@
                                 maxRotation: 45,
                                 minRotation: 45
                             },
+                            grid: {
+                                display: false
+                            }
                         },
                         y: {
                             title: {

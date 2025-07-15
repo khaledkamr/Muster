@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         //     User::factory()->count(6)->professor()->create(['department' => $department]);
         // }        
 
-        // // User::factory()->count(3)->professor()->create(['department' => 'Artificial Intelligence']);
+        // User::factory()->count(3)->professor()->create(['department' => 'Artificial Intelligence']);
 
         // User::factory()->count(125)->student()->create(['year' => 'freshman', 'major' => null]);
         // User::factory()->count(125)->student()->create(['year' => 'sophomore', 'major' => null]);
