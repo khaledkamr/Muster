@@ -607,11 +607,9 @@ class ProfessorController extends Controller
             'final' => $maxScores['final'],
         ];
 
-        // Calculate total score out of 170
         $totalMaxScore = array_sum($maxScores); // 170
         $totalScore = $grade->total;
 
-        // Calculate percentage
         $percentage = round(($totalScore / $totalMaxScore) * 100);
 
         // Get assignments for this course
@@ -619,6 +617,14 @@ class ProfessorController extends Controller
             ->take(3)->get();
         $submissions = Assignment_submission::whereIn('assignment_id', $assignments->pluck('id'))
             ->where('student_id', $user->id)->get();
+        
+        $upcomingAssignments = [];
+        if($submissions->count() == 2) {
+            $upcomingAssignments = [
+                'title' => 'Assignment 3',
+                'status' => 'upcoming',
+            ];
+        }
 
         // Calculate assignment statistics
         $totalAssignments = $assignments->count();
@@ -630,7 +636,6 @@ class ProfessorController extends Controller
         $maxPossibleScore = $totalAssignments * 10; // Assuming each assignment is worth 10 points
         $scoreRate = $maxPossibleScore > 0 ? round(($totalAssignmentsScore / $maxPossibleScore) * 100) : 0;
 
-        // Get attendance records for this course
         $attendances = Attendance::where('course_id', $course->id)
             ->where('student_id', $user->id)
             ->get();
@@ -678,6 +683,7 @@ class ProfessorController extends Controller
             'percentage',
             'assignments',
             'submissions',
+            'upcomingAssignments',
             'completionRate',
             'scoreRate',
             'attendances',

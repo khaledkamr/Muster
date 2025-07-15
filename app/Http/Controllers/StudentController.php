@@ -541,6 +541,14 @@ class StudentController extends Controller
         $submissions = Assignment_submission::whereIn('assignment_id', $assignments->pluck('id'))
             ->where('student_id', $user->id)->get();
 
+        $upcomingAssignments = collect([]);
+        if($submissions->count() == 2) {
+            $upcomingAssignments = [
+                'title' => 'Assignment 3',
+                'status' => 'upcoming',
+            ];
+        }
+
         // Calculate assignment statistics
         $totalAssignments = $assignments->count();
         $completedAssignments = $submissions->where('status', 'submitted')->count();
@@ -598,6 +606,7 @@ class StudentController extends Controller
             'percentage',
             'assignments',
             'submissions',
+            'upcomingAssignments',
             'completionRate',
             'scoreRate',
             'attendances',

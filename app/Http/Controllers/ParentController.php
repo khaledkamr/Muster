@@ -271,58 +271,66 @@ class ParentController extends Controller
             abort(404, 'Grade not found for this course.');
         }
 
-         // Calculate average grade for the course
-         $allGrades = Grade::where('course_id', $course->id)->get();
-         $totalPoints = 0;
- 
-         foreach ($allGrades as $courseGrade) {
-             $totalPoints += $courseGrade->total ?? 0;
-         }
- 
-         $averageGrade = $allGrades->count() > 0 ? round($totalPoints / $allGrades->count(), 2) : 0;
-         $departmentStudents = $allGrades->count();
- 
-         $maxScores = [
-             'quiz1' => 10,
-             'quiz2' => 10,
-             'midterm' => 30,
-             'project' => 30,
-             'assignments' => 30, 
-             'final' => 60,
-         ];
- 
-         // Prepare scores for display
-         $displayScores = [
-             'quiz1' => $grade->quiz1 ? $grade->quiz1 : 0,
-             'quiz2' => $grade->quiz2 ? $grade->quiz2 : 0,
-             'midterm' => $grade->midterm ? $grade->midterm : 0,
-             'project' => $grade->project ? $grade->project : 0,
-             'assignments' => $grade->assignments ? $grade->assignments : 0,
-             'final' => $grade->final ? $grade->final : 0,
-         ];
- 
-         // Max scores for display
-         $displayMaxScores = [
-             'quiz1' => $maxScores['quiz1'],
-             'quiz2' => $maxScores['quiz2'],
-             'midterm' => $maxScores['midterm'],
-             'project' => $maxScores['project'],
-             'assignments' => $maxScores['assignments'],
-             'final' => $maxScores['final'],
-         ];
- 
-         // Calculate total score out of 170
-         $totalMaxScore = array_sum($maxScores); // 170
-         $totalScore = $grade->total;
- 
-         // Calculate percentage
-         $percentage = round(($totalScore / $totalMaxScore) * 100);
- 
-         // Get assignments for this course
-         $assignments = Assignment::where('course_id', $course->id)->orderBy('created_at', 'asc')
-             ->take(3)->get();
-         $submissions = Assignment_submission::whereIn('assignment_id', $assignments->pluck('id'))
-             ->where('student_id', $child->id)->get();
+        // Calculate average grade for the course
+        $allGrades = Grade::where('course_id', $course->id)->get();
+        $totalPoints = 0;
+
+        foreach ($allGrades as $courseGrade) {
+            $totalPoints += $courseGrade->total ?? 0;
+        }
+
+        $averageGrade = $allGrades->count() > 0 ? round($totalPoints / $allGrades->count(), 2) : 0;
+        $departmentStudents = $allGrades->count();
+
+        $maxScores = [
+            'quiz1' => 10,
+            'quiz2' => 10,
+            'midterm' => 30,
+            'project' => 30,
+            'assignments' => 30, 
+            'final' => 60,
+        ];
+
+        // Prepare scores for display
+        $displayScores = [
+            'quiz1' => $grade->quiz1 ? $grade->quiz1 : 0,
+            'quiz2' => $grade->quiz2 ? $grade->quiz2 : 0,
+            'midterm' => $grade->midterm ? $grade->midterm : 0,
+            'project' => $grade->project ? $grade->project : 0,
+            'assignments' => $grade->assignments ? $grade->assignments : 0,
+            'final' => $grade->final ? $grade->final : 0,
+        ];
+
+        // Max scores for display
+        $displayMaxScores = [
+            'quiz1' => $maxScores['quiz1'],
+            'quiz2' => $maxScores['quiz2'],
+            'midterm' => $maxScores['midterm'],
+            'project' => $maxScores['project'],
+            'assignments' => $maxScores['assignments'],
+            'final' => $maxScores['final'],
+        ];
+
+        // Calculate total score out of 170
+        $totalMaxScore = array_sum($maxScores); // 170
+        $totalScore = $grade->total;
+
+        // Calculate percentage
+        $percentage = round(($totalScore / $totalMaxScore) * 100);
+
+        // Get assignments for this course
+        $assignments = Assignment::where('course_id', $course->id)->orderBy('created_at', 'asc')
+            ->take(3)->get();
+        $submissions = Assignment_submission::whereIn('assignment_id', $assignments->pluck('id'))
+            ->where('student_id', $child->id)->get();
+
+        $upcomingAssignments = collect([]);
+        if($submissions->count() == 2) {
+            $upcomingAssignments = [
+                'title' => 'Assignment 3',
+                'status' => 'upcoming',
+            ];
+        }
  
          // Calculate assignment statistics
          $totalAssignments = $assignments->count();
@@ -383,6 +391,7 @@ class ParentController extends Controller
             'percentage',
             'assignments',
             'submissions',
+            'upcomingAssignments',
             'completionRate',
             'scoreRate',
             'attendances',

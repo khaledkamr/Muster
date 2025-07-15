@@ -10,21 +10,27 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.288);
     }
 </style>
-<div class="d-flex align-items-center mb-2 pt-3">
-    <a href="{{ url()->previous() }}" class="btn btn-secondary me-3">
-        <i class="fa-solid fa-arrow-left"></i>
-    </a>
-    <h1 class="text-dark fw-bold mb-0">{{ $course->code }}</h1>
-</div>
-
-<div class="d-flex align-items-center mb-5">
-    <h4 class="text-dark fw-bold mb-0">{{ $user->name }}'s academic details in {{ $course->name }}</h4>
-    <span class="text-dark ms-3">{{ $course->credit_hours }} HRs</span>
+<div class="container mt-3 mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary me-3">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <div class="d-flex align-items-center gap-3">
+                    <h1 class="text-dark fw-bold mb-0">{{ $course->code }}</h1>
+                    <div>
+                        <h4 class="text-muted fw-bold mb-0">{{ $user->name }}'s academic details in {{ $course->name }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container">
     <h4 class="text-dark fw-bold mb-4">Grades Statistics</h4>
-    <div class="grades row justify-content-left mb-4">
+    <div class="grades row justify-content-left mb-2">
         <div class="col-6 col-md-2 mb-3">
             <div class="bg-white text-center rounded-4 shadow p-3">
                 <div class="rounded">
@@ -111,7 +117,7 @@
         </div>
     </div>
 
-    <div class="row mb-5">
+    <div class="row mb-4">
         <div class="col-md-6">
             <div class="bg-white border-0 shadow rounded-4 p-3">
                 <div class="rounded">
@@ -254,9 +260,9 @@
 
 
 <!-- Assignment Statistics -->
-<div class="container mb-4">
+<div class="container mb-3">
     <h4 class="text-dark fw-bold mb-4">Assignment Statistics</h4>
-    <div class="row pb-4">
+    <div class="row pb-2">
         <div class="col-md-6">
             <div class="table-container shadow">
                 <table class="table table-striped ">
@@ -290,6 +296,19 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @if(!empty($upcomingAssignments))
+                                <tr>
+                                    <td class="fw-bold text-center">{{ $upcomingAssignments['title'] }}</td>
+                                    <td class="text-center">
+                                        <span class="badge status-{{ $upcomingAssignments['status'] }}">
+                                            {{ ucfirst($upcomingAssignments['status']) }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center">-</td>
+                                    <td class="text-center">-</td>
+                                    <td class="text-center">-</td>
+                                </tr>
+                            @endif
                         @else
                             <tr>
                                 <td colspan="5" class="text-center text-dark status-pending">No assignments found.
@@ -332,7 +351,7 @@
 </div>
 
 <!-- Attendance Statistics -->
-<div class="container">
+<div class="container mb-4">
     <h4 class="text-dark fw-bold mb-4">Attendance Statistics</h4>
     {{-- attendance table --}}
     <div class="row">
@@ -864,7 +883,7 @@
                     borderWidth: 1,
                     barThickness: 90,
                     barRadius: 5,
-                    borderRadius: 10
+                    borderRadius: 20
                 }]
             },
             options: {
@@ -880,6 +899,11 @@
                             text: 'Number of Courses'
                         },
                         max: Math.max(lectureAttendance, labAttendance) + 2
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
                     }
                 },
                 plugins: {
@@ -992,6 +1016,14 @@
         font-size: 12px;
         display: inline-block;
     }
+    .table .status-upcoming {
+            background-color: #ffe89b;
+            color: #856404;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: inline-block;
+        }
 
     .attendance-cell {
         cursor: pointer;
