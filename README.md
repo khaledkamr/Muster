@@ -26,6 +26,8 @@ Professors can manage courses, track performance, and act on predictive insights
   - GPA predictions using LSTM-RNN (79.6% accuracy).
   - Performance clustering (high, average, at-risk).
 - **Student & Course Metrics**: Aggregated views for strategic decisions.
+  
+<img width="1917" height="907" alt="prof" src="https://github.com/user-attachments/assets/77f3f9f6-097d-4274-a5dc-4cad4af24d01" />
 
 ---
 
@@ -52,6 +54,8 @@ Parents are offered an intuitive dashboard to stay engaged with their child’s 
 - **Assignment Completion**: See pending/submitted assignments and deadlines.
 - **Class Attendance Rate**: Charts showing attendance performance.
 - **Child Profile**: Overview of academic major, year, and key metrics.
+
+<img width="1918" height="1078" alt="par" src="https://github.com/user-attachments/assets/8d7fabfb-a0e7-4e61-bcd8-acc0d7fb5765" />
 
 ---
 
