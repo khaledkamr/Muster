@@ -368,14 +368,14 @@ class StudentController extends Controller
         
         return view('student.grades', compact(
             'user', 
-            'startYear', 
             'semesters', 
             'selectedSemester',
             'grades',
             'semesterStatistics',
             'gradeLabels',
             'gradesDistribution',
-            'cgpaTrend'
+            'cgpaTrend',
+            'gpaTrend'
         ));
     }
 

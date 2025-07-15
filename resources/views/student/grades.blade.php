@@ -150,7 +150,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-dark fw-bold">Grades Distribution</h5>
-                                <canvas id="gradeDistributionChart" style="max-height: 300px;"></canvas>
+                                <div style="height: 287px;">
+                                    <canvas id="gradeDistributionChart" ></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -160,12 +162,10 @@
             <!-- GPA Trend Chart -->
             @if($selectedSemester !== null && $cgpaTrend)
                 <div class="col-md-6 mb-4" id="gpaTrend">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title text-dark fw-bold">CGPA Trend</h5>
-                                <canvas id="gpaTrendChart" style="max-height: 300px;"></canvas>
-                            </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class=" text-dark fw-bold">GPA Trend</h5>
+                            <canvas id="gpaTrendChart" style="max-height: 300px;"></canvas>
                         </div>
                     </div>
                 </div>
@@ -178,12 +178,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             const gradesDistribution = @json($gradesDistribution);
             const gradeLabels = @json($gradeLabels);
-            const gpaTrendData = @json($cgpaTrend);
+            const cgpaTrendData = @json($cgpaTrend);
+            const gpaTrendData = @json($gpaTrend);
 
             const gradeDistributionChart = document.getElementById('gradeDistributionChart');
             const gpaTrendChart = document.getElementById('gpaTrendChart');
 
-            const semesterLabels = Object.keys(gpaTrendData).map(date => {
+            const semesterLabels = Object.keys(cgpaTrendData).map(date => {
                 const d = new Date(date);
                 return d.toLocaleString('default', { month: 'short', year: 'numeric' });
             });
@@ -193,22 +194,38 @@
                 data: {
                     labels: semesterLabels,
                     datasets: [{
-                        label: 'Semester GPA',
-                        data: Object.values(gpaTrendData).map(item => item.cgpa),
-                        borderColor: '#28a745',
-                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        label: 'Cumulative GPA',
+                        data: Object.values(cgpaTrendData).map(item => item.cgpa),
+                        borderColor: '#dc3545',
+                        backgroundColor: 'rgba(220, 53, 69, 0.1)',
                         borderWidth: 2,
                         tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: '#28a745',
+                        fill: false,
+                        pointBackgroundColor: '#dc3545',
                         pointBorderColor: '#fff',
                         pointBorderWidth: 2,
                         pointRadius: 4,
                         pointHoverRadius: 6
-                    }]
+                    },
+                    {
+                        label: 'Semester GPA',
+                        data: Object.values(gpaTrendData).map(item => item.gpa),
+                        borderColor: '#007bff',
+                        backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#007bff',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }
+                ]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         y: {
                             beginAtZero: true,
@@ -232,7 +249,12 @@
                     },
                     plugins: {
                         legend: {
-                            display: false
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
                         },
                         tooltip: {
                             callbacks: {
@@ -240,7 +262,9 @@
                                     return semesterLabels[context[0].dataIndex];
                                 },
                                 label: function(context) {
-                                    return `GPA: ${context.parsed.y.toFixed(2)}`;
+                                    const datasetLabel = context.dataset.label;
+                                    const value = context.parsed.y.toFixed(2);
+                                    return datasetLabel === 'Semester GPA' ? `GPA: ${value}` : `CGPA: ${value}`;
                                 }
                             }
                         }

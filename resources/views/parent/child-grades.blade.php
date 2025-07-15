@@ -7,215 +7,278 @@
     <h1 class="pb-5 pt-3 text-dark fw-bold">{{ $child->name }}'s Grades</h1>
     
     <div class="row mb-4">
-        <div class="col-md-6">
-            <label for="semesterFilter" class="form-label text-dark fw-bold">Select Semester:</label>
-            <select id="semesterFilter" class="form-select" style="max-width: 300px;">
-                <option value="" selected disabled>Select a semester</option>
-                @foreach ($semesters as $value => $label)
-                    <option value="{{ $value }}">{{ $label }}</option>
-                @endforeach
-            </select>
+            <div class="col-md-6">
+                <label for="semesterFilter" class="form-label text-dark fw-bold">Select Semester:</label>
+                <select id="semesterFilter" name="semester" onchange="this.form.submit()" form="semesterForm" class="form-select" style="max-width: 300px;">
+                    <option value="" {{ $selectedSemester === null ? 'selected' : '' }} disabled>Select a semester</option>
+                    @foreach ($semesters as $value => $label)
+                        <option value="{{ $value }}" {{ $value == $selectedSemester ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <form action="" id="semesterForm" method="GET"></form>
         </div>
-    </div>
 
-    <!-- Semester Statistics -->
-    <div class="row mb-4" id="semesterStats" style="display: none;">
-        <div class="col-md-4">
-            <div class="bg-white p-3 rounded-4 shadow-sm">
-                <div class="rounded-4">
-                    <h5 class="card-title text-dark fw-bold">Semester Statistics</h5>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted">Earned Hours:</span>
-                        <span class="fw-bold text-dark" id="semesterCredits">0</span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">Semester GPA:</span>
-                        <span class="fw-bold text-dark" id="semesterGPA">0.00</span>
+        <!-- Semester Statistics -->
+        @if($selectedSemester !== null)
+            <div class="row mb-4" id="semesterStats">
+                <div class="col-md-4">
+                    <div class="bg-white rounded-4 p-3 shadow-sm">
+                        <div class="rounded-4">
+                            <h5 class="card-title text-dark fw-bold">Semester Statistics</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Earned Hours:</span>
+                                <span class="fw-bold text-dark" id="semesterCredits">
+                                    {{ $semesterStatistics['semester_credits'] ?? 0 }}
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Semester GPA:</span>
+                                <span class="fw-bold text-dark" id="semesterGPA">
+                                    @if($semesterStatistics['semester_gpa'])
+                                        {{ $semesterStatistics['semester_gpa'] }}
+                                    @else
+                                        <i class="fa-solid fa-ban text-muted"></i>
+                                    @endif
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="bg-white p-3 rounded-4 shadow-sm">
-                <div class="rounded-4">
-                    <h5 class="card-title text-dark fw-bold">Cumulative Statistics</h5>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted">Total Hours:</span>
-                        <span class="fw-bold text-dark" id="totalCredits">0</span>
+                <div class="col-md-4">
+                    <div class="bg-white rounded-4 p-3 shadow-sm">
+                        <div class="rounded-4">
+                            <h5 class="card-title text-dark fw-bold">Cumulative Statistics</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Total Hours:</span>
+                                <span class="fw-bold text-dark" id="totalCredits">
+                                    {{ $semesterStatistics['total_credits'] ?? 0 }}
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">CGPA:</span>
+                                <div class="d-flex align-items-center">
+                                    <span class="fw-bold me-2 text-dark" id="cgpa">
+                                        {{ $semesterStatistics['cgpa'] }}
+                                    </span>
+                                    @if($semesterStatistics['cgpa']) 
+                                        @if($semesterStatistics['cgpa_status'] == 'up')
+                                            <i id="cgpaTrend" class="fas fa-circle-up text-success"></i>
+                                        @elseif($semesterStatistics['cgpa_status'] == 'down')
+                                            <i id="cgpaTrend" class="fas fa-circle-down text-danger"></i>
+                                        @else
+                                            <i id="cgpaTrend" class="fas fa-circle text-secondary"></i>
+                                        @endif
+                                    @else
+                                        <i class="fa-solid fa-ban text-muted"></i>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">CGPA:</span>
-                        <div class="d-flex align-items-center">
-                            <span class="fw-bold me-2 text-dark" id="cgpa">0.00</span>
-                            <i id="cgpaTrend" class="fas fa-circle text-secondary"></i>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-white rounded-4 p-3 shadow-sm">
+                        <div class="rounded-4">
+                            <h5 class="card-title text-dark fw-bold">Department Statistics</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Total Students:</span>
+                                <span class="fw-bold text-dark" id="totalStudents">
+                                    {{ $semesterStatistics['department_students'] ?? 0 }}
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Avg CGPA:</span>
+                                <div class="d-flex align-items-center">
+                                    <span class="fw-bold text-dark" id="avgcgpa">
+                                        {{ $semesterStatistics['department_avg_cgpa'] ?? 0.00 }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        @endif
+
+        <div class="table-container mb-4">
+            <table class="table table-striped" id="gradesTable">
+                <thead>
+                    <tr>
+                        <th class="bg-dark text-light text-center" width="10%">Course Code</th>
+                        <th class="bg-dark text-light text-center" width="20%">Course Name</th>
+                        <th class="bg-dark text-light text-center" width="10%">Hours</th>
+                        <th class="bg-dark text-light text-center" width="15%">Difficulty</th>
+                        <th class="bg-dark text-light text-center" width="15%">Type</th>
+                        <th class="bg-dark text-light text-center" width="10%">Grade</th>
+                        <th class="bg-dark text-light text-center" width="20%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if($selectedSemester == null)
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <div class="status-danger fs-6">No semester selected!</div>
+                            </td>
+                        </tr>
+                    @else
+                        @foreach ($grades as $grade)
+                            <tr>    
+                                <td class="text-center">{{ $grade['course']->code }}</td>
+                                <td class="text-center">{{ $grade['course']->name }}</td>
+                                <td class="text-center">{{ $grade['course']->credit_hours }}</td>
+                                <td class="text-center">{{ $grade['course']->difficulty }}</td>
+                                <td class="text-center">{{ $grade['course']->type }}</td>
+                                <td class="text-center text-{{ $grade->status === 'pass' ? 'success' : 'danger' }}">{{ $grade->grade ?? '-' }}</td>
+                                <td class="text-center action-icons">
+                                    <a href="{{ route('parent.child.course-details', [$grade['course']->id, $child->id]) }}" class="btn btn-sm btn-success text-light ps-3 pe-3">
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-light"></i> Details
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-4">
-            <div class="bg-white p-3 rounded-4 shadow-sm">
-                <div class="rounded-4">
-                    <h5 class="card-title text-dark fw-bold">Department Statistics</h5>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-muted">Total Students:</span>
-                        <span class="fw-bold text-dark" id="totalStudents">0</span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">Avg CGPA:</span>
-                        <div class="d-flex align-items-center">
-                            <span class="fw-bold text-dark" id="avgcgpa">0.00</span>
+
+        <div class="row">
+            <!-- Grade Distribution Chart -->
+            @if($selectedSemester !== null && $gradesDistribution)
+                <div class="col-md-6 mb-4" id="gradeDistribution">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-dark fw-bold">Grades Distribution</h5>
+                                <div style="height: 287px;">
+                                    <canvas id="gradeDistributionChart" ></canvas>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            @endif
 
-    <div class="table-container mb-4">
-        <table class="table table-striped" id="gradesTable">
-            <thead>
-                <tr>
-                    <th class="bg-dark text-light text-center" width="10%">Course Code</th>
-                    <th class="bg-dark text-light text-center" width="20%">Course Name</th>
-                    <th class="bg-dark text-light text-center" width="10%">Hours</th>
-                    <th class="bg-dark text-light text-center" width="15%">Difficulty</th>
-                    <th class="bg-dark text-light text-center" width="15%">Type</th>
-                    <th class="bg-dark text-light text-center" width="10%">Grade</th>
-                    <th class="bg-dark text-light text-center" width="20%">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td colspan="7" class="text-center">
-                        <div class="status-danger fs-6">No semester selected!</div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Grade Distribution Chart -->
-    <div class="row mb-4" id="gradeDistribution" style="display: none;">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold">Grade Distribution</h5>
-                    <canvas id="gradeDistributionChart" style="max-height: 300px;"></canvas>
+            <!-- GPA Trend Chart -->
+            @if($selectedSemester !== null && $cgpaTrend)
+                <div class="col-md-6 mb-4" id="gpaTrend">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class=" text-dark fw-bold">GPA Trend</h5>
+                            <canvas id="gpaTrendChart" style="max-height: 300px;"></canvas>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 
-    <!-- GPA Trend Chart -->
-    <div class="row mb-4" id="gpaTrend" style="display: none;">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold">GPA Trend</h5>
-                    <canvas id="gpaTrendChart" style="max-height: 300px;"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gradesDistribution = @json($gradesDistribution);
+            const gradeLabels = @json($gradeLabels);
+            const cgpaTrendData = @json($cgpaTrend);
+            const gpaTrendData = @json($gpaTrend);
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const semesterFilter = document.getElementById('semesterFilter');
-        const gradesTableBody = document.getElementById('gradesTable').querySelector('tbody');
-        const semesterStats = document.getElementById('semesterStats');
-        const currentSemester = '{{ $currentSemesterValue }}';
+            const gradeDistributionChart = document.getElementById('gradeDistributionChart');
+            const gpaTrendChart = document.getElementById('gpaTrendChart');
 
-        const enrollments = @json($enrollments);
-        const startYear = {{ $startYear }};
-        const semesterStatsData = @json($semesterStats);
-        const gradeLabels = @json($gradeLabels);
-        const gpaTrendData = @json($gpaTrendData);
+            const semesterLabels = Object.keys(cgpaTrendData).map(date => {
+                const d = new Date(date);
+                return d.toLocaleString('default', { month: 'short', year: 'numeric' });
+            });
 
-        const courseDetailsBaseUrl = "{{ route('parent.child.course-details', [':courseId', ':childId']) }}"; 
-
-        const gradeDistribution = document.getElementById('gradeDistribution');
-        // Initialize Chart.js
-        let gradeDistributionChart = null;
-        let gpaTrendChart = null;
-
-        // Initialize GPA Trend Chart
-        function initializeGpaTrendChart() {
-            gpaTrend.style.display = 'flex';
-            const ctx = document.getElementById('gpaTrendChart').getContext('2d');
-
-            gpaTrendChart = new Chart(ctx, {
+            new Chart(gpaTrendChart, {
                 type: 'line',
                 data: {
-                    labels: gpaTrendData.map(item => item.semester),
+                    labels: semesterLabels,
                     datasets: [{
-                        label: 'Semester GPA',
-                        data: gpaTrendData.map(item => item.gpa),
-                        borderColor: '#28a745',
-                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        label: 'Cumulative GPA',
+                        data: Object.values(cgpaTrendData).map(item => item.cgpa),
+                        borderColor: '#dc3545',
+                        backgroundColor: 'rgba(220, 53, 69, 0.1)',
                         borderWidth: 2,
                         tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: '#28a745',
+                        fill: false,
+                        pointBackgroundColor: '#dc3545',
                         pointBorderColor: '#fff',
                         pointBorderWidth: 2,
                         pointRadius: 4,
                         pointHoverRadius: 6
-                    }]
+                    },
+                    {
+                        label: 'Semester GPA',
+                        data: Object.values(gpaTrendData).map(item => item.gpa),
+                        borderColor: '#007bff',
+                        backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#007bff',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }
+                ]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         y: {
                             beginAtZero: true,
                             max: 4.0,
                             ticks: {
-                                stepSize: 0.5,
+                                stepSize: 1,
                                 callback: function(value) {
                                     return value.toFixed(1);
                                 }
                             },
                         },
                         x: {
-                            title: {
-                                display: true,
-                                text: 'Semester'
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 30
                             },
                         }
                     },
                     plugins: {
                         legend: {
-                            display: false
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
                         },
                         tooltip: {
                             callbacks: {
+                                title: function(context) {
+                                    return semesterLabels[context[0].dataIndex];
+                                },
                                 label: function(context) {
-                                    return `GPA: ${context.parsed.y.toFixed(2)}`;
+                                    const datasetLabel = context.dataset.label;
+                                    const value = context.parsed.y.toFixed(2);
+                                    return datasetLabel === 'Semester GPA' ? `GPA: ${value}` : `CGPA: ${value}`;
                                 }
                             }
                         }
                     }
                 }
             });
-        }
 
-        function updateGradeDistributionChart(distributionData) {
-            gradeDistribution.style.display = 'flex';
-            const ctx = document.getElementById('gradeDistributionChart').getContext('2d');
-
-            if (gradeDistributionChart) {
-                gradeDistributionChart.destroy();
-            }
-
-            gradeDistributionChart = new Chart(ctx, {
+            new Chart(gradeDistributionChart, {
                 type: 'bar',
                 data: {
                     labels: gradeLabels,
                     datasets: [{
                         label: 'NO. Courses',
-                        data: distributionData,
+                        data: gradesDistribution,
                         backgroundColor: [
                             'rgb(40, 167, 69, 0.8)', // A+
                             'rgb(40, 167, 69, 0.8)', // A
@@ -248,7 +311,7 @@
                         ],
                         borderWidth: 1,
                         barRadius: 5,
-                        borderRadius: 10
+                        borderRadius: 8
                     }]
                 },
                 options: {
@@ -264,6 +327,11 @@
                                 text: 'Number of Courses'
                             }
                         },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
                     },
                     plugins: {
                         legend: {
@@ -272,80 +340,8 @@
                     }
                 }
             });
-        }
-
-        function updateSemesterStats(semesterValue) {
-            const stats = semesterStatsData[semesterValue];
-            if (stats) {
-                document.getElementById('semesterCredits').textContent = stats.credits;
-                document.getElementById('semesterGPA').textContent = stats.gpa.toFixed(2);
-                document.getElementById('totalCredits').textContent = stats.total_credits;
-                document.getElementById('cgpa').textContent = stats.cgpa.toFixed(2);
-
-                // Update department statistics
-                document.getElementById('totalStudents').textContent = stats.department_stats.total_students;
-                document.getElementById('avgcgpa').textContent = stats.department_stats.avg_cgpa.toFixed(2);
-
-                const trendIcon = document.getElementById('cgpaTrend');
-                trendIcon.className = '';
-                if (stats.cgpa_trend === 'up') {
-                    trendIcon.classList.add('fas', 'fa-circle-up', 'text-success');
-                } else if (stats.cgpa_trend === 'down') {
-                    trendIcon.classList.add('fas', 'fa-circle-down', 'text-danger');
-                } else {
-                    trendIcon.classList.add('fa-regular', 'fa-circle', 'text-secondary');
-                }
-
-                // Update grade distribution chart
-                updateGradeDistributionChart(stats.grade_distribution);
-            }
-        }
-
-        semesterFilter.addEventListener('change', function () {
-            const selectedSemester = this.value;
-            gradesTableBody.innerHTML = ''; 
-            semesterStats.style.display = selectedSemester ? 'flex' : 'none';
-
-            if (!selectedSemester) {
-                return; 
-            }
-
-            updateSemesterStats(selectedSemester);
-
-            const [yearPart, semesterKey] = selectedSemester.split('-');
-            const selectedYear = parseInt(yearPart.replace('year', ''));
-
-            const semesterCourses = enrollments.filter(enrollment => {
-                const enrollmentYear = parseInt(new Date(enrollment.enrolled_at).getFullYear()) - startYear + 1;
-                return enrollmentYear === selectedYear && enrollment.course.semester === semesterKey;
-            });
-
-            semesterCourses.forEach(enrollment => {
-                const course = enrollment.course;
-                const grade = course.grades.find(g => g.student_id === {{ $child->id }}) || {};
-                const row = document.createElement('tr');
-                const courseDetailsUrl = courseDetailsBaseUrl.replace(':courseId', course.id).replace(':childId', {{ $child->id }});
-                row.innerHTML = `
-                    <td class="text-center">${course.code}</td>
-                    <td class="text-center">${course.name}</td>
-                    <td class="text-center">${course.credit_hours}</td>
-                    <td class="text-center">${course.difficulty.charAt(0).toUpperCase() + course.difficulty.slice(1)}</td>
-                    <td class="text-center">${course.type.charAt(0).toUpperCase() + course.type.slice(1)}</td>
-                    <td class="text-center text-${grade.status === 'pass' ? 'success' : 'danger'}">${grade.grade || '-'}</td>
-                    <td class="text-center action-icons">
-                        <a href="${courseDetailsUrl}" class="btn btn-sm btn-success text-light ps-3 pe-3">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-light"></i> Details
-                        </a>
-                    </td>
-                `;
-
-                gradesTableBody.appendChild(row);
-            });
-
-            initializeGpaTrendChart();
         });
-    });
-</script>
+    </script>
 
 <style>
     .table-container {
