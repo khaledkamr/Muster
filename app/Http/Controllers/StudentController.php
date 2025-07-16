@@ -11,6 +11,7 @@ use App\Models\Grade;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 
 class StudentController extends Controller
@@ -262,79 +263,90 @@ class StudentController extends Controller
             'D+' => 1.0, 'D' => 0.7, 'F' => 0.0
         ];
 
-        $gpaTrend = [];
-        $cgpaTrend = [];
-        foreach($semesters as $semesterValue => $semesterLabel) {
-            $semesterGrades = $user->grades()
-            ->whereHas('course', function($query) use ($user, $semesterValue) {
-                $query->whereHas('enrollments', function($q) use ($user, $semesterValue) {
-                $q->where('student_id', $user->id)->where('enrolled_at', $semesterValue);
-                });
-            })
-            ->with('course')
-            ->get();
+        $gpaTrendCacheKey = 'gpa_trend_' . $user->id;
+        $cgpaTrendCacheKey = 'cgpa_trend_' . $user->id;
 
-            if ($semesterGrades->isNotEmpty() && $semesterGrades[0]->grade !== null) {
-                $totalPoints = 0;
-                $totalCredits = $semesterGrades->sum('course.credit_hours');
-                foreach ($semesterGrades as $grade) {
-                    $totalPoints += ($gpaPoints[$grade->grade] ?? 0) * ($grade->course->credit_hours ?? 0);
-                }
-                $gpaTrend[$semesterValue] = [
-                    'gpa' => round($totalPoints / $totalCredits, 2),
-                    'total_credits' => $totalCredits,
-                ];
-            } else {
-                $totalCredits = $semesterGrades->sum('course.credit_hours');
-                $gpaTrend[$semesterValue] = [
-                    'gpa' => null,
-                    'total_credits' => $totalCredits,
-                ];
-            }
+        $gpaTrend = Cache::remember($gpaTrendCacheKey, now()->addHours(1), function () use ($user, $semesters, $gpaPoints) {
+            $gpaTrend = [];
+            foreach($semesters as $semesterValue => $semesterLabel) {
+                $semesterGrades = $user->grades()
+                    ->whereHas('course', function($query) use ($user, $semesterValue) {
+                        $query->whereHas('enrollments', function($q) use ($user, $semesterValue) {
+                            $q->where('student_id', $user->id)->where('enrolled_at', $semesterValue);
+                        });
+                    })
+                    ->with('course')
+                    ->get();
 
-            $allGrades = $user->grades()
-            ->whereHas('course', function($query) use ($user, $semesterValue) {
-                $query->whereHas('enrollments', function($q) use ($user, $semesterValue) {
-                $q->where('student_id', $user->id)->where('enrolled_at', '<=', $semesterValue);
-                });
-            })
-            ->with('course')
-            ->get();
-            
-            if ($allGrades->isNotEmpty() && !$allGrades->contains('grade', null)) {
-                $allTotalPoints = 0;
-                $allTotalCredits = $allGrades->sum('course.credit_hours');
-                foreach ($allGrades as $grade) {
-                    $allTotalPoints += ($gpaPoints[$grade->grade] ?? 0) * ($grade->course->credit_hours ?? 0);
-                }
-                
-                $prevCgpa = null;
-                if (count($cgpaTrend) > 0) {
-                    $prevCgpa = collect($cgpaTrend)->last()['cgpa'] ?? null;
-                }
-                $currentCgpa = round($allTotalPoints / $allTotalCredits, 2);
-                $cgpaStatus = 'same';
-                if ($prevCgpa !== null) {
-                    if ($currentCgpa > $prevCgpa) {
-                        $cgpaStatus = 'up';
-                    } elseif ($currentCgpa < $prevCgpa) {
-                        $cgpaStatus = 'down';
+                if ($semesterGrades->isNotEmpty() && $semesterGrades[0]->grade !== null) {
+                    $totalPoints = 0;
+                    $totalCredits = $semesterGrades->sum('course.credit_hours');
+                    foreach ($semesterGrades as $grade) {
+                        $totalPoints += ($gpaPoints[$grade->grade] ?? 0) * ($grade->course->credit_hours ?? 0);
                     }
+                    $gpaTrend[$semesterValue] = [
+                        'gpa' => round($totalPoints / $totalCredits, 2),
+                        'total_credits' => $totalCredits,
+                    ];
+                } else {
+                    $totalCredits = $semesterGrades->sum('course.credit_hours');
+                    $gpaTrend[$semesterValue] = [
+                        'gpa' => null,
+                        'total_credits' => $totalCredits,
+                    ];
                 }
-                $cgpaTrend[$semesterValue] = [
-                    'cgpa' => $currentCgpa,
-                    'status' => $cgpaStatus,
-                    'total_credits' => $allTotalCredits
-                ];
-            } else {
-                $allTotalCredits = $allGrades->sum('course.credit_hours');
-                $cgpaTrend[$semesterValue] = [
-                    'cgpa' => null,
-                    'status' => 'same',
-                    'total_credits' => $allTotalCredits
-                ];
             }
-        }
+            return $gpaTrend;
+        });
+
+        $cgpaTrend = Cache::remember($cgpaTrendCacheKey, now()->addHours(1), function () use ($user, $semesters, $gpaPoints) {
+            $cgpaTrend = [];
+            foreach($semesters as $semesterValue => $semesterLabel) {
+                $allGrades = $user->grades()
+                    ->whereHas('course', function($query) use ($user, $semesterValue) {
+                        $query->whereHas('enrollments', function($q) use ($user, $semesterValue) {
+                            $q->where('student_id', $user->id)->where('enrolled_at', '<=', $semesterValue);
+                        });
+                    })
+                    ->with('course')
+                    ->get();
+                
+                if ($allGrades->isNotEmpty() && !$allGrades->contains('grade', null)) {
+                    $allTotalPoints = 0;
+                    $allTotalCredits = $allGrades->sum('course.credit_hours');
+                    foreach ($allGrades as $grade) {
+                        $allTotalPoints += ($gpaPoints[$grade->grade] ?? 0) * ($grade->course->credit_hours ?? 0);
+                    }
+                    
+                    $prevCgpa = null;
+                    if (count($cgpaTrend) > 0) {
+                        $prevCgpa = collect($cgpaTrend)->last()['cgpa'] ?? null;
+                    }
+                    $currentCgpa = round($allTotalPoints / $allTotalCredits, 2);
+                    $cgpaStatus = 'same';
+                    if ($prevCgpa !== null) {
+                        if ($currentCgpa > $prevCgpa) {
+                            $cgpaStatus = 'up';
+                        } elseif ($currentCgpa < $prevCgpa) {
+                            $cgpaStatus = 'down';
+                        }
+                    }
+                    $cgpaTrend[$semesterValue] = [
+                        'cgpa' => $currentCgpa,
+                        'status' => $cgpaStatus,
+                        'total_credits' => $allTotalCredits
+                    ];
+                } else {
+                    $allTotalCredits = $allGrades->sum('course.credit_hours');
+                    $cgpaTrend[$semesterValue] = [
+                        'cgpa' => null,
+                        'status' => 'same',
+                        'total_credits' => $allTotalCredits
+                    ];
+                }
+            }
+            return $cgpaTrend;
+        });
         
         $semesterStatistics = [];
         if ($selectedSemester !== null) {
