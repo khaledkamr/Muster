@@ -1,5 +1,7 @@
 @extends('layouts.professor')
 
+@section('title', 'Grades')
+
 @section('content')
     <style>
         .table-container {

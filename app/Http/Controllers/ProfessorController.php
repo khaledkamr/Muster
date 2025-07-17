@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use App\Models\Grade;
 use App\Models\Assignment;
 use App\Models\Submission;
@@ -148,21 +149,24 @@ class ProfessorController extends Controller
         $maleCount = $students->where('gender', 'male')->count();
         $femaleCount = $students->where('gender', 'female')->count();
 
-        $clusteringStudents = json_decode(file_get_contents(base_path('python_scripts/results/clustering_results.json')), true);
-        $clusteringStudents = $clusteringStudents[$courseId];
+        $data = $this->cluster($students->pluck('id'), $courseId);
+
+        $students = collect($data["data"]) ?? collect([]);
+        $high_performers_count = $data["high_performers_count"] ?? 0;
+        $average_performers_count = $data["average_performers_count"] ?? 0;
+        $at_risk_students_count = $data["at_risk_students_count"] ?? 0;
 
         $searchQuery = request()->query('search');
         if ($searchQuery) {
             $students = $students->filter(function ($student) use ($searchQuery) {
-                return stripos($student->id, $searchQuery) !== false || stripos($student->name, $searchQuery) !== false;
+                return stripos($student['student_id'], $searchQuery) !== false || stripos($student['name'], $searchQuery) !== false;
             });
         }
 
-        // Filter by performance group
         $performanceFilter = request()->query('status');
         if ($performanceFilter && $performanceFilter !== 'all') {
-            $students = $students->filter(function ($student) use ($performanceFilter, $clusteringStudents) {
-                $group = $clusteringStudents['students'][$student->id]['performance_group'];
+            $students = $students->filter(function ($student) use ($performanceFilter) {
+                $group = $student['performance_group'];
                 return match($performanceFilter) {
                     'high' => $group === 'High performers',
                     'average' => $group === 'Average performers',
@@ -172,7 +176,6 @@ class ProfessorController extends Controller
             });
         }
 
-        // Convert collection to paginator with 10 items per page
         $students = new \Illuminate\Pagination\LengthAwarePaginator(
             $students->forPage(request()->get('page', 1), 50),
             $students->count(),
@@ -181,8 +184,41 @@ class ProfessorController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        return view('professor.students', compact('course', 'courseId', 'students', 'maleCount', 'femaleCount', 'clusteringStudents'));
+        return view('professor.students', compact(
+            'course', 
+            'courseId', 
+            'students', 
+            'maleCount', 
+            'femaleCount', 
+            'high_performers_count', 
+            'average_performers_count', 
+            'at_risk_students_count'
+        ));
     }
+
+    public function cluster($studentIds, $courseId) 
+    {
+        try {
+            $response = Http::timeout(10)->post('http://localhost:5000/cluster', [
+                'student_ids' => $studentIds,
+                'course_id' => $courseId,
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+                return collect($data); 
+            }
+
+            return collect([]);
+            
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            return collect([]);
+        } catch (\Exception $e) {
+            return collect([]);
+        }
+    }
+
 
     public function exams($courseId)
     {
