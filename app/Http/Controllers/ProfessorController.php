@@ -335,9 +335,6 @@ class ProfessorController extends Controller
         $searchQuery = request()->query('search');
         $statusFilter = request()->query('status');
 
-        $clusteringStudents = json_decode(file_get_contents(base_path('python_scripts/results/clustering_results.json')), true);
-        $clusteringStudents = $clusteringStudents[$courseId];
-
         $students = $course->enrollments()
             ->where('enrolled_at', '>=', Carbon::parse('2025-08-01')) 
             ->with(['student', 'student.grades' => function ($query) use ($courseId) {
@@ -346,18 +343,53 @@ class ProfessorController extends Controller
             ->get()
             ->map(function ($enrollment) {
                 return $enrollment->student;
+            })
+            ->map(function ($student) {
+                return [
+                    'id' => $student->id,
+                    'name' => $student->name,
+                    'grades' => $student->grades->first(),
+                ];
             });
+
+        $data = $this->cluster($students->pluck('id'), $courseId);
+        $clusteringStudents = collect($data["data"]) ?? collect([]);
+
+        $students = $students->map(function ($student) use ($clusteringStudents) {
+            $clusteringStudent = $clusteringStudents->firstWhere('student_id', $student['id']);
+            if ($clusteringStudent) {
+                $student['performance_group'] = $clusteringStudent['performance_group'];
+            } else {
+                $student['performance_group'] = 'Unknown';
+            }
+            return $student;
+        });
+
+        $stats = [
+            'max_grade' => [
+                'value' => $students->isNotEmpty() ? $students->max('grades.total') : 0,
+                'student_name' => $students->firstWhere('grades.total', $students->max('grades.total'))['name'] ?? null
+            ],
+            'min_grade' => [
+                'value' => $students->isNotEmpty() ? $students->min('grades.total') : 0,
+                'student_name' => $students->firstWhere('grades.total', $students->min('grades.total'))['name'] ?? null
+            ],
+            'average_grade' => $students->isNotEmpty() ? 
+                round($students->avg(function ($student) {
+                    return $student['grades']->total ?? 0;
+                }), 1) : 0,
+            'total_students' => $students->count(),
+        ];
 
         if ($searchQuery) {
             $students = $students->filter(function ($student) use ($searchQuery) {
-                return stripos($student->id, $searchQuery) !== false || stripos($student->name, $searchQuery) !== false;
+                return stripos($student['id'], $searchQuery) !== false || stripos($student['name'], $searchQuery) !== false;
             });
         }
 
-        // Filter by status
         if ($statusFilter && $statusFilter !== 'all') {
-            $students = $students->filter(function ($student) use ($statusFilter, $clusteringStudents) {
-                $group = $clusteringStudents['students'][$student->id]['performance_group'];
+            $students = $students->filter(function ($student) use ($statusFilter) {
+                $group = $student['performance_group'];
                 return match($statusFilter) {
                     'on-track' => $group !== 'At risk',
                     'at-risk' => $group === 'At risk',
@@ -374,41 +406,12 @@ class ProfessorController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        $sortedStudents = $course ? $course->enrollments->where('enrolled_at', '>=', Carbon::parse('2025-08-01'))->sortByDesc(function ($enrollment) use ($course) {
-            return $enrollment->student->grades->where('course_id', $course->id)->first()->total;
-        }) : collect();
-        $sortedStudents = $sortedStudents->map(function ($enrollment) use ($course) {
-            return $enrollment->student;
-        });
-
-        $stats = [
-            'max_grade' => [
-                'value' => $sortedStudents->first()->grades->where('course_id', $course->id)->first()->total,
-                'student_name' => $sortedStudents->first()->name
-            ],
-            'min_grade' => [
-                'value' => $sortedStudents->last()->grades->where('course_id', $course->id)->first()->total,
-                'student_name' => $sortedStudents->last()->name
-            ],
-            'average_grade' => 0,
-            'grades' => $students
-        ];
-
-        $totalGrades = 0;
-        $validGradeCount = 0;
-
-        foreach ($students as $student) {
-            $grade = $student->grades->first();
-            if ($grade) {
-                $total = $grade->total;
-                $totalGrades += $total;
-                $validGradeCount++;
-            }
-        }
-
-        $stats['average_grade'] = $validGradeCount > 0 ? round($totalGrades / $validGradeCount, 1) : 0;
-
-        return view('professor.grades', compact('course', 'courseId', 'students', 'stats', 'clusteringStudents'));
+        return view('professor.grades', compact(
+            'course', 
+            'courseId', 
+            'students', 
+            'stats', 
+        ));
     }
 
     public function assignments($courseId)

@@ -148,7 +148,7 @@
         }
 
         .table .status-on-track {
-            background-color: #d4edda;
+            background-color: #cdd0e7;
             color: #2b2ed1;
             padding: 5px 10px;
             border-radius: 12px;
@@ -260,7 +260,7 @@
                                         </h5>
                                         <p class="card-text text-muted d-flex align-items-center">
                                             <i class="fas fa-users me-2"></i> Total Students:
-                                            {{ $stats['grades']->total() }}
+                                            {{ $stats['total_students'] }}
                                         </p>
                                     </div>
                                     <div>
@@ -301,28 +301,28 @@
                         @else
                             @foreach ($students as $student)
                                 @php
-                                    $grade = $student->grades->first();
-                                    $quiz1 = $grade && !empty($grade->quiz1) ? $grade->quiz1 : '-';
-                                    $midterm = $grade && !empty($grade->midterm) ? $grade->midterm : '-';
-                                    $quiz2 = $grade && !empty($grade->quiz2) ? $grade->quiz2 : '-';
-                                    $assignments = $grade && !empty($grade->assignments) ? $grade->assignments : '-';
-                                    $project = $grade && !empty($grade->project) ? $grade->project : '-';
-                                    $final = $grade && !empty($grade->final) ? $grade->final : '-';
+                                    $grade = $student['grades'];
+                                    $quiz1 = $grade && !empty($grade['quiz1']) ? $grade['quiz1'] : '-';
+                                    $midterm = $grade && !empty($grade['midterm']) ? $grade['midterm'] : '-';
+                                    $quiz2 = $grade && !empty($grade['quiz2']) ? $grade['quiz2'] : '-';
+                                    $assignments = $grade && !empty($grade['assignments']) ? $grade['assignments'] : '-';
+                                    $project = $grade && !empty($grade['project']) ? $grade['project'] : '-';
+                                    $final = $grade && !empty($grade['final']) ? $grade['final'] : '-';
                                     $total = $grade
-                                        ? $grade->quiz1 +
-                                            $grade->midterm +
-                                            $grade->quiz2 +
-                                            $grade->assignments +
-                                            $grade->project +
-                                            $grade->final
+                                        ? $grade['quiz1'] +
+                                            $grade['midterm'] +
+                                            $grade['quiz2'] +
+                                            $grade['assignments'] +
+                                            $grade['project'] +
+                                            $grade['final']
                                         : '-';
                                 @endphp
                                 <tr>
-                                    <td class="text-center">{{ $student->id }}</td>
+                                    <td class="text-center">{{ $student['id'] }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('professor.student.profile', ['studentId' => $student->id, 'courseId' => $courseId]) }}"
+                                        <a href="{{ route('professor.student.profile', ['studentId' => $student['id'], 'courseId' => $courseId]) }}"
                                             class="text-dark text-decoration-none">
-                                            {{ $student->name }}
+                                            {{ $student['name'] }}
                                         </a>
                                     </td>
                                     <td class="text-center">{{ $quiz1 }}</td>
@@ -334,12 +334,12 @@
                                     <td class="text-center">{{ is_numeric($total) ? $total : '-' }}</td>
                                     <td class="text-center">
                                         <span
-                                            class="status-{{ $clusteringStudents['students'][$student->id]['performance_group'] == 'At risk' ? 'risk' : 'on-track' }}">
-                                            {{ $clusteringStudents['students'][$student->id]['performance_group'] == 'At risk' ? 'At Risk' : 'On Track' }}
+                                            class="status-{{ $student['performance_group'] == 'At risk' ? 'risk' : 'on-track' }}">
+                                            {{ $student['performance_group'] == 'At risk' ? 'At Risk' : 'On Track' }}
                                         </span>
                                     </td>
                                     <td class="action-icons text-center">
-                                        <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $student->id]) }}"
+                                        <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $student['id']]) }}"
                                             title="View"><i class="fa-solid fa-eye"></i></a>
                                         <a href="#"><i class="fa-solid fa-message" title="Send"></i></a>
                                     </td>
