@@ -197,9 +197,9 @@ class StudentController extends Controller
             ];
         }
 
-        $recommendedElectives = json_decode(file_get_contents(base_path('python_scripts/results/recommendations.json')), true);
-        $recommendedElectives = $recommendedElectives[$user->id];
-        
+        $recommendation_data = $this->recommend_courses($user->id);
+        $recommendedElectives = $recommendation_data['recommendations'];
+
         $predicted_data = $this->gpa_predict($user->id);
         $predictedGPA = $predicted_data['predicted_semester_gpa'];
         $predictedCGPA = $predicted_data['predicted_new_cgpa'];
@@ -211,6 +211,28 @@ class StudentController extends Controller
     {
         try {
             $response = Http::timeout(10)->post('http://localhost:5000/gpa', [
+                'student_id' => $student_id,
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+                return collect($data); 
+            }
+
+            return collect([]);
+            
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            return collect([]);
+        } catch (\Exception $e) {
+            return collect([]);
+        }
+    }
+
+    public function recommend_courses($student_id) 
+    {
+        try {
+            $response = Http::timeout(10)->post('http://localhost:5000/recommend_courses', [
                 'student_id' => $student_id,
             ]);
 

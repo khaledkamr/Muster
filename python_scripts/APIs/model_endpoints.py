@@ -11,6 +11,7 @@ from tensorflow.keras.models import load_model
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../scripts')))
 from performance_model import StudentPerformanceModel
 from gpa_model import predict_student_gpa
+from course_recommendation import recommend_courses
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -159,6 +160,30 @@ def predict_gpa():
 
     except Exception as e:
         app.logger.error(f"Error processing GPA prediction request: {str(e)}")
+        return jsonify({"error": "Internal server error"}), HTTPStatus.INTERNAL_SERVER_ERROR
+
+@app.route("/recommend_courses", methods=["POST"])
+def recommend_courses_endpoint():
+    """Recommend elective courses for a single student"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "No JSON data provided"}), HTTPStatus.BAD_REQUEST
+
+        student_id = data.get("student_id")
+        if not student_id:
+            return jsonify({"error": "Missing student_id"}), HTTPStatus.BAD_REQUEST
+
+        try:
+            student_id = int(student_id)
+        except (ValueError, TypeError):
+            return jsonify({"error": "student_id must be an integer"}), HTTPStatus.BAD_REQUEST
+
+        result = recommend_courses(student_id)
+        return jsonify(result), HTTPStatus.OK
+
+    except Exception as e:
+        app.logger.error(f"Error processing course recommendation request: {str(e)}")
         return jsonify({"error": "Internal server error"}), HTTPStatus.INTERNAL_SERVER_ERROR
 
 @app.route("/health", methods=["GET"])

@@ -216,7 +216,7 @@
                                                 class="badge bg-{{ $course['difficulty'] === 'easy' ? 'success' : ($course['difficulty'] === 'medium' ? 'warning' : 'danger') }} me-2">
                                                 {{ $course['difficulty'] }}
                                             </span>
-                                            <span class="badge bg-primary">3 HRs</span>
+                                            <span class="badge bg-primary">{{ $course['credit_hours'] }} HRs</span>
                                         </div>
                                     </div>
                                     <p class="card-text text-muted small mb-3">{{ Str::limit($course['description'], 100) }}
