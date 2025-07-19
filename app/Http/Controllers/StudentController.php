@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 
 class StudentController extends Controller
@@ -155,7 +156,6 @@ class StudentController extends Controller
             ->where('enrolled_at', '2025-08-01')
             ->get();
 
-        // Prepare course statistics for each enrollment
         $courseStats = [];
         $chartData = [
             'labels' => [],
@@ -167,33 +167,29 @@ class StudentController extends Controller
             $course = $enrollment->course;
             $chartData['labels'][] = $course->name;
             $totalCreditHours += $course->credit_hours;
-            // Get grade for this course
             $grade = $course->grades->where('student_id', $user->id)->first();
             $chartData['grades'][] = $grade->total;
             
-            // Calculate assignment statistics
             $assignments = $course->assignments;
             $submissions = $assignments->flatMap->submissions->where('student_id', $user->id);
             $totalAssignments = $assignments->count();
             $completedAssignments = $submissions->where('status', 'submitted')->count();
             $completionRate = $totalAssignments > 0 ? round(($completedAssignments / $totalAssignments) * 100) : 0;
             
-            // Calculate attendance statistics
             $attendances = $course->attendance->where('student_id', $user->id);
             $totalSessions = $attendances->count();
-            $presentSessions = $attendances->where('status', 'present')->count();
+            $presentSessions = $attendances->whereIn('status', ['present', 'late'])->count();
             $attendanceRate = $totalSessions > 0 ? round(($presentSessions / $totalSessions) * 100) : 0;
             
-            // Calculate course progress
             $remainingSessions = 32 - $totalSessions;
             $courseProgress = $totalSessions / 32 * 100;
             
             $courseStats[$course->id] = [
                 'grade' => $grade,
-                'completion_rate' => $completionRate,
-                'attendance_rate' => $attendanceRate,
                 'total_assignments' => $totalAssignments,
                 'completed_assignments' => $completedAssignments,
+                'completion_rate' => $completionRate,
+                'attendance_rate' => $attendanceRate,
                 'total_sessions' => $totalSessions,
                 'present_sessions' => $presentSessions,
                 'remaining_sessions' => $remainingSessions,
@@ -204,11 +200,33 @@ class StudentController extends Controller
         $recommendedElectives = json_decode(file_get_contents(base_path('python_scripts/results/recommendations.json')), true);
         $recommendedElectives = $recommendedElectives[$user->id];
         
-        $predicted_GPAs = json_decode(file_get_contents(base_path('python_scripts/results/gpa_predictions.json')), true);
-        $predictedGPA = round($predicted_GPAs[$user->id]['predicted_semester_gpa'], 2);
-        $predictedCGPA = round($predicted_GPAs[$user->id]['predicted_new_cgpa'], 2);
+        $predicted_data = $this->gpa_predict($user->id);
+        $predictedGPA = $predicted_data['predicted_semester_gpa'];
+        $predictedCGPA = $predicted_data['predicted_new_cgpa'];
 
         return view('student.courses', compact('enrollments', 'courseStats', 'chartData', 'totalCreditHours', 'recommendedElectives' , 'predictedGPA', 'predictedCGPA'));
+    }
+
+    public function gpa_predict($student_id) 
+    {
+        try {
+            $response = Http::timeout(10)->post('http://localhost:5000/gpa', [
+                'student_id' => $student_id,
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+                return collect($data); 
+            }
+
+            return collect([]);
+            
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            return collect([]);
+        } catch (\Exception $e) {
+            return collect([]);
+        }
     }
 
     public function grades(Request $request)
