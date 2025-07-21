@@ -7,17 +7,15 @@ from http import HTTPStatus
 import numpy as np
 from tensorflow.keras.models import load_model
 
-# Add parent directory to sys.path to import models
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../scripts')))
 from performance_model import StudentPerformanceModel
 from gpa_model import predict_student_gpa
-from course_recommendation import recommend_courses
+# from course_recommendation import recommend_courses
+import course_recommendation
 
-# Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for cross-origin requests
+CORS(app)
 
-# Global variables to store the models and scalers
 performance_model = None
 gpa_model = None
 scaler_X = None
@@ -196,10 +194,8 @@ def health_check():
     }), HTTPStatus.OK
 
 if __name__ == "__main__":
-    # Load models before starting the server
     if not load_models():
         print("Failed to load one or both models. Exiting...")
         exit(1)
     
-    # Run Flask app
     app.run(host="0.0.0.0", port=5000, debug=False)
