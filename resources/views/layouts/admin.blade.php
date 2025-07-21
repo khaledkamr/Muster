@@ -195,8 +195,8 @@
                     <i class="bi bi-person-fill"></i> Users
                 </a>
                 <div class="collapse sub-menu" id="users">
-                    <a class="nav-link "
-                       href="">
+                    <a class="nav-link {{ request()->routeIs('admin.create.user') ? 'active' : '' }}"
+                       href="{{ route('admin.create.user') }}">
                        <i class="fa-solid fa-user-plus ps-1"></i> Add User
                     </a>
                     <a class="nav-link {{ request()->routeIs('admin.show.users') ? 'active' : '' }}"

@@ -57,15 +57,24 @@ class UserSeeder extends Seeder
             //     'phone' => '0123456789',
             //     'birth_date' => '1980-01-01'
             // ],
+            // [
+            //     'name' => 'Ahmed mohammed',
+            //     'email' => 'am@gmail.com',
+            //     'password' => '111',
+            //     'role' => 'admin',
+            //     'gender' => 'male',
+            //     'phone' => '0123456789',
+            //     'birth_date' => '1981-01-01'
+            // ],
             [
-                'name' => 'Ahmed mohammed',
-                'email' => 'am@gmail.com',
+                'name' => 'Adam Ashraf',
+                'email' => 'aa@gmail.com',
                 'password' => '111',
-                'role' => 'admin',
+                'role' => 'student',
                 'gender' => 'male',
                 'phone' => '0123456789',
                 'birth_date' => '1981-01-01'
-            ],
+            ]
         ];
 
         foreach ($users as $user) {
