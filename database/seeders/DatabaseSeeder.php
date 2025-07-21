@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([
-        //     UserSeeder::class,
-        // ]);
+        $this->call([
+            UserSeeder::class,
+        ]);
 
         // $departments = [
         //     'General Education',
@@ -44,6 +44,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(AssignmentSeeder::class);
         // $this->call(GradeSeeder::class);
         // $this->call(AttendanceSeeder::class);
-        $this->call(CurrentSemesterSeeder::class);
+        // $this->call(CurrentSemesterSeeder::class);
     }
 }

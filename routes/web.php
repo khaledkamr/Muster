@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfessorController;
@@ -18,6 +19,14 @@ Route::controller(AuthController::class)->group(function() {
     Route::post('/forgot-password', 'sendResetLink')->name('password.email');
     Route::get('/reset-password', 'resetPasswordForm')->name('password.reset');
     Route::post('/reset-password', 'resetPassword')->name('password.update');
+});
+
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function() {
+    Route::controller(AdminController::class)->group(function() {
+        Route::get('/', 'index')->name('admin.home');
+        Route::get('/profile', 'profile')->name('admin.profile');
+        Route::get('/users', 'showUsers')->name('admin.show.users');
+    });
 });
 
 Route::prefix('student')->middleware(['auth', 'role:student'])->group(function () {

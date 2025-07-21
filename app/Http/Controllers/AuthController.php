@@ -40,6 +40,9 @@ class AuthController extends Controller
             elseif($user->role == 'parent') {
                 return redirect(route('parent.home'));
             }
+            elseif($user->role == 'admin') {
+                return redirect(route('admin.home'));
+            }
         } 
         else {
             return redirect(route('loginForm'))->with('error', 'Invalid email or password');
