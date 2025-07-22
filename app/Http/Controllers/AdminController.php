@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Enrollment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,30 @@ class AdminController extends Controller
 
     public function showUsers(Request $request) {
         $users = User::all();
-        $role = $request->input('role', 'all');
+        $usersCount = $users->count();
+        $studentsCount = $users->where('role', 'student')->count();
+        $professorsCount = $users->where('role', 'professor')->count();
+        $adminsCount = $users->where('role', 'admin')->count();
 
+        $studentDistributionByYear = [
+            $users->where('year', 'freshman')->count(),
+            $users->where('year', 'sophomore')->count(),
+            $users->where('year', 'junior')->count(),
+            $users->where('year', 'senior')->count(),
+        ];
+
+        $userRegistrationTrend = [
+            Enrollment::where('enrolled_at', '2022-01-01')->count(),
+            Enrollment::where('enrolled_at', '2022-08-01')->count(),
+            Enrollment::where('enrolled_at', '2023-01-01')->count(),
+            Enrollment::where('enrolled_at', '2023-08-01')->count(),
+            Enrollment::where('enrolled_at', '2024-01-01')->count(),
+            Enrollment::where('enrolled_at', '2024-08-01')->count(),
+            Enrollment::where('enrolled_at', '2025-01-01')->count(),
+            Enrollment::where('enrolled_at', '2025-08-01')->count()
+        ];
+
+        $role = $request->input('role', 'all');
         if($role && $role != 'all') {
             $users = $users->filter(function($user) use($role) {
                 return $user->role == $role;
@@ -39,7 +62,15 @@ class AdminController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        return view('admin.users', compact('users'));
+        return view('admin.users', compact(
+            'users', 
+            'usersCount', 
+            'studentsCount', 
+            'professorsCount', 
+            'adminsCount', 
+            'studentDistributionByYear',
+            'userRegistrationTrend',
+        ));
     }
 
     public function deleteUser($userId) {
@@ -191,5 +222,34 @@ class AdminController extends Controller
     public function profile() {
         $user = Auth::user();
         return view('admin.profile', compact('user'));
+    }
+
+    public function userProfile($userId) {
+        $user = User::findOrFail($userId);
+        $totalCredits = 0;
+        $maxCredits = 0;
+        $gpa = 0;
+        $gradePoints = [
+            'A+' => 4.0, 'A'  => 4.8, 'A-' => 3.7,
+            'B+' => 3.3, 'B'  => 3.0, 'B-' => 2.7,
+            'C+' => 2.3, 'C'  => 2.0, 'C-' => 1.7,
+            'D+' => 1.3, 'D'  => 1.0, 'D-' => 0.7,
+            'F'  => 0.0,
+        ];
+        if($user->role == 'student') {
+            $grades = $user->grades()->with('course')->get();
+            $totalPoints = 0;
+            $totalCourses = $grades->count();
+            foreach ($grades as $grade) {
+                $totalPoints += $gradePoints[$grade->grade] ?? 0; 
+            }
+            $gpa = $totalCourses > 0 ? round($totalPoints / $totalCourses, 2) : 0.00;
+            $totalCredits = $grades->sum(function ($grade) {
+                return $grade->course->credit_hours ?? 0; 
+            });
+            $maxCredits = 144;
+        }
+
+        return view('admin.userProfile', compact('user', 'gpa', 'totalCredits', 'maxCredits'));
     }
 }

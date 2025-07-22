@@ -110,7 +110,77 @@
         border-color: #dee2e6;
     }
 </style>
-<div class="container mt-5">
+<div class="container mt-4">
+    <div class="row mb-2">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-users fa-2x text-primary me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Total Users</h5>
+                        <h3 class="card-text">{{ $usersCount }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-user-graduate fa-2x text-primary me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Total Students</h5>
+                        <h3 class="card-text">{{ $studentsCount }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-chalkboard-teacher fa-2x text-primary me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Total Professors</h5>
+                        <h3 class="card-text">{{ $professorsCount }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-user-shield fa-2x text-primary me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Total Admins</h5>
+                        <h3 class="card-text">{{ $adminsCount }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="text-dark fw-bold mb-3">Students distribution by year</h5>
+                    <div class="chart-container" style="position: relative; height:300px;">
+                        <canvas id="studentsDistributionByYear"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="text-dark fw-bold mb-3">Students registration trend</h5>
+                    <div class="chart-container" style="position: relative; height:300px;">
+                        <canvas id="studentsRegistrationTrend"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row mb-4">
         <div class="col-md-5">
             <form method="GET" action="" class="d-flex flex-column">
@@ -193,7 +263,7 @@
                         <tr>
                             <td class="text-center">{{ $user->id }}</td>
                             <td class="text-center">
-                                <a href=""
+                                <a href="{{ route('admin.profile.user', $user->id) }}"
                                     class="text-dark text-decoration-none">
                                     {{ $user->name }}
                                 </a>
@@ -201,7 +271,6 @@
                             <td class="text-center">{{ $user->email }}</td>
                             <td class="text-center">{{ $user->role }}</td>
                             <td class="text-center">{{ $user->phone }}</td>
-                        
                             <td class="action-icons text-center">
                                 <a href="">
                                     <i class="fa-solid fa-message" title="send"></i>
@@ -286,10 +355,112 @@
         </table>
     </div>
 
-    
-
     <div class="mt-4">
         {{ $users->appends(request()->query())->onEachSide(1)->links() }}
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('studentsDistributionByYear').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['freshman', 'sophomore', 'junior', 'senior'],
+                datasets: [{
+                    label: 'students distribution',
+                    data: @json($studentDistributionByYear),
+                    backgroundColor: 'rgba(0, 123, 255, 0.7)',
+                    borderColor: '#007bff',
+                    borderWidth: 1,
+                    borderRadius: 20,
+                    barThickness: 70,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Total: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: Math.max(...@json($studentDistributionByYear)) + 10,
+                        ticks: {
+                            stepSize: 25
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: false,
+                            text: 'student year'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        const trend = document.getElementById('studentsRegistrationTrend').getContext('2d');
+        new Chart(trend, {
+            type: 'line',
+            data: {
+                labels: ['2022-Jan', '2022-Aug', '2023-Jan', '2023-Aug', '2024-Jan', '2024-Aug', '2025-Jan', '2025-Aug'],
+                datasets: [{
+                    label: 'Students',
+                    data: @json($userRegistrationTrend),
+                    borderColor: '#007bff',
+                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: false,
+                    pointBackgroundColor: '#007bff',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 500,
+                        },
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 30
+                        },
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        })
+    });
+</script>
 @endsection

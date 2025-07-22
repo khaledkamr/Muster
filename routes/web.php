@@ -29,12 +29,14 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function() {
         Route::get('users/create', 'createUser')->name('admin.create.user');
         Route::post('users/create', 'addUser')->name('admin.store.user');
         Route::put('/users/{id}', 'updateUser')->name('admin.update.user');
-        Route::delete('users/{id}', 'deleteUser')->name('admin.delete.user');
+        Route::delete('/users/{id}', 'deleteUser')->name('admin.delete.user');
         Route::get('/courses', 'showCourses')->name('admin.show.courses');
-        Route::get('courses/create', 'createCourse')->name('admin.create.course');
-        Route::post('courses/create', 'addCourse')->name('admin.store.course');
-        Route::put('courses/{id}', 'updateCourse')->name('admin.update.course');
-        Route::delete('courses/{id}', 'deleteCourse')->name('admin.delete.course');
+        Route::get('/courses/create', 'createCourse')->name('admin.create.course');
+        Route::post('/courses/create', 'addCourse')->name('admin.store.course');
+        Route::put('/courses/{id}', 'updateCourse')->name('admin.update.course');
+        Route::delete('/courses/{id}', 'deleteCourse')->name('admin.delete.course');
+
+        Route::get('users/profile/{id}', 'userProfile')->name('admin.profile.user');
     });
 });
 
