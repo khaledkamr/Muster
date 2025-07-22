@@ -51,7 +51,7 @@
         font-size: 12px;
         display: inline-block;
     }
-    .table .status-risk {
+    .table .status-danger {
         background-color: #f8d7da;
         color: #721c24;
         padding: 5px 10px;
@@ -185,7 +185,7 @@
                 @if ($users->isEmpty())
                     <tr>
                         <td colspan="6" class="text-center">
-                            <div class="status-refunded fs-6">No users found!</div>
+                            <div class="status-danger fs-6">No users found!</div>
                         </td>
                     </tr>
                 @else

@@ -212,12 +212,12 @@
                     <i class="bi bi-book"></i> Courses
                 </a>
                 <div class="collapse sub-menu" id="courses">
-                    <a class=""
-                       href="">
+                    <a class="nav-link {{ request()->routeIs('admin.create.course') ? 'active' : '' }}"
+                       href="{{ route('admin.create.course') }}">
                        <i class="bi bi-book-half ps-1"></i> Add Course
                     </a>
-                    <a class=""
-                       href="">
+                    <a class="nav-link {{ request()->routeIs('admin.show.courses') ? 'active' : '' }}"
+                       href="{{ route('admin.show.courses') }}">
                        <i class="fa-solid fa-book-open ps-1"></i> Show Courses
                     </a>
                 </div>

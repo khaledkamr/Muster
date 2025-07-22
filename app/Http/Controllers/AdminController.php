@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Unique;
 
 class AdminController extends Controller
 {
     public function index() {
-        
-
         return view('admin.index');
     }
 
@@ -107,6 +107,85 @@ class AdminController extends Controller
         User::create($userData);
 
         return redirect()->back()->with('success', 'User created successfully');
+    }
+
+    public function showCourses(Request $request) {
+        $courses = Course::with('professor')->get();
+        $professors = User::where('role', 'professor')->orderBy('name')->get();
+
+        $department = $request->input('department', 'all');
+        if($department && $department != 'all') {
+            $courses = $courses->filter(function($course) use($department) {
+                return $course->department == $department;
+            });
+        }
+
+        $search = $request->input('search', null);
+        if($search) {
+            $courses = $courses->filter(function($course) use($search) {
+                return stripos($course->code, $search) !== false || stripos($course->name, $search) !== false;
+            });
+        }
+
+        $courses = new \Illuminate\Pagination\LengthAwarePaginator(
+            $courses->forPage(request()->get('page', 1), 50),
+            $courses->count(),
+            50,
+            request()->get('page', 1),
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return view('admin.courses', compact('courses', 'professors'));
+    }
+
+    public function createCourse() {
+        $professors = User::where('role', 'professor')->orderBy('name')->get();
+        return view('admin.addCourse', compact('professors'));
+    }
+
+    public function addCourse(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:50|unique:courses,code',
+            'description' => 'required|string',
+            'department' => 'required|in:General Education,Computer Science,Artificial Intelligence,Information System',
+            'credit_hours' => 'required|integer|min:1',
+            'semester' => 'required|in:first,second',
+            'type' => 'required|in:compulsory,elective',
+            'difficulty' => 'required|in:easy,medium,hard',
+            'professor_id' => 'required|exists:users,id',
+        ]);
+
+        Course::create($validated);
+
+        return redirect()->back()->with('success', 'Course created successfully!');
+    }
+
+    public function updateCourse(Request $request, $courseId) {
+        $course = Course::findOrFail($courseId);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:50|unique:courses,code,' . $courseId,
+            'description' => 'required|string',
+            'department' => 'required|in:General Education,Computer Science,Artificial Intelligence,Information System',
+            'credit_hours' => 'required|integer|min:1',
+            'semester' => 'required|in:first,second',
+            'type' => 'required|in:compulsory,elective',
+            'difficulty' => 'required|in:easy,medium,hard',
+            'professor_id' => 'required|exists:users,id',
+        ]);
+
+        $course->update($validated);
+
+        return redirect()->back()->with('success', 'Course updated successfully!');
+    }
+
+    public function deleteCourse($courseId) {
+        $course = Course::findOrFail($courseId);
+        $name = $course->name;
+        $course->delete();
+        return redirect()->back()->with('success', "Course $name deleted successfully!");
     }
 
     public function profile() {
