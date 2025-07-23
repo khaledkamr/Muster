@@ -12,7 +12,65 @@ use Illuminate\Validation\Rules\Unique;
 class AdminController extends Controller
 {
     public function index() {
-        return view('admin.index');
+        $users = User::all();
+        $usersCount = $users->count();
+        $studentsCount = $users->where('role', 'student')->count();
+        $professorsCount = $users->where('role', 'professor')->count();
+        $adminsCount = $users->where('role', 'admin')->count();
+
+        $userRegistrationTrend = [
+            Enrollment::where('enrolled_at', '2022-01-01')->count(),
+            Enrollment::where('enrolled_at', '2022-08-01')->count(),
+            Enrollment::where('enrolled_at', '2023-01-01')->count(),
+            Enrollment::where('enrolled_at', '2023-08-01')->count(),
+            Enrollment::where('enrolled_at', '2024-01-01')->count(),
+            Enrollment::where('enrolled_at', '2024-08-01')->count(),
+            Enrollment::where('enrolled_at', '2025-01-01')->count(),
+            Enrollment::where('enrolled_at', '2025-08-01')->count()
+        ];
+
+        $studentDistribution = [
+            $users->where('year', 'freshman')->count(),
+            $users->where('year', 'sophomore')->count(),
+            $users->where('year', 'junior')->count(),
+            $users->where('year', 'senior')->count(),
+        ];
+
+        $professorsDistribution = [
+            $users->where('role', 'professor')->where('department', 'General Education')->count(),
+            $users->where('role', 'professor')->where('department', 'Computer Science')->count(),
+            $users->where('role', 'professor')->where('department', 'Artificial Intelligence')->count(),
+            $users->where('role', 'professor')->where('department', 'Information System')->count(),
+        ];
+
+        $courses = Course::withCount(['enrollments as enrollments_count' => function($query) {
+            $query->whereDate('enrolled_at', '2025-08-01');
+        }])->get();
+        $GEcourses = $courses->where('department', 'General Education')->count();
+        $CScourses = $courses->where('department', 'Computer Science')->count();
+        $AIcourses = $courses->where('department', 'Artificial Intelligence')->count();
+        $IScourses = $courses->where('department', 'Information System')->count();
+
+        $topCourses = $courses->sortByDesc('enrollments_count')->take(5);
+        $topFiveCourses = [
+            'labels' => $topCourses->pluck('code')->toArray(),
+            'data' => $topCourses->pluck('enrollments_count')->toArray(),
+        ];
+
+        return view('admin.index', compact(
+            'usersCount' ,
+            'studentsCount',
+            'professorsCount',
+            'adminsCount',
+            'userRegistrationTrend',
+            'studentDistribution',
+            'professorsDistribution',
+            'GEcourses',
+            'CScourses',
+            'AIcourses',
+            'IScourses',
+            'topFiveCourses',
+        ));
     }
 
     public function showUsers(Request $request) {
@@ -158,6 +216,12 @@ class AdminController extends Controller
         ];
 
         $professors = User::where('role', 'professor')->orderBy('name')->get();
+        $professorsDistribution = [
+            $professors->where('department', 'General Education')->count(),
+            $professors->where('department', 'Computer Science')->count(),
+            $professors->where('department', 'Artificial Intelligence')->count(),
+            $professors->where('department', 'Information System')->count(),
+        ];
 
         $generalCourses = $courses->where('department', 'General Education')->count();
         $CScourses = $courses->where('department', 'Computer Science')->count();
@@ -194,7 +258,8 @@ class AdminController extends Controller
             'AIcourses',
             'IScourses',
             'topFiveCourses',
-            'difficultyDistribution'
+            'difficultyDistribution',
+            'professorsDistribution'
         ));
     }
 

@@ -127,7 +127,6 @@
             <div class="card bg-light text-dark border-0 shadow-sm">
                 <div class="card-body d-flex align-items-center">
                     <i class="fa-solid fa-code fa-2x text-primary me-3"></i>
-                    {{-- <i class="fas fa-user-graduate fa-2x text-primary me-3"></i> --}}
                     <div>
                         <h5 class="card-title mb-0">Computer Science department</h5>
                         <h3 class="card-text">{{ $CScourses }}</h3>
@@ -159,8 +158,8 @@
         </div>
     </div>
 
-     <!-- Top 5 Courses by Enrollments Chart -->
     <div class="row mb-4">
+        <!-- Top 5 Courses by Enrollments Chart -->
         <div class="col-md-6">
             <div class="card bg-light text-dark border-0 shadow-sm">
                 <div class="card-body">
@@ -171,13 +170,30 @@
                 </div>
             </div>
         </div>
-        
-        <div class="col-md-6">
+        <!-- Course difficulty distribution -->
+        <div class="col-md-3">
             <div class="card bg-light text-dark border-0 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title fw-bold mb-3">Course Difficulty Distribution</h5>
-                    <div class="chart-container" style="position: relative; height:300px;">
+                    <div class="d-flex align-items-center">
+                        <h5 class="text-dark fw-bold mb-3">Difficulty Distribution</h5>
+                        <i class="fa-solid fa-chart-pie mb-3 fa-lg ps-2"></i>
+                    </div>
+                    <div class="chart-container pb-2 pt-2 pe-3 ps-3" style="position: relative; height:300px;">
                         <canvas id="difficultyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Professors distribution -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <h5 class="text-dark fw-bold mb-3">Professors distribution</h5>
+                        <i class="fa-solid fa-chart-pie mb-3 fa-lg ps-2"></i>
+                    </div>
+                    <div class="chart-container pb-2 pt-2 pe-3 ps-3" style="position: relative; height:300px;">
+                        <canvas id="professorsDistribution"></canvas>
                     </div>
                 </div>
             </div>
@@ -517,9 +533,9 @@
                 datasets: [{
                     data: @json($difficultyDistribution),
                     backgroundColor: [
-                        'rgba(40, 167, 69, 0.7)', 
-                        'rgba(255, 193, 7, 0.7)', 
-                        'rgba(220, 53, 69, 0.7)' 
+                        'rgba(0, 123, 255, 0.65)', 
+                        'rgba(102, 16, 242, 0.65)',
+                        'rgba(220, 53, 69, 0.65)', 
                     ],
                     borderColor: [
                         '#fff',
@@ -534,10 +550,11 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'left',
+                        position: 'bottom',
                         labels: {
                             color: '#212529',
-                            padding: 30
+                            padding: 15,
+                            usePointStyle: true
                         }
                     },
                     tooltip: {
@@ -548,6 +565,51 @@
                                 const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
                                 const percentage = total ? ((value / total) * 100).toFixed(1) : 0;
                                 return `${label}: ${value} courses (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const professorsDistribution = document.getElementById('professorsDistribution').getContext('2d');
+        new Chart(professorsDistribution, {
+            type: 'pie',
+            data: {
+                labels: ['GE', 'CS', 'AI', 'IS'],
+                datasets: [{
+                    data: @json($professorsDistribution),
+                    backgroundColor: [
+                        'rgba(0, 123, 255, 0.65)', 
+                        'rgba(102, 16, 242, 0.65)',
+                        'rgba(220, 53, 69, 0.65)', 
+                        'rgba(40, 167, 69, 0.65)',  
+                    ],
+                    borderColor: [
+                        '#fff',
+                        '#fff',
+                        '#fff',
+                        '#fff',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#212529',
+                            padding: 15,
+                            usePointStyle: true,
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Total: ${context.raw}`;
                             }
                         }
                     }
