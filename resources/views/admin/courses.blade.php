@@ -487,7 +487,7 @@
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `Total: ${context.raw}`;
+                                return `Total: ${context.raw} students`;
                             }
                         }
                     }
