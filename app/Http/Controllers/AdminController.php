@@ -141,8 +141,28 @@ class AdminController extends Controller
     }
 
     public function showCourses(Request $request) {
-        $courses = Course::with('professor')->get();
+        $courses = Course::with('professor')->withCount(['enrollments as enrollments_count' => function($query) {
+            $query->whereDate('enrolled_at', '2025-08-01');
+        }])->get();
+
+        $topCourses = $courses->sortByDesc('enrollments_count')->take(5);
+        $topFiveCourses = [
+            'labels' => $topCourses->pluck('code')->toArray(),
+            'data' => $topCourses->pluck('enrollments_count')->toArray(),
+        ];
+
+        $difficultyDistribution = [
+            $courses->where('difficulty', 'easy')->count(),
+            $courses->where('difficulty', 'medium')->count(),
+            $courses->where('difficulty', 'hard')->count()
+        ];
+
         $professors = User::where('role', 'professor')->orderBy('name')->get();
+
+        $generalCourses = $courses->where('department', 'General Education')->count();
+        $CScourses = $courses->where('department', 'Computer Science')->count();
+        $AIcourses = $courses->where('department', 'Artificial Intelligence')->count();
+        $IScourses = $courses->where('department', 'Information System')->count();
 
         $department = $request->input('department', 'all');
         if($department && $department != 'all') {
@@ -166,7 +186,16 @@ class AdminController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        return view('admin.courses', compact('courses', 'professors'));
+        return view('admin.courses', compact(
+            'courses', 
+            'professors',
+            'generalCourses',
+            'CScourses',
+            'AIcourses',
+            'IScourses',
+            'topFiveCourses',
+            'difficultyDistribution'
+        ));
     }
 
     public function createCourse() {

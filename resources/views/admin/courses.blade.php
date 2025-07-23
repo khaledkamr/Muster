@@ -110,7 +110,80 @@
         border-color: #dee2e6;
     }
 </style>
-<div class="container mt-5">
+<div class="container mt-4">
+    <div class="row mb-2">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fa-solid fa-sitemap fa-2x text-primary me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">General Education department</h5>
+                        <h3 class="card-text">{{ $generalCourses }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fa-solid fa-code fa-2x text-primary me-3"></i>
+                    {{-- <i class="fas fa-user-graduate fa-2x text-primary me-3"></i> --}}
+                    <div>
+                        <h5 class="card-title mb-0">Computer Science department</h5>
+                        <h3 class="card-text">{{ $CScourses }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fa-solid fa-hexagon-nodes fa-2x text-primary me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Artificial Intelligence department</h5>
+                        <h3 class="card-text">{{ $AIcourses }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fa-solid fa-database fa-2x text-primary me-3"></i>
+                    <div>
+                        <h5 class="card-title mb-0">Information System department</h5>
+                        <h3 class="card-text">{{ $IScourses }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Top 5 Courses by Enrollments Chart -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3">Top 5 Courses by Enrollments</h5>
+                    <div class="chart-container" style="position: relative; height:300px;">
+                        <canvas id="topCoursesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card bg-light text-dark border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-3">Course Difficulty Distribution</h5>
+                    <div class="chart-container" style="position: relative; height:300px;">
+                        <canvas id="difficultyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row mb-4">
         <div class="col-md-5">
             <form method="GET" action="" class="d-flex flex-column">
@@ -385,4 +458,102 @@
         {{ $courses->appends(request()->query())->onEachSide(1)->links() }}
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const topCoursesChart = document.getElementById('topCoursesChart').getContext('2d');
+        new Chart(topCoursesChart, {
+            type: 'bar',
+            data: {
+                labels: @json($topFiveCourses['labels']),
+                datasets: [{
+                    label: 'students distribution',
+                    data: @json($topFiveCourses['data']),
+                    backgroundColor: 'rgba(0, 123, 255, 0.7)',
+                    borderColor: '#007bff',
+                    borderWidth: 1,
+                    borderRadius: 20,
+                    barThickness: 70,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Total: ${context.raw}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: Math.max(...@json($topFiveCourses['data'])) + 10,
+                        ticks: {
+                            stepSize: 30
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        const difficultyCtx = document.getElementById('difficultyChart').getContext('2d');
+        new Chart(difficultyCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Easy', 'Medium', 'Hard'],
+                datasets: [{
+                    data: @json($difficultyDistribution),
+                    backgroundColor: [
+                        'rgba(40, 167, 69, 0.7)', 
+                        'rgba(255, 193, 7, 0.7)', 
+                        'rgba(220, 53, 69, 0.7)' 
+                    ],
+                    borderColor: [
+                        '#fff',
+                        '#fff',
+                        '#fff',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                        labels: {
+                            color: '#212529',
+                            padding: 30
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                const total = context.dataset.data.reduce((sum, val) => sum + val, 0);
+                                const percentage = total ? ((value / total) * 100).toFixed(1) : 0;
+                                return `${label}: ${value} courses (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 @endsection
