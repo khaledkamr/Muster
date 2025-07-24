@@ -165,7 +165,7 @@ class StudentController extends Controller
 
         foreach ($enrollments as $enrollment) {
             $course = $enrollment->course;
-            $chartData['labels'][] = $course->name;
+            $chartData['labels'][] = $course->code;
             $totalCreditHours += $course->credit_hours;
             $grade = $course->grades->where('student_id', $user->id)->first();
             $chartData['grades'][] = $grade->total;
@@ -198,7 +198,7 @@ class StudentController extends Controller
         }
 
         $recommendation_data = $this->recommend_courses($user->id);
-        $recommendedElectives = $recommendation_data['recommendations'];
+        $recommendedElectives = $recommendation_data['recommendations'] ?? [];
 
         $predicted_data = $this->gpa_predict($user->id);
         $predictedGPA = $predicted_data['predicted_semester_gpa'];

@@ -141,24 +141,40 @@
         </div>
 
         <!-- Course Total Grades Chart -->
-        <div class="card border-0 shadow-sm mt-4">
-            <div class="card-body">
-                <h4 class="text-dark fw-bold mb-4">Course Total Grades Overview</h4>
-                <div class="chart-container" style="position: relative; height:400px;">
-                    <canvas id="courseTotalGradesChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Warning Alert for Lowest Grade Course -->
-        @php
-            $lowestGradeIndex = array_search(min($chartData['grades']), $chartData['grades']);
-            $lowestGradeCourse = $chartData['labels'][$lowestGradeIndex];
-            $lowestGrade = $chartData['grades'][$lowestGradeIndex];
-        @endphp
         <div class="row">
             <div class="col-md-6">
-                <div class="alert alert-warning mt-4 shadow-sm" role="alert">
+                <div class="card border-0 shadow-sm mt-4">
+                    <div class="card-body">
+                        <h4 class="text-dark fw-bold">Course Total Grades Overview</h4>
+                        <div class="chart-container" style="position: relative; height:400px;">
+                            <canvas id="courseTotalGradesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Warning Alert for Lowest Grade Course -->
+            @php
+                $lowestGradeIndex = array_search(min($chartData['grades']), $chartData['grades']);
+                $lowestGradeCourse = $chartData['labels'][$lowestGradeIndex];
+                $lowestGrade = $chartData['grades'][$lowestGradeIndex];
+                $highestGradeIndex = array_search(max($chartData['grades']), $chartData['grades']);
+                $highestGradeCourse = $chartData['labels'][$highestGradeIndex];
+                $highestGrade = $chartData['grades'][$highestGradeIndex];
+            @endphp
+            <div class="col-md-6 d-flex flex-column">
+                <div class="alert alert-success mt-4 shadow-sm" role="alert">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-star me-3"></i>
+                        <div>
+                            <h5 class="alert-heading mb-1">Excellent Performance</h5>
+                            <p class="mb-0">
+                                Great job in <strong>{{ $highestGradeCourse }}</strong>! With a current grade of {{ $highestGrade }}, your hard work and dedication are clearly paying off. 
+                                Keep up the excellent effort and continue striving for success.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-warning mt-3 shadow-sm" role="alert">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-exclamation-triangle me-3"></i>
                         <div>
@@ -171,9 +187,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="alert alert-info mt-4 shadow-sm" role="alert">
+                <div class="alert alert-info mt-3 shadow-sm" role="alert">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-circle-info me-3"></i>
                         <div>
@@ -196,7 +210,7 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- elective recommendation courses -->
         <div class="card border-0 shadow-sm mt-4">
             <div class="card-body">
@@ -263,8 +277,8 @@
                             'rgba(255, 99, 132, 0.8)'
                         ],
                         borderWidth: 1,
-                        borderRadius: 20,
-                        barThickness: 100,
+                        borderRadius: 15,
+                        barThickness: 60,
                     }]
                 },
                 options: {
