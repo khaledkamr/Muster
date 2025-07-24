@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rules\Unique;
 
 class AdminController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $users = User::all();
         $usersCount = $users->count();
         $studentsCount = $users->where('role', 'student')->count();
@@ -36,26 +38,65 @@ class AdminController extends Controller
             $users->where('year', 'senior')->count(),
         ];
 
-        $professorsDistribution = [
-            $users->where('role', 'professor')->where('department', 'General Education')->count(),
-            $users->where('role', 'professor')->where('department', 'Computer Science')->count(),
-            $users->where('role', 'professor')->where('department', 'Artificial Intelligence')->count(),
-            $users->where('role', 'professor')->where('department', 'Information System')->count(),
-        ];
-
-        $courses = Course::withCount(['enrollments as enrollments_count' => function($query) {
-            $query->whereDate('enrolled_at', '2025-08-01');
-        }])->get();
-        $GEcourses = $courses->where('department', 'General Education')->count();
-        $CScourses = $courses->where('department', 'Computer Science')->count();
-        $AIcourses = $courses->where('department', 'Artificial Intelligence')->count();
-        $IScourses = $courses->where('department', 'Information System')->count();
-
-        $topCourses = $courses->sortByDesc('enrollments_count')->take(5);
+        $currentSemesterCourses = Course::where('semester', 'second')
+            ->withCount(['enrollments' => function($query) {
+                $query->where('enrolled_at', '2025-08-01');
+            }])
+            ->whereHas('enrollments', function($query) {
+                $query->where('enrolled_at', '2025-08-01');
+            })
+            ->get();
+        
+        $topCourses = $currentSemesterCourses->sortByDesc('enrollments_count')->take(5);
         $topFiveCourses = [
             'labels' => $topCourses->pluck('code')->toArray(),
             'data' => $topCourses->pluck('enrollments_count')->toArray(),
         ];
+
+        $passFailPercentage = Course::where('code', 'LIKE', '__3%')->get()->take(6)->map(function($course) {
+            $passCount = $course->grades()->where('status', 'pass')->count();
+            $failCount = $course->grades()->where('status', 'fail')->count();
+            $totalGrades = $passCount + $failCount;
+            if($totalGrades == 0) {
+                $course->passPercentage = 0;
+                $course->failPercentage = 0;
+                return $course;
+            } else {
+                $passPercentage = $passCount / $totalGrades * 100;
+                $failPercentage = $failCount / $totalGrades * 100;
+                $course->passPercentage = $passPercentage;
+                $course->failPercentage = $failPercentage;
+                return $course;
+            }
+        });
+        
+        $clusterCourse = $currentSemesterCourses->first();
+        if($request->input('course')) {
+            $courseId =  $request->input('course');
+            $clusterCourse = Course::findOrFail($courseId);
+        }
+        // return $clusterCourse;
+        $students = $clusterCourse ? $clusterCourse->enrollments
+            ->where('enrolled_at', Carbon::parse('2025-08-01'))
+            ->map(function ($enrollment) {
+                return $enrollment->student;
+            }) : collect();
+
+        // return $students;
+
+        $data = $this->cluster($students->pluck('id'), $clusterCourse->id);
+
+        // return $data;
+
+        $studentsPerformance = [
+            $data["high_performers_count"] ?? 0,
+            $data["average_performers_count"] ?? 0,
+            $data["at_risk_students_count"] ?? 0
+        ];
+        $highPerformersCount = $data["high_performers_count"] ?? 0;
+        $averagePerformersCount = $data["average_performers_count"] ?? 0;
+        $atRiskStudentsCount = $data["at_risk_students_count"] ?? 0;
+
 
         return view('admin.index', compact(
             'usersCount' ,
@@ -64,13 +105,37 @@ class AdminController extends Controller
             'adminsCount',
             'userRegistrationTrend',
             'studentDistribution',
-            'professorsDistribution',
-            'GEcourses',
-            'CScourses',
-            'AIcourses',
-            'IScourses',
             'topFiveCourses',
+            'passFailPercentage',
+            'highPerformersCount',
+            'averagePerformersCount',
+            'atRiskStudentsCount',
+            'studentsPerformance',
+            'currentSemesterCourses'
         ));
+    }
+
+    public function cluster($studentIds, $courseId) 
+    {
+        try {
+            $response = Http::timeout(10)->post('http://localhost:5000/cluster', [
+                'student_ids' => $studentIds,
+                'course_id' => $courseId,
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+                return collect($data); 
+            }
+
+            return collect([]);
+            
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            return collect([]);
+        } catch (\Exception $e) {
+            return collect([]);
+        }
     }
 
     public function showUsers(Request $request) {

@@ -227,7 +227,7 @@
             <li class="nav-item">
                 <a class="nav-link "
                    href="">
-                   <i class="bi bi-gear-fill"></i> Manage AI Models
+                   <i class="fa-solid fa-vial"></i> Manage AI Models
                 </a>
             </li>
 

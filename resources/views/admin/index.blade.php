@@ -74,15 +74,24 @@
                 </div>
             </div>
         </div>
-        {{-- Students distribution --}}
+        {{-- Students performance --}}
         <div class="col-md-3">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
-                        <h5 class="text-dark fw-bold mb-3">Students distribution</h5>
+                        <h5 class="text-dark fw-bold mb-3">Students performance</h5>
                         <i class="fa-solid fa-chart-pie mb-3 fa-lg ps-2"></i>
                     </div>
-                    <div class="chart-container p-4" style="position: relative; height:300px;">
+                    <form method="GET" action="" class="d-flex flex-column mb-3">
+                        <div class="d-flex">
+                            <select id="course" name="course" class="form-select" onchange="this.form.submit()">
+                                @foreach($currentSemesterCourses as $course)
+                                    <option value="{{ $course->id }}"  {{ request()->query('course') == $course->id ? 'selected' : ''}}>{{ $course->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
+                    <div class="chart-container" style="position: relative; height:248px;">
                         <canvas id="studentsDistribution"></canvas>
                     </div>
                 </div>
@@ -91,67 +100,37 @@
     </div>
 
     <div class="row mt-4">
-        {{-- Professors distribution --}}
-        <div class="col-md-3">
+        {{-- Students status by course --}}
+        <div class="col-md-7">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
-                        <h5 class="text-dark fw-bold mb-3">Professors distribution</h5>
-                        <i class="fa-solid fa-chart-pie mb-3 fa-lg ps-2"></i>
+                        <h5 class="text-dark fw-bold mb-3">Students status by course</h5>
+                        <i class="fa-solid fa-chart-bar mb-3 fa-lg ps-2"></i>
                     </div>
-                    <div class="chart-container p-1" style="position: relative; height:300px;">
-                        <canvas id="professorsDistribution"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- Courses distribution --}}
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold mb-4">Courses distribution</h5>
-                    <div class="events-container">
-                        <div class="event-card mb-3 p-3 bg-light rounded shadow-sm border-start border-4 border-primary">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h6 class="mb-1 fw-bold">General Education department</h6>
-                                </div>
-                                <p class="mb-0 text-muted fw-bold">
-                                    {{ $GEcourses }} <i class="fa-solid fa-sitemap ms-2"></i>
-                                </p>
-                            </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="me-3 d-flex align-items-center">
+                            <span class="me-1 rounded-circle bg-primary d-block" style="width: 15px; height: 15px;"></span>
+                            <span class="text-muted d-block fs-6">Pass</span>
                         </div>
-                        <div class="event-card mb-3 p-3 bg-light rounded shadow-sm border-start border-4 border-primary">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h6 class="mb-1 fw-bold">Computer Science department</h6>
-                                </div>
-                                <p class="mb-0 text-muted fw-bold">
-                                    {{ $CScourses }} <i class="fa-solid fa-code ms-2"></i>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="event-card mb-3 p-3 bg-light rounded shadow-sm border-start border-4 border-primary">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h6 class="mb-1 fw-bold">Artificial Intelligence department</h6>
-                                </div>
-                                <p class="mb-0 text-muted fw-bold">
-                                    {{ $AIcourses }} <i class="fa-solid fa-hexagon-nodes ms-2"></i>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="event-card mb-3 p-3 bg-light rounded shadow-sm border-start border-4 border-primary">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h6 class="mb-1 fw-bold">Information System department</h6>
-                                </div>
-                                <p class="mb-0 text-muted fw-bold">
-                                    {{ $IScourses }} <i class="fa-solid fa-database ms-2"></i>
-                                </p>
-                            </div>
+                        <div class="d-flex align-items-center">
+                            <span class="me-1 rounded-circle bg-danger d-block" style="width: 15px; height: 15px;"></span>
+                            <span class="text-muted d-block fs-6">Fail</span>
                         </div>
                     </div>
+                    @foreach($passFailPercentage as $course)
+                        <div class="d-flex align-items-center mt-3">
+                            <a href="" class="text-decoration-none text-dark me-3" title="{{ $course->name }}" data-bs-toggle="tooltip" data-bs-title="{{ $course->name }}">{{ $course->code }}</a>
+                            <div class="progress-stacked flex-grow-1" style="height: 30px">
+                                <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="{{ $course->passPercentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $course->passPercentage }}%; height: 30px">
+                                    <div class="progress-bar bg-primary fw-bold"> {{ round($course->passPercentage, 2) }}% </div>
+                                </div>
+                                <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="{{ $course->failPercentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $course->failPercentage }}%; height: 30px">
+                                    <div class="progress-bar bg-danger fw-bold"> {{ round($course->failPercentage, 2) }}% </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -227,9 +206,9 @@
         new Chart(studentsDistribution, {
             type: 'pie',
             data: {
-                labels: ['freshman', 'sophomore', 'junior', 'senior'],
+                labels: ['high performance', 'average performance', 'at risk'],
                 datasets: [{
-                    data: @json($studentDistribution),
+                    data: @json($studentsPerformance),
                     backgroundColor: [
                         'rgba(0, 123, 255, 0.65)', 
                         'rgba(102, 16, 242, 0.65)',
@@ -247,52 +226,7 @@
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: '#212529',
-                            padding: 15,
-                            usePointStyle: true,
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `Total: ${context.raw}`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        const professorsDistribution = document.getElementById('professorsDistribution').getContext('2d');
-        new Chart(professorsDistribution, {
-            type: 'pie',
-            data: {
-                labels: ['General Education', 'Computer Science', 'Artificial Intelligence', 'Information System'],
-                datasets: [{
-                    data: @json($professorsDistribution),
-                    backgroundColor: [
-                        'rgba(0, 123, 255, 0.65)', 
-                        'rgba(102, 16, 242, 0.65)',
-                        'rgba(220, 53, 69, 0.65)', 
-                        'rgba(40, 167, 69, 0.65)',  
-                    ],
-                    borderColor: [
-                        '#fff',
-                        '#fff',
-                        '#fff',
-                        '#fff',
-                    ],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: {
                         position: 'bottom',
