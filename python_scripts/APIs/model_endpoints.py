@@ -5,11 +5,14 @@ import os
 import sys
 from http import HTTPStatus
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras.models import load_model
+import joblib
+import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../scripts')))
 from performance_model import StudentPerformanceModel
-from gpa_model import predict_student_gpa
+from gpa_model import predict_student_gpa, build_and_train_model, prepare_training_data
 # from course_recommendation import recommend_courses
 import course_recommendation
 
@@ -20,6 +23,12 @@ performance_model = None
 gpa_model = None
 scaler_X = None
 scaler_y = None
+
+@tf.keras.saving.register_keras_serializable()
+def gpa_accuracy(y_true, y_pred):
+    """Custom metric for GPA accuracy within 0.3 tolerance"""
+    accuracy = tf.reduce_mean(tf.cast(tf.abs(y_true - y_pred) <= 0.3, tf.float32))
+    return accuracy
 
 def load_models():
     """Load both the performance and GPA prediction models from disk"""
@@ -44,6 +53,9 @@ def load_models():
     try:
         if not os.path.exists(gpa_model_path):
             raise FileNotFoundError(f"GPA model file not found at {gpa_model_path}")
+
+        gpa_model = load_model(gpa_model_path, custom_objects={'gpa_accuracy': gpa_accuracy})
+
         if not os.path.exists(scaler_X_path):
             raise FileNotFoundError(f"Scaler X file not found at {scaler_X_path}")
         if not os.path.exists(scaler_y_path):
@@ -131,34 +143,44 @@ def predict_performance():
 
 @app.route("/gpa", methods=["POST"])
 def predict_gpa():
-    """Predict GPA and CGPA for a single student"""
     if gpa_model is None or scaler_X is None or scaler_y is None:
         return jsonify({"error": "GPA model or scalers not loaded"}), HTTPStatus.INTERNAL_SERVER_ERROR
 
     try:
-        # Get JSON data from request
         data = request.get_json()
         if not data:
             return jsonify({"error": "No JSON data provided"}), HTTPStatus.BAD_REQUEST
 
-        # Validate required field
         student_id = data.get("student_id")
         if not student_id:
             return jsonify({"error": "Missing student_id"}), HTTPStatus.BAD_REQUEST
 
-        # Ensure student_id is integer
         try:
             student_id = int(student_id)
         except (ValueError, TypeError):
             return jsonify({"error": "student_id must be an integer"}), HTTPStatus.BAD_REQUEST
 
-        # Make GPA prediction
         result = predict_student_gpa(student_id, gpa_model, scaler_X, scaler_y)
         return jsonify(result), HTTPStatus.OK
 
     except Exception as e:
         app.logger.error(f"Error processing GPA prediction request: {str(e)}")
         return jsonify({"error": "Internal server error"}), HTTPStatus.INTERNAL_SERVER_ERROR
+
+
+@app.route("/gpa_retrain", methods=["POST"])
+def retrain():
+    try:
+        X_train, _, y_train, _, _, _ = prepare_training_data()
+        start_time = time.time()
+        build_and_train_model(X_train, y_train)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        return jsonify({"message": "model retrained successfully", "time": f"{execution_time}"}), HTTPStatus.OK
+    
+    except Exception as e:
+        return jsonify({"error": "Internal server error"}), HTTPStatus.INTERNAL_SERVER_ERROR
+
 
 @app.route("/recommend_courses", methods=["POST"])
 def recommend_courses_endpoint():

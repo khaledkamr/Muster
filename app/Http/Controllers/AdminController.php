@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\TrainingHistory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -75,18 +76,14 @@ class AdminController extends Controller
             $courseId =  $request->input('course');
             $clusterCourse = Course::findOrFail($courseId);
         }
-        // return $clusterCourse;
+
         $students = $clusterCourse ? $clusterCourse->enrollments
             ->where('enrolled_at', Carbon::parse('2025-08-01'))
             ->map(function ($enrollment) {
                 return $enrollment->student;
             }) : collect();
 
-        // return $students;
-
         $data = $this->cluster($students->pluck('id'), $clusterCourse->id);
-
-        // return $data;
 
         $studentsPerformance = [
             $data["high_performers_count"] ?? 0,
@@ -96,7 +93,6 @@ class AdminController extends Controller
         $highPerformersCount = $data["high_performers_count"] ?? 0;
         $averagePerformersCount = $data["average_performers_count"] ?? 0;
         $atRiskStudentsCount = $data["at_risk_students_count"] ?? 0;
-
 
         return view('admin.index', compact(
             'usersCount' ,
@@ -376,6 +372,83 @@ class AdminController extends Controller
         $name = $course->name;
         $course->delete();
         return redirect()->back()->with('success', "Course $name deleted successfully!");
+    }
+
+    public function overview() {
+        return view('admin.aiModelsOverview');
+    }
+
+    public function lstm() {
+        $history = TrainingHistory::where('ai_model_id', 1)->get();
+        $lastHistory = $history->last();
+
+        $model_data = json_decode(file_get_contents(base_path('python_scripts/results/lstm_training_metrics.json')), true);
+
+        $accuracy = $model_data['accuracy'] ?? 0;
+        $loss = $model_data['loss'] ?? 0;
+        $epochs = $model_data['epochs'] ?? 0;
+        $trainTime = $model_data['execution_time'] ?? 'N/A';
+        $accuracyData = $model_data['accuracy_over_epochs'] ?? [];
+        $lossData = $model_data['loss_over_epochs'] ?? [];
+        $lastTrained = Carbon::parse($lastHistory->date)->format('Y-M-d');
+        $sampleData = [
+            ['student_id' => 1, 'course_code' => 'CS101', 'gpa' => 3.7],
+            ['student_id' => 2, 'course_code' => 'CS102', 'gpa' => 3.2],
+            ['student_id' => 3, 'course_code' => 'AI201', 'gpa' => 3.9],
+        ];
+
+        return view('admin.gpaPrediction', compact(
+            'lastTrained',
+            'accuracy',
+            'loss',
+            'epochs',
+            'trainTime',
+            'accuracyData',
+            'lossData',
+            'lastTrained',
+            'sampleData',
+            'history'
+        ));
+    }
+
+    public function retrain_gpa() {
+        $data = $this->train_lstm();
+        $message = $data['message'];
+        $time = round($data['time'], 2);
+
+        $model_data = json_decode(file_get_contents(base_path('python_scripts/results/lstm_training_metrics.json')), true);
+
+        TrainingHistory::create([
+            'ai_model_id' => 1,
+            'accuracy' => $model_data['accuracy'],
+            'loss' => $model_data['loss'],
+            'epochs' => $model_data['epochs'],
+            'execution_time' => $model_data['execution_time'],
+            'date' => Carbon::now()
+        ]);
+
+        
+
+        return redirect()->back()->with('success', "$message in $time seconds");
+    }
+
+    public function train_lstm() {
+        try {
+            $response = Http::timeout(60)->post('http://localhost:5000/gpa_retrain');
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+                return collect($data); 
+            }
+
+            return collect([]);
+            
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            return collect([]);
+        } catch (\Exception $e) {
+            return collect([]);
+        }
     }
 
     public function profile() {

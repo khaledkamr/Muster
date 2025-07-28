@@ -192,7 +192,9 @@
                         <i class="fas fa-circle-info me-3"></i>
                         <div>
                             <h5 class="alert-heading mb-1">GPA Prediction</h5>
-                            <small class="text-muted d-block">Based on current performance</small>
+                            <small class="text-muted d-block">
+                                Based on current performance in your enrolled courses
+                            </small>
                             <div class="d-flex justify-content-between align-items-center mt-0">
                                 <div>
                                     <p class="mb-1">

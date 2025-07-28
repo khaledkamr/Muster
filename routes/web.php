@@ -36,6 +36,10 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function() {
         Route::put('/courses/{id}', 'updateCourse')->name('admin.update.course');
         Route::delete('/courses/{id}', 'deleteCourse')->name('admin.delete.course');
 
+        Route::get('/ai_models', 'overview')->name('admin.aiModels.overview');
+        Route::get('/ai_models/lstm', 'LSTM')->name('admin.aiModels.lstm');
+        Route::post('/ai_models/lstm/retrain', 'retrain_gpa')->name('admin.aiModels.lstm.retrain');
+
         Route::get('users/profile/{id}', 'userProfile')->name('admin.profile.user');
     });
 });
