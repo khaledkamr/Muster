@@ -8,6 +8,7 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras import saving
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import os
 import json
 import time
@@ -83,7 +84,7 @@ def prepare_training_data():
     
     return X_train, X_test, y_train, y_test, scaler_X, scaler_y
 
-def build_and_train_model(X_train, y_train):
+def build_and_train_model(X_train, y_train, X_test,y_test):
     model = Sequential([
         LSTM(64, input_shape=(X_train.shape[1], X_train.shape[2]), return_sequences=True),
         Dropout(0.2),
@@ -94,9 +95,9 @@ def build_and_train_model(X_train, y_train):
     ])
     
     model.compile(
-        optimizer='adam', 
+        Adam(learning_rate=0.001), 
         loss='mse',
-        metrics=['mae', gpa_accuracy]
+        metrics=['mae']
     )
 
     early_stopping = EarlyStopping(
@@ -108,7 +109,7 @@ def build_and_train_model(X_train, y_train):
     start_time = time.time()
     history = model.fit(
         X_train, y_train, 
-        epochs=25, 
+        epochs=10, 
         batch_size=32, 
         validation_split=0.2, 
         verbose=1
@@ -116,19 +117,31 @@ def build_and_train_model(X_train, y_train):
     end_time = time.time()
     execution_time = end_time - start_time
 
+    y_pred = model.predict(X_test)
+
+    mse = mean_squared_error(y_test, y_pred)
+    rmse = np.sqrt(mse)
+    mae = mean_absolute_error(y_test, y_pred)
+    r2 = r2_score(y_test, y_pred)
+
+    print(f"Test Mean Squared Error: {mse:.4f}")
+    print(f"Test Root Mean Squared Error: {rmse:.4f}")
+    print(f"Test Mean Absolute Error: {mae:.4f}")
+    print(f"Test R² Score: {r2:.4f}")
+
     results_dir = 'python_scripts/results'
     os.makedirs(results_dir, exist_ok=True)
-    metrics = {
-        'accuracy': float(history.history['gpa_accuracy'][-1]),
-        'loss': float(history.history['loss'][-1] * 100),
-        'epochs': len(history.epoch),
-        'execution_time': execution_time,
-        'accuracy_over_epochs': [float(l) for l in history.history['gpa_accuracy']],
-        'loss_over_epochs': [float(l * 100) for l in history.history['loss']],
-    }
+    # metrics = {
+    #     'accuracy': float(history.history['gpa_accuracy'][-1]),
+    #     'loss': float(history.history['loss'][-1] * 100),
+    #     'epochs': len(history.epoch),
+    #     'execution_time': execution_time,
+    #     'accuracy_over_epochs': [float(l) for l in history.history['gpa_accuracy']],
+    #     'loss_over_epochs': [float(l * 100) for l in history.history['loss']],
+    # }
 
     with open(os.path.join(results_dir, 'lstm_training_metrics.json'), 'w') as f:
-        json.dump(metrics, f, indent=4)
+        json.dump(history.history, f, indent=4)
 
     return model
 
@@ -188,7 +201,7 @@ def predict_student_gpa(student_id, model, scaler_X, scaler_y):
 
 if __name__ == "__main__":
     X_train, X_test, y_train, y_test, scaler_X, scaler_y = prepare_training_data()
-    model = build_and_train_model(X_train, y_train)
+    model = build_and_train_model(X_train, y_train, X_test, y_test)
     
     model.save('python_scripts/models/lstm_cgpa_model.keras')
     np.save('python_scripts/models/scaler_X.npy', scaler_X)

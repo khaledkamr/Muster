@@ -377,61 +377,7 @@ class AdminController extends Controller
     public function overview() {
         return view('admin.aiModelsOverview');
     }
-
-    public function lstm() {
-        $history = TrainingHistory::where('ai_model_id', 1)->get();
-        $lastHistory = $history->last();
-
-        $model_data = json_decode(file_get_contents(base_path('python_scripts/results/lstm_training_metrics.json')), true);
-
-        $accuracy = $model_data['accuracy'] ?? 0;
-        $loss = $model_data['loss'] ?? 0;
-        $epochs = $model_data['epochs'] ?? 0;
-        $trainTime = $model_data['execution_time'] ?? 'N/A';
-        $accuracyData = $model_data['accuracy_over_epochs'] ?? [];
-        $lossData = $model_data['loss_over_epochs'] ?? [];
-        $lastTrained = Carbon::parse($lastHistory->date)->format('Y-M-d');
-        $sampleData = [
-            ['student_id' => 1, 'course_code' => 'CS101', 'gpa' => 3.7],
-            ['student_id' => 2, 'course_code' => 'CS102', 'gpa' => 3.2],
-            ['student_id' => 3, 'course_code' => 'AI201', 'gpa' => 3.9],
-        ];
-
-        return view('admin.gpaPrediction', compact(
-            'lastTrained',
-            'accuracy',
-            'loss',
-            'epochs',
-            'trainTime',
-            'accuracyData',
-            'lossData',
-            'lastTrained',
-            'sampleData',
-            'history'
-        ));
-    }
-
-    public function retrain_gpa() {
-        $data = $this->train_lstm();
-        $message = $data['message'];
-        $time = round($data['time'], 2);
-
-        $model_data = json_decode(file_get_contents(base_path('python_scripts/results/lstm_training_metrics.json')), true);
-
-        TrainingHistory::create([
-            'ai_model_id' => 1,
-            'accuracy' => $model_data['accuracy'],
-            'loss' => $model_data['loss'],
-            'epochs' => $model_data['epochs'],
-            'execution_time' => $model_data['execution_time'],
-            'date' => Carbon::now()
-        ]);
-
-        
-
-        return redirect()->back()->with('success', "$message in $time seconds");
-    }
-
+ 
     public function train_lstm() {
         try {
             $response = Http::timeout(60)->post('http://localhost:5000/gpa_retrain');

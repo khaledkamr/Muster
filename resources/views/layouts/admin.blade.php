@@ -225,27 +225,10 @@
 
             <!-- Manage AI Models -->
             <li class="nav-item">
-                <a class="toggle" data-bs-toggle="collapse" href="#AImodels" role="button" aria-expanded="false" aria-controls="AImodels">
+                <a class="nav-link {{ request()->routeIs('admin.aiModels.overview') ? 'active' : '' }}"
+                   href="{{ route('admin.aiModels.overview') }}">
                    <i class="fa-solid fa-vial"></i> Manage AI Models
                 </a>
-                <div class="collapse sub-menu" id="AImodels">
-                    <a class="nav-link {{ request()->routeIs('admin.aiModels.overview') ? 'active' : '' }}"
-                       href="{{ route('admin.aiModels.overview') }}">
-                       <i class="fa-solid fa-eye ps-1"></i> overview
-                    </a>
-                    <a class="nav-link {{ request()->routeIs('admin.aiModels.lstm') ? 'active' : '' }}"
-                       href="{{ route('admin.aiModels.lstm') }}">
-                       <i class="fa-solid fa-brain ps-1"></i> GPA Prediction
-                    </a>
-                    <a class="nav-link "
-                       href="">
-                       <i class="fa-solid fa-circle-nodes ps-1"></i> Student Clustering
-                    </a>
-                    <a class="nav-link "
-                       href="">
-                       <i class="fa-solid fa-magic ps-1"></i> Course Recommendation
-                    </a>
-                </div>
             </li>
 
             <!-- Profile -->
@@ -352,7 +335,7 @@
             const currentRoute = window.location.pathname;
             const userRoutes = ['users/create', 'users'];
             const courseRoutes = ['courses/create', 'courses'];
-            const aiModelsRoutes = ['ai_models', 'ai_models/lstm'];
+            const aiModelsRoutes = ['ai_models'];
 
             if (userRoutes.some(route => currentRoute.includes(route))) {
                 const userCollapse = document.querySelector('#users');
