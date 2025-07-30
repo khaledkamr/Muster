@@ -36,9 +36,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function() {
         Route::put('/courses/{id}', 'updateCourse')->name('admin.update.course');
         Route::delete('/courses/{id}', 'deleteCourse')->name('admin.delete.course');
 
-        Route::get('/ai_models', 'overview')->name('admin.aiModels.overview');
-        Route::get('/ai_models/lstm', 'LSTM')->name('admin.aiModels.lstm');
-        Route::post('/ai_models/lstm/retrain', 'retrain_gpa')->name('admin.aiModels.lstm.retrain');
+        Route::get('/feedbacks', 'feedbacks')->name('admin.feedbacks');
+        Route::delete('feedback/{id}', 'deleteFeedback')->name('admin.delete.feedback');
 
         Route::get('users/profile/{id}', 'userProfile')->name('admin.profile.user');
     });
@@ -54,6 +53,8 @@ Route::prefix('student')->middleware(['auth', 'role:student'])->group(function (
         Route::get('/courses/{course}', 'courseDetails')->name('student.course-details');
         Route::get('/attendance', 'attendance')->name('student.attendance');
         Route::get('/professor-profile/{professorId}', 'professorProfile')->name('student.professor-profile');
+
+        Route::post('/send_feedback/{professorId}', 'sendFeedback')->name('student.send.feedback');
     });
 });
 
@@ -69,6 +70,9 @@ Route::prefix('professor')->middleware(['auth', 'role:professor'])->group(functi
         Route::get('/profile', 'profile')->name('professor.profile');
         Route::get('/student/{studentId}/course/{courseId}', 'studentProfile')->name('professor.student.profile');
         Route::get('/course/{course_id}/student/{student_id}', 'courseStudentDetails')->name('professor.course.student.details');
+
+        Route::post('/send_feedback/{studentId}/{courseId}', 'sendFeedback')->name('professor.send.feedback');
+        Route::post('/send_feedback_profile/{studentId}', 'send_feedback_profile')->name('professor.send.feedback.profile');
     });
 });
 

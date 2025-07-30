@@ -118,11 +118,7 @@
     </div>
 </div>
 
-
-<!-- Include Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Prepare data for the pie chart
     const submittedCount = {{ $filteredSubmissions->where('status', 'submitted')->count() }};
     const pendingCount = {{ $filteredSubmissions->where('status', 'pending')->count() }};
     const total = submittedCount + pendingCount;

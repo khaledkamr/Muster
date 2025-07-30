@@ -55,7 +55,6 @@
         position: relative;
         overflow: hidden;
     }
-
     .watercolor-card::before {
         content: '';
         position: absolute;
@@ -67,22 +66,18 @@
         opacity: 0.1;
         z-index: 0;
     }
-
     .watercolor-card .card-body {
         position: relative;
         z-index: 1;
     }
-
     .card-title {
         font-weight: 600;
         margin-bottom: 1rem;
     }
-
     p {
         margin-bottom: 0.5rem;
         color: #333;
     }
-
     p strong {
         color: #555;
     }

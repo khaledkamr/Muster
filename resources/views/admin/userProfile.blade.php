@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        <div class="card watercolor-card">
+        <div class="card mb-4 watercolor-card">
             <div class="card-body">
                 <h5 class="card-title text-dark">Parent Information</h5>
                 <div class="row">
@@ -294,9 +294,26 @@
             </div>
         </div>
     @endif
+
+    <div class="card mb-4 watercolor-card">
+        <div class="card-body">
+            <h5 class="card-title text-dark">Feedbacks</h5>
+            <div class="mb-3">
+                @foreach ($feedbacks as $feedback)
+                    <div class="d-flex align-items-start mb-3">
+                        <img src="{{ asset('imgs/user.png') }}" class="rounded-circle me-3" alt="User" width="40" height="40">
+                        <div>
+                            <strong class="text-primary">{{ $feedback->sender->name }}</strong>
+                            <p class="mb-1">{{ $feedback->content }}</p>
+                            <small class="text-muted">Rating: <span class="text-success">Excellent</span> · {{ Carbon\Carbon::parse($feedback->date)->format('Y M d') }}</small>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // GPA Chart

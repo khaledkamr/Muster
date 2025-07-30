@@ -212,213 +212,211 @@
     </div>
 </div>
 
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Attendance Rate Chart
-            const attendanceRateCtx = document.getElementById('attendanceRateChart').getContext('2d');
-            const attendanceRate = {{ $attendanceRate }};
-            let rateColor = attendanceRate >= 75 ? '#28a745' : (attendanceRate <= 50 ? '#dc3545' : '#007bff');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Attendance Rate Chart
+        const attendanceRateCtx = document.getElementById('attendanceRateChart').getContext('2d');
+        const attendanceRate = {{ $attendanceRate }};
+        let rateColor = attendanceRate >= 75 ? '#28a745' : (attendanceRate <= 50 ? '#dc3545' : '#007bff');
 
-            new Chart(attendanceRateCtx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [attendanceRate, 100 - attendanceRate],
-                        backgroundColor: [rateColor, '#e9ecef'],
-                        borderWidth: 0,
-                        circumference: 360,
-                        cutout: '80%',
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
+        new Chart(attendanceRateCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [attendanceRate, 100 - attendanceRate],
+                    backgroundColor: [rateColor, '#e9ecef'],
+                    borderWidth: 0,
+                    circumference: 360,
+                    cutout: '80%',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
                 }
-            });
-
-            // Weekly Attendance Graph
-            const weeklyAttendanceCtx = document.getElementById('weeklyAttendanceChart').getContext('2d');
-            const weeklyData = @json($weeklyAttendance);
-            const labels = Object.keys(weeklyData).map(week => `Week ${week}`);
-            const data = Object.values(weeklyData);
-
-            new Chart(weeklyAttendanceCtx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Attended Session',
-                        data: data,
-                        borderColor: '#007bff',
-                        backgroundColor: 'rgba(0, 123, 255, 0.2)',
-                        fill: true,
-                        tension: 0.4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    
-                    plugins: {
-                        legend: { display: false },
-                    },
-                    scales: {
-                        x: {
-                            title: {
-                                display: false,
-                                text: 'Week Number'
-                            },
-                            max: 17,
-                            ticks: {
-                                maxRotation: 45,
-                                minRotation: 45
-                            },
-                            grid: {
-                                display: false
-                            }
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Number of Sessions'
-                            },
-                            beginAtZero: true,
-                            max: {{ $filterType === 'both' ? $currentSemesterCourses->count() * 2 : $currentSemesterCourses->count() }},
-                            ticks: {
-                                stepSize: 1
-                            }
-                        }
-                    }
-                }
-            });
-
-            const courseAttendanceRateChartCtx = document.getElementById('courseAttendanceRateChart').getContext('2d');
-            const courses = @json(collect($coursesAttendance['course'])->pluck('code'));
-            new Chart(courseAttendanceRateChartCtx, {
-                type: 'bar',
-                data: {
-                    labels: courses,
-                    datasets: [{
-                        label: 'Attendance Rate',
-                        data: @json($coursesAttendance['attendanceRate']),
-                        backgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)', 'rgba(255, 99, 132, 0.8)'],
-                        borderColor: ['rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)', 'rgba(255, 99, 132, 0.8)'],
-                        borderWidth: 1,
-                        borderRadius: 20,
-                        barThickness: 100,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `Attendance Rate: ${context.raw}%`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: Math.max(...@json($coursesAttendance['attendanceRate'])) + 10,
-                            title: {
-                                display: true,
-                                text: 'Attendance Rate'
-                            },
-                            ticks: {
-                                stepSize: 2
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: false,
-                                text: 'Course'
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    }
-                }
-            });
+            }
         });
-    </script>
 
-    <style>
-        .content {
-            background-color: #f8f9fa;
-        }
-        .card {
-            background-color: #ffffff;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .contribution-day {
-            border-radius: 3px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .contribution-day:hover {
-            opacity: 0.8;
-        }
-        
-        .form-select {
-            background-color: #ffffff;
-            border: 1px solid #ced4da;
-            color: #495057;
-        }
-        .form-select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-        .table-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
+        // Weekly Attendance Graph
+        const weeklyAttendanceCtx = document.getElementById('weeklyAttendanceChart').getContext('2d');
+        const weeklyData = @json($weeklyAttendance);
+        const labels = Object.keys(weeklyData).map(week => `Week ${week}`);
+        const data = Object.values(weeklyData);
 
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 0;
-        }
+        new Chart(weeklyAttendanceCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Attended Session',
+                    data: data,
+                    borderColor: '#007bff',
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                
+                plugins: {
+                    legend: { display: false },
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: false,
+                            text: 'Week Number'
+                        },
+                        max: 17,
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of Sessions'
+                        },
+                        beginAtZero: true,
+                        max: {{ $filterType === 'both' ? $currentSemesterCourses->count() * 2 : $currentSemesterCourses->count() }},
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
 
-        .table thead {
-            background-color: #f8f9fa;
-            color: #333;
-        }
+        const courseAttendanceRateChartCtx = document.getElementById('courseAttendanceRateChart').getContext('2d');
+        const courses = @json(collect($coursesAttendance['course'])->pluck('code'));
+        new Chart(courseAttendanceRateChartCtx, {
+            type: 'bar',
+            data: {
+                labels: courses,
+                datasets: [{
+                    label: 'Attendance Rate',
+                    data: @json($coursesAttendance['attendanceRate']),
+                    backgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)', 'rgba(255, 99, 132, 0.8)'],
+                    borderColor: ['rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)', 'rgba(255, 99, 132, 0.8)'],
+                    borderWidth: 1,
+                    borderRadius: 20,
+                    barThickness: 100,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `Attendance Rate: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: Math.max(...@json($coursesAttendance['attendanceRate'])) + 10,
+                        title: {
+                            display: true,
+                            text: 'Attendance Rate'
+                        },
+                        ticks: {
+                            stepSize: 2
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: false,
+                            text: 'Course'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 
-        .table th {
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 14px;
-            border-bottom: 1px solid #e9ecef;
-        }
+<style>
+    .content {
+        background-color: #f8f9fa;
+    }
+    .card {
+        background-color: #ffffff;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .contribution-day {
+        border-radius: 3px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .contribution-day:hover {
+        opacity: 0.8;
+    }
+    
+    .form-select {
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        color: #495057;
+    }
+    .form-select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    .table-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
 
-        .table td {
-            padding: 15px;
-            font-size: 14px;
-            color: #333;
-            border-bottom: 1px solid #e9ecef;
-        }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0;
+    }
 
-        .table tbody tr:hover {
-            background-color: #f1f3f5;
-        }
+    .table thead {
+        background-color: #f8f9fa;
+        color: #333;
+    }
 
-    </style>
+    .table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .table td {
+        padding: 15px;
+        font-size: 14px;
+        color: #333;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f1f3f5;
+    }
+
+</style>
 @endsection

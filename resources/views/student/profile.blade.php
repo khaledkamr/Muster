@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="container">
-
     <h1 class="pb-3 pt-3 text-dark fw-bold">Your Profile</h1>
 
     <div class="card mb-4 watercolor-card">
@@ -77,7 +76,7 @@
         </div>
     </div>
 
-    <div class="card watercolor-card">
+    <div class="card mb-4 watercolor-card">
         <div class="card-body">
             <h5 class="card-title text-dark">Parent Information</h5>
             <div class="row">
@@ -100,157 +99,174 @@
             </div>
         </div>
     </div>
+
+    <div class="card mb-4 watercolor-card">
+        <div class="card-body">
+            <h5 class="card-title text-dark">Feedbacks</h5>
+            <div class="mb-3">
+                @foreach ($feedbacks as $feedback)
+                    <div class="d-flex align-items-start mb-3">
+                        <img src="{{ asset('imgs/prof.png') }}" class="rounded-circle me-3" alt="User" width="40" height="40">
+                        <div>
+                            <strong class="text-primary">{{ $feedback->sender->name }}</strong>
+                            <p class="mb-1">{{ $feedback->content }}</p>
+                            <small class="text-muted">Rating: <span class="text-success">Excellent</span> · {{ Carbon\Carbon::parse($feedback->date)->format('Y M d') }}</small>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // GPA Chart
-            const gpaCtx = document.getElementById('gpaChart').getContext('2d');
-            const gpa = {{ $gpa }};
-            const maxGpa = 4.0;
-            const gpaPercentage = (gpa / maxGpa) * 100;
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // GPA Chart
+        const gpaCtx = document.getElementById('gpaChart').getContext('2d');
+        const gpa = {{ $gpa }};
+        const maxGpa = 4.0;
+        const gpaPercentage = (gpa / maxGpa) * 100;
 
-            let gpaProgressColor;
-            if (gpa >= 3.0) {
-                gpaProgressColor = '#28a745'; 
-            } else if (gpa <= 2.0) {
-                gpaProgressColor = '#dc3545'; 
-            } else {
-                gpaProgressColor = '#007bff'; 
-            }
+        let gpaProgressColor;
+        if (gpa >= 3.0) {
+            gpaProgressColor = '#28a745'; 
+        } else if (gpa <= 2.0) {
+            gpaProgressColor = '#dc3545'; 
+        } else {
+            gpaProgressColor = '#007bff'; 
+        }
 
-            new Chart(gpaCtx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [gpaPercentage, 100 - gpaPercentage],
-                        backgroundColor: [gpaProgressColor, '#e9ecef'],
-                        borderWidth: 0,
-                        circumference: 360,
-                        rotation: -90,
-                        cutout: '80%',
-                        borderRadius: 5,
-                    }]
+        new Chart(gpaCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [gpaPercentage, 100 - gpaPercentage],
+                    backgroundColor: [gpaProgressColor, '#e9ecef'],
+                    borderWidth: 0,
+                    circumference: 360,
+                    rotation: -90,
+                    cutout: '80%',
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    animateRotate: true,
+                    animateScale: true,
+                    duration: 1000
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: {
-                        animateRotate: true,
-                        animateScale: true,
-                        duration: 1000
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
                 }
-            });
-
-            // Credits Chart
-            const creditsCtx = document.getElementById('creditsChart').getContext('2d');
-            const totalCredits = {{ $totalCredits }};
-            const maxCredits = {{ $maxCredits }};
-            const creditsPercentage = (totalCredits / maxCredits) * 100;
-
-            let creditsProgressColor;
-            if (creditsPercentage >= 75) {
-                creditsProgressColor = '#28a745'; // Green for >= 75%
-            } else if (creditsPercentage <= 25) {
-                creditsProgressColor = '#dc3545'; // Red for <= 25%
-            } else {
-                creditsProgressColor = '#007bff'; // Blue for 25% to 75%
             }
-
-            new Chart(creditsCtx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [creditsPercentage, 100 - creditsPercentage],
-                        backgroundColor: [creditsProgressColor, '#e9ecef'],
-                        borderWidth: 0,
-                        circumference: 360,
-                        rotation: -90,
-                        cutout: '80%',
-                        borderRadius: 5,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: {
-                        animateRotate: true,
-                        animateScale: true,
-                        duration: 1000
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
-                }
-            });
         });
-    </script>
 
-    <style>
-        .watercolor-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(170, 253, 177, 0.7));
-            border: 2px solid rgba(147, 112, 219, 0.5);
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .watercolor-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/canvas.png');
-            opacity: 0.1;
-            z-index: 0;
+        // Credits Chart
+        const creditsCtx = document.getElementById('creditsChart').getContext('2d');
+        const totalCredits = {{ $totalCredits }};
+        const maxCredits = {{ $maxCredits }};
+        const creditsPercentage = (totalCredits / maxCredits) * 100;
+
+        let creditsProgressColor;
+        if (creditsPercentage >= 75) {
+            creditsProgressColor = '#28a745'; // Green for >= 75%
+        } else if (creditsPercentage <= 25) {
+            creditsProgressColor = '#dc3545'; // Red for <= 25%
+        } else {
+            creditsProgressColor = '#007bff'; // Blue for 25% to 75%
         }
 
-        .watercolor-card .card-body {
-            position: relative;
-            z-index: 1;
-        }
+        new Chart(creditsCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [creditsPercentage, 100 - creditsPercentage],
+                    backgroundColor: [creditsProgressColor, '#e9ecef'],
+                    borderWidth: 0,
+                    circumference: 360,
+                    rotation: -90,
+                    cutout: '80%',
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    animateRotate: true,
+                    animateScale: true,
+                    duration: 1000
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
+    });
+</script>
 
-        .card-title {
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #2c3e50;
-        }
+<style>
+    .watercolor-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(170, 253, 177, 0.7));
+        border: 2px solid rgba(147, 112, 219, 0.5);
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    .watercolor-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.transparenttextures.com/patterns/canvas.png');
+        opacity: 0.1;
+        z-index: 0;
+    }
 
-        p {
-            margin-bottom: 0.75rem;
-            color: #34495e;
-        }
+    .watercolor-card .card-body {
+        position: relative;
+        z-index: 1;
+    }
 
-        .profile-image-container {
-            background: #fff;
-            padding: 10px;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
+    .card-title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
 
-        .bi-gender-male {
-            color: #007bff;
-        }
+    p {
+        margin-bottom: 0.75rem;
+        color: #34495e;
+    }
 
-        .bi-gender-female {
-            color: #e83e8c;
-        }
+    .profile-image-container {
+        background: #fff;
+        padding: 10px;
+        border-radius: 50%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        a {
-            transition: color 0.3s ease;
-        }
+    .bi-gender-male {
+        color: #007bff;
+    }
 
-        a:hover {
-            color: #0056b3;
-        }
-    </style>
+    .bi-gender-female {
+        color: #e83e8c;
+    }
+
+    a {
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0056b3;
+    }
+</style>
 @endsection

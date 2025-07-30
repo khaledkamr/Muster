@@ -128,10 +128,7 @@
     </div>
 </div>
 
-<!-- Include Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Prepare data for the weekly attendance line chart
     const labels = @json(array_keys($weeklyAttendance));
     const presentData = @json(array_column($weeklyAttendance, 'present'));
     const absentData = @json(array_column($weeklyAttendance, 'absent'));

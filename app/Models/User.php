@@ -87,6 +87,14 @@ class User extends Authenticatable
     public function grades() {
         return $this->hasMany(Grade::class, 'student_id');
     }
+
+    public function feedbacks() {
+        return $this->hasMany(Feedback::class, 'about');
+    }
+
+    public function feedbacks_sent() {
+        return $this->hasMany(Feedback::class, 'from');
+    }
     
     public function attendance() {
         return $this->hasMany(Attendance::class, 'student_id');

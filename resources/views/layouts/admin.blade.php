@@ -226,8 +226,8 @@
             <!-- Manage AI Models -->
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('admin.aiModels.overview') ? 'active' : '' }}"
-                   href="{{ route('admin.aiModels.overview') }}">
-                   <i class="fa-solid fa-vial"></i> Manage AI Models
+                   href="{{ route('admin.feedbacks') }}">
+                   <i class="fa-solid fa-comments"></i> Feedbacks
                 </a>
             </li>
 
@@ -297,6 +297,7 @@
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Ensure only one sub-menu is open at a time
         document.querySelectorAll('.toggle').forEach(function(toggle) {
@@ -335,7 +336,7 @@
             const currentRoute = window.location.pathname;
             const userRoutes = ['users/create', 'users'];
             const courseRoutes = ['courses/create', 'courses'];
-            const aiModelsRoutes = ['ai_models'];
+            const aiModelsRoutes = ['feedbacks'];
 
             if (userRoutes.some(route => currentRoute.includes(route))) {
                 const userCollapse = document.querySelector('#users');

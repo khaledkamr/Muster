@@ -157,88 +157,86 @@
 </div>
 
 
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Completion Chart
-            const completionCtx = document.getElementById('completionChart').getContext('2d');
-            const completionPercentage = {{ $completionPercentage }};
-            let completionColor = completionPercentage >= 75 ? '#28a745' : (completionPercentage <= 50 ? '#dc3545' : '#007bff');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Completion Chart
+        const completionCtx = document.getElementById('completionChart').getContext('2d');
+        const completionPercentage = {{ $completionPercentage }};
+        let completionColor = completionPercentage >= 75 ? '#28a745' : (completionPercentage <= 50 ? '#dc3545' : '#007bff');
 
-            new Chart(completionCtx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [completionPercentage, 100 - completionPercentage],
-                        backgroundColor: [completionColor, '#e9ecef'],
-                        borderWidth: 0,
-                        circumference: 360,
-                        cutout: '80%',
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
+        new Chart(completionCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [completionPercentage, 100 - completionPercentage],
+                    backgroundColor: [completionColor, '#e9ecef'],
+                    borderWidth: 0,
+                    circumference: 360,
+                    cutout: '80%',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
                 }
-            });
-
-            // Score Chart
-            const scoreCtx = document.getElementById('scoreChart').getContext('2d');
-            const scorePercentage = {{ $scorePercentage }};
-            let scoreColor = scorePercentage >= 75 ? '#28a745' : (scorePercentage <= 50 ? '#dc3545' : '#007bff');
-
-            new Chart(scoreCtx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [scorePercentage, 100 - scorePercentage],
-                        backgroundColor: [scoreColor, '#e9ecef'],
-                        borderWidth: 0,
-                        circumference: 360,
-                        cutout: '80%',
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
-                }
-            });
+            }
         });
-    </script>
 
-    <style>
-        .card {
-            background-color: #ffffff;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .nav-tabs .nav-link {
-            color: #495057;
-        }
-        .nav-tabs .nav-link.active {
-            background-color: #ffffff;
-            border-color: #dee2e6 #dee2e6 #ffffff;
-            color: #007bff;
-        }
-        .form-select, .form-control {
-            background-color: #ffffff;
-            border: 1px solid #ced4da;
-            color: #495057;
-        }
-        .form-select:focus, .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-        }
-        .table-container {
+        // Score Chart
+        const scoreCtx = document.getElementById('scoreChart').getContext('2d');
+        const scorePercentage = {{ $scorePercentage }};
+        let scoreColor = scorePercentage >= 75 ? '#28a745' : (scorePercentage <= 50 ? '#dc3545' : '#007bff');
+
+        new Chart(scoreCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [scorePercentage, 100 - scorePercentage],
+                    backgroundColor: [scoreColor, '#e9ecef'],
+                    borderWidth: 0,
+                    circumference: 360,
+                    cutout: '80%',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+    .card {
+        background-color: #ffffff;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .nav-tabs .nav-link {
+        color: #495057;
+    }
+    .nav-tabs .nav-link.active {
+        background-color: #ffffff;
+        border-color: #dee2e6 #dee2e6 #ffffff;
+        color: #007bff;
+    }
+    .form-select, .form-control {
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        color: #495057;
+    }
+    .form-select:focus, .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    .table-container {
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -285,5 +283,5 @@
         font-size: 12px;
         display: inline-block;
     }
-    </style>
+</style>
 @endsection

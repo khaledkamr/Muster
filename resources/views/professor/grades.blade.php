@@ -274,6 +274,20 @@
                 </div>
             @endif
 
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if(session('errors'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('errors') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <div class="table-container">
                 <table class="table table-striped">
                     <thead>
@@ -341,9 +355,46 @@
                                     <td class="action-icons text-center">
                                         <a href="{{ route('professor.course.student.details', ['course_id' => $courseId, 'student_id' => $student['id']]) }}"
                                             title="View"><i class="fa-solid fa-eye"></i></a>
-                                        <a href="#"><i class="fa-solid fa-message" title="Send"></i></a>
+                                        <button class="btn btn-link p-0 pb-1 m-0" type="button" data-bs-toggle="modal" data-bs-target="#sendFeedbackModal{{ $student['id'] }}">
+                                            <i class="fa-solid fa-message" title="Send"></i>
+                                        </button>
                                     </td>
                                 </tr>
+
+                                <!-- Feedback Modal -->
+                                <div class="modal fade" id="sendFeedbackModal{{ $student['id'] }}" tabindex="-1" aria-labelledby="sendFeedbackModalLabel{{ $student['id'] }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content rounded-4">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-dark fw-bold" id="sendFeedbackModalLabel{{ $student['id'] }}">Feedback for <span>{{ $student['name'] }}</span></h5>
+                                                <button type="button" class="btn-close text-muted" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="{{ route('professor.send.feedback', ['studentId' => $student['id'], 'courseId' => $courseId]) }}">
+                                                    @csrf
+                                                    <div class="mb-3">
+                                                        <label for="feedback-message{{ $student['id'] }}" class="form-label text-dark">Feedback Message</label>
+                                                        <textarea name="content" class="form-control" id="feedback-message{{ $student['id'] }}" rows="4" placeholder="Enter your feedback..." required></textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="feedback-rating{{ $student['id'] }}" class="form-label text-dark">Rating</label>
+                                                        <select name="rate" class="form-select" id="feedback-rating{{ $student['id'] }}" required>
+                                                            <option value="" disabled selected>Select a rating</option>
+                                                            <option value="excellent">Excellent</option>
+                                                            <option value="good">Good</option>
+                                                            <option value="average">Average</option>
+                                                            <option value="bad">Bad</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end align-items-center gap-3">
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         @endif
                     </tbody>

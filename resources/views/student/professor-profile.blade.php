@@ -3,6 +3,7 @@
 @section('title', 'professor profile')
 
 @section('content')
+<div class="contianer">
     <div class="d-flex align-items-center mb-4 pt-3">
         <a href="{{ url()->previous() }}" class="btn btn-secondary me-3">
             <i class="fa-solid fa-arrow-left"></i>
@@ -82,45 +83,98 @@
         </div>
     </div>
 
-    <style>
-        .watercolor-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(170, 253, 177, 0.7));
-            border: 2px solid rgba(147, 112, 219, 0.5);
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
+    <div class="card mb-4 watercolor-card">
+        <div class="card-body">
+            <h5 class="card-title text-dark">Feedbacks</h5>
+            <div class="mb-3">
+                @foreach ($feedbacks as $feedback)
+                    <div class="d-flex align-items-start mb-3">
+                        <img src="{{ asset('imgs/user.png') }}" class="rounded-circle me-3" alt="User" width="40" height="40">
+                        <div>
+                            <strong class="text-primary">{{ $feedback->sender->name }}</strong>
+                            <p class="mb-1">{{ $feedback->content }}</p>
+                            <small class="text-muted">Rating: <span class="text-success">Excellent</span> · {{ Carbon\Carbon::parse($feedback->date)->format('Y M d') }}</small>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <hr>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
-        .watercolor-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/canvas.png');
-            opacity: 0.1;
-            z-index: 0;
-        }
+            @if(session('errors'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('errors') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            <form method="POST" action="{{ route('student.send.feedback', $user->id) }}">
+                @csrf
+                <div class="mb-3">
+                    <label for="feedbackContent" class="form-label">Leave your feedback</label>
+                    <textarea name="content" class="form-control" id="feedbackContent" rows="3" placeholder="Write something..."></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="feedbackRating" class="form-label">Rate this</label>
+                    <select name="rate" class="form-select" id="feedbackRating">
+                        <option selected disabled>Choose rating</option>
+                        <option value="excellent">Excellent</option>
+                        <option value="good">Good</option>
+                        <option value="average">Average</option>
+                        <option value="bad">Bad</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane me-1"></i> Submit Feedback
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 
-        .watercolor-card .card-body {
-            position: relative;
-            z-index: 1;
-        }
+<style>
+    .watercolor-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(170, 253, 177, 0.7));
+        border: 2px solid rgba(147, 112, 219, 0.5);
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
 
-        .card-title {
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
+    .watercolor-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.transparenttextures.com/patterns/canvas.png');
+        opacity: 0.1;
+        z-index: 0;
+    }
 
-        p {
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
+    .watercolor-card .card-body {
+        position: relative;
+        z-index: 1;
+    }
 
-        p strong {
-            color: #555;
-        }
-    </style>
+    .card-title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    p strong {
+        color: #555;
+    }
+</style>
 @endsection

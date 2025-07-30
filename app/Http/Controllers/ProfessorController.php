@@ -15,7 +15,7 @@ use App\Models\Submission;
 use App\Models\Attendance;
 use App\Models\Enrollment;
 use App\Models\Assignment_submission;
-
+use App\Models\Feedback;
 
 class ProfessorController extends Controller
 {
@@ -219,7 +219,6 @@ class ProfessorController extends Controller
         }
     }
 
-
     public function exams($courseId)
     {
         $course = Course::findOrFail($courseId);
@@ -414,6 +413,30 @@ class ProfessorController extends Controller
         ));
     }
 
+    public function sendFeedback($studentId, $courseId, Request $request) {
+        $validated = $request->validate([
+            'content' => 'required|string|max:255',
+            'rate' => 'required|in:excellent,good,average,bad',
+        ]);
+
+        $user = Auth::user();
+        $student = User::findOrFail($studentId);
+        $studentName = $student->name;
+        $course = Course::findOrFail($courseId);
+        $courseName = $course->name;
+
+        Feedback::create([
+            'from' => $user->id,
+            'about' => $studentId,
+            'course' => $courseName,
+            'content' => $validated['content'],
+            'rate' => $validated['rate'],
+            'date' => Carbon::now()
+        ]);
+
+        return redirect()->back()->with('success', "Feedback sent to $studentName successfully");
+    }
+
     public function assignments($courseId)
     {
         $course = $courseId ? Course::find($courseId) : null;
@@ -543,27 +566,21 @@ class ProfessorController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        return view('professor.profile', compact('user'));
+        $feedbacks = Feedback::where('about', $user->id)->get();
+        return view('professor.profile', compact('user', 'feedbacks'));
     }
 
     public function studentProfile($studentId, $courseId)
     {
         $student = User::findOrFail($studentId);
         $grades = $student->grades()->with('course')->get();
+        $feedbacks = Feedback::where('about', $student->id)->get();
 
         $gradePoints = [
-            'A+' => 4.0, 
-            'A'  => 4.8,
-            'A-' => 3.7,
-            'B+' => 3.3,
-            'B'  => 3.0,
-            'B-' => 2.7,
-            'C+' => 2.3,
-            'C'  => 2.0,
-            'C-' => 1.7,
-            'D+' => 1.3,
-            'D'  => 1.0,
-            'D-' => 0.7,
+            'A+' => 4.0, 'A'  => 4.8, 'A-' => 3.7,
+            'B+' => 3.3, 'B'  => 3.0, 'B-' => 2.7,
+            'C+' => 2.3, 'C'  => 2.0, 'C-' => 1.7,
+            'D+' => 1.3, 'D'  => 1.0, 'D-' => 0.7,
             'F'  => 0.0,
         ];
 
@@ -582,7 +599,25 @@ class ProfessorController extends Controller
 
         $maxCredits = 144;
 
-        return view('professor.student-profile', compact('student', 'courseId', 'gpa', 'totalCredits', 'maxCredits'));
+        return view('professor.student-profile', compact('student', 'courseId', 'gpa', 'totalCredits', 'maxCredits', 'feedbacks'));
+    }
+
+    public function send_feedback_profile($studentId, Request $request) {
+        $user = Auth::user();
+        $validated = $request->validate([
+            'content' => 'required|string|max:255',
+            'rate' => 'required|in:excellent,good,average,bad',
+        ]);
+
+        Feedback::create([
+            'from' => $user->id,
+            'about' => $studentId,
+            'content' => $validated['content'],
+            'rate' => $validated['rate'],
+            'date' => Carbon::now()
+        ]);
+
+        return redirect()->back()->with('success', "Feedback sent successfully");
     }
 
     public function courseStudentDetails($courseId, $studentId)

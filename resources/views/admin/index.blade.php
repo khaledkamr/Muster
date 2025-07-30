@@ -151,7 +151,6 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const studentsGrowth = document.getElementById('studentsGrowth').getContext('2d');

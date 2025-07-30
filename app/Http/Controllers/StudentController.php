@@ -7,6 +7,7 @@ use App\Models\Assignment;
 use App\Models\Assignment_submission;
 use App\Models\Enrollment;
 use App\Models\Course;
+use App\Models\Feedback;
 use App\Models\Grade;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -515,8 +516,10 @@ class StudentController extends Controller
         });
 
         $maxCredits = 144;
+
+        $feedbacks = Feedback::where('about', $user->id)->get();
         
-        return view('student.profile', compact('user', 'gpa', 'totalCredits', 'maxCredits'));
+        return view('student.profile', compact('user', 'gpa', 'totalCredits', 'maxCredits', 'feedbacks'));
     }
 
     public function courseDetails($course)
@@ -785,6 +788,26 @@ class StudentController extends Controller
     public function professorProfile($professorId)
     {
         $user = User::findOrFail($professorId);
-        return view('student.professor-profile', compact('user'));
+        $feedbacks = Feedback::where('about', $user->id)->get();
+        return view('student.professor-profile', compact('user', 'feedbacks'));
+    }
+
+    public function sendFeedback($professorId, Request $request) {
+        $validated = $request->validate([
+            'content' => 'required|string|max:255',
+            'rate' => 'required|in:excellent,good,average,bad',
+        ]);
+
+        $user = Auth::user();
+
+        Feedback::create([
+            'from' => $user->id,
+            'about' => $professorId,
+            'content' => $validated['content'],
+            'rate' => $validated['rate'],
+            'date' => Carbon::now()
+        ]);
+
+        return redirect()->back()->with('success', "Feedback sent to successfully");
     }
 }

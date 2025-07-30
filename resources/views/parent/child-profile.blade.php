@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <div class="card watercolor-card">
+    <div class="card mb-4 watercolor-card">
         <div class="card-body">
             <h5 class="card-title text-dark">Parent Information</h5>
             <div class="row">
@@ -99,9 +99,26 @@
             </div>
         </div>
     </div>
+
+    <div class="card mb-4 watercolor-card">
+        <div class="card-body">
+            <h5 class="card-title text-dark">Feedbacks</h5>
+            <div class="mb-3">
+                @foreach ($feedbacks as $feedback)
+                    <div class="d-flex align-items-start mb-3">
+                        <img src="{{ asset('imgs/prof.png') }}" class="rounded-circle me-3" alt="User" width="40" height="40">
+                        <div>
+                            <strong class="text-primary">{{ $feedback->sender->name }}</strong>
+                            <p class="mb-1">{{ $feedback->content }}</p>
+                            <small class="text-muted">Rating: <span class="text-success">Excellent</span> · {{ Carbon\Carbon::parse($feedback->date)->format('Y M d') }}</small>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // GPA Chart
@@ -212,42 +229,34 @@
         opacity: 0.1;
         z-index: 0;
     }
-
     .watercolor-card .card-body {
         position: relative;
         z-index: 1;
     }
-
     .card-title {
         font-weight: 600;
         margin-bottom: 1rem;
         color: #2c3e50;
     }
-
     p {
         margin-bottom: 0.75rem;
         color: #34495e;
     }
-
     .profile-image-container {
         background: #fff;
         padding: 10px;
         border-radius: 50%;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-
     .bi-gender-male {
         color: #007bff;
     }
-
     .bi-gender-female {
         color: #e83e8c;
     }
-
     a {
         transition: color 0.3s ease;
     }
-
     a:hover {
         color: #0056b3;
     }

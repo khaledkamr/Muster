@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Feedback;
 use App\Models\TrainingHistory;
 use App\Models\User;
 use Carbon\Carbon;
@@ -111,7 +112,7 @@ class AdminController extends Controller
         ));
     }
 
-    public function cluster($studentIds, $courseId) 
+    private function cluster($studentIds, $courseId) 
     {
         try {
             $response = Http::timeout(10)->post('http://localhost:5000/cluster', [
@@ -374,29 +375,17 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Course $name deleted successfully!");
     }
 
-    public function overview() {
-        return view('admin.aiModelsOverview');
+    public function feedbacks() {
+        $feedbacks = Feedback::orderBy('id', 'desc')->get();
+        return view('admin.feedbacks', compact('feedbacks'));
+    }
+
+    public function deleteFeedback($feedback_id) {
+        $feedback = Feedback::findOrFail($feedback_id);
+        $feedback->delete();
+        return redirect()->back()->with('success', 'Deleted feedback successfully');
     }
  
-    public function train_lstm() {
-        try {
-            $response = Http::timeout(60)->post('http://localhost:5000/gpa_retrain');
-
-            if ($response->successful()) {
-                $data = $response->json();
-
-                return collect($data); 
-            }
-
-            return collect([]);
-            
-        } catch (\Illuminate\Http\Client\ConnectionException $e) {
-            return collect([]);
-        } catch (\Exception $e) {
-            return collect([]);
-        }
-    }
-
     public function profile() {
         $user = Auth::user();
         return view('admin.profile', compact('user'));
@@ -404,6 +393,7 @@ class AdminController extends Controller
 
     public function userProfile($userId) {
         $user = User::findOrFail($userId);
+        $feedbacks = Feedback::where('about', $user->id)->get();
         $totalCredits = 0;
         $maxCredits = 0;
         $gpa = 0;
@@ -428,6 +418,6 @@ class AdminController extends Controller
             $maxCredits = 144;
         }
 
-        return view('admin.userProfile', compact('user', 'gpa', 'totalCredits', 'maxCredits'));
+        return view('admin.userProfile', compact('user', 'gpa', 'totalCredits', 'maxCredits', 'feedbacks'));
     }
 }

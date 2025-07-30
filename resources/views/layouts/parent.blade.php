@@ -41,6 +41,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
         }
         .search {
             position: relative;
@@ -290,6 +291,7 @@
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Ensure only one child sub-menu is open at a time
         document.querySelectorAll('.child-toggle').forEach(function(toggle) {

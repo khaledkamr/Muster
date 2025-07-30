@@ -173,7 +173,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const gradesDistribution = @json($gradesDistribution);
@@ -351,18 +350,15 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-
         .table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 0;
         }
-
         .table thead {
             background-color: #f8f9fa;
             color: #333;
         }
-
         .table th {
             padding: 15px;
             text-align: left;
@@ -370,41 +366,33 @@
             font-size: 14px;
             border-bottom: 1px solid #e9ecef;
         }
-
         .table td {
             padding: 15px;
             font-size: 14px;
             color: #333;
             border-bottom: 1px solid #e9ecef;
         }
-
         .table tbody tr:hover {
             background-color: #f1f3f5;
         }
-
         .card {
             border: none;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
-
         .card-body {
             padding: 1.5rem;
         }
-
         .card-title {
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
         }
-
         .text-muted {
             color: #6c757d !important;
         }
-
         .fw-bold {
             font-weight: 600 !important;
         }
-
         .status-danger {
             background-color: #f8d7da;
             color: #721c24;

@@ -7,31 +7,26 @@
         .nav-tabs .nav-link {
             color: #495057;
         }
-
         .nav-tabs .nav-link.active {
             background-color: #ffffff;
             border-color: #dee2e6 #dee2e6 #ffffff;
             color: #007bff;
         }
-
         .table-container {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-
         .table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 0;
         }
-
         .table thead {
             background-color: #f8f9fa;
             color: #333;
         }
-
         .table th {
             padding: 15px;
             text-align: left;
@@ -39,18 +34,15 @@
             font-size: 14px;
             border-bottom: 1px solid #e9ecef;
         }
-
         .table td {
             padding: 15px;
             font-size: 14px;
             color: #333;
             border-bottom: 1px solid #e9ecef;
         }
-
         .table tbody tr:hover {
             background-color: #f1f3f5;
         }
-
         .table .status-average {
             background-color: #fff3cd;
             color: #856404;
@@ -59,7 +51,6 @@
             font-size: 12px;
             display: inline-block;
         }
-
         .table .status-high {
             background-color: #d4edda;
             color: #155724;
@@ -68,7 +59,6 @@
             font-size: 12px;
             display: inline-block;
         }
-
         .table .status-risk {
             background-color: #f8d7da;
             color: #721c24;
@@ -77,48 +67,39 @@
             font-size: 12px;
             display: inline-block;
         }
-
         .action-icons a,
         .action-icons form {
             display: inline-block;
             margin-right: 5px;
         }
-
         .action-icons i {
             font-size: 16px;
             color: #6c757d;
         }
-
         .action-icons i:hover {
             color: #007bff;
         }
-
         .action-icons .delete-icon:hover {
             color: #dc3545;
         }
-
         .action-icons form button {
             background: none;
             border: none;
             padding: 0;
         }
-
         .search-container {
             margin-bottom: 20px;
             display: flex;
             justify-content: flex-start;
         }
-
         .search-container input {
             width: 250px;
             margin-right: 10px;
         }
-
         .pagination {
             margin: 0;
             padding: 0;
         }
-
         .pagination .page-item .page-link {
             color: #0A9442;
             border: 1px solid #dee2e6;
@@ -127,19 +108,16 @@
             border-radius: 4px;
             transition: 0.3s;
         }
-
         .pagination .page-item.active .page-link {
             background-color: #0A9442;
             border-color: #0A9442;
             color: white;
         }
-
         .pagination .page-item .page-link:hover {
             background-color: #0A9442;
             border-color: #0A9442;
             color: white;
         }
-
         .pagination .page-item.disabled .page-link {
             color: #fff;
             pointer-events: none;
@@ -259,7 +237,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Performance Pie Chart
         const highPerformanceCount = {{ $high_performers_count }};

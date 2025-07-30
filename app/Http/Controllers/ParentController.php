@@ -6,6 +6,7 @@ use App\Models\Assignment;
 use App\Models\Assignment_submission;
 use App\Models\Attendance;
 use App\Models\Course;
+use App\Models\Feedback;
 use App\Models\Grade;
 use App\Models\User;
 use Carbon\Carbon;
@@ -587,21 +588,14 @@ class ParentController extends Controller
     public function childProfile($childId)
     {
         $child = User::findOrFail($childId);
+        $feedbacks = Feedback::where('about', $child->id)->get();
         $grades = $child->grades()->with('course')->get();
 
         $gradePoints = [
-            'A+' => 4.0, 
-            'A'  => 4.8,
-            'A-' => 3.7,
-            'B+' => 3.3,
-            'B'  => 3.0,
-            'B-' => 2.7,
-            'C+' => 2.3,
-            'C'  => 2.0,
-            'C-' => 1.7,
-            'D+' => 1.3,
-            'D'  => 1.0,
-            'D-' => 0.7,
+            'A+' => 4.0, 'A'  => 4.8, 'A-' => 3.7,
+            'B+' => 3.3, 'B'  => 3.0, 'B-' => 2.7,
+            'C+' => 2.3, 'C'  => 2.0, 'C-' => 1.7,
+            'D+' => 1.3, 'D'  => 1.0, 'D-' => 0.7,
             'F'  => 0.0,
         ];
 
@@ -620,7 +614,7 @@ class ParentController extends Controller
 
         $maxCredits = 144;
 
-        return view('parent.child-profile', compact('child', 'childId', 'gpa', 'totalCredits', 'maxCredits'));
+        return view('parent.child-profile', compact('child', 'childId', 'gpa', 'totalCredits', 'maxCredits', 'feedbacks'));
     }
 
     public function profile()
@@ -632,6 +626,7 @@ class ParentController extends Controller
     public function professorProfile($professorId)
     {
         $user = User::findOrFail($professorId);
-        return view('parent.professor-profile', compact('user'));
+        $feedbacks = Feedback::where('about', $user->id)->get();
+        return view('parent.professor-profile', compact('user', 'feedbacks'));
     }
 }

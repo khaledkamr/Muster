@@ -218,64 +218,63 @@
         }
     </style>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const ctx = document.getElementById('examAveragesChart').getContext('2d');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('examAveragesChart').getContext('2d');
 
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: @json($chartData['labels']),
-                        datasets: [{
-                            label: 'Average Grade',
-                            data: @json($chartData['averages']),
-                            backgroundColor: @json($chartData['colors']),
-                            borderColor: @json($chartData['colors']),
-                            borderWidth: 1,
-                            borderRadius: 20,
-                            barThickness: 100,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return `Average: ${context.raw}`;
-                                    }
-                                }
-                            }
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: @json($chartData['labels']),
+                    datasets: [{
+                        label: 'Average Grade',
+                        data: @json($chartData['averages']),
+                        backgroundColor: @json($chartData['colors']),
+                        borderColor: @json($chartData['colors']),
+                        borderWidth: 1,
+                        borderRadius: 20,
+                        barThickness: 100,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
                         },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: Math.floor(Math.max(...@json($chartData['averages'])) + 5),
-                                title: {
-                                    display: true,
-                                    text: 'Average Grade'
-                                },
-                                ticks: {
-                                    stepSize: 1
-                                }
-                            },
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Exam Type'
-                                },
-                                grid: {
-                                    display: false
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Average: ${context.raw}`;
                                 }
                             }
                         }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: Math.floor(Math.max(...@json($chartData['averages'])) + 5),
+                            title: {
+                                display: true,
+                                text: 'Average Grade'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Exam Type'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
                     }
-                });
+                }
             });
-        </script>
+        });
+    </script>
 @endsection

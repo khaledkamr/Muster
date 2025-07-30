@@ -4,11 +4,9 @@
 
 @section('content')
 <div class="container">
-
     <h2 class="text-dark fw-bold mb-4 mt-3">Welcome {{$user->name}}</h2>
 
     <div class="row mb-2">
-        <!-- profile card -->
         <div class="col-md-6">
             <div class="bg-body shadow rounded mb-3 d-flex position-relative pt-2 pb-2" style="height: 270px;">
                 <!-- Left Part -->
@@ -331,169 +329,166 @@
             </div>
         </div>
     </div>
-
 </div>
-    
 
-    <!-- Include Swiper.js -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const swiper = new Swiper('.swiper-container', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                breakpoints: {
-                    768: {
-                        slidesPerView: 2,
-                    },
-                    992: {
-                        slidesPerView: 3,
-                    },
+<!-- Include Swiper.js -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                992: {
+                    slidesPerView: 3,
                 },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                loop: false,
-                autoplay: {
-                    delay: 10000,
-                    disableOnInteraction: false,
-                },
-            });
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            loop: false,
+            autoplay: {
+                delay: 10000,
+                disableOnInteraction: false,
+            },
+        });
 
-            // Weekly Attendance Graph
-            const weeklyAttendanceCtx = document.getElementById('weeklyAttendanceChart').getContext('2d');
-            const weeklyData = @json($weeklyAttendance);
-            const labels = Object.keys(weeklyData).map(week => `Week ${week}`);
-            const data = Object.values(weeklyData);
+        // Weekly Attendance Graph
+        const weeklyAttendanceCtx = document.getElementById('weeklyAttendanceChart').getContext('2d');
+        const weeklyData = @json($weeklyAttendance);
+        const labels = Object.keys(weeklyData).map(week => `Week ${week}`);
+        const data = Object.values(weeklyData);
 
-            new Chart(weeklyAttendanceCtx, {
-                type: 'line', 
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Number of Attended Sessions',
-                        data: data,
-                        borderColor: '#002361',
-                        backgroundColor: '#00246171',
-                        fill: true,
-                        tension: 0.4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: {
-                            title: {
-                                display: false,
-                                text: 'Week Number'
-                            },
-                            max: 17,
-                            ticks: {
-                                maxRotation: 45,
-                                minRotation: 45
-                            }
+        new Chart(weeklyAttendanceCtx, {
+            type: 'line', 
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Attended Sessions',
+                    data: data,
+                    borderColor: '#002361',
+                    backgroundColor: '#00246171',
+                    fill: true,
+                    tension: 0.4,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: false,
+                            text: 'Week Number'
                         },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Number of Sessions'
-                            },
-                            beginAtZero: true,
-                            max: {{ $currentSemesterCourses->count() * 2 }},
-                            ticks: {
-                                stepSize: 1
-                            }
+                        max: 17,
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of Sessions'
+                        },
+                        beginAtZero: true,
+                        max: {{ $currentSemesterCourses->count() * 2 }},
+                        ticks: {
+                            stepSize: 1
                         }
                     }
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
 
-    <style>
-        .courses-swiper {
-            overflow: hidden;
-        }
-        .course-card {
-            border: none;
-            border-radius: 15px;
-            /* height: 200px; */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s;
-        }
-        .course-card:hover {
-            transform: scale(1.02);
-        }
-        .course-card .badge {
-            background-color: #00000025;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-bottom-left-radius: 20px;
-            border-top-right-radius: 20px;
-            font-size: 0.8rem;
-        }
-        .card-body {
-            text-align: left;
-        }
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-        .card-text {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2; /* Adjust this value to control the number of lines */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .btn-light {
-            border-radius: 20px;
-            padding: 0.5rem 1.5rem;
-            font-weight: bold;
-        }
-        .swiper-button-prev,
-        .swiper-button-next {
-            position: absolute;
-            color: #007bff;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            background-color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 10px;
-        }
-        .swiper-button-prev:hover,
-        .swiper-button-next:hover {
-            opacity: 1;
-        }
-        .swiper-pagination-bullet-active {
-            position: absolute;
-            background: #007bff;
-        }
-        .card {
-            background-color: #ffffff;
-            border: none;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .contribution-day {
-            border-radius: 3px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .contribution-day:hover {
-            opacity: 0.8;
-        }
-    </style>
+<style>
+    .courses-swiper {
+        overflow: hidden;
+    }
+    .course-card {
+        border: none;
+        border-radius: 15px;
+        /* height: 200px; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s;
+    }
+    .course-card:hover {
+        transform: scale(1.02);
+    }
+    .course-card .badge {
+        background-color: #00000025;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-bottom-left-radius: 20px;
+        border-top-right-radius: 20px;
+        font-size: 0.8rem;
+    }
+    .card-body {
+        text-align: left;
+    }
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+    .card-text {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Adjust this value to control the number of lines */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .btn-light {
+        border-radius: 20px;
+        padding: 0.5rem 1.5rem;
+        font-weight: bold;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+        position: absolute;
+        color: #007bff;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+        background-color: white;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 10px;
+    }
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+        opacity: 1;
+    }
+    .swiper-pagination-bullet-active {
+        position: absolute;
+        background: #007bff;
+    }
+    .card {
+        background-color: #ffffff;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .contribution-day {
+        border-radius: 3px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .contribution-day:hover {
+        opacity: 0.8;
+    }
+</style>
 @endsection
