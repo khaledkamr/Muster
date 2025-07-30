@@ -34,7 +34,7 @@
         }
         .search {
             position: relative;
-            flex: 1;
+            width: 500px;
         }
         .search button {
             position: absolute;
