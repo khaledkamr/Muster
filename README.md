@@ -15,6 +15,7 @@ The system provides visualizations and predictive analytics on grades, attendanc
 
 ## Database Schema
 
+<img width="1615" height="900" alt="Screenshot 2025-07-31 152757" src="https://github.com/user-attachments/assets/4e7a3317-6a72-4332-99b7-db25490c4bd7" />
 
 ---
 
@@ -33,7 +34,7 @@ Professors can manage courses, track students performance, and act on predictive
 - **Assignments Dashboard**: Track student submissions and scores.
 - **Student & Course Metrics**: view all the academic statistics for one student in specific course.
   
-<!-- <img width="1917" height="907" alt="prof" src="https://github.com/user-attachments/assets/77f3f9f6-097d-4274-a5dc-4cad4af24d01" /> -->
+<img width="1917" height="907" alt="prof" src="https://github.com/user-attachments/assets/77f3f9f6-097d-4274-a5dc-4cad4af24d01" /> 
 
 ---
 
@@ -51,6 +52,9 @@ Admins can manage courses and users with full CRUD operations. They can also vie
   - track professors feedback about students.
   - track students feedback about professors.
   - track students feedback about courses content.
+ 
+<img width="1918" height="1078" alt="Screenshot 2025-07-31 151801" src="https://github.com/user-attachments/assets/c2e0fd20-afcb-4e2d-8c94-1eff727e40d2" />
+
 ---
 
 ##  Student Interface
@@ -72,9 +76,9 @@ Students receive a personalized dashboard to monitor academic progress and recei
   - Weekly and overall attendance visualizations with attendance rate.
   - show attendance details and rate for each course.
 - **Course Details**: view all the academic statistics for each course.
-<!-- 
+ 
 <img width="1918" height="1077" alt="Screenshot 2025-07-15 191823" src="https://github.com/user-attachments/assets/add85ddc-4237-4fdc-9ff2-c7da331380c3" />
-<img width="1918" height="1078" alt="Screenshot2 2025-07-15 191933" src="https://github.com/user-attachments/assets/51ceb545-d4f4-44a0-945c-b5ea88202b09" /> -->
+<img width="1918" height="1078" alt="Screenshot2 2025-07-15 191933" src="https://github.com/user-attachments/assets/51ceb545-d4f4-44a0-945c-b5ea88202b09" /> 
 
 ---
 
@@ -89,7 +93,7 @@ Parents are offered an intuitive dashboard to stay engaged with their child’s 
 - **Class Attendance Rate**: Charts showing attendance performance and rate.
 - **Professors Feedbacks**: Review professors feedbacks about student.
 
-<!-- <img width="1918" height="1078" alt="par" src="https://github.com/user-attachments/assets/8d7fabfb-a0e7-4e61-bcd8-acc0d7fb5765" /> -->
+<img width="1918" height="1078" alt="par" src="https://github.com/user-attachments/assets/8d7fabfb-a0e7-4e61-bcd8-acc0d7fb5765" /> 
 
 ---
 
