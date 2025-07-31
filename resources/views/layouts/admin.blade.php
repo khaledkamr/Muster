@@ -225,7 +225,7 @@
 
             <!-- Manage AI Models -->
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('admin.aiModels.overview') ? 'active' : '' }}"
+                <a class="nav-link {{ request()->routeIs('admin.feedbacks') ? 'active' : '' }}"
                    href="{{ route('admin.feedbacks') }}">
                    <i class="fa-solid fa-comments"></i> Feedbacks
                 </a>
