@@ -128,6 +128,7 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const labels = @json(array_keys($weeklyAttendance));
     const presentData = @json(array_column($weeklyAttendance, 'present'));

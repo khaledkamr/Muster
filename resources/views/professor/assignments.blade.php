@@ -118,6 +118,7 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const submittedCount = {{ $filteredSubmissions->where('status', 'submitted')->count() }};
     const pendingCount = {{ $filteredSubmissions->where('status', 'pending')->count() }};

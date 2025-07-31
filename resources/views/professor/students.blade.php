@@ -237,6 +237,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Performance Pie Chart
         const highPerformanceCount = {{ $high_performers_count }};
