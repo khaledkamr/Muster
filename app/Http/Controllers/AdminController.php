@@ -375,9 +375,60 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Course $name deleted successfully!");
     }
 
-    public function feedbacks() {
-        $feedbacks = Feedback::orderBy('id', 'desc')->get();
-        return view('admin.feedbacks', compact('feedbacks'));
+    public function feedbacks(Request $request) {
+        $feedbacks = Feedback::orderBy('id', 'desc')->with('receiver')->get();
+
+        $professorsFeedbacksCount = $feedbacks->filter(function($feedback) {
+            return $feedback->receiver->role == 'professor';
+        })->count();
+        $studentsFeedbacksCount = $feedbacks->filter(function($feedback) {
+            return $feedback->receiver->role == 'student';
+        })->count();
+        $coursesFeedbacksCount = $feedbacks->filter(function($feedback) {
+            return $feedback->course != null;
+        })->count();
+
+        $total = $professorsFeedbacksCount + $studentsFeedbacksCount + $coursesFeedbacksCount;
+        $professorsFeedback = round(($professorsFeedbacksCount / $total) * 100, 2);
+        $studentsFeedback = round(($studentsFeedbacksCount / $total) * 100, 2);
+        $coursesFeedback = round(($coursesFeedbacksCount / $total) * 100, 2);
+
+        if($request->input('filter')) {
+            $filter = $request->input('filter');
+            if($filter == 'student' or $filter == 'professor') {
+                $feedbacks = $feedbacks->filter(function($feedback) use($filter) {
+                    return $feedback->receiver->role == $filter;
+                });
+            } elseif($filter == 'courses') {
+                $feedbacks = $feedbacks->filter(function($feedback) {
+                    return $feedback->course != null;
+                });
+            }
+        }
+
+        $search = $request->input('search', null);
+        if($search) {
+            $feedbacks = $feedbacks->filter(function($feedback) use($search) {
+                return stripos($feedback->receiver->name, $search) !== false 
+                    || stripos($feedback->content, $search) !== false
+                    || stripos($feedback->course, $search) !== false;
+            });
+        }
+
+        $feedbacks = new \Illuminate\Pagination\LengthAwarePaginator(
+            $feedbacks->forPage(request()->get('page', 1), 50),
+            $feedbacks->count(),
+            50,
+            request()->get('page', 1),
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return view('admin.feedbacks', compact(
+            'feedbacks',
+            'professorsFeedback',
+            'studentsFeedback',
+            'coursesFeedback',
+        ));
     }
 
     public function deleteFeedback($feedback_id) {

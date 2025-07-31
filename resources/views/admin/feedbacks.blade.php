@@ -15,17 +15,47 @@
     .hover-animate:hover {
         transform: scale(1.2) rotate(-10deg);
     }
+    .pagination {
+        margin: 0;
+        padding: 0;
+    }
+    .pagination .page-item .page-link {
+        color: #0A9442;
+        border: 1px solid #dee2e6;
+        padding: 8px 16px;
+        margin: 0 2px;
+        border-radius: 4px;
+        transition: 0.3s;
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #0A9442;
+        border-color: #0A9442;
+        color: white;
+    }
+    .pagination .page-item .page-link:hover {
+        background-color: #0A9442;
+        border-color: #0A9442;
+        color: white;
+    }
+    .pagination .page-item.disabled .page-link {
+        color: #fff;
+        pointer-events: none;
+        background-color: #d5d7d8;
+        border-color: #dee2e6;
+    }
 </style>
 
 <div class="container-fluid py-4">
     <h2 class="text-dark fw-bold mb-4">Feedbacks</h2>
     <div class="row">
-        <!-- Feedback List -->
         <div class="col-lg-8 col-md-12">
-            <div class="search-bar d-flex align-items-center mb-4">
-                <input type="text" id="search-input" class="form-control" placeholder="Search by sender or feedback...">
-                <button class="btn btn-success ms-2">search</button>
-            </div>
+            <form method="GET" action="">
+                <div class="search-bar d-flex align-items-center mb-4">
+                    <input type="text" name="search" class="form-control" placeholder="Search for feedback..."
+                        value="{{ request()->query('search') }}">
+                    <button type="submit" class="btn btn-success ms-2">search</button>
+                </div>
+            </form>
 
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -42,7 +72,7 @@
             @endif
             <div id="feedback-list">
                 @foreach($feedbacks as $feedback)
-                    <div class="position-relative bg-light rounded-3 shadow-sm p-3 mb-3" data-category="doctors" data-search="John Doe Dr. Smith Excellent consultation, very professional and caring.">
+                    <div class="position-relative bg-light rounded-3 shadow-sm p-3 mb-3">
                         <p class="position-absolute bottom-0 start-0 small text-muted mb-3 ms-3">
                             {{ Carbon\Carbon::parse($feedback->date)->format('Y M d') }}
                             <i class="fa-solid fa-calendar-days"></i>
@@ -82,7 +112,6 @@
                         </div>
                     </div>
 
-                    <!-- Delete Confirmation Modal -->
                     <div class="modal fade" id="deleteFeedbackModal{{ $feedback->id }}" tabindex="-1" aria-labelledby="deleteFeedbackModalLabel{{ $feedback->id }}" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -106,63 +135,60 @@
                     </div>
                 @endforeach
             </div>
+            <div class="mt-4">
+                {{ $feedbacks->appends(request()->query())->onEachSide(1)->links() }}
+            </div>
         </div>
 
         <!-- Filter Section -->
         <div class="col-lg-4 col-md-12">
             <div class="bg-light rounded-3 p-4 shadow-sm">
-                <h5 class="text-dark">Filter Feedback</h5>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="filter-doctors" value="doctors" checked>
-                    <label class="text-dark" for="filter-doctors">Doctors</label>
+                <h5 class="text-dark mb-3">Feedback Distribution</h5>
+                <div class="d-flex justify-content-center align-items-center mb-2">
+                    <div class="me-3 d-flex align-items-center">
+                        <span class="me-1 rounded-circle bg-primary d-block" style="width: 15px; height: 15px;"></span>
+                        <span class="text-muted d-block fs-6">students</span>
+                    </div>
+                    <div class="me-3 d-flex align-items-center">
+                        <span class="me-1 rounded-circle bg-success d-block" style="width: 15px; height: 15px;"></span>
+                        <span class="text-muted d-block fs-6">professors</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="me-1 rounded-circle bg-warning d-block" style="width: 15px; height: 15px;"></span>
+                        <span class="text-muted d-block fs-6">courses</span>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="filter-students" value="students" checked>
-                    <label class="text-dark" for="filter-students">Students</label>
+                <div class="progress-stacked mb-5" style="height: 30px">
+                    <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="{{ $professorsFeedback }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $professorsFeedback }}%; height: 30px">
+                        <div class="progress-bar bg-primary fw-bold"> {{ $professorsFeedback }}% </div>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="{{ $studentsFeedback }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $studentsFeedback }}%; height: 30px">
+                        <div class="progress-bar bg-success fw-bold"> {{ $studentsFeedback }}% </div>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Segment three" aria-valuenow="{{ $coursesFeedback }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $coursesFeedback }}%; height: 30px">
+                        <div class="progress-bar bg-warning fw-bold"> {{ $coursesFeedback }}% </div>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="filter-courses" value="courses" checked>
-                    <label class="text-dark" for="filter-courses">Courses</label>
-                </div>
+
+                <h5 class="text-dark mb-3">Filter Feedbacks</h5>
+                <form method="GET" action="" class="d-flex flex-column mb-3">
+                    <div class="d-flex">
+                        <select id="filter" name="filter" class="form-select" onchange="this.form.submit()">
+                            <option value="all" {{ request()->query('filter') == 'all' ? 'selected' : ''}}>all</option>
+                            <option value="professor" {{ request()->query('filter') == 'professor' ? 'selected' : ''}}>
+                                professors feedbacks
+                            </option>
+                            <option value="student" {{ request()->query('filter') == 'student' ? 'selected' : ''}}>
+                                students feedbacks
+                            </option>
+                            <option value="courses" {{ request()->query('filter') == 'courses' ? 'selected' : ''}}>
+                                courses feedbacks
+                            </option>
+                        </select>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    // Filter feedback based on checkbox selection
-    document.querySelectorAll('.form-check-input').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            updateFeedbackDisplay();
-        });
-    });
-
-    // Search bar functionality
-    document.getElementById('search-input').addEventListener('input', function() {
-        updateFeedbackDisplay();
-    });
-
-    function updateFeedbackDisplay() {
-        const selectedCategories = [];
-        document.querySelectorAll('.form-check-input:checked').forEach(checked => {
-            selectedCategories.push(checked.value);
-        });
-
-        const searchQuery = document.getElementById('search-input').value.toLowerCase();
-
-        const feedbackCards = document.querySelectorAll('.feedback-card');
-        feedbackCards.forEach(card => {
-            const category = card.getAttribute('data-category');
-            const searchData = card.getAttribute('data-search').toLowerCase();
-            const matchesCategory = selectedCategories.includes(category);
-            const matchesSearch = searchQuery === '' || searchData.includes(searchQuery);
-
-            if (matchesCategory && matchesSearch) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-</script>
 @endsection
