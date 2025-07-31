@@ -44,7 +44,7 @@ def load_models():
         if not os.path.exists(gpa_model_path):
             raise FileNotFoundError(f"GPA model file not found at {gpa_model_path}")
 
-        gpa_model = load_model(gpa_model_path, custom_objects={'gpa_accuracy': gpa_accuracy})
+        gpa_model = load_model(gpa_model_path)
 
         if not os.path.exists(scaler_X_path):
             raise FileNotFoundError(f"Scaler X file not found at {scaler_X_path}")
@@ -148,19 +148,6 @@ def predict_gpa():
 
     except Exception as e:
         app.logger.error(f"Error processing GPA prediction request: {str(e)}")
-        return jsonify({"error": "Internal server error"}), HTTPStatus.INTERNAL_SERVER_ERROR
-
-@app.route("/gpa_retrain", methods=["POST"])
-def retrain():
-    try:
-        X_train, _, y_train, _, _, _ = prepare_training_data()
-        start_time = time.time()
-        build_and_train_model(X_train, y_train)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        return jsonify({"message": "model retrained successfully", "time": f"{execution_time}"}), HTTPStatus.OK
-    
-    except Exception as e:
         return jsonify({"error": "Internal server error"}), HTTPStatus.INTERNAL_SERVER_ERROR
 
 @app.route("/recommend_courses", methods=["POST"])
