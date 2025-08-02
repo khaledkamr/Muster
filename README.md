@@ -78,8 +78,8 @@ Students receive a personalized dashboard to monitor academic progress and recei
 - **Course Details**: view all the academic statistics for each course.
  
 <div style="display: flex;">
-  <img width="1918" height="1077" alt="Screenshot 2025-07-15 191823" src="https://github.com/user-attachments/assets/add85ddc-4237-4fdc-9ff2-c7da331380c3" />
-  <img width="1918" height="1078" alt="Screenshot2 2025-07-15 191933" src="https://github.com/user-attachments/assets/51ceb545-d4f4-44a0-945c-b5ea88202b09" /> 
+  <img width="959" height="538" alt="Screenshot 2025-07-15 191823" src="https://github.com/user-attachments/assets/add85ddc-4237-4fdc-9ff2-c7da331380c3" />
+  <img width="959" height="538" alt="Screenshot2 2025-07-15 191933" src="https://github.com/user-attachments/assets/51ceb545-d4f4-44a0-945c-b5ea88202b09" /> 
 </div>
 
 ---
