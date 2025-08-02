@@ -11,9 +11,8 @@ import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../scripts')))
 from performance_model import StudentPerformanceModel
-from gpa_model import predict_student_gpa, build_and_train_model, prepare_training_data
-# from course_recommendation import recommend_courses
-import course_recommendation
+from gpa_model import predict_student_gpa
+from course_recommendation import recommend_courses, get_attendance_rate, calculate_assignment_score, calculate_performance_score
 
 app = Flask(__name__)
 CORS(app)
@@ -152,7 +151,6 @@ def predict_gpa():
 
 @app.route("/recommend_courses", methods=["POST"])
 def recommend_courses_endpoint():
-    """Recommend elective courses for a single student"""
     try:
         data = request.get_json()
         if not data:
