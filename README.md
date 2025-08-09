@@ -126,6 +126,11 @@ Parents are offered an intuitive dashboard to stay engaged with their child’s 
 - MySQL
 - web server (Apache/Nginx)
 
+### Instal Laravel
+```bash
+composer global require laravel/installer
+```
+
 ### Install project
 ```bash
 git clone https://github.com/khaledkamr/Muster.git
