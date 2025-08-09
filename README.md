@@ -125,6 +125,7 @@ Parents are offered an intuitive dashboard to stay engaged with their child’s 
 - Composer
 - MySQL
 - web server (Apache/Nginx)
+or you can just install XAMPP and Compoaer 
 
 ### Instal Laravel
 ```bash
